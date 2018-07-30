@@ -1,3 +1,3 @@
 $(document).ready(function() { 
-	require('./_btnSubmit');
+    require('./_btnSubmit');
 });

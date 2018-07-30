@@ -9,6 +9,6 @@ class IndexController extends Controller
 {
     public function index(Faker $faker)
     {
-    	return view('index.index', compact('faker'));
+        return view('index.index', compact('faker'));
     }
 }

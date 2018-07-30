@@ -1,48 +1,48 @@
 @mixin transform($property) {
-	-webkit-transform: $property;
-	-moz-transform: $property;
-	-ms-transform: $property;
-	-o-transform: $property;
-	transform: $property;
+    -webkit-transform: $property;
+    -moz-transform: $property;
+    -ms-transform: $property;
+    -o-transform: $property;
+    transform: $property;
 }
 
 @mixin transition($property) {
-	-webkit-transition: $property;
-	-moz-transition: $property;
-	-o-transition: $property;
-	transition: $property;
+    -webkit-transition: $property;
+    -moz-transition: $property;
+    -o-transition: $property;
+    transition: $property;
 }
 
 @mixin background-size($property) {
-	-webkit-background-size: $property;
-	-moz-background-size: $property;
-	-o-background-size: $property;
-	background-size: $property;
+    -webkit-background-size: $property;
+    -moz-background-size: $property;
+    -o-background-size: $property;
+    background-size: $property;
 }
 
 @mixin box-shadow($property...) {
-	-webkit-box-shadow: $property;
-	-moz-box-shadow: $property;
-	box-shadow: $property; 
+    -webkit-box-shadow: $property;
+    -moz-box-shadow: $property;
+    box-shadow: $property; 
 }
 
 @mixin border-radius($property) {
-	-webkit-border-radius: $property;
-	-moz-border-radius: $property;
-	border-radius: $property;
+    -webkit-border-radius: $property;
+    -moz-border-radius: $property;
+    border-radius: $property;
 }
 
 @mixin animation($property) {
-	-webkit-animation: $property;
-	-moz-animation: $property;
-	-o-animation: $property;
-	animation: $property; 
+    -webkit-animation: $property;
+    -moz-animation: $property;
+    -o-animation: $property;
+    animation: $property; 
 }
 
 @mixin bg-linear-gradient($property1, $property2) {
-	background: -webkit-linear-gradient($property1, $property2);
-	background: -moz-linear-gradient($property1, $property2);
-	background: -ms-linear-gradient($property1, $property2);
-	background: -o-linear-gradient($property1, $property2);
-	background: linear-gradient($property1, $property2);
+    background: -webkit-linear-gradient($property1, $property2);
+    background: -moz-linear-gradient($property1, $property2);
+    background: -ms-linear-gradient($property1, $property2);
+    background: -o-linear-gradient($property1, $property2);
+    background: linear-gradient($property1, $property2);
 }

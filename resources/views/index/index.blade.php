@@ -3,5 +3,5 @@
 @section('title', 'Inovacon Empresa Júnior')
 
 @section('content')
-	@include('index.partials.news')
+  @include('index.partials.news')
 @endsection

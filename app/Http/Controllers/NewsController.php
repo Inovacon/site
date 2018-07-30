@@ -9,6 +9,6 @@ class NewsController extends Controller
 {
     public function index(Faker $faker)
     {
-    	return view('news.index', compact('faker'));
+        return view('news.index', compact('faker'));
     }
 }

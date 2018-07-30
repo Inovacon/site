@@ -7,7 +7,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::prefix('cursos')->name('courses.')->group(function () {
-	Route::get('/', 'CourseController@index');
+    Route::get('/', 'CourseController@index');
     Route::post('/', 'CourseController@store')->name('store')->middleware('admin');
 });
 
