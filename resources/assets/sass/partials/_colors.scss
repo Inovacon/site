@@ -1,0 +1,25 @@
+.text-primary-l {
+	color: $primary-lighter;
+}
+
+.text-primary-d {
+	color: $primary-darker;
+}
+
+.text-facebook, 
+.text-google,
+.text-twitter {
+	color: rgba(0, 0, 0, .3);
+}
+
+.text-facebook:hover {
+	color: $facebook;
+}
+
+.text-google:hover {
+	color: $google;
+}
+
+.text-twitter:hover {
+	color: $twitter;
+}

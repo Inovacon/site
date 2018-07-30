@@ -1,0 +1,29 @@
+.navbar-nav .nav-link {
+	font-family: 'Source Sans Pro';
+	font-size: .93rem;
+	@include transition(box-shadow .3s);
+}
+
+.navbar-nav.mr-auto .nav-link:hover {
+	@include box-shadow(0 $nav-link-border-bottom-width 0 $primary);
+}
+
+.navbar .active {
+	letter-spacing: 1px;
+	font-weight: bold;
+}
+
+.navbar .active i {
+	color: $primary;
+}
+
+.navbar .navbar-toggler[aria-expanded="true"] {
+	color: $primary !important;
+	border-color: $primary;
+}
+
+@include media-breakpoint-down(sm) {
+	.navbar .logo {
+		max-width: 130px;
+	}
+}

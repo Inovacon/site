@@ -1,20 +1,39 @@
+// COLORS
+$primary: #00acf1;
+$primary-lighter: #28bffc;
+$primary-darker: #018ec6;
 
-// Body
-$body-bg: #f8fafc;
+$danger: #c11d01;
+$warning: #c1b701;
+$success: #01c12d;
+$light: #f8f9fa;
+$white: #ffffff;
 
-// Typography
-$font-family-sans-serif: "Nunito", sans-serif;
-$font-size-base: 0.9rem;
-$line-height-base: 1.6;
+// COLOR BRANDS
+$facebook: #4267B2;
+$google: #DB4437;
+$twitter: #1DA1F2;
 
-// Colors
-$blue: #3490dc;
-$indigo: #6574cd;
-$purple: #9561e2;
-$pink: #f66D9b;
-$red: #e3342f;
-$orange: #f6993f;
-$yellow: #ffed4a;
-$green: #38c172;
-$teal: #4dc0b5;
-$cyan: #6cb2eb;
+// BUTTONS + FORMS
+$input-border-radius: .10rem;
+$input-btn-focus-width: 0 !default;
+$input-btn-focus-box-shadow: 0px 0px 2px rgba(0, 0, 0, .3) !important;
+$btn-font-weight: 500;
+$btn-border-radius: .1rem;
+$btn-border-radius-sm: .1rem;
+
+// NAVBAR
+$nav-link-border-bottom-width: 3px;
+
+// MODAL
+$modal-content-border-radius: .15rem;
+
+// LISTA-GROUP
+$list-group-item-padding-y: .4rem;
+$list-group-bg: #fff;
+
+// CARD
+$card-border-radius: .10rem;
+$card-border-width: 0;
+$card-cap-bg: $white;
+$card-spacer-x: .75rem;

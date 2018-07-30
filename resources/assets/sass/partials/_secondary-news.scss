@@ -1,0 +1,13 @@
+#secondaryNews .title {
+    font-size: .9rem;
+}
+
+#secondaryNews .card a {
+    text-decoration: none;
+    background-color: rgba(0, 0, 0, .2);
+    @include transition(background-color .15s);
+}
+
+#secondaryNews .card a:hover {
+    background-color: rgba(0, 0, 0, .4);
+}
