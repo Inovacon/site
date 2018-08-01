@@ -16973,7 +16973,7 @@ module.exports = g;
 /***/ (function(module, exports, __webpack_require__) {
 
 $(document).ready(function () {
-	__webpack_require__(7);
+    __webpack_require__(7);
 });
 
 /***/ }),
