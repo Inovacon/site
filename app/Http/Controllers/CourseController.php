@@ -14,6 +14,11 @@ class CourseController extends Controller
         return view('courses.index', compact('faker')); 
     }
 
+    public function show(Faker $faker)
+    {
+        return view('courses.show', compact('faker'));
+    }
+
     public function store(CourseRequest $request)
     {
         Course::create(
