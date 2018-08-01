@@ -64,10 +64,12 @@
 
                   <div class="card-header">
                     <div class="d-flex justify-content-between">
-                      <a href="{{ url('cursos/show') }}" class="link">
-                        <div class="mb-0 text-uppercase font-weight-bold">{{ $faker->words(rand(1, 5), true) }}</div>
-                      </a>
+                      <div class="mb-0 text-primary text-uppercase font-weight-bold">{{ $faker->words(rand(1, 5), true) }}</div>
                       <i class="align-self-start mx-1 {!! getRandomIcon() !!}"></i>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                      <span class="small text-muted text-uppercase">PRESENCIAL</span>
                     </div>
                   </div>
 
@@ -76,13 +78,13 @@
                     <p class="small text-justify text-secondary">{{ $faker->sentence(rand(5, 19), true) }}</p>
                   </div>
 
-                  <div class="card-footer d-flex justify-content-between">
-                    <div>
-                      <i class="fas fa-clock mr-1"></i><strong>20h</strong>
+                  <div class="d-flex justify-content-between px-2 mb-2 text-dark ">
+                    <div class="font-weight-semi-bold">
+                      <i class="fas fa-clock mr-1"></i>MANHÃ
                     </div>
 
-                    <div>
-                      <strong>R$45</strong>,<small>00</small>
+                    <div class="font-weight-semi-bold">
+                      R$45,00
                     </div>
                   </div>
                   
