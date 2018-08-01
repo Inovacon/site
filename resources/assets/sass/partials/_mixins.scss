@@ -6,7 +6,7 @@
     transform: $property;
 }
 
-@mixin transition($property) {
+@mixin transition($property...) {
     -webkit-transition: $property;
     -moz-transition: $property;
     -o-transition: $property;

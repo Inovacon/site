@@ -1,5 +1,5 @@
 // COLORS
-$primary: #00acf1;
+$primary: #0299d6;
 $primary-lighter: #28bffc;
 $primary-darker: #018ec6;
 
@@ -16,8 +16,8 @@ $twitter: #1DA1F2;
 
 // BUTTONS + FORMS
 $input-border-radius: .10rem;
-$input-btn-focus-width: 0 !default;
-$input-btn-focus-box-shadow: 0px 0px 2px rgba(0, 0, 0, .3) !important;
+$input-btn-focus-width: 2px !default;
+$input-btn-focus-box-shadow: 0px 0px 3px rgba(0, 0, 0, .5) !important;
 $btn-font-weight: 500;
 $btn-border-radius: .1rem;
 $btn-border-radius-sm: .1rem;
@@ -31,6 +31,7 @@ $modal-content-border-radius: .15rem;
 // LISTA-GROUP
 $list-group-item-padding-y: .4rem;
 $list-group-bg: #fff;
+$list-group-border-radius: 0;
 
 // CARD
 $card-border-radius: .10rem;
