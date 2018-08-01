@@ -16,6 +16,9 @@
 }
 
 #sidebarCourses .list-group-item:hover {
-    color: $primary;
     background-color: $light;
+}
+
+.price {
+    font-size: 1.3rem;
 }
