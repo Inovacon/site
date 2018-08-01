@@ -1,15 +1,17 @@
 <?php
 
-Route::get('/', 'IndexController@index');
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'PagesController@index');
 
-Route::prefix('cursos')->name('courses.')->group(function () {
-    Route::get('/', 'CourseController@index');
-    Route::post('/', 'CourseController@store')->name('store')->middleware('admin');
-});
+Route::get('home', 'HomeController@index')->name('home');
+
+Route::get('cursos', 'CourseController@index')->name('courses.index');
+Route::post('cursos', 'CourseController@store')->name('courses.store')->middleware('admin');
 
 Route::get('eventos', 'EventController@index');
+
 Route::get('noticias', 'NewsController@index');

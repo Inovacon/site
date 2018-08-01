@@ -37,4 +37,15 @@ class CourseRequest extends FormRequest
             'occupation_area_id' => 'required',
         ];
     }
+
+    /**
+     * Get all the input from the request.
+     *
+     * @param  array|null $keys
+     * @return array
+     */
+    public function all($keys = null)
+    {
+        return $this->only($keys ?: array_keys($this->rules()));
+    }
 }

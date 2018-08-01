@@ -17,11 +17,9 @@ class CreateCourseTest extends TestCase
         $this->withoutExceptionHandling()
              ->asAdmin();
 
-        $course = make(Course::class);
+        $this->post(route('courses.store'), $course = raw(Course::class));
 
-        $this->post(route('courses.store'), $course->toArray());
-
-        $this->assertDatabaseHas($course->getTable(), $course->toArray());
+        $this->assertDatabaseHas($course->getTable(), $course);
     }
 
     /** @test */
@@ -33,8 +31,6 @@ class CreateCourseTest extends TestCase
 
         $this->post(route('courses.store'), $course->toArray())
              ->assertForbidden();
-
-        $this->assertDatabaseMissing($course->getTable(), $course->toArray());
     }
 
     /** @test */
@@ -106,23 +102,31 @@ class CreateCourseTest extends TestCase
     }
 
     /** @test */
-    function a_course_requires_a_course_type_id()
+    function a_course_requires_a_course_type()
     {
-        $this->asAdmin()
-             ->post(route('courses.store'), ['course_type_id' => ' '])
+        $this->asAdmin();
+
+        $this->createCourse(['course_type_id' => ' '])
+             ->assertSessionHasErrors(['course_type_id']);
+
+        $this->createCourse(['course_type_id' => 999])
              ->assertSessionHasErrors(['course_type_id']);
     }
 
     /** @test */
-    function a_course_requires_a_modality_id()
+    function a_course_requires_a_modality()
     {
-        $this->asAdmin()
-             ->post(route('courses.store'), ['modality_id' => ' '])
+        $this->asAdmin();
+
+        $this->createCourse(['modality_id' => ' '])
+             ->assertSessionHasErrors(['modality_id']);
+
+        $this->createCourse(['modality_id' => 999])
              ->assertSessionHasErrors(['modality_id']);
     }
 
     /** @test */
-    function a_course_requires_a_shift_id()
+    function a_course_requires_a_shift()
     {
         $this->asAdmin()
              ->post(route('courses.store'), ['shift_id' => ' '])
@@ -130,10 +134,15 @@ class CreateCourseTest extends TestCase
     }
 
     /** @test */
-    function a_course_requires_an_occupation_area_id()
+    function a_course_requires_an_occupation_area()
     {
         $this->asAdmin()
              ->post(route('courses.store'), ['occupation_area_id' => ' '])
              ->assertSessionHasErrors(['occupation_area_id']);
+    }
+
+    protected function createCourse($overrides = [])
+    {
+        return $this->post(route('courses.store'), raw(Course::class, $overrides));
     }
 }
