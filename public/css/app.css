@@ -5396,7 +5396,7 @@ mark,
   padding: 0.25rem;
   background-color: #ffffff;
   border: 1px solid #dee2e6;
-  border-radius: 0.25rem;
+  border-radius: 0.1rem;
   max-width: 100%;
   height: auto;
 }
@@ -9448,7 +9448,7 @@ input[type="button"].btn-block {
 }
 
 .nav-pills .nav-link {
-  border-radius: 0.25rem;
+  border-radius: 0.1rem;
 }
 
 .nav-pills .nav-link.active,
@@ -15424,12 +15424,17 @@ a.text-dark:focus {
   color: #155ebf;
 }
 
-.radius-0 {
-  border-radius: 0 !important;
-}
-
 .font-weight-semi-bold {
   font-weight: 500;
+}
+
+.text-indent {
+  text-indent: 2.5rem;
+}
+
+.bg-gradient {
+  background-color: #00a6f3;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 100 100'%3E%3Crect x='0' y='0' width='70' height='70' fill-opacity='0.58' fill='%2318b0f3'/%3E%3C/svg%3E");
 }
 
 .carousel-indicators li {
@@ -15506,7 +15511,13 @@ a.text-dark:focus {
 }
 
 .price {
-  font-size: 1.3rem;
+  font-size: 2rem;
+  border-bottom: 2px solid #0299d6;
+}
+
+.sub-price {
+  font-weight: normal;
+  font-size: 1rem;
 }
 
 .card {
@@ -15536,6 +15547,10 @@ a.text-dark:focus {
 
 .text-primary-d {
   color: #018ec6;
+}
+
+.text-gray-dark {
+  color: #646464;
 }
 
 .text-facebook,

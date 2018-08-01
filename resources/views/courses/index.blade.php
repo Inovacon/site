@@ -77,17 +77,19 @@
                   <div class="card-body">
                     <p class="small text-justify text-secondary">{{ $faker->sentence(rand(5, 19), true) }}</p>
                   </div>
+                
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between text-dark ">
+                      <div class="font-weight-semi-bold">
+                        <i class="fas fa-clock mr-1"></i>MANHÃ
+                      </div>
 
-                  <div class="d-flex justify-content-between px-2 mb-2 text-dark ">
-                    <div class="font-weight-semi-bold">
-                      <i class="fas fa-clock mr-1"></i>MANHÃ
-                    </div>
-
-                    <div class="font-weight-semi-bold">
-                      R$45,00
+                      <div class="font-weight-semi-bold">
+                        <strong>R$</strong>45,00
+                      </div>
                     </div>
                   </div>
-                  
+
                   <hr class="my-0">
 
                   <div class="card-footer p-0">
