@@ -1,3 +1,7 @@
+h1, h2, h3, h4, h5, h6 {
+	font-family: 'Source Sans Pro';
+	font-weight: 500;
+}
 
 .text-shadow {
     text-shadow: 0px 2px 4px rgba(0, 0, 0, .3);
@@ -9,20 +13,6 @@
 
 .border-2 {
     border-width: 2px;
-}
-
-.decoration-none {
-    text-decoration: none !important;
-}
-
-.bg-op-black {
-    background-color: rgba(0, 0, 0, .4);
-}
-
-.card-img-overlay i {
-    position: absolute;
-    top: 0;
-    right: 0;
 }
 
 .link {
@@ -40,9 +30,4 @@
 
 .text-indent {
     text-indent: 2.5rem;
-}
-
-.bg-gradient {
-background-color: #00a6f3;
-background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 100 100'%3E%3Crect x='0' y='0' width='70' height='70' fill-opacity='0.58' fill='%2318b0f3'/%3E%3C/svg%3E");
 }
