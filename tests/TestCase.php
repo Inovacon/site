@@ -15,15 +15,4 @@ abstract class TestCase extends BaseTestCase
 
         return $this;
     }
-
-    protected function asAdmin($overrides = [])
-    {
-        $user = factory(User::class)->create(
-            array_merge(['is_admin' => true], $overrides)
-        );
-
-        $this->be($user);
-
-        return $this;
-    }
 }

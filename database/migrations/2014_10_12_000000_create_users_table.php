@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('cpf_cnpj', 14)->unique();
             $table->char('gender', 1);
             $table->date('birth_date');
-            $table->boolean('is_admin')->default(false);
+            $table->boolean('is_collaborator')->default(false);
             $table->rememberToken();
             $table->timestamps();
         });

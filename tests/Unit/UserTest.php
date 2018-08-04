@@ -12,12 +12,12 @@ class UserTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    function it_knows_if_it_is_an_admin()
+    function it_knows_if_it_is_a_collaborator()
     {
-        $user = create(User::class, ['is_admin' => false]);
-        $this->assertFalse($user->isAdmin());
+        $user = create(User::class, ['is_collaborator' => false]);
+        $this->assertFalse($user->isCollaborator());
 
-        $user = create(User::class, ['is_admin' => true]);
-        $this->assertTrue($user->isAdmin());
+        $user = create(User::class, ['is_collaborator' => true]);
+        $this->assertTrue($user->isCollaborator());
     }
 }
