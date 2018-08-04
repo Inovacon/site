@@ -60,17 +60,27 @@
             @for($i = 0; $i < 9; $i++)
               <div class="col-lg-4 col-sm-6 mb-3">
                 <div class="card">
-                  <a href="#">
-                    <img class="card-img-top" src="http://via.placeholder.com/250x145" alt="">
-                  </a>
+                  <img class="card-img-top" src="http://via.placeholder.com/250x145" alt="">
                   
                   <div class="card-img-overlay p-0">
                    <i class="text-primary p-2 {!! getRandomIcon() !!}"></i>
+                    
+                   <div class="hidden-overlay">
+                     <div class="overlay-content">
+                       <p class="font-weight-semi-bold text-center">
+                        <i class="fas fa-hand-pointer fa-lg mx-2"></i>VER CURSO
+                        </p>
+                     </div>
+
+                     <a href="{{ url('cursos/show') }}"></a>
+                   </div>
                   </div>
 
                   <div class="card-header">
                     <div class="d-flex justify-content-between">
-                      <div class="mb-0 text-primary text-uppercase font-weight-bold">{{ $faker->words(rand(1, 5), true) }}</div>
+                      <div class="mb-0 text-primary text-uppercase font-weight-bold">
+                        {{ $faker->words(rand(1, 5), true) }}
+                      </div>
                       
                     </div>
 

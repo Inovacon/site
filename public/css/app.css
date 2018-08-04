@@ -15491,23 +15491,8 @@ h6 {
   z-index: 0;
 }
 
-#sidebarCourses .list-group a {
-  text-decoration: none;
-  color: #000;
-}
-
 #sidebarCourses .list-group-item:hover {
   background-color: #f8f9fa;
-}
-
-.price {
-  font-size: 2rem;
-  border-bottom: 2px solid #0299d6;
-}
-
-.sub-price {
-  font-weight: normal;
-  font-size: 1rem;
 }
 
 .card {
@@ -15521,25 +15506,53 @@ h6 {
   z-index: 1;
 }
 
+.card .card-body {
+  background-color: #fff;
+}
+
 .card .card-footer,
 .card .card-header {
   font-family: 'Raleway';
 }
 
-.card .card-header {
+.card .card-header,
+.card .card-footer {
   font-size: .9rem;
 }
 
 .card-footer a {
-  font-size: .95rem;
   background-color: rgba(0, 0, 0, 0.05);
-  -webkit-transition: all 0.1s;
-  transition: all 0.1s;
 }
 
 .card-footer a:hover {
   background-color: rgba(0, 0, 0, 0.1);
-  color: #018ec6;
+}
+
+.hidden-overlay,
+.hidden-overlay a {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.hidden-overlay {
+  opacity: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+.hidden-overlay .overlay-content {
+  margin-top: 25%;
+  color: #ffffff;
+  text-shadow: 0px 0px 3px black;
+  height: 50%;
+}
+
+.card-img-overlay:hover .hidden-overlay {
+  opacity: 1;
 }
 
 .text-primary-l {

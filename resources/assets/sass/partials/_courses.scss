@@ -10,21 +10,11 @@
     z-index: 0;
 }
 
-#sidebarCourses .list-group a {
-    text-decoration: none;
-    color: #000;
-}
+// #sidebarCourses .list-group a {
+//     text-decoration: none;
+//     color: #000;
+// }
 
 #sidebarCourses .list-group-item:hover {
     background-color: $light;
-}
-
-.price {
-    font-size: 2rem;
-    border-bottom: 2px solid $primary;
-}
-
-.sub-price {
-    font-weight: normal;
-    font-size: 1rem;
 }
