@@ -14,8 +14,8 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = [
-        'name', 'email', 'password',
+    protected $guarded = [
+        'is_collaborator',
     ];
 
     /**
@@ -44,5 +44,36 @@ class User extends Authenticatable
     public function isCollaborator()
     {
         return $this->is_collaborator;
+    }
+
+    /**
+     * Assign a role to the user.
+     *
+     * @param string $role
+     */
+    public function addRole($role)
+    {
+        $this->roles()->save(Role::where('name', $role)->first());
+    }
+
+    /**
+     * Determine whether the user has the given role.
+     *
+     * @param  string $role
+     * @return bool
+     */
+    public function hasRole($role)
+    {
+        return $this->roles()->where('name', $role)->exists();
+    }
+
+    /**
+     * A user can have roles.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
     }
 }
