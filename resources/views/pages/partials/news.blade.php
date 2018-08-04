@@ -12,7 +12,7 @@
         
         <div class="carousel-inner">
           @for($i = 0; $i < 4; $i++)
-            <div class="carousel-item {{ $i == 0 ? 'active':'' }}">
+            <div class="carousel-item {{ $i == 0 ? 'active' : '' }}">
               <img class="d-block w-100" src="http://via.placeholder.com/800x400">
               <a href="#">
                 <div class="carousel-caption d-none d-md-block">

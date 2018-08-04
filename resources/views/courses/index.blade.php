@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Inovacon - Cursos')
+@section('title', 'Cursos - Inovacon')
 
 @section('content')
   <div class="container">
@@ -60,12 +60,18 @@
             @for($i = 0; $i < 9; $i++)
               <div class="col-lg-4 col-sm-6 mb-3">
                 <div class="card">
-                  <img class="card-img-top" src="http://via.placeholder.com/250x145" alt="Card image cap">
+                  <a href="#">
+                    <img class="card-img-top" src="http://via.placeholder.com/250x145" alt="">
+                  </a>
+                  
+                  <div class="card-img-overlay p-0">
+                   <i class="text-primary p-2 {!! getRandomIcon() !!}"></i>
+                  </div>
 
                   <div class="card-header">
                     <div class="d-flex justify-content-between">
                       <div class="mb-0 text-primary text-uppercase font-weight-bold">{{ $faker->words(rand(1, 5), true) }}</div>
-                      <i class="align-self-start mx-1 {!! getRandomIcon() !!}"></i>
+                      
                     </div>
 
                     <div class="d-flex justify-content-between">
@@ -89,8 +95,6 @@
                       </div>
                     </div>
                   </div>
-
-                  <hr class="my-0">
 
                   <div class="card-footer p-0">
                     <a href="{{ url('cursos/show') }}" class="link p-2 text-center d-block text-uppercase">

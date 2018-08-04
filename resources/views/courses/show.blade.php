@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Curso - Nome do Curso')
+@section('title', 'Nome do Curso - Inovacon')
 
 @section('content')
 
@@ -111,6 +111,12 @@
                     @endfor
                   </ul>
                 </div>
+              </div>
+              
+              <div class="mt-3 text-center">
+                <button class="btn btn-outline-success btn-lg text-center">
+                  <i class="fas fa-plus-circle fa-lg mr-sm-2"></i>MATRICULE-SE
+                </button>
               </div>
             </div>
             

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Inovacon - Eventos')
+@section('title', 'Eventos - Inovacon')
 
 @section('content')
   <div class="container">
@@ -18,17 +18,13 @@
           <div class="card">
             <img class="card-img-top" src="http://via.placeholder.com/250x145" alt="">
             <div class="card-header">
-              <a href="#" class="link">
-                <div class="mb-0 text-uppercase font-weight-bold">{{ $faker->words(rand(1, 5), true) }}</div>
-              </a>
+              <div class="text-primary mb-0 text-uppercase font-weight-bold">{{ $faker->words(rand(1, 5), true) }}</div>
             </div>
 
             <div class="card-body">
               <p class="small text-justify text-secondary">{{ $faker->sentence(rand(5, 19), true) }}</p>
             </div>
             
-            <hr class="my-0">
-
             <div class="card-footer p-0">
               <a href="#" class="link p-2 text-center d-block">
                 <i class="fas fa-hand-pointer mr-2"></i><span class="font-weight-bold">ACESSAR EVENTO</span>
