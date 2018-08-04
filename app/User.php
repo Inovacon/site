@@ -24,7 +24,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $casts = [
-        'is_admin' => 'bool',
+        'is_collaborator' => 'bool',
     ];
 
     /**
@@ -36,8 +36,13 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function isAdmin()
+    /**
+     * Determine whether the user is a collaborator.
+     *
+     * @return bool
+     */
+    public function isCollaborator()
     {
-        return $this->is_admin;
+        return $this->is_collaborator;
     }
 }
