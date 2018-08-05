@@ -4,39 +4,46 @@ namespace App\Http\Controllers\Admin;
 
 use App\Course;
 use App\Category;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CourseRequest;
 
 class CourseController extends Controller
 {
-    public function create()
+    public function create(Course $course)
     {
         return view('dashboard.courses.create', [
+            'course' => $course,
             'courseTypes' => Category::where('type', 'course_type')->get(),
             'modalities' => Category::where('type', 'modality')->get(),
             'shifts' => Category::where('type', 'shift')->get(),
             'occupationAreas' => Category::where('type', 'occupation_area')->get(),
+            'targetAudiences' => Category::where('type', 'target_audience')->get(),
         ]);
     }
 
-    public function store(Request $request)
+    public function store(CourseRequest $request)
     {
-        $request->validate([
-            'name' => 'required',
-            'description' => 'required',
-            'target_audience' => 'required',
-            'price' => 'required',
-            'minimum_students' => 'required',
-            'maximum_students' => 'required',
-            'hours' => 'required',
-            'course_type_id' => 'required',
-            'modality_id' => 'required',
-            'shift_id' => 'required',
-            'occupation_area_id' => 'required',
-        ]);
-
         Course::create($request->all());
 
-        return back();
+        return back()->with('flash', 'Curso criado.');
+    }
+
+    public function edit(Course $course)
+    {
+        return view('dashboard.courses.edit', [
+            'course' => $course,
+            'courseTypes' => Category::where('type', 'course_type')->get(),
+            'modalities' => Category::where('type', 'modality')->get(),
+            'shifts' => Category::where('type', 'shift')->get(),
+            'occupationAreas' => Category::where('type', 'occupation_area')->get(),
+            'targetAudiences' => Category::where('type', 'target_audience')->get(),
+        ]);
+    }
+
+    public function update(CourseRequest $request, Course $course)
+    {
+        $course->update($request->all());
+
+        return back()->with('flash', 'Curso editado.');
     }
 }

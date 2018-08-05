@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Course extends Model
 {
-    protected $guarded = [];
+    protected $guarded = ['active'];
 
     public function type()
     {
@@ -30,5 +30,11 @@ class Course extends Model
     {
         return $this->belongsTo(Category::class, 'occupation_area_id')
                     ->where('type', 'occupation_area');
+    }
+
+    public function targetAudience()
+    {
+        return $this->belongsTo(Category::class, 'target_audience_id')
+                    ->where('type', 'target_audience');
     }
 }

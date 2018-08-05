@@ -17,7 +17,6 @@ class CreateCoursesTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->text('description');
-            $table->string('target_audience');
             $table->double('price');
             $table->boolean('active')->default(false);
             $table->unsignedMediumInteger('minimum_students');
@@ -27,6 +26,7 @@ class CreateCoursesTable extends Migration
             $table->unsignedInteger('modality_id');
             $table->unsignedInteger('shift_id');
             $table->unsignedInteger('occupation_area_id');
+            $table->unsignedInteger('target_audience_id');
             $table->string('icon', 50)->nullable();
             $table->string('image_path')->nullable();
             $table->timestamps();

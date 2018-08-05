@@ -43,4 +43,12 @@ class CourseTest extends TestCase
 
         $this->assertInstanceOf(Category::class, $course->occupationArea);
     }
+
+    /** @test */
+    function it_has_a_target_audience()
+    {
+        $course = create(Course::class);
+
+        $this->assertInstanceOf(Category::class, $course->targetAudience);
+    }
 }

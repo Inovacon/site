@@ -16,6 +16,7 @@ class CategoriesTableSeeder extends Seeder
         DB::table('categories')->insert($this->getModalities());
         DB::table('categories')->insert($this->getCourseTypes());
         DB::table('categories')->insert($this->getShifts());
+        DB::table('categories')->insert($this->getTargetAudiences());
     }
 
     /**
@@ -63,6 +64,18 @@ class CategoriesTableSeeder extends Seeder
     {
         return $this->getCategories('shift', [
             'Manhã', 'Tarde', 'Noite',
+        ]);
+    }
+
+    /**
+     * Get the default target audiences.
+     *
+     * @return array
+     */
+    protected function getTargetAudiences()
+    {
+        return $this->getCategories('target_audience', [
+            'Estudantes', 'Professores',
         ]);
     }
 

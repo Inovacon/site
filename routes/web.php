@@ -15,8 +15,10 @@ Route::get('eventos', 'EventController@index')->name('events.index');
 Route::get('noticias', 'NewsController@index')->name('news.index');
 
 Route::prefix('painel')->namespace('Admin')->group(function () {
-    Route::get('/', 'DashboardController@index')->name('dashboard.index');
+    Route::get('/', 'DashboardController@index')->name('dashboard.index')->middleware('collaborator');
 
     Route::get('cursos/criar', 'CourseController@create')->name('courses.create')->middleware('collaborator');
     Route::post('cursos', 'CourseController@store')->name('courses.store')->middleware('collaborator');
+    Route::get('cursos/{course}/editar', 'CourseController@edit')->name('courses.edit')->middleware('collaborator');
+    Route::patch('cursos/{course}', 'CourseController@update')->name('courses.update')->middleware('collaborator');
 });

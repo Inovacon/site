@@ -1,10 +1,10 @@
 @extends('dashboard.layout')
 
-@section('title', 'Cadastrar Curso')
+@section('title', 'Editar Curso')
 
 @section('content')
     <div>
-        <h4 class="mb-0 font-weight-bold text-dark">CADASTRAR CURSO</h4>
+        <h4 class="mb-0 font-weight-bold text-dark">EDITAR CURSO</h4>
 
         <hr class="border-primary border-2">
     </div>
@@ -19,8 +19,10 @@
 
             <div class="card mb-5">
                 <div class="card-body">
-                    <form method="POST" action="{{ route('courses.store') }}">
-                        @include('dashboard.courses._form', ['button' => 'Cadastrar'])
+                    <form method="POST" action="{{ route('courses.update', $course) }}">
+                        @method('PATCH')
+
+                        @include('dashboard.courses._form', ['button' => 'Editar'])
                     </form>
                 </div>
             </div>
