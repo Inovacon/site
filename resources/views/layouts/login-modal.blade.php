@@ -10,19 +10,21 @@
       </div>
 
       <div class="modal-body">
-        <form id="loginForm" action="#" method="POST">
+        <form id="loginForm" action="{{ route('login') }}" method="POST">
+          @csrf
+
           <div class="form-group">
             <label for="email" class="font-weight-bold"><i class="fas fa-envelope fa-md"></i>&nbsp;&nbsp;E-mail</label>
-            <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="email@exemplo.com" required>
+            <input type="email" class="form-control" id="email" name="email" placeholder="email@exemplo.com" value="{{ old('email') }}" required>
           </div>
 
           <div class="form-group">
             <label for="password" class="font-weight-bold"><i class="fas fa-lock fa-md">&nbsp;&nbsp;</i>Senha</label>
-            <input type="password" class="form-control" id="password" placeholder="">
+            <input type="password" class="form-control" id="password" name="password">
           </div>
 
           <div class="form-group custom-control custom-checkbox">
-            <input type="checkbox" class="custom-control-input pointer" id="customCheck1">
+            <input type="checkbox" class="custom-control-input pointer" id="customCheck1" name="remember" {{ old('remember') ? 'checked' : '' }}>
             <label class="custom-control-label" for="customCheck1">Manter-se conectado</label>
           </div>
 

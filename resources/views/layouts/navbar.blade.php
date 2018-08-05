@@ -1,6 +1,6 @@
 <nav id="navbar" class="navbar sticky-top navbar-expand-lg navbar-light bg-white mb-3">
   <div class="container-fluid ml-lg-3 mr-lg-5">
-    <a class="navbar-brand" href="#"><img class="logo" src="{{ asset('images/logo.png') }}"></a>
+    <a class="navbar-brand" href="{{ route('home') }}"><img class="logo" src="{{ asset('images/logo.png') }}"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <i class="fas fa-bars"></i>
     </button>

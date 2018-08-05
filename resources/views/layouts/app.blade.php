@@ -8,7 +8,9 @@
         <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
     </head>
     <body class="bg-light">
-        @include('layouts.navbar')
+        @section('header')
+            @include('layouts.navbar')
+        @show
         
         @yield('content')
 
