@@ -27,6 +27,8 @@ class CreateCoursesTable extends Migration
             $table->unsignedInteger('modality_id');
             $table->unsignedInteger('shift_id');
             $table->unsignedInteger('occupation_area_id');
+            $table->string('icon', 50)->nullable();
+            $table->string('image_path')->nullable();
             $table->timestamps();
         });
     }
