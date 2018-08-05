@@ -29,7 +29,7 @@ class UserTest extends TestCase
 
         $this->assertCount(0, $user->roles);
 
-        $user->addRole('admin');
+        $user->attachRole('admin');
 
         $user = $user->fresh();
 
@@ -45,7 +45,7 @@ class UserTest extends TestCase
 
         $this->assertFalse($user->hasRole('admin'));
 
-        $user->addRole('admin');
+        $user->attachRole('admin');
 
         $this->assertTrue($user->hasRole('admin'));
     }

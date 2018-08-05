@@ -51,7 +51,7 @@ class User extends Authenticatable
      *
      * @param string $role
      */
-    public function addRole($role)
+    public function attachRole($role)
     {
         $this->roles()->save(Role::where('name', $role)->first());
     }
