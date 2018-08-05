@@ -49,4 +49,23 @@ class UserTest extends TestCase
 
         $this->assertTrue($user->hasRole('admin'));
     }
+
+    /** @test */
+    function a_collaborator_knows_if_it_has_any_of_the_specified_roles()
+    {
+        create(Role::class, ['name' => 'admin']);
+        create(Role::class, ['name' => 'boss']);
+
+        $user = create(User::class, ['is_collaborator' => true]);
+
+        $this->assertFalse($user->hasAnyRole(['admin', 'boss']));
+
+        $user->attachRole('boss');
+
+        $this->assertTrue($user->hasAnyRole(['admin', 'boss']));
+
+        $user->attachRole('admin');
+
+        $this->assertTrue($user->hasAnyRole('admin', 'boss'));
+    }
 }

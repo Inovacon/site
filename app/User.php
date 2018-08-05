@@ -2,15 +2,16 @@
 
 namespace App;
 
+use App\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, HasRoles;
 
     /**
-     * The attributes that are mass assignable.
+     * The attributes that are not mass assignable.
      *
      * @var array
      */
@@ -44,36 +45,5 @@ class User extends Authenticatable
     public function isCollaborator()
     {
         return $this->is_collaborator;
-    }
-
-    /**
-     * Assign a role to the user.
-     *
-     * @param string $role
-     */
-    public function attachRole($role)
-    {
-        $this->roles()->save(Role::where('name', $role)->first());
-    }
-
-    /**
-     * Determine whether the user has the given role.
-     *
-     * @param  string $role
-     * @return bool
-     */
-    public function hasRole($role)
-    {
-        return $this->roles()->where('name', $role)->exists();
-    }
-
-    /**
-     * A user can have roles.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function roles()
-    {
-        return $this->belongsToMany(Role::class);
     }
 }
