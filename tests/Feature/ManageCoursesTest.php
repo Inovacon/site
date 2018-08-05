@@ -46,45 +46,36 @@ class ManageCoursesTest extends TestCase
     }
 
     /** @test */
-    function a_course_cannot_be_created_with_empty_values()
+    function a_course_cannot_be_written_with_empty_values()
     {
-        $this->signIn(['is_collaborator' => true])
-             ->post(route('courses.store'), $data = $this->getEmptyValues())
+        $this->signIn(['is_collaborator' => true]);
+        $data = $this->getEmptyValues();
+
+        $this->post(route('courses.store'), $data)
+             ->assertSessionHasErrors(array_keys($data));
+
+        $this->patch(route('courses.update', create(Course::class)), $data)
              ->assertSessionHasErrors(array_keys($data));
     }
 
     /** @test */
-    function a_course_cannot_be_updated_with_empty_values()
-    {
-        $course = create(Course::class);
-
-        $this->signIn(['is_collaborator' => true])
-             ->patch(route('courses.update', $course), $data = $this->getEmptyValues())
-             ->assertSessionHasErrors(array_keys($data));
-    }
-
-    /** @test */
-    function a_guest_cannot_create_courses()
+    function a_guest_cannot_write_to_courses_table()
     {
         $this->get(route('courses.create'))
              ->assertRedirect(route('login'));
 
         $this->post(route('courses.store'))
              ->assertRedirect(route('login'));
-    }
 
-    /** @test */
-    function a_guest_cannot_update_courses()
-    {
         $this->get(route('courses.edit', 99))
-             ->assertRedirect(route('login'));
+            ->assertRedirect(route('login'));
 
         $this->patch(route('courses.update', 99))
-             ->assertRedirect(route('login'));
+            ->assertRedirect(route('login'));
     }
 
     /** @test */
-    function a_non_collaborator_cannot_create_courses()
+    function a_non_collaborator_cannot_write_to_courses_table()
     {
         $this->signIn(['is_collaborator' => false]);
 
@@ -93,16 +84,8 @@ class ManageCoursesTest extends TestCase
 
         $this->post(route('courses.store'))
              ->assertForbidden();
-    }
 
-    /** @test */
-    function a_non_collaborator_cannot_update_courses()
-    {
-        $this->signIn(['is_collaborator' => false]);
-
-        $course = create(Course::class);
-
-        $this->get(route('courses.edit', $course))
+        $this->get(route('courses.edit', $course = create(Course::class)))
             ->assertForbidden();
 
         $this->patch(route('courses.update', $course))
