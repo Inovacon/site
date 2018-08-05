@@ -10,31 +10,26 @@ class Course extends Model
 
     public function type()
     {
-        return $this->belongsTo(Category::class, 'course_type_id')
-                    ->where('type', 'course_type');
+        return $this->belongsTo(Category::class, 'course_type_id')->courseType();
     }
 
     public function modality()
     {
-        return $this->belongsTo(Category::class, 'modality_id')
-                    ->where('type', 'modality');
+        return $this->belongsTo(Category::class, 'modality_id')->modality();
     }
 
     public function shift()
     {
-        return $this->belongsTo(Category::class, 'shift_id')
-                    ->where('type', 'shift');
+        return $this->belongsTo(Category::class, 'shift_id')->shift();
     }
 
     public function occupationArea()
     {
-        return $this->belongsTo(Category::class, 'occupation_area_id')
-                    ->where('type', 'occupation_area');
+        return $this->belongsTo(Category::class, 'occupation_area_id')->occupationArea();
     }
 
     public function targetAudience()
     {
-        return $this->belongsTo(Category::class, 'target_audience_id')
-                    ->where('type', 'target_audience');
+        return $this->belongsTo(Category::class, 'target_audience_id')->targetAudience();
     }
 }

@@ -2,9 +2,12 @@
 
 namespace App;
 
+use App\Traits\CategoryScopes;
 use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
+    use CategoryScopes;
+
     public $timestamps = false;
 }
