@@ -3,6 +3,10 @@
 @section('title', 'Editar Curso')
 
 @section('content')
+    <div>
+        <h3 class="font-weight-bold text-dark">Editar Curso</h3>
+    </div>
+
     <div class="row mt-3">
         <div class="col-md-12">
             @if (session('flash'))
