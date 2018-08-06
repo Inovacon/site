@@ -1,6 +1,12 @@
+html,
+body {
+    height: 100% !important;
+    font-family: Roboto, sans-serif;
+}
+
 h1, h2, h3, h4, h5, h6 {
 	font-family: 'Source Sans Pro';
-	font-weight: 500;
+    font-weight: 500;
 }
 
 .text-shadow {
@@ -30,4 +36,27 @@ h1, h2, h3, h4, h5, h6 {
 
 .text-indent {
     text-indent: 2.5rem;
+}
+
+.\100-vh {
+    height: 100vh !important;
+}
+
+.bg-custom-gray {
+    background-color: $custom-gray !important;
+}
+
+.bg-custom-dark-blue {
+    background-color: $custom-dark-blue !important;
+}
+
+.wrapper {
+    display: flex;
+    width: 100%;
+    align-items: stretch;
+}
+
+.wrapper #content {
+    width: 100%;
+    min-height: 100vh;
 }

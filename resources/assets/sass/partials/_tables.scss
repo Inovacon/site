@@ -1,0 +1,12 @@
+.table thead th {
+  border-bottom: 1px solid #dee2e6 !important;
+  text-transform: uppercase;
+  color: $custom-gray;
+  background-color: $gray-100;
+  letter-spacing: 1.2px;
+  font-size: 13px;
+}
+
+.table {
+  margin-bottom: 0;
+}

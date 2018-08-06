@@ -1,9 +1,9 @@
 @extends('dashboard.layout')
 
-@section('title', 'Painel')
+@section('title', 'Início')
 
 @section('content')
     <div class="jumbotron">
-        <h2><i class="fas fa-tachometer-alt fa-fw"></i> Painel</h2>
+        <h1>Teste</h1>
     </div>
 @endsection

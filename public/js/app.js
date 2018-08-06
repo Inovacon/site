@@ -16984,8 +16984,8 @@ $(document).ready(function () {
 // e adiciona o icone de "carregando" ao lado
 
 $('form').one('submit', function () {
-    $(this).find('button[type="submit"]').attr('disabled', true);
-    $(this).find('button[type="submit"]').prepend('<i class="fas fa-spinner fa-pulse fa-fw"></i>&nbsp;');
+    $(this).find('[type="submit"]').attr('disabled', true);
+    $(this).find('[type="submit"]').prepend('<i class="fas fa-spinner fa-pulse fa-fw"></i>&nbsp;');
 });
 
 /***/ }),

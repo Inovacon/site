@@ -9,6 +9,13 @@ use App\Http\Requests\CourseRequest;
 
 class CourseController extends Controller
 {
+    public function index()
+    {
+        return view('dashboard.courses.index', [
+            'courses' => Course::latest()->paginate(20),
+        ]);
+    }
+
     public function create(Course $course)
     {
         return view('dashboard.courses.create',
@@ -18,7 +25,7 @@ class CourseController extends Controller
 
     public function store(CourseRequest $request)
     {
-        Course::create($request->all());
+        Course::create($request->getAll());
 
         return back()->with('flash', 'Curso criado.');
     }
@@ -32,7 +39,7 @@ class CourseController extends Controller
 
     public function update(CourseRequest $request, Course $course)
     {
-        $course->update($request->all());
+        $course->update($request->getAll());
 
         return back()->with('flash', 'Curso editado.');
     }

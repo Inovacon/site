@@ -1,6 +1,6 @@
 .navbar-nav .nav-link {
     font-family: 'Source Sans Pro';
-    font-size: .93rem;
+    //font-size: .93rem;
     @include transition(box-shadow .3s);
 }
 
@@ -25,4 +25,21 @@
     .navbar .logo {
         max-width: 130px;
     }
+}
+
+/** Admin */
+#adminNavbar {
+  padding: 10px !important;
+}
+
+#adminNavbar .nav-link {
+  padding: 0;
+}
+
+#adminNavbar .navbar-nav .dropdown-menu {
+  position: absolute;
+}
+
+#adminNavbar .nav-link:hover {
+  box-shadow: none !important;
 }

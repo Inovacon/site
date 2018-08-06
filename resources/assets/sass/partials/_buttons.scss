@@ -1,7 +1,12 @@
 .btn {
-    font-family: 'Raleway';
+    font-family: Roboto, sans-serif;
     text-transform: uppercase;
     font-size: .85rem;
     letter-spacing: 1px;
     font-weight: 500;
+}
+
+.btn-icon {
+  text-decoration: none !important;
+  color: $gray-600;
 }

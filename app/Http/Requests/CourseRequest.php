@@ -37,4 +37,14 @@ class CourseRequest extends FormRequest
             'target_audience_id' => 'required',
         ];
     }
+
+    /**
+     * Get all the input from the request.
+     *
+     * @return array
+     */
+    public function getAll()
+    {
+        return $this->only(array_keys($this->rules()));
+    }
 }

@@ -9,19 +9,22 @@ $success: #01c12d;
 $light: #f8f9fa;
 $white: #ffffff;
 
+$custom-gray: #4C5867;
+$custom-dark-blue: #04091e;
+
 // COLOR BRANDS
 $facebook: #4267B2;
 $google: #DB4437;
 $twitter: #1DA1F2;
 
 // BUTTONS + FORMS
-$input-border-radius: .10rem;
+//$input-border-radius: .10rem;
 $input-btn-focus-width: 2px !default;
 $input-btn-focus-box-shadow: 0px 0px 3px rgba(0, 0, 0, .5) !important;
 $btn-font-weight: 500;
-$btn-border-radius: .13rem;
-$btn-border-radius-sm: .1rem;
-$btn-border-radius-lg: .13rem;
+//$btn-border-radius: .13rem;
+//$btn-border-radius-sm: .1rem;
+//$btn-border-radius-lg: .13rem;
 
 // NAVS
 $nav-link-border-width: 3px;
@@ -44,4 +47,3 @@ $card-spacer-x: .75rem;
 // IMAGE THUMBNAILS
 $thumbnail-border-radius: .10rem;
 $thumbnail-box-shadow: 3px 3px 3px black;
-
