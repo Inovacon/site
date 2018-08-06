@@ -26,12 +26,14 @@
                         <tr>
                             <td class="text-center">{{ $course->id }}</td>
                             <td>
-                                <a href="#" class="font-weight-bold">{{ $course->name }}</a>
+                                <a href="{{ route('dashboard.courses.show', $course) }}" class="font-weight-bold">
+                                    {{ $course->name }}
+                                </a>
                             </td>
                             <td>{{ $course->occupationArea->name }}</td>
                             <td class="text-right">
                                 <div class="pr-4">
-                                    <a href="#" class="btn-icon">
+                                    <a href="{{ route('dashboard.courses.show', $course) }}" class="btn-icon">
                                         <i class="fas fa-eye fa-lg"></i>
                                     </a>
 

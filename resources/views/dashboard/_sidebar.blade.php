@@ -18,7 +18,7 @@
 
     <hr class="bg-custom-gray">
 
-    <li>
+    <li class="{{ request()->routeIs('dashboard.index') ? 'active' : '' }}">
         <a href="{{ route('dashboard.index') }}">
             <i class="fas fa-tachometer-alt fa-fw fa-2x mr-3"></i> Painel
         </a>

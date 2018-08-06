@@ -19,6 +19,7 @@ Route::prefix('painel')->namespace('Admin')->group(function () {
 
     Route::get('cursos', 'CourseController@index')->name('dashboard.courses.index');
     Route::get('cursos/cadastrar', 'CourseController@create')->name('courses.create')->middleware('collaborator');
+    Route::get('cursos/{course}', 'CourseController@show')->name('dashboard.courses.show');
     Route::post('cursos', 'CourseController@store')->name('courses.store')->middleware('collaborator');
     Route::get('cursos/{course}/editar', 'CourseController@edit')->name('courses.edit')->middleware('collaborator');
     Route::patch('cursos/{course}', 'CourseController@update')->name('courses.update')->middleware('collaborator');

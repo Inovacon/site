@@ -21,4 +21,16 @@ class ReadCoursesTest extends TestCase
         $this->get(route('dashboard.courses.index'))
              ->assertSee($course->name);
     }
+
+    /** @test */
+    function a_collaborator_can_view_a_single_course_in_the_dashboard()
+    {
+        $this->withoutExceptionHandling()
+             ->signIn(['is_collaborator' => true]);
+
+        $course = create(Course::class);
+
+        $this->get(route('dashboard.courses.show', $course))
+             ->assertSee($course->name);
+    }
 }

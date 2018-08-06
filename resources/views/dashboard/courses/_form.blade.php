@@ -117,12 +117,7 @@
     </label>
 
     <div class="col-md-6">
-        <input type="text"
-               class="form-control"
-               id="description"
-               name="description"
-               value="{{ old('description', $course->description) }}"
-               required>
+        <textarea class="form-control" name="description" id="description" rows="3" required>{{ old('description', $course->description) }}</textarea>
     </div>
 </div>
 
@@ -182,6 +177,21 @@
                id="hours"
                name="hours"
                value="{{ old('hours', $course->hours) }}"
+               required>
+    </div>
+</div>
+
+<div class="row border-bottom py-4">
+    <label class="col-md-3 col-form-label font-weight-semi-bold text-gray-dark" for="icon">
+        Ícone
+    </label>
+
+    <div class="col-md-6">
+        <input type="text"
+               class="form-control"
+               id="icon"
+               name="icon"
+               value="{{ old('icon', $course->icon) }}"
                required>
     </div>
 </div>

@@ -6,4 +6,3 @@ window.$ = window.jQuery = jQuery;
 window.Popper = Popper.default;
 
 require('./partials/all');
-

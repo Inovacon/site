@@ -16,6 +16,11 @@ class CourseController extends Controller
         ]);
     }
 
+    public function show(Course $course)
+    {
+        return view('dashboard.courses.show', compact('course'));
+    }
+
     public function create(Course $course)
     {
         return view('dashboard.courses.create',

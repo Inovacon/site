@@ -18,7 +18,7 @@
             <div id="content">
                 @include('dashboard._nav')
 
-                <div class="container p-md-4 px-md-5">
+                <div class="container p-4 px-md-5">
                     @yield('content')
                 </div>
             </div>
