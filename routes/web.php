@@ -26,6 +26,6 @@ Route::prefix('painel')->namespace('Admin')->group(function () {
     Route::get('cursos/{course}/editar', 'CourseController@edit')->name('courses.edit')->middleware('collaborator');
     Route::patch('cursos/{course}', 'CourseController@update')->name('courses.update')->middleware('collaborator');
 
-    Route::post('cursos/{course}/ativacao', 'CourseActivationController@store')->name('dashboard.courses.activation');
-    Route::delete('cursos/{course}/ativacao', 'CourseActivationController@destroy');
+    Route::post('cursos/{course}/ativacao', 'CourseActivationController@store')->name('dashboard.courses.activation')->middleware('collaborator');
+    Route::delete('cursos/{course}/ativacao', 'CourseActivationController@destroy')->middleware('collaborator');
 });

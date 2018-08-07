@@ -35,4 +35,28 @@ class CourseActivationTest extends TestCase
 
         $this->assertFalse($course->fresh()->active);
     }
+
+    /** @test */
+    function a_guest_cannot_hit_the_activation_endpoints()
+    {
+        $this->post(route('dashboard.courses.activation', 99))
+             ->assertRedirect(route('login'));
+
+        $this->delete(route('dashboard.courses.activation', 99))
+            ->assertRedirect(route('login'));
+    }
+
+    /** @test */
+    function a_normal_user_cannot_hit_the_activation_endpoints()
+    {
+        $this->signIn(['is_collaborator' => false]);
+
+        $course = create(Course::class);
+
+        $this->post(route('dashboard.courses.activation', $course))
+            ->assertForbidden();
+
+        $this->delete(route('dashboard.courses.activation', $course))
+            ->assertForbidden();
+    }
 }
