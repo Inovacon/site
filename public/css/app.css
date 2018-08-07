@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Roboto:400,500,700|Source+Sans+Pro);/*!
+@import url(https://fonts.googleapis.com/css?family=Raleway:400,500,700|Roboto:400,500,700|Source+Sans+Pro|Open+Sans);/*!
  * Font Awesome Free 5.2.0 by @fontawesome - https://fontawesome.com
  * License - https://fontawesome.com/license (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  */
@@ -15578,6 +15578,7 @@ a.text-dark:focus {
 
 .navbar-nav .nav-link {
   font-family: 'Source Sans Pro';
+  font-size: .93rem;
   -webkit-transition: box-shadow 0.3s;
   -webkit-transition: -webkit-box-shadow 0.3s;
   transition: -webkit-box-shadow 0.3s;
@@ -15700,7 +15701,7 @@ h6 {
   text-indent: 2.5rem;
 }
 
-.\100-vh {
+.100-vh {
   height: 100vh !important;
 }
 
@@ -15779,6 +15780,10 @@ h6 {
   background-color: rgba(0, 0, 0, 0.4);
 }
 
+#courses .card-body.info {
+  font-size: .9rem;
+}
+
 #sidebarCourses .list-group {
   font-weight: 400;
   font-size: 1rem;
@@ -15793,6 +15798,14 @@ h6 {
 
 #sidebarCourses .list-group-item:hover {
   background-color: #f8f9fa;
+}
+
+#coursesRelated .list-group-item:hover {
+  background-color: #f8f9fa;
+}
+
+#coursesRelated .list-group-item:hover span {
+  color: #018ec6 !important;
 }
 
 .card {
@@ -15812,11 +15825,7 @@ h6 {
 
 .card .card-footer,
 .card .card-header {
-  font-family: Roboto, sans-serif;
-}
-
-.card .card-header,
-.card .card-footer {
+  font-family: 'Raleway', sans-serif;
   font-size: .9rem;
 }
 
@@ -15982,6 +15991,16 @@ h6 {
   #sidebar.active {
     margin-left: 0;
   }
+}
+
+#news .card .news-info,
+#news .card .news-body {
+  font-family: 'Open Sans', sans-serif;
+}
+
+#news .card .news-comment {
+  font-family: 'Open Sans';
+  font-size: .9rem;
 }
 
 .toast:hover {

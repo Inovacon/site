@@ -11,8 +11,10 @@ Route::get('cursos', 'CourseController@index')->name('courses.index');
 Route::get('cursos/{course}', 'CourseController@show')->name('courses.show');
 
 Route::get('eventos', 'EventController@index')->name('events.index');
+Route::get('eventos/{evento}', 'EventController@show')->name('events.show');
 
 Route::get('noticias', 'NewsController@index')->name('news.index');
+Route::get('noticias/{noticia}', 'NewsController@show')->name('news.show');
 
 Route::prefix('painel')->name('dashboard.')->namespace('Admin')->group(function () {
     Route::get('/', 'DashboardController@index')->name('index')->middleware('collab');

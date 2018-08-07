@@ -1,3 +1,7 @@
+#courses .card-body.info {
+	font-size: .9rem;
+}
+
 #sidebarCourses .list-group {
     font-weight: 400;
     font-size: 1rem;
@@ -10,11 +14,14 @@
     z-index: 0;
 }
 
-// #sidebarCourses .list-group a {
-//     text-decoration: none;
-//     color: #000;
-// }
-
 #sidebarCourses .list-group-item:hover {
     background-color: $light;
+}
+
+#coursesRelated .list-group-item:hover {
+	background-color: $light;
+}
+
+#coursesRelated .list-group-item:hover span {
+	color: $primary-darker !important;
 }

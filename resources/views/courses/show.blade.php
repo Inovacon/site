@@ -4,26 +4,13 @@
 
 @section('content')
 
-  @php
-    function getRandomIcon() {
-      $icons = [
-        'fas fa-balance-scale',
-        'fas fa-calculator',
-        'fas fa-dna',
-        'fas fa-user-tie'
-      ];
-
-      return $icons[rand(0, 3)];
-    }
-  @endphp
-
   <div class="container">
     <div class="row">
       <div class="col-sm-8">
         <div class="card">
             <div class="card-header">
               <h5 class="text-primary font-weight-bold">
-                <i class="fas fa-user-tie"></i>&nbsp;
+                <i class="fas fa-user-tie mr-1"></i>
                ADMINISTRAÇÃO DE CONDOMÍNIOS
               </h5>
 
@@ -66,27 +53,38 @@
                 <div class="tab-pane fade  show active" id="pills-info-content" role="tabpanel" aria-labelledby="pills-programmatic-content-tab">
                   <ul class="list-group list-group-flush">
                     <li class="list-group-item">
-                      <span class="font-weight-semi-bold"><i class="fas fa-clock fa-fw text-primary"></i>&nbsp;Turno:&nbsp;</span>Manhã
+                      <span class="font-weight-semi-bold">
+                        <i class="fas fa-clock fa-fw text-primary mr-1"></i>Turno:
+                      </span>
+                      <span>Manhã</span>
                     </li>
 
                     <li class="list-group-item">
-                      <span class="font-weight-semi-bold"><i class="fas fa-user-clock fa-fw text-primary"></i>&nbsp;Carga Horária:&nbsp;</span>20h
+                      <span class="font-weight-semi-bold">
+                        <i class="fas fa-user-clock fa-fw text-primary mr-1"></i>Carga Horária:
+                      </span>
+                      <span>20h</span>
                     </li>
 
                     <li class="list-group-item">
-                      <span class="font-weight-semi-bold"><i class="fas fa-calendar-alt fa-fw text-primary"></i>&nbsp;Data de início:&nbsp;</span>20/05/2018
+                      <span class="font-weight-semi-bold">
+                        <i class="fas fa-calendar-alt fa-fw text-primary mr-1"></i>Duração:
+                      </span>
+                      <span>De <span class="font-weight-semi-bold">20/05/2018</span> até <span class="font-weight-semi-bold">15/06/2018</span></span>
                     </li>
 
                     <li class="list-group-item">
-                      <span class="font-weight-semi-bold"><i class="fas fa-calendar-alt fa-fw text-primary"></i>&nbsp;Data de termino:&nbsp;</span>31/07/2018
+                      <span class="font-weight-semi-bold">
+                        <i class="fas fa-graduation-cap fa-fw text-primary mr-1"></i>Tipo de curso:
+                      </span>
+                      <span>Curta duração</span> 
                     </li>
 
                     <li class="list-group-item">
-                      <span class="font-weight-semi-bold"><i class="fas fa-graduation-cap fa-fw text-primary"></i>&nbsp;Tipo de curso:&nbsp;</span>Curta duração
-                    </li>
-
-                    <li class="list-group-item">
-                      <span class="font-weight-semi-bold"><i class="fas fa-users fa-fw text-primary"></i>&nbsp;Público alvo:&nbsp;</span>Estudantes
+                      <span class="font-weight-semi-bold">
+                        <i class="fas fa-users fa-fw text-primary mr-1"></i>Público alvo:
+                      </span>
+                      <span>Estudantes</span>
                     </li>
 
                   </ul>
@@ -113,8 +111,8 @@
                 </div>
               </div>
               
-              <div class="mt-3 text-center">
-                <button class="btn btn-outline-success btn-lg text-center">
+              <div class="mt-5 text-center">
+                <button class="btn btn-outline-success btn-lg text-center font-weight-bold">
                   <i class="fas fa-plus-circle fa-lg mr-sm-2"></i>MATRICULE-SE
                 </button>
               </div>
@@ -123,15 +121,40 @@
         </div>
       </div>
 
-      <div class="col-sm-4">
+      <div id="coursesRelated" class="col-sm-4">
         <div class="card">
-          <div class="card-header">
-            <h5 class="font-weight-bold text-primary">CURSOS RELACIONADOS</h5>
+          <div class="card-header pb-0">
+            <h5 class="font-weight-bold text-primary">
+              <i class="fas fa-graduation-cap mr-1"></i>CURSOS RELACIONADOS
+            </h5>
+
             <hr class="my-0 border-primary border-2">
           </div>
 
-          <div class="card-body">
-            {{-- CURSOS --}}
+          <div class="card-body px-1">
+            <ul class="list-group list-group-flush">
+              @for($i = 0; $i < 5; $i++)
+                <li class="list-group-item border-0 p-2">
+                  <a href="{{ url('cursos/show') }}" class="link">
+                    <div class="row no-gutters">
+                      <div class="col-4">
+                        <img class="img-fluid" src="http://via.placeholder.com/250x145" alt="">
+                      </div>
+
+                      <div class="col d-flex flex-column justify-content-around pl-2">
+                        <span class="font-weight-semi-bold small text-secondary text-uppercase">
+                          {{ str_limit($faker->sentence(rand(3, 5), true), 45) }}
+                        </span>
+                        
+                        <span class="small text-muted">
+                          <i class="fas fa-clock"></i> MANHÃ
+                        </span>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+              @endfor
+            </ul>
           </div>
         </div>
       </div>

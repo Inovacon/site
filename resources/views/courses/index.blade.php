@@ -94,7 +94,7 @@
                     <p class="small text-justify text-secondary">{{ $faker->sentence(rand(5, 19), true) }}</p>
                   </div>
                 
-                  <div class="card-body">
+                  <div class="card-body info">
                     <div class="d-flex justify-content-between text-dark ">
                       <div class="font-weight-semi-bold">
                         <i class="fas fa-clock mr-1"></i>MANHÃ
