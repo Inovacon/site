@@ -2,8 +2,8 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Database\Eloquent\Model;
 
 class Course extends Model
 {
@@ -46,17 +46,6 @@ class Course extends Model
         return asset(
             "storage/{$this->image_path}" ?: 'images/default-course.png'
         );
-    }
-
-    /**
-     * Get the icon associated with the course.
-     *
-     * @param  string|null $icon
-     * @return string
-     */
-    public function getIconAttribute($icon)
-    {
-        return $icon ?: 'fas fa-graduation-cap';
     }
 
     /**

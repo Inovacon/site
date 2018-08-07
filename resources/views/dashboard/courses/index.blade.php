@@ -10,11 +10,11 @@
     </div>
 
     @if (count($courses))
-    <div class="card p-0">
-        <div class="card-body p-0">
-            @include('dashboard.courses._courses')
+        <div class="card p-0">
+            <div class="card-body p-0">
+                @include('dashboard.courses._courses')
+            </div>
         </div>
-    </div>
     @else
         <div class="alert alert-warning">
             Não há cursos cadastrados

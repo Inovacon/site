@@ -13,7 +13,7 @@ class CourseController extends Controller
     public function index()
     {
         return view('dashboard.courses.index', [
-            'courses' => Course::latest()->paginate(20),
+            'courses' => Course::with('occupationArea')->latest()->paginate(20),
         ]);
     }
 
