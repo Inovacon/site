@@ -15,7 +15,7 @@
                 </div>
             @endif
 
-            <div class="card mb-5 px-4 pb-2">
+            <div class="card mb-5 px-sm-4 pb-sm-2">
                 <div class="card-body">
                     <form method="POST" action="{{ route('courses.update', $course) }}">
                         @method('PATCH')
