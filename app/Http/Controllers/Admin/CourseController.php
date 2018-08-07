@@ -31,9 +31,9 @@ class CourseController extends Controller
 
     public function store(CourseRequest $request)
     {
-        Course::create($request->getAll());
+        $course = Course::create($request->getAll());
 
-        return back()->with([
+        return redirect()->route('dashboard.courses.show', $course)->with([
             'flash' => 'Curso cadastrado com sucesso.',
             'type' => 'success'
         ]);
@@ -54,7 +54,7 @@ class CourseController extends Controller
 
         $course->update($request->getAll());
 
-        return back()->with([
+        return redirect()->route('dashboard.courses.show', $course)->with([
             'flash' => 'Curso editado com sucesso.',
             'type' => 'success'
         ]);
