@@ -32,7 +32,9 @@
     <script src="{{ mix('/js/app.js') }}"></script>
 
     <script>
-        $('#sidebarCollapse').on('click', function () {
+        $('#sidebarCollapse').on('click', function (event) {
+            event.preventDefault();
+
             $('#sidebar').toggleClass('active');
         });
     </script>
