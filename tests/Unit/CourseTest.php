@@ -57,6 +57,6 @@ class CourseTest extends TestCase
     {
         $course = create(Course::class, ['image_path' => 'courses/image.png']);
 
-        $this->assertSame(asset('courses/image.png'), $course->publicImagePath);
+        $this->assertSame(asset('storage/courses/image.png'), $course->publicImagePath);
     }
 }

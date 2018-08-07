@@ -33,7 +33,10 @@ class CourseController extends Controller
     {
         Course::create($request->getAll());
 
-        return back()->with('flash', 'Curso criado.');
+        return back()->with([
+            'flash' => 'Curso cadastrado com sucesso.',
+            'type' => 'success'
+        ]);
     }
 
     public function edit(Course $course)
@@ -51,7 +54,10 @@ class CourseController extends Controller
 
         $course->update($request->getAll());
 
-        return back()->with('flash', 'Curso editado.');
+        return back()->with([
+            'flash' => 'Curso editado com sucesso.',
+            'type' => 'success'
+        ]);
     }
 
     protected function getCategories()

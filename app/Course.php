@@ -15,6 +15,15 @@ class Course extends Model
     protected $guarded = [];
 
     /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'active' => 'bool',
+    ];
+
+    /**
      * Set the image_path attribute.
      *
      * @param  string|UploadedFile $path
@@ -48,6 +57,26 @@ class Course extends Model
     public function getIconAttribute($icon)
     {
         return $icon ?: 'fas fa-graduation-cap';
+    }
+
+    /**
+     * Activate the course.
+     *
+     * @return void
+     */
+    public function activate()
+    {
+        $this->update(['active' => true]);
+    }
+
+    /**
+     * Deactivate the course.
+     *
+     * @return void
+     */
+    public function deactivate()
+    {
+        $this->update(['active' => false]);
     }
 
     /**

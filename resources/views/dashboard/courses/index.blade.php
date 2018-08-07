@@ -42,6 +42,10 @@
                                     <a href="{{ route('courses.edit', $course) }}" class="btn-icon ml-2">
                                         <i class="fas fa-edit fa-lg"></i>
                                     </a>
+
+                                    <activate-button
+                                            endpoint="{{ route('dashboard.courses.activation', $course) }}"
+                                            :active="{{ json_encode($course->active) }}"></activate-button>
                                 </div>
                             </td>
                         </tr>
