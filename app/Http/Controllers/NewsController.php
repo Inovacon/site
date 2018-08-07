@@ -11,4 +11,9 @@ class NewsController extends Controller
     {
         return view('news.index', compact('faker'));
     }
+
+    public function show(Faker $faker)
+    {
+    	return view('news.show', compact('faker'));
+    }
 }
