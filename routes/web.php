@@ -14,16 +14,16 @@ Route::get('eventos', 'EventController@index')->name('events.index');
 
 Route::get('noticias', 'NewsController@index')->name('news.index');
 
-Route::prefix('painel')->namespace('Admin')->group(function () {
-    Route::get('/', 'DashboardController@index')->name('dashboard.index')->middleware('collaborator');
+Route::prefix('painel')->name('dashboard.')->namespace('Admin')->group(function () {
+    Route::get('/', 'DashboardController@index')->name('index')->middleware('collab');
 
-    Route::get('cursos', 'CourseController@index')->name('dashboard.courses.index')->middleware('collaborator');
-    Route::get('cursos/cadastrar', 'CourseController@create')->name('courses.create')->middleware('collaborator');
-    Route::get('cursos/{course}', 'CourseController@show')->name('dashboard.courses.show')->middleware('collaborator');
-    Route::post('cursos', 'CourseController@store')->name('courses.store')->middleware('collaborator');
-    Route::get('cursos/{course}/editar', 'CourseController@edit')->name('courses.edit')->middleware('collaborator');
-    Route::patch('cursos/{course}', 'CourseController@update')->name('courses.update')->middleware('collaborator');
+    Route::get('cursos', 'CourseController@index')->name('courses.index')->middleware('collab');
+    Route::get('cursos/cadastrar', 'CourseController@create')->name('courses.create')->middleware('collab');
+    Route::get('cursos/{course}', 'CourseController@show')->name('courses.show')->middleware('collab');
+    Route::post('cursos', 'CourseController@store')->name('courses.store')->middleware('collab');
+    Route::get('cursos/{course}/editar', 'CourseController@edit')->name('courses.edit')->middleware('collab');
+    Route::patch('cursos/{course}', 'CourseController@update')->name('courses.update')->middleware('collab');
 
-    Route::post('cursos/{course}/ativacao', 'CourseActivationController@store')->name('dashboard.courses.activation')->middleware('collaborator');
-    Route::delete('cursos/{course}/ativacao', 'CourseActivationController@destroy')->middleware('collaborator');
+    Route::post('cursos/{course}/ativacao', 'CourseActivationController@store')->name('courses.activation')->middleware('collab');
+    Route::delete('cursos/{course}/ativacao', 'CourseActivationController@destroy')->middleware('collab');
 });

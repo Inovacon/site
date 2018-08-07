@@ -18,12 +18,12 @@ class ManageCoursesTest extends TestCase
         $this->withoutExceptionHandling()
              ->signIn(['is_collaborator' => true]);
 
-        $this->get(route('courses.create'))
+        $this->get(route('dashboard.courses.create'))
              ->assertOk();
 
         $course = make(Course::class);
 
-        $this->post(route('courses.store'), $course->toArray())
+        $this->post(route('dashboard.courses.store'), $course->toArray())
              ->assertRedirect();
 
         $this->assertDatabaseHas($course->getTable(), $course->toArray());
@@ -38,10 +38,10 @@ class ManageCoursesTest extends TestCase
         $course = create(Course::class);
         $updatedCourse = make(Course::class, ['name' => 'Nome editado']);
 
-        $this->get(route('courses.edit', $course))
+        $this->get(route('dashboard.courses.edit', $course))
              ->assertOk();
 
-        $this->patch(route('courses.update', $course), $updatedCourse->toArray())
+        $this->patch(route('dashboard.courses.update', $course), $updatedCourse->toArray())
              ->assertRedirect();
 
         $this->assertDatabaseHas($updatedCourse->getTable(), $updatedCourse->toArray());
@@ -53,26 +53,26 @@ class ManageCoursesTest extends TestCase
         $this->signIn(['is_collaborator' => true]);
         $data = $this->getEmptyValues();
 
-        $this->post(route('courses.store'), $data)
+        $this->post(route('dashboard.courses.store'), $data)
              ->assertSessionHasErrors(array_keys($data));
 
-        $this->patch(route('courses.update', create(Course::class)), $data)
+        $this->patch(route('dashboard.courses.update', create(Course::class)), $data)
              ->assertSessionHasErrors(array_keys($data));
     }
 
     /** @test */
     function a_guest_cannot_write_to_courses_table()
     {
-        $this->get(route('courses.create'))
+        $this->get(route('dashboard.courses.create'))
              ->assertRedirect(route('login'));
 
-        $this->post(route('courses.store'))
+        $this->post(route('dashboard.courses.store'))
              ->assertRedirect(route('login'));
 
-        $this->get(route('courses.edit', 99))
+        $this->get(route('dashboard.courses.edit', 99))
             ->assertRedirect(route('login'));
 
-        $this->patch(route('courses.update', 99))
+        $this->patch(route('dashboard.courses.update', 99))
             ->assertRedirect(route('login'));
     }
 
@@ -81,16 +81,16 @@ class ManageCoursesTest extends TestCase
     {
         $this->signIn(['is_collaborator' => false]);
 
-        $this->get(route('courses.create'))
+        $this->get(route('dashboard.courses.create'))
              ->assertForbidden();
 
-        $this->post(route('courses.store'))
+        $this->post(route('dashboard.courses.store'))
              ->assertForbidden();
 
-        $this->get(route('courses.edit', $course = create(Course::class)))
+        $this->get(route('dashboard.courses.edit', $course = create(Course::class)))
             ->assertForbidden();
 
-        $this->patch(route('courses.update', $course))
+        $this->patch(route('dashboard.courses.update', $course))
             ->assertForbidden();
     }
 
@@ -101,7 +101,7 @@ class ManageCoursesTest extends TestCase
 
         Storage::fake('public');
 
-        $this->post(route('courses.store'), raw(Course::class, [
+        $this->post(route('dashboard.courses.store'), raw(Course::class, [
             'image_path' => $file = UploadedFile::fake()->image('curso.jpg'),
         ]));
 
@@ -109,7 +109,7 @@ class ManageCoursesTest extends TestCase
 
         Storage::disk('public')->assertExists('courses/'.$file->hashName());
 
-        $this->patch(route('courses.update', $course), raw(Course::class, [
+        $this->patch(route('dashboard.courses.update', $course), raw(Course::class, [
             'image_path' => $file = UploadedFile::fake()->image('another-image.jpg'),
         ]));
 
@@ -123,10 +123,10 @@ class ManageCoursesTest extends TestCase
 
         Storage::fake('public');
 
-        $this->post(route('courses.store'), raw(Course::class, ['image_path' => 'invalid-image']))
+        $this->post(route('dashboard.courses.store'), raw(Course::class, ['image_path' => 'invalid-image']))
              ->assertSessionHasErrors(['image_path']);
 
-        $this->patch(route('courses.update', create(Course::class)), raw(Course::class, [
+        $this->patch(route('dashboard.courses.update', create(Course::class)), raw(Course::class, [
             'image_path' => 'invalid-image-2'
         ]))->assertSessionHasErrors(['image_path']);
     }
@@ -142,7 +142,7 @@ class ManageCoursesTest extends TestCase
 
         Storage::disk('public')->assertExists($imagePath);
 
-        $this->patch(route('courses.update', $course), raw(Course::class, [
+        $this->patch(route('dashboard.courses.update', $course), raw(Course::class, [
             'image_path' => $file = UploadedFile::fake()->image('another-image.jpg'),
         ]));
 

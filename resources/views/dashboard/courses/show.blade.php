@@ -15,7 +15,7 @@
                         :active="{{ json_encode($course->active) }}"
                         size="3x"></activate-button>
 
-                    <a class="btn btn-primary pl-3 ml-3" href="{{ route('courses.edit', $course) }}">
+                    <a class="btn btn-primary pl-3 ml-3" href="{{ route('dashboard.courses.edit', $course) }}">
                         <i class="fas fa-edit fa-fw fa-lg"></i>
                     </a>
                 </div>

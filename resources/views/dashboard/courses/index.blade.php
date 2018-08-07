@@ -6,7 +6,7 @@
     <div class="d-flex align-items-center justify-content-between mb-4">
         <h3 class="font-weight-bold text-dark m-0">Cursos</h3>
 
-        <a href="{{ route('courses.create') }}" class="btn btn-lg btn-primary">Cadastrar Curso</a>
+        <a href="{{ route('dashboard.courses.create') }}" class="btn btn-lg btn-primary">Cadastrar Curso</a>
     </div>
 
     @if (count($courses))

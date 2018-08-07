@@ -11,7 +11,7 @@
         <div class="col-md-12">
             <div class="card mb-5 px-sm-4 pb-sm-2">
                 <div class="card-body">
-                    <form method="POST" action="{{ route('courses.store') }}" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('dashboard.courses.store') }}" enctype="multipart/form-data">
                         @include('dashboard.courses._form')
                     </form>
                 </div>

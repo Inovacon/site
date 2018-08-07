@@ -37,7 +37,7 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
 
-        'collaborator' => [
+        'collab' => [
             \Illuminate\Auth\Middleware\Authenticate::class,
             \App\Http\Middleware\MustBeCollaborator::class,
         ],
