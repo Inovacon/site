@@ -6,6 +6,7 @@ use App\Course;
 use App\Category;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CourseRequest;
+use Illuminate\Support\Facades\Storage;
 
 class CourseController extends Controller
 {
@@ -44,6 +45,10 @@ class CourseController extends Controller
 
     public function update(CourseRequest $request, Course $course)
     {
+        if ($request->hasFile('image_path')) {
+            Storage::disk('public')->delete($course->image_path);
+        }
+
         $course->update($request->getAll());
 
         return back()->with('flash', 'Curso editado.');

@@ -17,7 +17,7 @@
 
             <div class="card mb-5 px-sm-4 pb-sm-2">
                 <div class="card-body">
-                    <form method="POST" action="{{ route('courses.store') }}">
+                    <form method="POST" action="{{ route('courses.store') }}" enctype="multipart/form-data">
                         @include('dashboard.courses._form')
                     </form>
                 </div>

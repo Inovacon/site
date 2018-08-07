@@ -34,7 +34,10 @@
                 </tr>
                 <tr>
                     <th>Ativo</th>
-                    <td>{{ $course->active ? 'Sim' : 'Não' }}</td>
+                    <td>
+                        <i class="fas fa-circle fa-sm {{ $course->active ? 'text-success' : 'text-danger' }}"></i>
+                        {{ $course->active ? 'Sim' : 'Não' }}
+                    </td>
                 </tr>
                 <tr>
                     <th>Mínimo de Alunos</th>
@@ -46,7 +49,7 @@
                 </tr>
                 <tr>
                     <th>Carga Horária</th>
-                    <td>{{ $course->hours }}</td>
+                    <td>{{ $course->hours.' h' }}</td>
                 </tr>
                 <tr>
                     <th>Tipo</th>
@@ -67,6 +70,10 @@
                 <tr>
                     <th>Público Alvo</th>
                     <td>{{ $course->targetAudience->name }}</td>
+                </tr>
+                <tr>
+                    <th>Ícone</th>
+                    <td><i class="{{ $course->icon }} fa-lg text-primary"></i></td>
                 </tr>
             </table>
         </div>

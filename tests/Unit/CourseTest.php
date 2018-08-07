@@ -51,4 +51,14 @@ class CourseTest extends TestCase
 
         $this->assertInstanceOf(Category::class, $course->targetAudience);
     }
+
+    /** @test */
+    function it_has_a_default_icon_if_none_was_specified()
+    {
+        $course = create(Course::class);
+        $this->assertSame('fas fa-graduation-cap', $course->icon);
+
+        $course = create(Course::class, ['icon' => 'fas fa-dna']);
+        $this->assertSame('fas fa-dna', $course->icon);
+    }
 }

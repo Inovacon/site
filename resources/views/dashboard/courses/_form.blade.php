@@ -1,5 +1,46 @@
 @csrf
 
+<div class="row border-bottom py-4 align-items-center">
+    <label class="col-md-3 col-form-label font-weight-semi-bold text-gray-dark" for="active">
+        Ativo
+    </label>
+
+    <div class="col-md-6">
+        <div class="custom-control custom-checkbox">
+            <input type="checkbox"
+                   class="custom-control-input"
+                   id="active"
+                   name="active" {{ old('active', $course->active) ? 'checked' : '' }}>
+            <label class="custom-control-label" for="active">&nbsp;</label>
+        </div>
+    </div>
+</div>
+
+<div class="row border-bottom py-4 align-items-center">
+    <label class="col-md-3 col-form-label font-weight-semi-bold text-gray-dark" for="icon">
+        Ícone
+    </label>
+
+    <div class="col-md-6">
+        @include('dashboard.courses._icons')
+    </div>
+</div>
+
+<div class="row border-bottom py-4">
+    <label class="col-md-3 col-form-label font-weight-semi-bold text-gray-dark" for="image_path">
+        Imagem
+    </label>
+
+    <div class="col-md-6">
+        <div class="input-group">
+            <div class="custom-file">
+                <input type="file" class="custom-file-input" id="image_path" lang="pt" name="image_path">
+                <label class="custom-file-label" for="image_path">Escolha uma imagem</label>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="row border-bottom py-4">
     <label class="col-md-3 col-form-label font-weight-semi-bold text-gray-dark" for="occupation_area_id">
         Área de atuação
@@ -177,21 +218,6 @@
                id="hours"
                name="hours"
                value="{{ old('hours', $course->hours) }}"
-               required>
-    </div>
-</div>
-
-<div class="row border-bottom py-4">
-    <label class="col-md-3 col-form-label font-weight-semi-bold text-gray-dark" for="icon">
-        Ícone
-    </label>
-
-    <div class="col-md-6">
-        <input type="text"
-               class="form-control"
-               id="icon"
-               name="icon"
-               value="{{ old('icon', $course->icon) }}"
                required>
     </div>
 </div>

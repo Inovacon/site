@@ -35,6 +35,9 @@ class CourseRequest extends FormRequest
             'shift_id' => 'required',
             'occupation_area_id' => 'required',
             'target_audience_id' => 'required',
+            'image_path' => 'sometimes|nullable|image',
+            'icon' => 'sometimes|nullable',
+            'active' => 'sometimes',
         ];
     }
 
@@ -45,6 +48,20 @@ class CourseRequest extends FormRequest
      */
     public function getAll()
     {
+        abort_if($this->uploadedImageIsInvalid(), 500, 'O arquivo de imagem é inválido.');
+
+        $this->request->set('active', $this->has('active'));
+
         return $this->only(array_keys($this->rules()));
+    }
+
+    /**
+     * Determine whether the uploaded image is invalid.
+     *
+     * @return bool
+     */
+    protected function uploadedImageIsInvalid()
+    {
+        return $this->hasFile('image_path') && ! $this->file('image_path')->isValid();
     }
 }

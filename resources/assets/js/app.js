@@ -1,8 +1,6 @@
-import jQuery from 'jquery';
-import Popper from 'popper.js';
-import 'bootstrap';
+import './dependencies';
+import './setup';
 
-window.$ = window.jQuery = jQuery;
-window.Popper = Popper.default;
-
-require('./partials/all');
+new Vue({
+    el: '#root'
+});

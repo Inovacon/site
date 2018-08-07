@@ -17,7 +17,7 @@
 
             <div class="card mb-5 px-sm-4 pb-sm-2">
                 <div class="card-body">
-                    <form method="POST" action="{{ route('courses.update', $course) }}">
+                    <form method="POST" action="{{ route('courses.update', $course) }}" enctype="multipart/form-data">
                         @method('PATCH')
 
                         @include('dashboard.courses._form')
