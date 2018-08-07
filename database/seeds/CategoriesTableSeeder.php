@@ -26,9 +26,12 @@ class CategoriesTableSeeder extends Seeder
      */
     protected function getOccupationAreas()
     {
-        return $this->getCategories('occupation_area', [
-            'Administração', 'Ciências Contábeis', 'Biomedicina', 'Direito',
-        ]);
+        return [
+            ['name' => 'Administração', 'type' => 'occupation_area', 'icon' => 'fas fa-user-tie'],
+            ['name' => 'Ciências Contábeis', 'type' => 'occupation_area', 'icon' => 'fas fa-calculator'],
+            ['name' => 'Biomedicina', 'type' => 'occupation_area', 'icon' => 'fas fa-dna'],
+            ['name' => 'Direito', 'type' => 'occupation_area', 'icon' => 'fas fa-balance-scale'],
+        ];
     }
 
     /**

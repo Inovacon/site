@@ -3,11 +3,14 @@
 namespace Tests\Unit;
 
 use App\Category;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use Illuminate\Database\Eloquent\Builder;
 
 class CategoryTest extends TestCase
 {
+    use RefreshDatabase;
+
     /** @test */
     function it_can_be_filtered_by_modalities()
     {
@@ -41,5 +44,16 @@ class CategoryTest extends TestCase
     {
         $this->assertInstanceOf(Builder::class, $builder = Category::targetAudience());
         $this->assertContains('target_audience', $builder->getBindings());
+    }
+
+    /** @test */
+    function it_can_retrieve_the_name_with_the_icon()
+    {
+        $category = create(Category::class, ['icon' => 'fas fa-dna']);
+
+        $this->assertSame(
+            '<i class="fas fa-dna fa-fw"></i> '.$category->name,
+            $category->nameWithIcon
+        );
     }
 }

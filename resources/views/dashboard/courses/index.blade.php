@@ -30,7 +30,9 @@
                                     {{ $course->name }}
                                 </a>
                             </td>
-                            <td>{{ $course->occupationArea->name }}</td>
+                            <td>
+                                <i class="{{ $course->occupationArea->icon }} fa-fw"></i> {{ $course->occupationArea->name }}
+                            </td>
                             <td class="text-right">
                                 <div class="pr-4">
                                     <a href="{{ route('dashboard.courses.show', $course) }}" class="btn-icon">

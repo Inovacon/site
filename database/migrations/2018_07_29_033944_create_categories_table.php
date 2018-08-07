@@ -17,6 +17,7 @@ class CreateCategoriesTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('type', 50);
+            $table->string('icon', 50)->nullable();
         });
     }
 

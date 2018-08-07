@@ -25,6 +25,12 @@
                     <td>{{ $course->name }}</td>
                 </tr>
                 <tr>
+                    <th>Imagem</th>
+                    <td>
+                        <img src="{{ $course->publicImagePath }}" width="200" alt="imagem do curso">
+                    </td>
+                </tr>
+                <tr>
                     <th>Descrição</th>
                     <td>{{ $course->description }}</td>
                 </tr>
@@ -53,27 +59,23 @@
                 </tr>
                 <tr>
                     <th>Tipo</th>
-                    <td>{{ $course->type->name }}</td>
+                    <td>{!! $course->type->nameWithIcon !!}</td>
                 </tr>
                 <tr>
                     <th>Modalidade</th>
-                    <td>{{ $course->modality->name }}</td>
+                    <td>{!! $course->modality->nameWithIcon !!}</td>
                 </tr>
                 <tr>
                     <th>Turno</th>
-                    <td>{{ $course->shift->name }}</td>
+                    <td>{!! $course->shift->nameWithIcon !!}</td>
                 </tr>
                 <tr>
                     <th>Área de Atuação</th>
-                    <td>{{ $course->occupationArea->name }}</td>
+                    <td>{!! $course->occupationArea->nameWithIcon !!}</td>
                 </tr>
                 <tr>
                     <th>Público Alvo</th>
-                    <td>{{ $course->targetAudience->name }}</td>
-                </tr>
-                <tr>
-                    <th>Ícone</th>
-                    <td><i class="{{ $course->icon }} fa-lg text-primary"></i></td>
+                    <td>{!! $course->targetAudience->nameWithIcon !!}</td>
                 </tr>
             </table>
         </div>

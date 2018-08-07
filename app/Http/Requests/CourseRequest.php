@@ -36,7 +36,6 @@ class CourseRequest extends FormRequest
             'occupation_area_id' => 'required',
             'target_audience_id' => 'required',
             'image_path' => 'sometimes|nullable|image',
-            'icon' => 'sometimes|nullable',
             'active' => 'sometimes',
         ];
     }

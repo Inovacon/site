@@ -53,12 +53,10 @@ class CourseTest extends TestCase
     }
 
     /** @test */
-    function it_has_a_default_icon_if_none_was_specified()
+    function it_can_retrieve_the_publicly_accessible_image_path()
     {
-        $course = create(Course::class);
-        $this->assertSame('fas fa-graduation-cap', $course->icon);
+        $course = create(Course::class, ['image_path' => 'courses/image.png']);
 
-        $course = create(Course::class, ['icon' => 'fas fa-dna']);
-        $this->assertSame('fas fa-dna', $course->icon);
+        $this->assertSame(asset('courses/image.png'), $course->publicImagePath);
     }
 }

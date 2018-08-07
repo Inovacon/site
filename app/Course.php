@@ -28,6 +28,18 @@ class Course extends Model
     }
 
     /**
+     * Get the publicly accessible image path.
+     *
+     * @return string
+     */
+    public function getPublicImagePathAttribute()
+    {
+        return asset(
+            "storage/{$this->image_path}" ?: 'images/default-course.png'
+        );
+    }
+
+    /**
      * Get the icon associated with the course.
      *
      * @param  string|null $icon
