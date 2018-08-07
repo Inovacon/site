@@ -10,7 +10,7 @@ function make($class, $overrides = [])
     return factory($class)->make($overrides);
 }
 
-function create($class, $overrides = [])
+function create($class, $overrides = [], $times = null)
 {
-    return factory($class)->create($overrides);
+    return factory($class, $times)->create($overrides);
 }

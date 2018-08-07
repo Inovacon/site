@@ -21,7 +21,7 @@
         </div>
     @endif
 
-    <div>
+    <div class="d-flex flex-row-reverse mt-4">
         {{ $courses->links() }}
     </div>
 @endsection

@@ -6,7 +6,7 @@ $factory->define(App\Course::class, function (Faker $faker) {
     return [
         'name' => $faker->sentence(3),
         'description' => $faker->text(),
-        'price' => $faker->randomFloat(),
+        'price' => $faker->randomFloat(2),
         'minimum_students' => $faker->numberBetween(5, 20),
         'maximum_students' => $faker->numberBetween(21, 100),
         'hours' => $faker->numberBetween(50, 100),
