@@ -15984,3 +15984,16 @@ h6 {
   }
 }
 
+.toast:hover {
+  -webkit-box-shadow: 0 0 12px #666 !important;
+  box-shadow: 0 0 12px #666 !important;
+}
+
+.toast-success {
+  background-color: #01c12d;
+}
+
+.toast-error {
+  background-color: #c11d01;
+}
+
