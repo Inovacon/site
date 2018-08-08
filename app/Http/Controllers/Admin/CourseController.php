@@ -33,10 +33,9 @@ class CourseController extends Controller
     {
         $course = Course::create($request->getAll());
 
-        return redirect()->route('dashboard.courses.show', $course)->with([
-            'flash' => 'Curso cadastrado com sucesso.',
-            'type' => 'success'
-        ]);
+        return redirect()->route('dashboard.courses.show', $course)->with(
+            'flash', 'Curso cadastrado com sucesso.'
+        );
     }
 
     public function edit(Course $course)
@@ -54,10 +53,9 @@ class CourseController extends Controller
 
         $course->update($request->getAll());
 
-        return redirect()->route('dashboard.courses.show', $course)->with([
-            'flash' => 'Curso editado com sucesso.',
-            'type' => 'success'
-        ]);
+        return redirect()->route('dashboard.courses.show', $course)->with(
+            'flash', 'Curso editado com sucesso.'
+        );
     }
 
     protected function getCategories()
