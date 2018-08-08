@@ -1,3 +1,18 @@
+#pills-schedule .table thead th {
+	letter-spacing: 0px;
+  font-size: 15px;
+}
+
+#pills-schedule .table {
+	color: $custom-gray;
+	font-size: 13px;
+}
+
+#pills-schedule .table th {
+  text-transform: none;
+  letter-spacing: .5px;
+}
+
 .table th {
   text-transform: uppercase;
   color: $custom-gray;

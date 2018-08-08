@@ -7357,8 +7357,8 @@ pre code {
   background-color: #ffffff;
   border-color: #5acefd;
   outline: 0;
-  -webkit-box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.5) !important;
-          box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.5) !important;
+  -webkit-box-shadow: 0 0 0 1px rgba(2, 153, 214, 0.25);
+          box-shadow: 0 0 0 1px rgba(2, 153, 214, 0.25);
 }
 
 .form-control::-webkit-input-placeholder {
@@ -7564,8 +7564,8 @@ textarea.form-control {
 .custom-select:valid:focus,
 .custom-select.is-valid:focus {
   border-color: #01c12d;
-  -webkit-box-shadow: 0 0 0 2px rgba(1, 193, 45, 0.25);
-          box-shadow: 0 0 0 2px rgba(1, 193, 45, 0.25);
+  -webkit-box-shadow: 0 0 0 1px rgba(1, 193, 45, 0.25);
+          box-shadow: 0 0 0 1px rgba(1, 193, 45, 0.25);
 }
 
 .was-validated .form-control:valid ~ .valid-feedback,
@@ -7624,8 +7624,8 @@ textarea.form-control {
 
 .was-validated .custom-control-input:valid:focus ~ .custom-control-label::before,
 .custom-control-input.is-valid:focus ~ .custom-control-label::before {
-  -webkit-box-shadow: 0 0 0 1px #ffffff, 0 0 0 2px rgba(1, 193, 45, 0.25);
-          box-shadow: 0 0 0 1px #ffffff, 0 0 0 2px rgba(1, 193, 45, 0.25);
+  -webkit-box-shadow: 0 0 0 1px #ffffff, 0 0 0 1px rgba(1, 193, 45, 0.25);
+          box-shadow: 0 0 0 1px #ffffff, 0 0 0 1px rgba(1, 193, 45, 0.25);
 }
 
 .was-validated .custom-file-input:valid ~ .custom-file-label,
@@ -7647,8 +7647,8 @@ textarea.form-control {
 
 .was-validated .custom-file-input:valid:focus ~ .custom-file-label,
 .custom-file-input.is-valid:focus ~ .custom-file-label {
-  -webkit-box-shadow: 0 0 0 2px rgba(1, 193, 45, 0.25);
-          box-shadow: 0 0 0 2px rgba(1, 193, 45, 0.25);
+  -webkit-box-shadow: 0 0 0 1px rgba(1, 193, 45, 0.25);
+          box-shadow: 0 0 0 1px rgba(1, 193, 45, 0.25);
 }
 
 .invalid-feedback {
@@ -7688,8 +7688,8 @@ textarea.form-control {
 .custom-select:invalid:focus,
 .custom-select.is-invalid:focus {
   border-color: #c11d01;
-  -webkit-box-shadow: 0 0 0 2px rgba(193, 29, 1, 0.25);
-          box-shadow: 0 0 0 2px rgba(193, 29, 1, 0.25);
+  -webkit-box-shadow: 0 0 0 1px rgba(193, 29, 1, 0.25);
+          box-shadow: 0 0 0 1px rgba(193, 29, 1, 0.25);
 }
 
 .was-validated .form-control:invalid ~ .invalid-feedback,
@@ -7748,8 +7748,8 @@ textarea.form-control {
 
 .was-validated .custom-control-input:invalid:focus ~ .custom-control-label::before,
 .custom-control-input.is-invalid:focus ~ .custom-control-label::before {
-  -webkit-box-shadow: 0 0 0 1px #ffffff, 0 0 0 2px rgba(193, 29, 1, 0.25);
-          box-shadow: 0 0 0 1px #ffffff, 0 0 0 2px rgba(193, 29, 1, 0.25);
+  -webkit-box-shadow: 0 0 0 1px #ffffff, 0 0 0 1px rgba(193, 29, 1, 0.25);
+          box-shadow: 0 0 0 1px #ffffff, 0 0 0 1px rgba(193, 29, 1, 0.25);
 }
 
 .was-validated .custom-file-input:invalid ~ .custom-file-label,
@@ -7771,8 +7771,8 @@ textarea.form-control {
 
 .was-validated .custom-file-input:invalid:focus ~ .custom-file-label,
 .custom-file-input.is-invalid:focus ~ .custom-file-label {
-  -webkit-box-shadow: 0 0 0 2px rgba(193, 29, 1, 0.25);
-          box-shadow: 0 0 0 2px rgba(193, 29, 1, 0.25);
+  -webkit-box-shadow: 0 0 0 1px rgba(193, 29, 1, 0.25);
+          box-shadow: 0 0 0 1px rgba(193, 29, 1, 0.25);
 }
 
 .form-inline {
@@ -7909,8 +7909,8 @@ textarea.form-control {
 .btn:focus,
 .btn.focus {
   outline: 0;
-  -webkit-box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.5) !important;
-          box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.5) !important;
+  -webkit-box-shadow: 0 0 0 1px rgba(2, 153, 214, 0.25);
+          box-shadow: 0 0 0 1px rgba(2, 153, 214, 0.25);
 }
 
 .btn.disabled,
@@ -7941,8 +7941,8 @@ fieldset:disabled a.btn {
 
 .btn-primary:focus,
 .btn-primary.focus {
-  -webkit-box-shadow: 0 0 0 2px rgba(2, 153, 214, 0.5);
-          box-shadow: 0 0 0 2px rgba(2, 153, 214, 0.5);
+  -webkit-box-shadow: 0 0 0 1px rgba(2, 153, 214, 0.5);
+          box-shadow: 0 0 0 1px rgba(2, 153, 214, 0.5);
 }
 
 .btn-primary.disabled,
@@ -7963,8 +7963,8 @@ fieldset:disabled a.btn {
 .btn-primary:not(:disabled):not(.disabled):active:focus,
 .btn-primary:not(:disabled):not(.disabled).active:focus,
 .show > .btn-primary.dropdown-toggle:focus {
-  -webkit-box-shadow: 0 0 0 2px rgba(2, 153, 214, 0.5);
-          box-shadow: 0 0 0 2px rgba(2, 153, 214, 0.5);
+  -webkit-box-shadow: 0 0 0 1px rgba(2, 153, 214, 0.5);
+          box-shadow: 0 0 0 1px rgba(2, 153, 214, 0.5);
 }
 
 .btn-secondary {
@@ -7981,8 +7981,8 @@ fieldset:disabled a.btn {
 
 .btn-secondary:focus,
 .btn-secondary.focus {
-  -webkit-box-shadow: 0 0 0 2px rgba(108, 117, 125, 0.5);
-          box-shadow: 0 0 0 2px rgba(108, 117, 125, 0.5);
+  -webkit-box-shadow: 0 0 0 1px rgba(108, 117, 125, 0.5);
+          box-shadow: 0 0 0 1px rgba(108, 117, 125, 0.5);
 }
 
 .btn-secondary.disabled,
@@ -8003,8 +8003,8 @@ fieldset:disabled a.btn {
 .btn-secondary:not(:disabled):not(.disabled):active:focus,
 .btn-secondary:not(:disabled):not(.disabled).active:focus,
 .show > .btn-secondary.dropdown-toggle:focus {
-  -webkit-box-shadow: 0 0 0 2px rgba(108, 117, 125, 0.5);
-          box-shadow: 0 0 0 2px rgba(108, 117, 125, 0.5);
+  -webkit-box-shadow: 0 0 0 1px rgba(108, 117, 125, 0.5);
+          box-shadow: 0 0 0 1px rgba(108, 117, 125, 0.5);
 }
 
 .btn-success {
@@ -8021,8 +8021,8 @@ fieldset:disabled a.btn {
 
 .btn-success:focus,
 .btn-success.focus {
-  -webkit-box-shadow: 0 0 0 2px rgba(1, 193, 45, 0.5);
-          box-shadow: 0 0 0 2px rgba(1, 193, 45, 0.5);
+  -webkit-box-shadow: 0 0 0 1px rgba(1, 193, 45, 0.5);
+          box-shadow: 0 0 0 1px rgba(1, 193, 45, 0.5);
 }
 
 .btn-success.disabled,
@@ -8043,8 +8043,8 @@ fieldset:disabled a.btn {
 .btn-success:not(:disabled):not(.disabled):active:focus,
 .btn-success:not(:disabled):not(.disabled).active:focus,
 .show > .btn-success.dropdown-toggle:focus {
-  -webkit-box-shadow: 0 0 0 2px rgba(1, 193, 45, 0.5);
-          box-shadow: 0 0 0 2px rgba(1, 193, 45, 0.5);
+  -webkit-box-shadow: 0 0 0 1px rgba(1, 193, 45, 0.5);
+          box-shadow: 0 0 0 1px rgba(1, 193, 45, 0.5);
 }
 
 .btn-info {
@@ -8061,8 +8061,8 @@ fieldset:disabled a.btn {
 
 .btn-info:focus,
 .btn-info.focus {
-  -webkit-box-shadow: 0 0 0 2px rgba(23, 162, 184, 0.5);
-          box-shadow: 0 0 0 2px rgba(23, 162, 184, 0.5);
+  -webkit-box-shadow: 0 0 0 1px rgba(23, 162, 184, 0.5);
+          box-shadow: 0 0 0 1px rgba(23, 162, 184, 0.5);
 }
 
 .btn-info.disabled,
@@ -8083,8 +8083,8 @@ fieldset:disabled a.btn {
 .btn-info:not(:disabled):not(.disabled):active:focus,
 .btn-info:not(:disabled):not(.disabled).active:focus,
 .show > .btn-info.dropdown-toggle:focus {
-  -webkit-box-shadow: 0 0 0 2px rgba(23, 162, 184, 0.5);
-          box-shadow: 0 0 0 2px rgba(23, 162, 184, 0.5);
+  -webkit-box-shadow: 0 0 0 1px rgba(23, 162, 184, 0.5);
+          box-shadow: 0 0 0 1px rgba(23, 162, 184, 0.5);
 }
 
 .btn-warning {
@@ -8101,8 +8101,8 @@ fieldset:disabled a.btn {
 
 .btn-warning:focus,
 .btn-warning.focus {
-  -webkit-box-shadow: 0 0 0 2px rgba(193, 183, 1, 0.5);
-          box-shadow: 0 0 0 2px rgba(193, 183, 1, 0.5);
+  -webkit-box-shadow: 0 0 0 1px rgba(193, 183, 1, 0.5);
+          box-shadow: 0 0 0 1px rgba(193, 183, 1, 0.5);
 }
 
 .btn-warning.disabled,
@@ -8123,8 +8123,8 @@ fieldset:disabled a.btn {
 .btn-warning:not(:disabled):not(.disabled):active:focus,
 .btn-warning:not(:disabled):not(.disabled).active:focus,
 .show > .btn-warning.dropdown-toggle:focus {
-  -webkit-box-shadow: 0 0 0 2px rgba(193, 183, 1, 0.5);
-          box-shadow: 0 0 0 2px rgba(193, 183, 1, 0.5);
+  -webkit-box-shadow: 0 0 0 1px rgba(193, 183, 1, 0.5);
+          box-shadow: 0 0 0 1px rgba(193, 183, 1, 0.5);
 }
 
 .btn-danger {
@@ -8141,8 +8141,8 @@ fieldset:disabled a.btn {
 
 .btn-danger:focus,
 .btn-danger.focus {
-  -webkit-box-shadow: 0 0 0 2px rgba(193, 29, 1, 0.5);
-          box-shadow: 0 0 0 2px rgba(193, 29, 1, 0.5);
+  -webkit-box-shadow: 0 0 0 1px rgba(193, 29, 1, 0.5);
+          box-shadow: 0 0 0 1px rgba(193, 29, 1, 0.5);
 }
 
 .btn-danger.disabled,
@@ -8163,8 +8163,8 @@ fieldset:disabled a.btn {
 .btn-danger:not(:disabled):not(.disabled):active:focus,
 .btn-danger:not(:disabled):not(.disabled).active:focus,
 .show > .btn-danger.dropdown-toggle:focus {
-  -webkit-box-shadow: 0 0 0 2px rgba(193, 29, 1, 0.5);
-          box-shadow: 0 0 0 2px rgba(193, 29, 1, 0.5);
+  -webkit-box-shadow: 0 0 0 1px rgba(193, 29, 1, 0.5);
+          box-shadow: 0 0 0 1px rgba(193, 29, 1, 0.5);
 }
 
 .btn-light {
@@ -8181,8 +8181,8 @@ fieldset:disabled a.btn {
 
 .btn-light:focus,
 .btn-light.focus {
-  -webkit-box-shadow: 0 0 0 2px rgba(248, 249, 250, 0.5);
-          box-shadow: 0 0 0 2px rgba(248, 249, 250, 0.5);
+  -webkit-box-shadow: 0 0 0 1px rgba(248, 249, 250, 0.5);
+          box-shadow: 0 0 0 1px rgba(248, 249, 250, 0.5);
 }
 
 .btn-light.disabled,
@@ -8203,8 +8203,8 @@ fieldset:disabled a.btn {
 .btn-light:not(:disabled):not(.disabled):active:focus,
 .btn-light:not(:disabled):not(.disabled).active:focus,
 .show > .btn-light.dropdown-toggle:focus {
-  -webkit-box-shadow: 0 0 0 2px rgba(248, 249, 250, 0.5);
-          box-shadow: 0 0 0 2px rgba(248, 249, 250, 0.5);
+  -webkit-box-shadow: 0 0 0 1px rgba(248, 249, 250, 0.5);
+          box-shadow: 0 0 0 1px rgba(248, 249, 250, 0.5);
 }
 
 .btn-dark {
@@ -8221,8 +8221,8 @@ fieldset:disabled a.btn {
 
 .btn-dark:focus,
 .btn-dark.focus {
-  -webkit-box-shadow: 0 0 0 2px rgba(52, 58, 64, 0.5);
-          box-shadow: 0 0 0 2px rgba(52, 58, 64, 0.5);
+  -webkit-box-shadow: 0 0 0 1px rgba(52, 58, 64, 0.5);
+          box-shadow: 0 0 0 1px rgba(52, 58, 64, 0.5);
 }
 
 .btn-dark.disabled,
@@ -8243,8 +8243,8 @@ fieldset:disabled a.btn {
 .btn-dark:not(:disabled):not(.disabled):active:focus,
 .btn-dark:not(:disabled):not(.disabled).active:focus,
 .show > .btn-dark.dropdown-toggle:focus {
-  -webkit-box-shadow: 0 0 0 2px rgba(52, 58, 64, 0.5);
-          box-shadow: 0 0 0 2px rgba(52, 58, 64, 0.5);
+  -webkit-box-shadow: 0 0 0 1px rgba(52, 58, 64, 0.5);
+          box-shadow: 0 0 0 1px rgba(52, 58, 64, 0.5);
 }
 
 .btn-outline-primary {
@@ -8262,8 +8262,8 @@ fieldset:disabled a.btn {
 
 .btn-outline-primary:focus,
 .btn-outline-primary.focus {
-  -webkit-box-shadow: 0 0 0 2px rgba(2, 153, 214, 0.5);
-          box-shadow: 0 0 0 2px rgba(2, 153, 214, 0.5);
+  -webkit-box-shadow: 0 0 0 1px rgba(2, 153, 214, 0.5);
+          box-shadow: 0 0 0 1px rgba(2, 153, 214, 0.5);
 }
 
 .btn-outline-primary.disabled,
@@ -8283,8 +8283,8 @@ fieldset:disabled a.btn {
 .btn-outline-primary:not(:disabled):not(.disabled):active:focus,
 .btn-outline-primary:not(:disabled):not(.disabled).active:focus,
 .show > .btn-outline-primary.dropdown-toggle:focus {
-  -webkit-box-shadow: 0 0 0 2px rgba(2, 153, 214, 0.5);
-          box-shadow: 0 0 0 2px rgba(2, 153, 214, 0.5);
+  -webkit-box-shadow: 0 0 0 1px rgba(2, 153, 214, 0.5);
+          box-shadow: 0 0 0 1px rgba(2, 153, 214, 0.5);
 }
 
 .btn-outline-secondary {
@@ -8302,8 +8302,8 @@ fieldset:disabled a.btn {
 
 .btn-outline-secondary:focus,
 .btn-outline-secondary.focus {
-  -webkit-box-shadow: 0 0 0 2px rgba(108, 117, 125, 0.5);
-          box-shadow: 0 0 0 2px rgba(108, 117, 125, 0.5);
+  -webkit-box-shadow: 0 0 0 1px rgba(108, 117, 125, 0.5);
+          box-shadow: 0 0 0 1px rgba(108, 117, 125, 0.5);
 }
 
 .btn-outline-secondary.disabled,
@@ -8323,8 +8323,8 @@ fieldset:disabled a.btn {
 .btn-outline-secondary:not(:disabled):not(.disabled):active:focus,
 .btn-outline-secondary:not(:disabled):not(.disabled).active:focus,
 .show > .btn-outline-secondary.dropdown-toggle:focus {
-  -webkit-box-shadow: 0 0 0 2px rgba(108, 117, 125, 0.5);
-          box-shadow: 0 0 0 2px rgba(108, 117, 125, 0.5);
+  -webkit-box-shadow: 0 0 0 1px rgba(108, 117, 125, 0.5);
+          box-shadow: 0 0 0 1px rgba(108, 117, 125, 0.5);
 }
 
 .btn-outline-success {
@@ -8342,8 +8342,8 @@ fieldset:disabled a.btn {
 
 .btn-outline-success:focus,
 .btn-outline-success.focus {
-  -webkit-box-shadow: 0 0 0 2px rgba(1, 193, 45, 0.5);
-          box-shadow: 0 0 0 2px rgba(1, 193, 45, 0.5);
+  -webkit-box-shadow: 0 0 0 1px rgba(1, 193, 45, 0.5);
+          box-shadow: 0 0 0 1px rgba(1, 193, 45, 0.5);
 }
 
 .btn-outline-success.disabled,
@@ -8363,8 +8363,8 @@ fieldset:disabled a.btn {
 .btn-outline-success:not(:disabled):not(.disabled):active:focus,
 .btn-outline-success:not(:disabled):not(.disabled).active:focus,
 .show > .btn-outline-success.dropdown-toggle:focus {
-  -webkit-box-shadow: 0 0 0 2px rgba(1, 193, 45, 0.5);
-          box-shadow: 0 0 0 2px rgba(1, 193, 45, 0.5);
+  -webkit-box-shadow: 0 0 0 1px rgba(1, 193, 45, 0.5);
+          box-shadow: 0 0 0 1px rgba(1, 193, 45, 0.5);
 }
 
 .btn-outline-info {
@@ -8382,8 +8382,8 @@ fieldset:disabled a.btn {
 
 .btn-outline-info:focus,
 .btn-outline-info.focus {
-  -webkit-box-shadow: 0 0 0 2px rgba(23, 162, 184, 0.5);
-          box-shadow: 0 0 0 2px rgba(23, 162, 184, 0.5);
+  -webkit-box-shadow: 0 0 0 1px rgba(23, 162, 184, 0.5);
+          box-shadow: 0 0 0 1px rgba(23, 162, 184, 0.5);
 }
 
 .btn-outline-info.disabled,
@@ -8403,8 +8403,8 @@ fieldset:disabled a.btn {
 .btn-outline-info:not(:disabled):not(.disabled):active:focus,
 .btn-outline-info:not(:disabled):not(.disabled).active:focus,
 .show > .btn-outline-info.dropdown-toggle:focus {
-  -webkit-box-shadow: 0 0 0 2px rgba(23, 162, 184, 0.5);
-          box-shadow: 0 0 0 2px rgba(23, 162, 184, 0.5);
+  -webkit-box-shadow: 0 0 0 1px rgba(23, 162, 184, 0.5);
+          box-shadow: 0 0 0 1px rgba(23, 162, 184, 0.5);
 }
 
 .btn-outline-warning {
@@ -8422,8 +8422,8 @@ fieldset:disabled a.btn {
 
 .btn-outline-warning:focus,
 .btn-outline-warning.focus {
-  -webkit-box-shadow: 0 0 0 2px rgba(193, 183, 1, 0.5);
-          box-shadow: 0 0 0 2px rgba(193, 183, 1, 0.5);
+  -webkit-box-shadow: 0 0 0 1px rgba(193, 183, 1, 0.5);
+          box-shadow: 0 0 0 1px rgba(193, 183, 1, 0.5);
 }
 
 .btn-outline-warning.disabled,
@@ -8443,8 +8443,8 @@ fieldset:disabled a.btn {
 .btn-outline-warning:not(:disabled):not(.disabled):active:focus,
 .btn-outline-warning:not(:disabled):not(.disabled).active:focus,
 .show > .btn-outline-warning.dropdown-toggle:focus {
-  -webkit-box-shadow: 0 0 0 2px rgba(193, 183, 1, 0.5);
-          box-shadow: 0 0 0 2px rgba(193, 183, 1, 0.5);
+  -webkit-box-shadow: 0 0 0 1px rgba(193, 183, 1, 0.5);
+          box-shadow: 0 0 0 1px rgba(193, 183, 1, 0.5);
 }
 
 .btn-outline-danger {
@@ -8462,8 +8462,8 @@ fieldset:disabled a.btn {
 
 .btn-outline-danger:focus,
 .btn-outline-danger.focus {
-  -webkit-box-shadow: 0 0 0 2px rgba(193, 29, 1, 0.5);
-          box-shadow: 0 0 0 2px rgba(193, 29, 1, 0.5);
+  -webkit-box-shadow: 0 0 0 1px rgba(193, 29, 1, 0.5);
+          box-shadow: 0 0 0 1px rgba(193, 29, 1, 0.5);
 }
 
 .btn-outline-danger.disabled,
@@ -8483,8 +8483,8 @@ fieldset:disabled a.btn {
 .btn-outline-danger:not(:disabled):not(.disabled):active:focus,
 .btn-outline-danger:not(:disabled):not(.disabled).active:focus,
 .show > .btn-outline-danger.dropdown-toggle:focus {
-  -webkit-box-shadow: 0 0 0 2px rgba(193, 29, 1, 0.5);
-          box-shadow: 0 0 0 2px rgba(193, 29, 1, 0.5);
+  -webkit-box-shadow: 0 0 0 1px rgba(193, 29, 1, 0.5);
+          box-shadow: 0 0 0 1px rgba(193, 29, 1, 0.5);
 }
 
 .btn-outline-light {
@@ -8502,8 +8502,8 @@ fieldset:disabled a.btn {
 
 .btn-outline-light:focus,
 .btn-outline-light.focus {
-  -webkit-box-shadow: 0 0 0 2px rgba(248, 249, 250, 0.5);
-          box-shadow: 0 0 0 2px rgba(248, 249, 250, 0.5);
+  -webkit-box-shadow: 0 0 0 1px rgba(248, 249, 250, 0.5);
+          box-shadow: 0 0 0 1px rgba(248, 249, 250, 0.5);
 }
 
 .btn-outline-light.disabled,
@@ -8523,8 +8523,8 @@ fieldset:disabled a.btn {
 .btn-outline-light:not(:disabled):not(.disabled):active:focus,
 .btn-outline-light:not(:disabled):not(.disabled).active:focus,
 .show > .btn-outline-light.dropdown-toggle:focus {
-  -webkit-box-shadow: 0 0 0 2px rgba(248, 249, 250, 0.5);
-          box-shadow: 0 0 0 2px rgba(248, 249, 250, 0.5);
+  -webkit-box-shadow: 0 0 0 1px rgba(248, 249, 250, 0.5);
+          box-shadow: 0 0 0 1px rgba(248, 249, 250, 0.5);
 }
 
 .btn-outline-dark {
@@ -8542,8 +8542,8 @@ fieldset:disabled a.btn {
 
 .btn-outline-dark:focus,
 .btn-outline-dark.focus {
-  -webkit-box-shadow: 0 0 0 2px rgba(52, 58, 64, 0.5);
-          box-shadow: 0 0 0 2px rgba(52, 58, 64, 0.5);
+  -webkit-box-shadow: 0 0 0 1px rgba(52, 58, 64, 0.5);
+          box-shadow: 0 0 0 1px rgba(52, 58, 64, 0.5);
 }
 
 .btn-outline-dark.disabled,
@@ -8563,8 +8563,8 @@ fieldset:disabled a.btn {
 .btn-outline-dark:not(:disabled):not(.disabled):active:focus,
 .btn-outline-dark:not(:disabled):not(.disabled).active:focus,
 .show > .btn-outline-dark.dropdown-toggle:focus {
-  -webkit-box-shadow: 0 0 0 2px rgba(52, 58, 64, 0.5);
-          box-shadow: 0 0 0 2px rgba(52, 58, 64, 0.5);
+  -webkit-box-shadow: 0 0 0 1px rgba(52, 58, 64, 0.5);
+          box-shadow: 0 0 0 1px rgba(52, 58, 64, 0.5);
 }
 
 .btn-link {
@@ -9227,8 +9227,8 @@ input[type="button"].btn-block {
 }
 
 .custom-control-input:focus ~ .custom-control-label::before {
-  -webkit-box-shadow: 0 0 0 1px #ffffff, 0px 0px 3px rgba(0, 0, 0, 0.5) !important;
-          box-shadow: 0 0 0 1px #ffffff, 0px 0px 3px rgba(0, 0, 0, 0.5) !important;
+  -webkit-box-shadow: 0 0 0 1px #ffffff, 0 0 0 1px rgba(2, 153, 214, 0.25);
+          box-shadow: 0 0 0 1px #ffffff, 0 0 0 1px rgba(2, 153, 214, 0.25);
 }
 
 .custom-control-input:active ~ .custom-control-label::before {
@@ -9342,8 +9342,8 @@ input[type="button"].btn-block {
 .custom-select:focus {
   border-color: #5acefd;
   outline: 0;
-  -webkit-box-shadow: 0 0 0 2px rgba(90, 206, 253, 0.5);
-          box-shadow: 0 0 0 2px rgba(90, 206, 253, 0.5);
+  -webkit-box-shadow: 0 0 0 1px rgba(90, 206, 253, 0.5);
+          box-shadow: 0 0 0 1px rgba(90, 206, 253, 0.5);
 }
 
 .custom-select:focus::-ms-value {
@@ -9400,8 +9400,8 @@ input[type="button"].btn-block {
 
 .custom-file-input:focus ~ .custom-file-label {
   border-color: #5acefd;
-  -webkit-box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.5) !important;
-          box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.5) !important;
+  -webkit-box-shadow: 0 0 0 1px rgba(2, 153, 214, 0.25);
+          box-shadow: 0 0 0 1px rgba(2, 153, 214, 0.25);
 }
 
 .custom-file-input:focus ~ .custom-file-label::after {
@@ -9462,16 +9462,16 @@ input[type="button"].btn-block {
 }
 
 .custom-range:focus::-webkit-slider-thumb {
-  -webkit-box-shadow: 0 0 0 1px #ffffff, 0px 0px 3px rgba(0, 0, 0, 0.5) !important;
-          box-shadow: 0 0 0 1px #ffffff, 0px 0px 3px rgba(0, 0, 0, 0.5) !important;
+  -webkit-box-shadow: 0 0 0 1px #ffffff, 0 0 0 1px rgba(2, 153, 214, 0.25);
+          box-shadow: 0 0 0 1px #ffffff, 0 0 0 1px rgba(2, 153, 214, 0.25);
 }
 
 .custom-range:focus::-moz-range-thumb {
-  box-shadow: 0 0 0 1px #ffffff, 0px 0px 3px rgba(0, 0, 0, 0.5) !important;
+  box-shadow: 0 0 0 1px #ffffff, 0 0 0 1px rgba(2, 153, 214, 0.25);
 }
 
 .custom-range:focus::-ms-thumb {
-  box-shadow: 0 0 0 1px #ffffff, 0px 0px 3px rgba(0, 0, 0, 0.5) !important;
+  box-shadow: 0 0 0 1px #ffffff, 0 0 0 1px rgba(2, 153, 214, 0.25);
 }
 
 .custom-range::-moz-focus-outer {
@@ -9553,8 +9553,8 @@ input[type="button"].btn-block {
   width: 1rem;
   height: 1rem;
   margin-top: 0;
-  margin-right: 2px;
-  margin-left: 2px;
+  margin-right: 1px;
+  margin-left: 1px;
   background-color: #0299d6;
   border: 0;
   border-radius: 1rem;
@@ -10557,8 +10557,8 @@ input[type="button"].btn-block {
 .page-link:focus {
   z-index: 2;
   outline: 0;
-  -webkit-box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.5) !important;
-          box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.5) !important;
+  -webkit-box-shadow: 0 0 0 1px rgba(2, 153, 214, 0.25);
+          box-shadow: 0 0 0 1px rgba(2, 153, 214, 0.25);
 }
 
 .page-link:not(:disabled):not(.disabled) {
@@ -15693,8 +15693,12 @@ h6 {
   color: #155ebf;
 }
 
-.font-weight-semi-bold {
-  font-weight: 500;
+.font-weight-500 {
+  font-weight: 500 !important;
+}
+
+.font-weight-600 {
+  font-weight: 600 !important;
 }
 
 .text-indent {
@@ -15726,6 +15730,11 @@ h6 {
 .wrapper #content {
   width: 100%;
   min-height: 100vh;
+}
+
+.strong {
+  font-size: 1.5rem;
+  font-weight: bold;
 }
 
 .carousel-indicators li {
@@ -15809,8 +15818,16 @@ h6 {
 }
 
 .card {
-  -webkit-box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.3);
-  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.2);
+}
+
+.card.bg-light .card-header,
+.card.bg-light .card-body,
+.card.bg-light .card-footer,
+.card.bg-light .list-group,
+.card.bg-light .list-group-item {
+  background-color: #f8f9fa;
 }
 
 .card .card-header,
@@ -15892,6 +15909,21 @@ h6 {
 
 .text-twitter:hover {
   color: #1DA1F2;
+}
+
+#pills-schedule .table thead th {
+  letter-spacing: 0px;
+  font-size: 15px;
+}
+
+#pills-schedule .table {
+  color: #4C5867;
+  font-size: 13px;
+}
+
+#pills-schedule .table th {
+  text-transform: none;
+  letter-spacing: .5px;
 }
 
 .table th {
