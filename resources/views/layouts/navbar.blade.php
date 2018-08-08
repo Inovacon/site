@@ -7,31 +7,31 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item mx-xl-2 {{ request()->is('/') ? 'active' : '' }}">
+        <li class="nav-item mx-xl-1 {{ request()->is('/') ? 'active' : '' }}">
           <a class="nav-link" href="/">
             <i class="fas fa-home fa-lg fa-fw"></i> &nbsp;INÍCIO
           </a>
         </li>
 
-        <li class="nav-item mx-xl-2 {{ request()->is('cursos') ? 'active' : '' }}">
+        <li class="nav-item mx-xl-1 {{ request()->is('cursos') ? 'active' : '' }}">
           <a class="nav-link" href="/cursos">
             <i class="fas fa-graduation-cap fa-lg fa-fw"></i> &nbsp;CURSOS
           </a>
         </li>
 
-        <li class="nav-item mx-xl-2 {{ request()->is('eventos') ? 'active' : '' }}">
+        <li class="nav-item mx-xl-1 {{ request()->is('eventos') ? 'active' : '' }}">
           <a class="nav-link" href="/eventos">
             <i class="fas fa-calendar-alt fa-lg fa-fw"></i> &nbsp;EVENTOS
           </a>
         </li>
         
-        <li class="nav-item mx-xl-2 {{ request()->is('noticias') ? 'active' : '' }}">
+        <li class="nav-item mx-xl-1 {{ request()->is('noticias') ? 'active' : '' }}">
           <a class="nav-link" href="/noticias">
             <i class="fas fa-newspaper fa-lg fa-fw"></i> &nbsp;NOTÍCIAS
           </a>
         </li>
 
-        <li class="nav-item mx-xl-2">
+        <li class="nav-item mx-xl-1">
           <a class="nav-link" href="http://cnecsan.cnec.br/servicos-a-comunidade/" target="_blank">
             <i class="fas fa-briefcase fa-lg fa-fw"></i> &nbsp;PORTAL DO TRABALHO
           </a>
@@ -41,9 +41,15 @@
       <hr class="d-md-none d-sm-block">
       
       <ul class="navbar-nav ml-auto">
-        <li class="nav-item mx-xl-2">
-          <a href="#" class="nav-link font-weight-bold" data-toggle="modal" data-target="#loginModal">
-            <i class="fas fa-sign-in-alt fa-lg fa-fw"></i> &nbsp;ENTRAR
+        <li class="nav-item mx-xl-1">
+          <a href="#" class="nav-link font-weight-600" data-toggle="modal" data-target="#loginModal">
+            <i class="fas fa-sign-in-alt fa-lg fa-fw pr-1"></i> <span class="d-xl-inline d-lg-none">ENTRAR</span>
+          </a>
+        </li>
+
+        <li class="nav-item mx-xl-1">
+          <a href="#" class="nav-link font-weight-600">
+            <i class="fas fa-id-card fa-lg fa-fw pr-1"></i> <span class="d-xl-inline d-lg-none">CADASTRAR-SE</span>
           </a>
         </li>
       </ul>

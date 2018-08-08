@@ -22,7 +22,7 @@
                 
                 <div class="hidden-overlay">
                   <div class="overlay-content">
-                    <p class="font-weight-semi-bold text-center">
+                    <p class="font-weight-600 text-center">
                       <i class="fas fa-hand-pointer fa-lg mx-2"></i>VER EVENTO
                     </p>
                   </div>
@@ -40,7 +40,7 @@
             </div>
             
             <div class="card-footer p-0">
-              <a href="{{ url('events/show') }}" class="link p-2 text-center d-block">
+              <a href="{{ url('eventos/show') }}" class="link p-2 text-center d-block">
                 <i class="fas fa-plus-circle mr-2"></i><span class="font-weight-bold">INSCREVA-SE</span>
               </a>
             </div>

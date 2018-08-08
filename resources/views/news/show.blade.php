@@ -66,8 +66,8 @@
                         <img class="img-fluid" src="http://via.placeholder.com/250x145" alt="">
                       </div>
 
-                      <div class="col d-flex flex-column justify-content-between pl-2">
-                        <span class="font-weight-semi-bold small text-secondary text-uppercase">
+                      <div class="col d-flex flex-column justify-content-around pl-2">
+                        <span class="font-weight-bold small text-secondary text-uppercase">
                           {{ str_limit($faker->sentence(rand(3, 5), true), 45) }}
                         </span>
                         
@@ -83,42 +83,6 @@
           </div>
         </div>
       </div>
-
-      <div class="mt-4 col-sm-8">
-        <div class="card">
-          <div class="card-header">
-            <h5 class="font-weight-bold text-primary">
-              <i class="fas fa-comments mr-1"></i>COMENTÁRIOS
-            </h5>
-          </div>
-        
-          @for($i = 0; $i < 6; $i++)
-            <div class="card-body news-comment">
-              <p class="text-dark">
-                <i class="fas fa-user-circle mr-1"></i>{{ $faker->name }} &bull; <span class="text-muted small">(há 20 min)</span>
-              </p>
-
-              <p class="text-secondary">{{ $faker->sentence(rand(20, 40), true) }}</p>
-              
-              <hr class="my-0">
-            </div>
-
-          @endfor
-
-          <div class="card-body">
-            <form action="comentarios" method="POST">
-              <div class="form-group">
-                <textarea placeholder="Seu comentário aqui..." class="form-control" name="comment" id="comment" rows="4"></textarea>
-              </div>
-
-              <div class="form-group">
-                <button type="submit" class="btn btn-success">Comentar</button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-
 
     </div>
   </div>

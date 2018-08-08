@@ -30,7 +30,7 @@
                 </div>
 
                 <div class="card-body pt-0">
-                  <p class="small text-primary font-weight-semi-bold">
+                  <p class="small text-primary font-weight-500">
                     {{ rand(0, 31) }} Junho de 2018
                   </p>
                   <p class="small text-muted my-0">{{ $faker->sentence(rand(3, 6), true) }}</p>
