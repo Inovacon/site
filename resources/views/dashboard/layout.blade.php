@@ -26,7 +26,7 @@
             </div>
         </div>
 
-        <flash type="{{ session('type') }}" message="{{ session('flash') }}"></flash>
+        <flash type="{{ session('type') ?: 'success' }}" message="{{ session('flash') }}"></flash>
     </div>
 
     <script src="{{ mix('/js/app.js') }}"></script>

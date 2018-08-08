@@ -18,9 +18,9 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
-            $table->string('cpf_cnpj', 14)->unique();
-            $table->char('gender', 1);
-            $table->date('birth_date');
+            $table->string('cpf_cnpj', 14)->unique()->nullable();
+            $table->char('gender', 1)->nullable();
+            $table->date('birth_date')->nullable();
             $table->boolean('is_collaborator')->default(false);
             $table->rememberToken();
             $table->timestamps();

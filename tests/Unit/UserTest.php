@@ -4,6 +4,8 @@ namespace Tests\Unit;
 
 use App\Role;
 use App\User;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -78,5 +80,53 @@ class UserTest extends TestCase
         $user->attachRole('admin');
 
         $this->assertTrue($user->isAdmin());
+    }
+
+    /** @test */
+    function it_can_create_a_collaborator()
+    {
+        $data = raw(User::class);
+        unset($data['is_collaborator']);
+
+        $user = User::createCollaborator($data);
+
+        $this->assertTrue($user->isCollaborator());
+        $this->assertDatabaseHas(
+            $user->getTable(),
+            ['id' => $user->id, 'is_collaborator' => true]
+        );
+    }
+
+    /** @test */
+    function it_makes_the_password_hash_when_the_password_is_set()
+    {
+        $password = '123456';
+
+        $user = make(User::class, ['password' => $password]);
+
+        $this->assertNotSame($password, $user->password);
+        $this->assertTrue(Hash::check($password, $user->password));
+    }
+
+    /** @test */
+    function it_do_not_stores_the_password_in_clear_text()
+    {
+        $user = create(User::class, ['password' => '123456']);
+
+        $this->assertDatabaseMissing($user->getTable(), ['password' => '123456']);
+    }
+
+    /** @test */
+    function it_can_fetch_only_collaborators()
+    {
+        $this->assertInstanceOf(Builder::class, User::collaborator());
+
+        create(User::class, ['is_collaborator' => false]);
+
+        $this->assertCount(0, User::collaborator()->get());
+
+        create(User::class, ['is_collaborator' => true]);
+
+        $this->assertCount(1, User::collaborator()->get());
     }
 }

@@ -69,10 +69,10 @@ class ManageCoursesTest extends TestCase
         $this->post(route('dashboard.courses.store'))
              ->assertRedirect(route('login'));
 
-        $this->get(route('dashboard.courses.edit', 99))
+        $this->get(route('dashboard.courses.edit', $c = create(Course::class)))
             ->assertRedirect(route('login'));
 
-        $this->patch(route('dashboard.courses.update', 99))
+        $this->patch(route('dashboard.courses.update', $c))
             ->assertRedirect(route('login'));
     }
 

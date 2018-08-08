@@ -56,7 +56,7 @@ class ReadCoursesTest extends TestCase
         $this->get(route('dashboard.courses.index'))
             ->assertRedirect(route('login'));
 
-        $this->get(route('dashboard.courses.show', 99))
+        $this->get(route('dashboard.courses.show', create(Course::class)))
             ->assertRedirect(route('login'));
     }
 }

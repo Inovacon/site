@@ -9,6 +9,14 @@
 
     <div class="row mt-3">
         <div class="col-md-12">
+            @if ($errors->any())
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            @endif
+
             <div class="card mb-5 px-sm-4 pb-sm-2">
                 <div class="card-body">
                     <form method="POST" action="{{ route('dashboard.collaborators.store') }}">

@@ -39,10 +39,10 @@ class CourseActivationTest extends TestCase
     /** @test */
     function a_guest_cannot_hit_the_activation_endpoints()
     {
-        $this->post(route('dashboard.courses.activation', 99))
+        $this->post(route('dashboard.courses.activation', $c = create(Course::class)))
              ->assertRedirect(route('login'));
 
-        $this->delete(route('dashboard.courses.activation', 99))
+        $this->delete(route('dashboard.courses.activation', $c))
             ->assertRedirect(route('login'));
     }
 

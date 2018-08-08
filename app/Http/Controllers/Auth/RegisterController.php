@@ -79,7 +79,7 @@ class RegisterController extends Controller
             'cpf_cnpj' => $data['cpf'] ?? $data['cnpj'],
             'birth_date' => $data['birth_date'],
             'gender' => $data['gender'],
-            'password' => Hash::make($data['password']),
+            'password' => $data['password'],
         ]);
     }
 }

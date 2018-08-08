@@ -37,11 +37,6 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
 
-        'collab' => [
-            \Illuminate\Auth\Middleware\Authenticate::class,
-            \App\Http\Middleware\MustBeCollaborator::class,
-        ],
-
         'api' => [
             'throttle:60,1',
             'bindings',
@@ -64,5 +59,6 @@ class Kernel extends HttpKernel
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        'collab' => \App\Http\Middleware\MustBeCollaborator::class,
     ];
 }

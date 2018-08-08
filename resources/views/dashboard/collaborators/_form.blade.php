@@ -31,53 +31,6 @@
 </div>
 
 <div class="row border-bottom py-4">
-    <label class="col-md-3 col-form-label font-weight-semi-bold text-gray-dark" for="cpf">
-        CPF
-    </label>
-
-    <div class="col-md-6">
-        <input type="text"
-               class="form-control"
-               id="cpf"
-               name="cpf"
-               value="{{ old('cpf', $collaborator->cpf_cnpj) }}"
-               required>
-    </div>
-</div>
-
-<div class="row align-items-center border-bottom py-4">
-    <label class="col-md-3 col-form-label font-weight-semi-bold text-gray-dark" for="gender">
-        Gênero
-    </label>
-
-    <div class="col-md-6">
-        <div class="custom-control custom-radio custom-control-inline">
-            <input type="radio" id="masculino" name="gender" value="M" class="custom-control-input" checked>
-            <label class="custom-control-label" for="masculino">Masculino</label>
-        </div>
-        <div class="custom-control custom-radio custom-control-inline">
-            <input type="radio" id="feminino" name="gender" value="F" class="custom-control-input">
-            <label class="custom-control-label" for="feminino">Feminino</label>
-        </div>
-    </div>
-</div>
-
-<div class="row border-bottom py-4">
-    <label class="col-md-3 col-form-label font-weight-semi-bold text-gray-dark" for="birth_date">
-        Data de Nascimento
-    </label>
-
-    <div class="col-md-6">
-        <input type="date"
-               class="form-control"
-               id="birth_date"
-               name="birth_date"
-               value="{{ old('birth_date', $collaborator->birth_date) }}"
-               required>
-    </div>
-</div>
-
-<div class="row border-bottom py-4">
     <label class="col-md-3 col-form-label font-weight-semi-bold text-gray-dark" for="password">
         Senha
     </label>
