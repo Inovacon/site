@@ -38,23 +38,26 @@
         </li>
       </ul>
     
-      <hr class="d-md-none d-sm-block">
-      
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item mx-xl-1">
-          <a href="#" class="nav-link font-weight-600" data-toggle="modal" data-target="#loginModal">
-            <i class="fas fa-sign-in-alt fa-lg fa-fw pr-1"></i> <span class="d-xl-inline d-lg-none">ENTRAR</span>
-          </a>
-        </li>
+      @if(! request()->is('register') || request()->is('login'))
+        <hr class="d-md-none d-sm-block">
 
-        <li class="nav-item mx-xl-1">
-          <a href="#" class="nav-link font-weight-600">
-            <i class="fas fa-id-card fa-lg fa-fw pr-1"></i> <span class="d-xl-inline d-lg-none">CADASTRAR-SE</span>
-          </a>
-        </li>
-      </ul>
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item mx-xl-1">
+            <a href="#" class="nav-link font-weight-600" data-toggle="modal" data-target="#loginModal">
+              <i class="fas fa-sign-in-alt fa-lg fa-fw pr-1"></i> <span class="d-xl-inline d-lg-none">ENTRAR</span>
+            </a>
+          </li>
+          <li class="nav-item mx-xl-1">
+            <a href="#" class="nav-link font-weight-600" data-toggle="modal" data-target="#registerModal">
+              <i class="fas fa-id-card fa-lg fa-fw pr-1"></i> <span class="d-xl-inline d-lg-none">CADASTRAR-SE</span>
+            </a>
+          </li>
+        </ul>
+      @endif
+     
     </div>
   </div>
 </nav>
 
 @include('layouts.login-modal')
+@include('layouts.register-modal')
