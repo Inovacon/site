@@ -4,12 +4,11 @@
 
 @section('content')
   <div class="container">
-    <div>
-      <h4 class="mb-0 font-weight-bold text-dark">
-        <i class="fas fa-newspaper fa-lg fa-fw mr-1"></i>ÚLTIMAS NOTÍCIAS
-      </h4>
-      <hr class="border-primary border-2">
-    </div>
+    <h4 class="mb-0 font-weight-bold text-dark">
+      <i class="fas fa-newspaper fa-lg fa-fw mr-1"></i>ÚLTIMAS NOTÍCIAS
+    </h4>
+    
+    <hr class="border-primary border-2">
 
     <div class="row">
       @for($i = 0; $i < 8; $i++)
@@ -42,7 +41,6 @@
                 <i class="fab fa-twitter text-twitter mx-1"></i>
                 <i class="fab fa-google-plus-g text-google"></i>
               </div>
-
             </div>
           </div>
         </div>

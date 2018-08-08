@@ -3,10 +3,24 @@
 @section('title', 'Cursos - Inovacon')
 
 @section('content')
+  @php
+    function getRandomIcon() {
+      $icons = [
+        'fas fa-balance-scale',
+        'fas fa-calculator',
+        'fas fa-dna',
+        'fas fa-user-tie'
+      ];
+
+      return $icons[rand(0, 3)];
+    }
+  @endphp
+
   <div class="container">
     <h4 class="mb-0 font-weight-bold text-dark">
       <i class="fas fa-graduation-cap fa-lg fa-fw mr-1"></i>CURSOS
     </h4>
+
     <hr class="border-primary border-2">
 
     <div class="row">
@@ -18,22 +32,34 @@
           
           <ul class="list-group list-group-flush">
             <a class="list-group-item list-unstyled d-flex justify-content-between" href="#">
-              <li class="text-capitalize"><i class="fas fa-user-tie fa-fw mr-1"></i>Administração</li>
+              <li class="text-capitalize">
+                <i class="fas fa-user-tie fa-fw mr-1"></i>Administração
+              </li>
+
               <span class="badge badge-pill badge-primary align-self-center">14</span>
             </a>
 
             <a class="list-group-item list-unstyled d-flex justify-content-between" href="#">
-              <li class="text-capitalize"><i class="fas fa-dna fa-fw mr-1"></i>Biomedicina</li>
+              <li class="text-capitalize">
+                <i class="fas fa-dna fa-fw mr-1"></i>Biomedicina
+              </li>
+
               <span class="badge badge-pill badge-primary align-self-center">4</span>
             </a>
 
             <a class="list-group-item list-unstyled d-flex justify-content-between" href="#">
-              <li class="text-capitalize"><i class="fas fa-calculator fa-fw mr-1"></i>Contábeis</li>
+              <li class="text-capitalize">
+                <i class="fas fa-calculator fa-fw mr-1"></i>Contábeis
+              </li>
+
               <span class="badge badge-pill badge-primary align-self-center">8</span>
             </a>
 
             <a class="list-group-item list-unstyled d-flex justify-content-between" href="#">
-              <li class="text-capitalize"><i class="fas fa-balance-scale fa-fw mr-1"></i>Direito</li>
+              <li class="text-capitalize">
+                <i class="fas fa-balance-scale fa-fw mr-1"></i>Direito
+              </li>
+
               <span class="badge badge-pill badge-primary align-self-center">3</span>
             </a>
           </ul>
@@ -42,76 +68,60 @@
 
       <div id="courses" class="col-md-9">
         <div class="row">
-            @php
-              function getRandomIcon() {
-                $icons = [
-                  'fas fa-balance-scale',
-                  'fas fa-calculator',
-                  'fas fa-dna',
-                  'fas fa-user-tie'
-                ];
-
-                return $icons[rand(0, 3)];
-              }
-            @endphp
-
-            @for($i = 0; $i < 9; $i++)
-              <div class="col-lg-4 col-sm-6 mb-3">
-                <div class="card">
-                  <img class="card-img-top" src="http://via.placeholder.com/250x145" alt="">
-                  
-                  <div class="card-img-overlay p-0">
-                   <i class="text-primary p-2 {!! getRandomIcon() !!}"></i>
-                    
-                   <div class="hidden-overlay">
-                     <div class="overlay-content">
-                       <p class="font-weight-600 text-center">
-                        <i class="fas fa-hand-pointer fa-lg mx-2"></i>VER CURSO
-                        </p>
-                     </div>
-
-                     <a href="{{ url('cursos/show') }}"></a>
-                   </div>
-                  </div>
-
-                  <div class="card-header">
-                    <div class="d-flex justify-content-between">
-                      <div class="mb-0 text-primary text-uppercase font-weight-bold">
-                        {{ $faker->words(rand(1, 5), true) }}
-                      </div>
-                      
-                    </div>
-
-                    <div class="d-flex justify-content-between">
-                      <span class="small text-muted text-uppercase">PRESENCIAL</span>
-                    </div>
-                  </div>
-
-
-                  <div class="card-body">
-                    <p class="small text-justify text-secondary">{{ $faker->sentence(rand(5, 19), true) }}</p>
-                  </div>
+          @for($i = 0; $i < 9; $i++)
+            <div class="col-lg-4 col-sm-6 mb-3">
+              <div class="card">
+                <img class="card-img-top" src="http://via.placeholder.com/250x145" alt="">
                 
-                  <div class="card-body info">
-                    <div class="d-flex justify-content-between text-dark ">
-                      <div class="font-weight-500">
-                        <i class="fas fa-clock mr-1"></i>MANHÃ
-                      </div>
-
-                      <div class="font-weight-500">
-                        <strong>R$</strong>45,00
-                      </div>
+                <div class="card-img-overlay p-0">
+                  <i class="text-primary p-2 {!! getRandomIcon() !!}"></i>
+                  
+                  <div class="hidden-overlay">
+                    <div class="overlay-content">
+                      <p class="font-weight-600 text-center">
+                        <i class="fas fa-hand-pointer fa-lg mx-2"></i>VER CURSO
+                      </p>
                     </div>
-                  </div>
-
-                  <div class="card-footer p-0">
-                    <a href="{{ url('cursos/show') }}" class="link p-2 text-center d-block text-uppercase">
-                      <i class="fas fa-plus-circle mr-2"></i><span class="font-weight-bold">Matricule-se</span>
-                    </a>
+                    <a href="{{ url('cursos/show') }}"></a>
                   </div>
                 </div>
+
+                <div class="card-header">
+                  <div class="d-flex justify-content-between">
+                    <div class="mb-0 text-primary text-uppercase font-weight-bold">
+                      {{ $faker->words(rand(1, 5), true) }}
+                    </div>
+                  </div>
+
+                  <div class="d-flex justify-content-between">
+                    <span class="small text-muted text-uppercase">PRESENCIAL</span>
+                  </div>
+                </div>
+
+                <div class="card-body">
+                  <p class="small text-justify text-secondary">{{ $faker->sentence(rand(5, 19), true) }}</p>
+                </div>
+                
+                <div class="card-body info">
+                  <div class="d-flex justify-content-between text-dark ">
+                    <div class="font-weight-600">
+                      <i class="fas fa-clock mr-1"></i>MANHÃ
+                    </div>
+
+                    <div class="font-weight-600">
+                      <strong>R$</strong>45,00
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card-footer p-0">
+                  <a href="{{ url('cursos/show') }}" class="link p-2 text-center d-block text-uppercase">
+                    <i class="fas fa-plus-circle mr-2"></i><span class="font-weight-bold">Matricule-se</span>
+                  </a>
+                </div>
               </div>
-            @endfor
+            </div>
+          @endfor
         </div>
       </div>
     </div>
