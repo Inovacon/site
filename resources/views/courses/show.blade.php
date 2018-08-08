@@ -17,15 +17,18 @@
               <hr class="border-primary border-2 my-0">
             </div>
             
-            <div class="card-body text-gray-dark no-gutters">
-              <div class="">
+            <div class="card-body no-gutters">
+              <div>
                 <div class="col-sm-4 float-left" style="z-index: 1;">
                   <img class="mr-lg-3 img-thumbnail" src="http://via.placeholder.com/250x145"/>
                   <p class="small text-center text-primary my-0">Administração | PRESENCIAL</p>
+                  <div class="text-center text-primary border-bottom border-primary" style="border-width: 2px !important;"> 
+                    <span class="strong">R$20</span>,00
+                  </div>
                 </div>
 
                 <div class="col">
-                  <div class="text-indent text-justify">
+                  <div class="text-indent text-justify info" style="font-size: .9rem;">
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima at officia, perferendis optio velit quaerat blanditiis non, inventore quae? Et officiis assumenda veniam! Minus modi expedita exercitationem vel illum numquam incidunt dolor. Exercitationem unde autem harum repellendus laboriosam numquam aperiam, ullam quas provident alias obcaecati, delectus cum consequuntur saepe facere natus tempore deserunt quam voluptatum officia esse voluptate. Dolorum ut sed iure repellendus doloremque ipsam distinctio, hic possimus labore illo numquam voluptas in libero blanditiis placeat asperiores sapiente eveniet consequatur fugit quia aut error? Commodi porro adipisci, asperiores provident facere, omnis tempora accusamus dolorem, explicabo nemo nesciunt, nobis suscipit quos.
                   </div>
                 </div>
@@ -33,8 +36,9 @@
 
             </div>
             
+            <div class="my-3"></div>
+
             <div class="card-body">
-              <hr>
               <ul class="nav nav-pills nav-justified mb-3" id="pills-tab" role="tablist">
                 <li class="nav-item">
                   <a class="nav-link active" id="pills-info-content-tab" data-toggle="pill" href="#pills-info-content" role="tab" aria-controls="pills-info-content" aria-selected="true"><i class="fas fa-info-circle"></i>&nbsp;&nbsp;Informações</a>
@@ -53,35 +57,35 @@
                 <div class="tab-pane fade  show active" id="pills-info-content" role="tabpanel" aria-labelledby="pills-programmatic-content-tab">
                   <ul class="list-group list-group-flush">
                     <li class="list-group-item">
-                      <span class="font-weight-semi-bold">
-                        <i class="fas fa-clock fa-fw text-primary mr-1"></i>Turno:
+                      <span class="font-weight-600">
+                        <i class="fas fa-clock fa-fw text-primary pr-2"></i>Turno:
                       </span>
                       <span>Manhã</span>
                     </li>
 
                     <li class="list-group-item">
-                      <span class="font-weight-semi-bold">
+                      <span class="font-weight-600">
                         <i class="fas fa-user-clock fa-fw text-primary mr-1"></i>Carga Horária:
                       </span>
                       <span>20h</span>
                     </li>
 
                     <li class="list-group-item">
-                      <span class="font-weight-semi-bold">
+                      <span class="font-weight-600">
                         <i class="fas fa-calendar-alt fa-fw text-primary mr-1"></i>Duração:
                       </span>
-                      <span>De <span class="font-weight-semi-bold">20/05/2018</span> até <span class="font-weight-semi-bold">15/06/2018</span></span>
+                      <span>De <span class="font-weight-600">20/05/2018</span> até <span class="font-weight-600">15/06/2018</span></span>
                     </li>
 
                     <li class="list-group-item">
-                      <span class="font-weight-semi-bold">
+                      <span class="font-weight-600">
                         <i class="fas fa-graduation-cap fa-fw text-primary mr-1"></i>Tipo de curso:
                       </span>
                       <span>Curta duração</span> 
                     </li>
 
                     <li class="list-group-item">
-                      <span class="font-weight-semi-bold">
+                      <span class="font-weight-600">
                         <i class="fas fa-users fa-fw text-primary mr-1"></i>Público alvo:
                       </span>
                       <span>Estudantes</span>
@@ -91,30 +95,32 @@
                 </div>
 
                 <div class="tab-pane fade" id="pills-programmatic-content" role="tabpanel" aria-labelledby="pills-programmatic-content-tab">
-                  <ul class="list-group list-group-flush font-weight-semi-bold">
+                  <ul class="list-group list-group-flush font-weight-600">
                     @for($i = 0; $i < 10; $i++)
                       <li class="list-group-item">
-                        <i class="fas fa-angle-double-right fa-sm text-primary px-2"></i></i>{{ $faker->sentence(rand(3, 9), true) }}
+                        <i class="fas fa-angle-double-right fa-sm text-primary pr-2"></i>{{ $faker->sentence(rand(3, 9), true) }}
                       </li>
                     @endfor
                   </ul>
                 </div>
                 
                 <div class="tab-pane fade" id="pills-advantages" role="tabpanel" aria-labelledby="pills-advantages-tab">
-                  <ul class="list-group list-group-flush font-weight-semi-bold">
+                  <ul class="list-group list-group-flush font-weight-600">
                     @for($i = 0; $i < 5; $i++)
                       <li class="list-group-item">
-                        <i class="fas fa-check fa-sm text-primary px-2"></i>{{ $faker->sentence(rand(3, 9), true) }}
+                        <i class="fas fa-check fa-sm text-primary pr-2"></i>{{ $faker->sentence(rand(3, 9), true) }}
                       </li>
                     @endfor
                   </ul>
                 </div>
               </div>
               
-              <div class="mt-5 text-center">
-                <button class="btn btn-outline-success btn-lg text-center font-weight-bold">
-                  <i class="fas fa-plus-circle fa-lg mr-sm-2"></i>MATRICULE-SE
-                </button>
+              <div class="mt-5 d-flex flex-column align-items-center">
+                <div>
+                  <button class="btn btn-outline-success btn-lg font-weight-bold">
+                    <i class="fas fa-plus-circle fa-lg mr-sm-2"></i>MATRICULE-SE
+                  </button>
+                </div>
               </div>
             </div>
             
@@ -142,11 +148,11 @@
                       </div>
 
                       <div class="col d-flex flex-column justify-content-around pl-2">
-                        <span class="font-weight-semi-bold small text-secondary text-uppercase">
+                        <span class="font-weight-bold small text-secondary text-uppercase">
                           {{ str_limit($faker->sentence(rand(3, 5), true), 45) }}
                         </span>
                         
-                        <span class="small text-muted">
+                        <span class="text-muted" style="font-size: .7rem;">
                           <i class="fas fa-clock"></i> MANHÃ
                         </span>
                       </div>

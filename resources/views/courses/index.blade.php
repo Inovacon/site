@@ -4,12 +4,10 @@
 
 @section('content')
   <div class="container">
-    <div>
-      <h4 class="mb-0 font-weight-bold text-dark">
-        <i class="fas fa-graduation-cap fa-lg fa-fw mr-1"></i>CURSOS
-      </h4>
-      <hr class="border-primary border-2">
-    </div>
+    <h4 class="mb-0 font-weight-bold text-dark">
+      <i class="fas fa-graduation-cap fa-lg fa-fw mr-1"></i>CURSOS
+    </h4>
+    <hr class="border-primary border-2">
 
     <div class="row">
       <div id="sidebarCourses" class="col-md-3">
@@ -67,7 +65,7 @@
                     
                    <div class="hidden-overlay">
                      <div class="overlay-content">
-                       <p class="font-weight-semi-bold text-center">
+                       <p class="font-weight-600 text-center">
                         <i class="fas fa-hand-pointer fa-lg mx-2"></i>VER CURSO
                         </p>
                      </div>
@@ -96,11 +94,11 @@
                 
                   <div class="card-body info">
                     <div class="d-flex justify-content-between text-dark ">
-                      <div class="font-weight-semi-bold">
+                      <div class="font-weight-500">
                         <i class="fas fa-clock mr-1"></i>MANHÃ
                       </div>
 
-                      <div class="font-weight-semi-bold">
+                      <div class="font-weight-500">
                         <strong>R$</strong>45,00
                       </div>
                     </div>
