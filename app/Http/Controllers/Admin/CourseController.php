@@ -31,6 +31,8 @@ class CourseController extends Controller
 
     public function store(CourseRequest $request)
     {
+//        dd($request->getAll());
+
         $course = Course::create($request->getAll());
 
         return redirect()->route('dashboard.courses.show', $course)->with([

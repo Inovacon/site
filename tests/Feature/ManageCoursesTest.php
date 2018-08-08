@@ -146,8 +146,8 @@ class ManageCoursesTest extends TestCase
             'image_path' => $file = UploadedFile::fake()->image('another-image.jpg'),
         ]));
 
-        Storage::disk('public')->assertExists("courses/{$file->hashName()}");
         Storage::disk('public')->assertMissing($imagePath);
+        Storage::disk('public')->assertExists("courses/{$file->hashName()}");
     }
 
     protected function getEmptyValues()

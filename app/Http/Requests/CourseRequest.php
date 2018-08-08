@@ -47,7 +47,7 @@ class CourseRequest extends FormRequest
      */
     public function getAll()
     {
-        abort_if($this->uploadedImageIsInvalid(), 500, 'O arquivo de imagem é inválido.');
+        abort_if($this->uploadedImageIsInvalid(), 422, 'O arquivo de imagem é inválido.');
 
         $this->request->set('active', $this->has('active'));
 
