@@ -57,7 +57,7 @@
             </ul>
 
             <div class="tab-content" id="pills-tabContent">
-              <div class="tab-pane fade" id="pills-info-content" role="tabpanel" aria-labelledby="pills-price-tab">
+              <div class="tab-pane fade fade show active" id="pills-info-content" role="tabpanel" aria-labelledby="pills-price-tab">
                 <ul class="list-group list-group-flush">
                   <li class="list-group-item">
                     <span class="font-weight-600">
@@ -117,7 +117,7 @@
                 </div>
               </div>
               
-              <div class="tab-pane fade show active" id="pills-schedule" role="tabpanel" aria-labelledby="pills-schedule-tab">
+              <div class="tab-pane" id="pills-schedule" role="tabpanel" aria-labelledby="pills-schedule-tab">
                 <div class="table-responsive">
                   <table class="table">
                     @for($i = 0; $i < 2; $i++)
