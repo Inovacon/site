@@ -1,7 +1,7 @@
 <table class="table">
     <thead>
         <tr>
-            <th>Id</th>
+            <th class="text-center">Id</th>
             <th>Nome</th>
             <th>E-mail</th>
         </tr>
@@ -10,7 +10,7 @@
     <tbody>
         @foreach ($collaborators as $collaborator)
             <tr>
-                <td>{{ $collaborator->id }}</td>
+                <td class="text-center">{{ $collaborator->id }}</td>
                 <td>{{ $collaborator->name }}</td>
                 <td>{{ $collaborator->email }}</td>
             </tr>
