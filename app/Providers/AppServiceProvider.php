@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Schema;
@@ -21,6 +22,10 @@ class AppServiceProvider extends ServiceProvider
 
         Validator::extend('cpf', 'App\Validators\CpfValidator@validate');
         Validator::extend('cnpj', 'App\Validators\CnpjValidator@validate');
+
+        Blade::if('role', function ($role) {
+            return optional(auth()->user())->hasRole($role);
+        });
 
         if ($this->app->isLocal()) {
             DB::listen(function ($query) {

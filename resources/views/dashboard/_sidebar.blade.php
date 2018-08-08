@@ -11,9 +11,15 @@
         </a>
         <ul class="collapse list-unstyled" id="pageSubmenu">
             <li>
-                <a href="#">Sair</a>
+                <a onclick="
+                    event.preventDefault();
+                    document.getElementById('logoutForm').submit();" href="#">Sair</a>
             </li>
         </ul>
+
+        <form id="logoutForm" method="POST" action="{{ route('logout') }}">
+            @csrf
+        </form>
     </li>
 
     <hr class="bg-custom-gray">
@@ -24,11 +30,13 @@
         </a>
     </li>
 
-    <li class="{{ request()->routeIs('*collaborators*') ? 'active' : '' }}">
-        <a href="{{ route('dashboard.collaborators.index') }}">
-            <i class="fas fa-users fa-fw fa-2x mr-3"></i> Colaboradores
-        </a>
-    </li>
+    @role('admin')
+        <li class="{{ request()->routeIs('*collaborators*') ? 'active' : '' }}">
+            <a href="{{ route('dashboard.collaborators.index') }}">
+                <i class="fas fa-users fa-fw fa-2x mr-3"></i> Colaboradores
+            </a>
+        </li>
+    @endrole
 
     <li class="{{ request()->routeIs('*courses*') ? 'active' : '' }}">
         <a href="{{ route('dashboard.courses.index') }}">
