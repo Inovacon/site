@@ -15,9 +15,7 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $guarded = [
-        'is_collaborator',
-    ];
+    protected $guarded = [];
 
     /**
      * The attributes that should be cast to native types.
@@ -45,5 +43,15 @@ class User extends Authenticatable
     public function isCollaborator()
     {
         return $this->is_collaborator;
+    }
+
+    /**
+     * Determine whether the user is an administrator.
+     *
+     * @return bool
+     */
+    public function isAdmin()
+    {
+        return $this->hasRole('admin');
     }
 }

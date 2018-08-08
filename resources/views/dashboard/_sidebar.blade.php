@@ -24,7 +24,7 @@
         </a>
     </li>
 
-    <li>
+    <li class="{{ request()->routeIs('*collaborators*') ? 'active' : '' }}">
         <a href="#">
             <i class="fas fa-users fa-fw fa-2x mr-3"></i> Colaboradores
         </a>

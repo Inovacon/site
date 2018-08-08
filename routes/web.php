@@ -28,4 +28,7 @@ Route::prefix('painel')->name('dashboard.')->namespace('Admin')->group(function 
 
     Route::post('cursos/{course}/ativacao', 'CourseActivationController@store')->name('courses.activation')->middleware('collab');
     Route::delete('cursos/{course}/ativacao', 'CourseActivationController@destroy')->middleware('collab');
+
+    Route::get('colaboradores/cadastrar', 'CollaboratorsController@create')->name('collaborators.create');
+    Route::post('colaboradores', 'CollaboratorsController@store')->name('collaborators.store');
 });
