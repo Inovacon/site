@@ -11,4 +11,9 @@ class EventController extends Controller
     {
     	return view('events.index', compact('faker'));
     }
+
+    public function show(Faker $faker)
+    {
+    	return view('events.show', compact('faker'));
+    }
 }
