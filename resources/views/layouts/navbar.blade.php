@@ -32,15 +32,15 @@
         <hr class="d-md-none d-block my-3 py-3">
       @if(! request()->is('register', 'login'))
 
-        <ul class="navbar-nav ml-auto">
+        <ul id="navButtons" class="navbar-nav ml-auto">
           <li class="nav-item mx-xl-1">
-            <a href="#" class="nav-link small btn btn-primary" data-toggle="modal" data-target="#loginModal">
+            <a href="#" class="nav-link btn btn-primary" data-toggle="modal" data-target="#loginModal">
               <span>ENTRE</span>
             </a>
           </li>
 
           <li class="nav-item mx-xl-1">
-            <a href="#" class="nav-link small btn btn-outline-primary" data-toggle="modal" data-target="#registerModal">
+            <a href="#" class="nav-link btn btn-outline-primary" data-toggle="modal" data-target="#registerModal">
               <span>CADASTRE-SE</span>
             </a>
           </li>
