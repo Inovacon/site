@@ -1,6 +1,7 @@
 <nav id="navbar" class="navbar sticky-top navbar-expand-lg navbar-light bg-white mb-3">
   <div class="container-fluid ml-lg-3 mr-lg-5">
     <a class="navbar-brand" href="{{ route('home') }}"><img class="logo" src="{{ asset('images/logo.png') }}"></a>
+
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <i class="fas fa-bars"></i>
     </button>
@@ -28,21 +29,19 @@
         </li>
       </ul>
     
+        <hr class="d-md-none d-block my-3 py-3">
       @if(! request()->is('register', 'login'))
-        <hr class="d-md-none d-sm-block">
 
         <ul class="navbar-nav ml-auto">
           <li class="nav-item mx-xl-1">
-            <a href="#" class="nav-link font-weight-600" data-toggle="modal" data-target="#loginModal">
-              <i class="fas fa-sign-in-alt fa-lg fa-fw mr-1"></i> 
-              <span class="d-xl-inline d-lg-none">ENTRAR</span>
+            <a href="#" class="nav-link small btn btn-primary" data-toggle="modal" data-target="#loginModal">
+              <span>ENTRE</span>
             </a>
           </li>
 
           <li class="nav-item mx-xl-1">
-            <a href="#" class="nav-link font-weight-600" data-toggle="modal" data-target="#registerModal">
-              <i class="fas fa-user-plus fa-lg fa-fw mr-1"></i> 
-              <span class="d-xl-inline d-lg-none">CADASTRAR-SE</span>
+            <a href="#" class="nav-link small btn btn-outline-primary" data-toggle="modal" data-target="#registerModal">
+              <span>CADASTRE-SE</span>
             </a>
           </li>
         </ul>

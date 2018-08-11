@@ -24,14 +24,14 @@
     <hr class="border-primary border-2">
 
     <div class="row">
-      <div id="sidebarCourses" class="col-md-3">
+      <div id="coursesSidebar" class="col-md-3">
         <div class="card">
           <div class="card-header bg-primary">
             <h6 class="text-center mb-0 text-white">ÁREAS DE CURSOS</h6>
           </div>
           
           <ul class="list-group list-group-flush">
-            <a class="list-group-item list-unstyled d-flex justify-content-between" href="#">
+            <a class="active list-group-item list-unstyled d-flex justify-content-between" href="#">
               <li class="text-capitalize">
                 <i class="fas fa-user-tie fa-fw mr-1"></i>Administração
               </li>
