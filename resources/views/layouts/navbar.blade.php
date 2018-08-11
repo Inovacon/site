@@ -29,18 +29,19 @@
         </li>
       </ul>
     
-        <hr class="d-md-none d-block my-3 py-3">
+        <hr class="d-lg-none d-block my-2">
+
       @if(! request()->is('register', 'login'))
 
-        <ul id="navButtons" class="navbar-nav ml-auto">
-          <li class="nav-item mx-xl-1">
-            <a href="#" class="nav-link btn btn-primary" data-toggle="modal" data-target="#loginModal">
+        <ul id="navButtons" class="navbar-nav ml-auto d-flex flex-column flex-sm-row flex-lg-row">
+          <li class="nav-item px-1 py-sm-0 py-2">
+            <a href="#" class="nav-link px-2 btn btn-primary" data-toggle="modal" data-target="#loginModal">
               <span>ENTRE</span>
             </a>
           </li>
 
-          <li class="nav-item mx-xl-1">
-            <a href="#" class="nav-link btn btn-outline-primary" data-toggle="modal" data-target="#registerModal">
+          <li class="nav-item px-1">
+            <a href="#" class="nav-link px-2 btn btn-outline-primary" data-toggle="modal" data-target="#registerModal">
               <span>CADASTRE-SE</span>
             </a>
           </li>
