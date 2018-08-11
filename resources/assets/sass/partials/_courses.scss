@@ -2,26 +2,24 @@
 	font-size: .9rem;
 }
 
-#sidebarCourses .list-group {
-    font-weight: 400;
-    font-size: 1rem;
+#coursesSidebar .list-group {
+    font-size: .9rem;
 }
 
-#sidebarCourses .list-group-item.active {
-    font-weight: 600;
+#coursesSidebar .list-group-item {
+	color: $dark;
+}
+
+#coursesSidebar .list-group-item.active {
+	border-color: rgba(0, 0, 0, .125);
     color: $primary;
     background-color: $light;
-    z-index: 0;
 }
 
-#sidebarCourses .list-group-item:hover {
-    background-color: $light;
-}
-
+#coursesSidebar .list-group-item:hover,
 #coursesRelated .list-group-item:hover {
-	background-color: $light;
+    background-color: $light;
 }
 
 #coursesRelated .list-group-item:hover span {
-	color: $primary-darker !important;
 }

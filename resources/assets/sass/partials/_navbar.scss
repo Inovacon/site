@@ -1,6 +1,12 @@
+.navbar {
+  padding-bottom: 0px !important;
+}
+
 .navbar-nav .nav-link {
-    font-family: 'Source Sans Pro';
-    font-size: .93rem;
+    font-family: 'Open Sans', sans-serif;
+    font-size: .85rem;
+    // padding-top: 20px;
+    // padding-bottom: 20px;
     @include transition(box-shadow .3s);
 }
 
@@ -12,8 +18,8 @@
     color: $primary;
 }
 
-.nav-item.active i {
-    color: $primary;
+.nav-item.active .nav-link {
+    color: $primary !important;
 }
 
 .navbar-toggler[aria-expanded="true"] {
