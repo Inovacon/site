@@ -1,0 +1,61 @@
+.card {
+    @include box-shadow(0 0 2px rgba(0, 0, 0, .3));
+}
+
+.card.bg-light .card-header,
+.card.bg-light .card-body,
+.card.bg-light .card-footer,
+.card.bg-light .list-group,
+.card.bg-light .list-group-item {
+	background-color: $light;
+}
+
+.card .card-header,
+.card .card-body,
+.card .card-footer {
+	z-index: 1;
+}
+
+.card .card-body {
+	background-color: #fff;
+}
+
+.card .card-footer,
+.card .card-header {
+    font-family: 'Raleway', sans-serif;
+	font-size: .9rem;
+}
+
+.card-footer a {
+	background-color: rgba(0, 0, 0, .05);
+}
+
+.card-footer a:hover {
+	background-color: rgba(0, 0, 0, .1);
+}
+
+.hidden-overlay,
+.hidden-overlay a {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+}
+
+.hidden-overlay {
+	opacity: 0;
+	background-color: rgba(0, 0, 0, .3);
+	@include transition(all .3s);
+}
+
+.hidden-overlay .overlay-content {
+	margin-top: 25%;
+	color: $white;
+	text-shadow: 0px 0px 3px black;
+	height: 50%;
+}
+
+.card-img-overlay:hover .hidden-overlay {
+	opacity: 1;
+}

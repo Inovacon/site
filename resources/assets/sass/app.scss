@@ -1,7 +1,13 @@
+
 @import url('https://fonts.googleapis.com/css?family=Raleway:400,500,700|Open+Sans');
 
-@import "variables";
+// Setup
+@import "variables/normal";
 @import "font-awesome";
+
+// Libraries
 @import "~toastr/toastr";
 @import "~bootstrap/scss/bootstrap";
-@import "partials/all";
+
+// Custom
+@import "partials/normal/all";

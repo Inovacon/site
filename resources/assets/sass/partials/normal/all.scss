@@ -1,13 +1,14 @@
-@import "mixins";
+
+// General
+@import "../general/all";
+
+// Specific
 @import "navbar";
 @import "buttons";
-@import "utilities";
 @import "carousel-news";
 @import "secondary-news";
 @import "courses";
 @import "cards";
-@import "colors";
 @import "tables";
 @import "sidebar";
 @import "news";
-@import "toastr";

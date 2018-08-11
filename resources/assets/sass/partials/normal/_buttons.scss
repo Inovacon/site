@@ -1,0 +1,24 @@
+.btn {
+    font-family: 'Raleway', sans-serif;
+    text-transform: uppercase;
+    font-size: .85rem !important;
+    letter-spacing: 1px;
+}
+
+.btn-icon {
+  text-decoration: none !important;
+  color: $gray-600;
+  background-color: transparent !important;
+  border: none !important;
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
+}
+
+.btn-icon:focus {
+  outline: none;
+}
+
+.btn-icon:hover {
+  color: $dark;
+}

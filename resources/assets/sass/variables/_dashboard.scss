@@ -1,0 +1,36 @@
+
+@import "general";
+
+// BUTTONS + FORMS
+$input-border-radius: .10rem;
+$input-btn-focus-width: 1px !default;
+$btn-font-weight: 500;
+$btn-border-radius: .1rem;
+$btn-border-radius-sm: .1rem;
+$btn-border-radius-lg: .1rem;
+
+// NAVS
+$nav-link-border-width: 3px;
+$nav-pills-border-radius: .1rem;
+
+// MODAL
+$modal-content-border-radius: .15rem;
+
+// LIST-GROUP
+$list-group-item-padding-y: .4rem;
+$list-group-bg: #fff;
+$list-group-border-radius: 0;
+
+// CARD
+$card-border-radius: .10rem;
+$card-border-width: 0;
+$card-cap-bg: $white;
+$card-spacer-x: .75rem;
+
+// IMAGE THUMBNAILS
+$thumbnail-border-radius: .10rem;
+$thumbnail-box-shadow: 3px 3px 3px black;
+
+$custom-file-text: (
+    pt: "Buscar"
+);
