@@ -1,21 +1,5 @@
 @csrf
 
-<div class="row border-bottom py-4 align-items-center">
-    <label class="col-md-3 col-form-label font-weight-semi-bold text-gray-dark" for="active">
-        Ativo
-    </label>
-
-    <div class="col-md-6">
-        <div class="custom-control custom-checkbox">
-            <input type="checkbox"
-                   class="custom-control-input"
-                   id="active"
-                   name="active" {{ old('active', $course->active) ? 'checked' : '' }}>
-            <label class="custom-control-label" for="active">&nbsp;</label>
-        </div>
-    </div>
-</div>
-
 <div class="row border-bottom py-4">
     <label class="col-md-3 col-form-label font-weight-semi-bold text-gray-dark" for="image_path">
         Imagem

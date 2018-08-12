@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 class Course extends Model
@@ -46,6 +47,50 @@ class Course extends Model
         return asset(
             $this->image_path ? "storage/{$this->image_path}" : 'images/default-course.png'
         );
+    }
+
+    /**
+     * Get the collection of content.
+     *
+     * @param  string $content
+     * @return \Illuminate\Support\Collection
+     */
+    public function getContentAttribute($content)
+    {
+        return collect(json_decode($content, true));
+    }
+
+    /**
+     * Set the content attribute.
+     *
+     * @param  string|array|\JsonSerializable $value
+     * @return void
+     */
+    public function setContentAttribute($value)
+    {
+        $this->setAttributeAsJson('content', $value);
+    }
+
+    /**
+     * Get the collection of advantages.
+     *
+     * @param  string $advantages
+     * @return Collection
+     */
+    public function getAdvantagesAttribute($advantages)
+    {
+        return collect(json_decode($advantages, true));
+    }
+
+    /**
+     * Set the advantages attribute.
+     *
+     * @param  string|array|\JsonSerializable $value
+     * @return void
+     */
+    public function setAdvantagesAttribute($value)
+    {
+        $this->setAttributeAsJson('advantages', $value);
     }
 
     /**
@@ -116,5 +161,23 @@ class Course extends Model
     public function targetAudience()
     {
         return $this->belongsTo(Category::class, 'target_audience_id')->targetAudience();
+    }
+
+    /**
+     * Set an attribute as JSON.
+     *
+     * @param  string $attribute
+     * @param  mixed  $value
+     * @return void
+     */
+    protected function setAttributeAsJson($attribute, $value)
+    {
+        if (is_string($value)) {
+            $this->attributes[$attribute] = $value;
+
+            return;
+        }
+
+        $this->attributes[$attribute] = json_encode($value);
     }
 }

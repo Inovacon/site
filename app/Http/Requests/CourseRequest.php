@@ -36,7 +36,6 @@ class CourseRequest extends FormRequest
             'occupation_area_id' => 'required',
             'target_audience_id' => 'required',
             'image_path' => 'sometimes|nullable|image',
-            'active' => 'sometimes',
         ];
     }
 
@@ -48,8 +47,6 @@ class CourseRequest extends FormRequest
     public function getAll()
     {
         abort_if($this->uploadedImageIsInvalid(), 422, 'O arquivo de imagem é inválido.');
-
-        $this->request->set('active', $this->has('active'));
 
         return $this->only(array_keys($this->rules()));
     }

@@ -31,6 +31,7 @@
                     </a>
 
                     <activate-button
+                            @changed="flash(`Curso ${$event ? 'ativado' : 'desativado'} com sucesso.`)"
                             endpoint="{{ route('dashboard.courses.activation', $course) }}"
                             :active="{{ json_encode($course->active) }}"></activate-button>
                 </div>

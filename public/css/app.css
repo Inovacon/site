@@ -15664,6 +15664,15 @@ h6 {
           flex: .95;
 }
 
+.no-outline:focus {
+  outline: none !important;
+}
+
+.focus-no-shadow:focus {
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+}
+
 .text-primary-l {
   color: #28bffc;
 }

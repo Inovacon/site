@@ -28,6 +28,8 @@ class CreateCoursesTable extends Migration
             $table->unsignedInteger('occupation_area_id');
             $table->unsignedInteger('target_audience_id');
             $table->string('image_path')->nullable();
+            $table->text('content')->nullable();
+            $table->text('advantages')->nullable();
             $table->timestamps();
         });
     }

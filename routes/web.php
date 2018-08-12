@@ -27,9 +27,19 @@ Route::prefix('painel')->name('dashboard.')->namespace('Admin')->group(function 
     Route::patch('cursos/{course}', 'CourseController@update')->name('courses.update')->middleware('collab');
 
     Route::post('cursos/{course}/ativacao', 'CourseActivationController@store')->name('courses.activation')->middleware('collab');
-    Route::delete('cursos/{course}/ativacao', 'CourseActivationController@destroy')->middleware('collab');
+    Route::delete('cursos/{course}/ativacao', 'CourseActivationController@destroy')->name('courses.deactivation')->middleware('collab');
 
-    Route::get('colaboradores', 'CollaboratorsController@index')->name('collaborators.index')->middleware('collab:admin');
-    Route::get('colaboradores/cadastrar', 'CollaboratorsController@create')->name('collaborators.create')->middleware('collab:admin');
-    Route::post('colaboradores', 'CollaboratorsController@store')->name('collaborators.store')->middleware('collab:admin');
+    Route::get('colaboradores', 'CollaboratorController@index')->name('collaborators.index')->middleware('collab:admin');
+    Route::get('colaboradores/cadastrar', 'CollaboratorController@create')->name('collaborators.create')->middleware('collab:admin');
+    Route::post('colaboradores', 'CollaboratorController@store')->name('collaborators.store')->middleware('collab:admin');
+
+    Route::get('cursos/{course}/conteudo', 'CourseContentController@index')->name('courses.content.index')->middleware('collab');
+    Route::post('cursos/{course}/conteudo', 'CourseContentController@store')->name('courses.content.store')->middleware('collab');
+    Route::patch('cursos/{course}/conteudo/{index}', 'CourseContentController@update')->name('courses.content.update')->middleware('collab');
+    Route::delete('cursos/{course}/conteudo/{index}', 'CourseContentController@destroy')->name('courses.content.destroy')->middleware('collab');
+
+    Route::get('cursos/{course}/vantagens', 'CourseAdvantagesController@index')->name('courses.advantages.index')->middleware('collab');
+    Route::post('cursos/{course}/vantagens', 'CourseAdvantagesController@store')->name('courses.advantages.store')->middleware('collab');
+    Route::patch('cursos/{course}/vantagens/{index}', 'CourseAdvantagesController@update')->name('courses.advantages.update')->middleware('collab');
+    Route::delete('cursos/{course}/vantagens/{index}', 'CourseAdvantagesController@destroy')->name('courses.advantages.destroy')->middleware('collab');
 });
