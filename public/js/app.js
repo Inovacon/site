@@ -31268,6 +31268,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['feature', 'type', 'courseId'],
@@ -31336,6 +31341,15 @@ var render = function() {
                 attrs: { type: "text", required: "", autofocus: "" },
                 domProps: { value: _vm.content },
                 on: {
+                  keydown: function($event) {
+                    if (
+                      !("button" in $event) &&
+                      _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+                    ) {
+                      return null
+                    }
+                    return _vm.update($event)
+                  },
                   input: function($event) {
                     if ($event.target.composing) {
                       return

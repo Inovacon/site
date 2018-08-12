@@ -2,7 +2,12 @@
     <div class="card card-body my-2 px-2 py-1">
         <div class="d-flex justify-content-between align-content-center">
             <div v-if="editing" class="flex-95">
-                <input type="text" class="form-control form-control-sm" v-model="content" required autofocus>
+                <input type="text"
+                       class="form-control form-control-sm"
+                       v-model="content"
+                       @keydown.enter="update"
+                       required
+                       autofocus>
             </div>
             <div v-else>
                 <span>{{ originalContent }}</span>
