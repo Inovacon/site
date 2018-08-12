@@ -15,7 +15,7 @@ class UsersTableSeeder extends Seeder
     {
         factory(User::class)->create([
             'email' => 'admin@example.com',
-            'password' => Hash::make('123456'),
+            'password' => '123456',
             'is_collaborator' => true,
         ])->attachRole('admin');
     }
