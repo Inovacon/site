@@ -6,7 +6,7 @@
 
         created() {
             if (this.message) {
-                window.toastr[this.type](this.message);
+                this.flash(this.message, this.type);
             }
         }
     }

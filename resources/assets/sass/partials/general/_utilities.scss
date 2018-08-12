@@ -73,3 +73,13 @@ h1, h2, h3, h4, h5, h6 {
 .flex-95 {
   flex: .95;
 }
+
+.no-outline:focus {
+  outline: none !important;
+}
+
+.focus-no-shadow:focus {
+  -webkit-box-shadow: none !important;
+  -moz-box-shadow: none !important;
+  box-shadow: none !important;
+}

@@ -8,7 +8,7 @@
 
     <title>Painel | @yield('title')</title>
 
-    <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
+    <link rel="stylesheet" href="{{ mix('/css/admin.css') }}">
 </head>
 <body class="bg-light">
     <div id="root">
@@ -29,7 +29,9 @@
         <flash type="{{ session('type') ?: 'success' }}" message="{{ session('flash') }}"></flash>
     </div>
 
-    <script src="{{ mix('/js/app.js') }}"></script>
+    @routes('dashboard')
+
+    <script src="{{ asset('/js/app.js') }}"></script>
 
     <script>
         $('#sidebarCollapse').on('click', function (event) {

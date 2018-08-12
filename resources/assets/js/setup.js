@@ -1,4 +1,6 @@
-
+/**
+ * axios
+ */
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 let token = document.head.querySelector('meta[name="csrf-token"]');
@@ -9,6 +11,9 @@ if (token) {
     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
 
+/**
+ * toastr
+ */
 toastr.options = {
     "closeButton": false,
     "debug": false,
@@ -25,8 +30,22 @@ toastr.options = {
     "hideMethod": "fadeOut"
 };
 
+/**
+ * Vue.js
+ */
 window.events = new Vue();
 
+window.Vue.prototype.flash = function (message, type = 'success') {
+    window.toastr[type](message);
+};
+
+window.Vue.prototype.consoleLog = function (...data) {
+    console.log(...data);
+};
+
+/**
+ * jQuery
+ */
 $(document).ready(function () {
     $('form').one('submit', function () {
         $(this).find('[type="submit"]').attr('disabled', true);
