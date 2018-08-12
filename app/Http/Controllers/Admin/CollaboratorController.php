@@ -6,7 +6,7 @@ use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class CollaboratorsController extends Controller
+class CollaboratorController extends Controller
 {
     public function index()
     {
