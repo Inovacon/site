@@ -161,7 +161,7 @@
                class="form-control"
                id="begin_date"
                name="begin_date"
-               value="{{ old('begin_date', $course->begin_date) ?: now()->format('Y-m-d') }}"
+               value="{{ old('begin_date', optional($course->begin_date)->format('Y-m-d')) ?: now()->format('Y-m-d') }}"
                required>
     </div>
 </div>
@@ -176,7 +176,7 @@
                class="form-control"
                id="end_date"
                name="end_date"
-               value="{{ old('end_date', $course->end_date) ?: now()->format('Y-m-d') }}"
+               value="{{ old('end_date', optional($course->end_date)->format('Y-m-d')) ?: now()->format('Y-m-d') }}"
                required>
     </div>
 </div>
