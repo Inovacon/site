@@ -152,6 +152,36 @@
 </div>
 
 <div class="row border-bottom py-4">
+    <label class="col-md-3 col-form-label font-weight-semi-bold text-gray-dark" for="begin_date">
+        Data de início
+    </label>
+
+    <div class="col-md-6">
+        <input type="date"
+               class="form-control"
+               id="begin_date"
+               name="begin_date"
+               value="{{ old('begin_date', $course->begin_date) ?: now()->format('Y-m-d') }}"
+               required>
+    </div>
+</div>
+
+<div class="row border-bottom py-4">
+    <label class="col-md-3 col-form-label font-weight-semi-bold text-gray-dark" for="end_date">
+        Data de término
+    </label>
+
+    <div class="col-md-6">
+        <input type="date"
+               class="form-control"
+               id="end_date"
+               name="end_date"
+               value="{{ old('end_date', $course->end_date) ?: now()->format('Y-m-d') }}"
+               required>
+    </div>
+</div>
+
+<div class="row border-bottom py-4">
     <label class="col-md-3 col-form-label font-weight-semi-bold text-gray-dark" for="minimum_students">
         Mínimo de alunos
     </label>

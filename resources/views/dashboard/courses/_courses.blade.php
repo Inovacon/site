@@ -1,4 +1,4 @@
-<table class="table">
+<table class="table table-responsive-sm">
     <thead>
     <tr>
         <th class="text-center">Id</th>

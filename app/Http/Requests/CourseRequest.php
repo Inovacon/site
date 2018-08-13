@@ -27,6 +27,8 @@ class CourseRequest extends FormRequest
             'name' => 'required',
             'description' => 'required',
             'price' => 'required',
+            'begin_date' => 'required',
+            'end_date' => 'required',
             'minimum_students' => 'required',
             'maximum_students' => 'required',
             'hours' => 'required',

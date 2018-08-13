@@ -25,6 +25,15 @@ class Course extends Model
     ];
 
     /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = [
+        'begin_date', 'end_date',
+    ];
+
+    /**
      * Set the image_path attribute.
      *
      * @param  string|UploadedFile $path

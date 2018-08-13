@@ -19,6 +19,8 @@ class CreateCoursesTable extends Migration
             $table->text('description');
             $table->double('price');
             $table->boolean('active')->default(false);
+            $table->date('begin_date');
+            $table->date('end_date');
             $table->unsignedMediumInteger('minimum_students');
             $table->unsignedMediumInteger('maximum_students');
             $table->unsignedSmallInteger('hours');

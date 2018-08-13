@@ -11,12 +11,16 @@
                 <div class="d-flex align-items-center">
                     <activate-button
                             size="3x"
-                            title="Ativar/Desativar curso"
+                            data-placement="top"
+                            data-tooltip="tooltip"
+                            title="Ativar/Desativar"
                             endpoint="{{ route('dashboard.courses.activation', $course) }}"
                             :active="{{ json_encode($course->active) }}"
                             @changed="onChange"></activate-button>
 
-                    <button title="Gerenciar conteúdo programático"
+                    <button data-placement="top"
+                            data-tooltip="tooltip"
+                            title="Conteúdo programático"
                             type="button"
                             class="btn btn-primary ml-3"
                             data-toggle="modal"
@@ -24,7 +28,9 @@
                         <i class="fas fa-list-ul fa-lg"></i>
                     </button>
 
-                    <button title="Gerenciar as vantagens do curso"
+                    <button data-placement="top"
+                            data-tooltip="tooltip"
+                            title="Vantagens"
                             type="button"
                             class="btn btn-primary ml-3"
                             data-toggle="modal"
@@ -32,7 +38,9 @@
                         <i class="fas fa-check fa-lg"></i>
                     </button>
 
-                    <a title="Editar curso"
+                    <a data-placement="top"
+                       data-tooltip="tooltip"
+                       title="Editar"
                        class="btn btn-primary ml-3"
                        href="{{ route('dashboard.courses.edit', $course) }}">
                         <i class="fas fa-pencil-alt fa-lg"></i>

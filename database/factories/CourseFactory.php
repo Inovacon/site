@@ -7,6 +7,8 @@ $factory->define(App\Course::class, function (Faker $faker) {
         'name' => $faker->sentence(3),
         'description' => $faker->text(),
         'price' => $faker->randomFloat(2),
+        'begin_date' => $faker->date(),
+        'end_date' => $faker->date(),
         'minimum_students' => $faker->numberBetween(5, 20),
         'maximum_students' => $faker->numberBetween(21, 100),
         'hours' => $faker->numberBetween(50, 100),

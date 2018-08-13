@@ -4,6 +4,6 @@
 
 @section('content')
     <div class="jumbotron">
-        <h1>Teste</h1>
+        <h1><i class="fas fa-tachometer-alt"></i> Painel</h1>
     </div>
 @endsection

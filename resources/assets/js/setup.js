@@ -57,4 +57,6 @@ $(document).ready(function () {
             $(this).next('.custom-file-label').addClass("selected").html($(this).val());
         });
     });
+
+    $('[data-tooltip="tooltip"]').tooltip()
 });

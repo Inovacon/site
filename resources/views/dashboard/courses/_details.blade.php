@@ -1,4 +1,4 @@
-<table class="table">
+<table class="table table-responsive-sm">
     <tr>
         <th class="border-top-0">Id</th>
         <td class="border-top-0">{{ $course->id }}</td>
@@ -29,6 +29,14 @@
         <td v-else>
             <i class="fas fa-circle fa-sm text-danger"></i> Não
         </td>
+    </tr>
+    <tr>
+        <th>Data de Início</th>
+        <td>{{ $course->begin_date->format('d/m/Y') }}</td>
+    </tr>
+    <tr>
+        <th>Date de Término</th>
+        <td>{{ $course->end_date->format('d/m/Y') }}</td>
     </tr>
     <tr>
         <th>Mínimo de Alunos</th>

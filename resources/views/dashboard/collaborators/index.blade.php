@@ -6,9 +6,9 @@
     <div class="d-flex align-items-center justify-content-between mb-4">
         <h3 class="font-weight-bold text-dark m-0">Colaboradores</h3>
 
-        <a href="{{ route('dashboard.collaborators.create') }}" class="btn btn-lg btn-primary">
-            Cadastrar Colaborador
-        </a>
+        <add-button
+                href="{{ route('dashboard.collaborators.create') }}"
+                content="Cadastrar Colaborador"></add-button>
     </div>
 
 
