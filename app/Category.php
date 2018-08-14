@@ -25,4 +25,14 @@ class Category extends Model
     {
         return "<i class=\"{$this->icon} fa-fw\"></i> {$this->name}";
     }
+
+    /**
+     * A category is related to many courses based on its type.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function courses()
+    {
+        return $this->hasMany(Course::class, $this->type.'_id');
+    }
 }

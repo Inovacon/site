@@ -3,6 +3,8 @@
 namespace Tests\Unit;
 
 use App\Category;
+use App\Course;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use Illuminate\Database\Eloquent\Builder;
@@ -55,5 +57,17 @@ class CategoryTest extends TestCase
             '<i class="fas fa-dna fa-fw"></i> '.$category->name,
             $category->nameWithIcon
         );
+    }
+
+    /** @test */
+    function a_category_has_courses_associated()
+    {
+        $category = create(Category::class, ['type' => 'occupation_area']);
+        create(Course::class, ['occupation_area_id' => $category->id], 3);
+
+        $category = $category->fresh();
+
+        $this->assertCount(3, $category->courses);
+        $this->assertInstanceOf(Collection::class, $category->courses);
     }
 }

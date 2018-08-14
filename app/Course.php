@@ -54,7 +54,7 @@ class Course extends Model
     public function getPublicImagePathAttribute()
     {
         return asset(
-            $this->image_path ? "storage/{$this->image_path}" : 'images/default-course.png'
+            $this->image_path ? "storage/{$this->image_path}" : 'images/default-course.jpg'
         );
     }
 

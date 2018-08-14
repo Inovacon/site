@@ -3,17 +3,34 @@
 namespace App\Http\Controllers;
 
 use App\Course;
-use Faker\Generator as Faker;
+use App\Category;
 
 class CourseController extends Controller
 {
-    public function index(Faker $faker)
+    public function index()
     {
-        return view('courses.index', compact('faker'));
+        $courses = Course::latest();
+
+        if ($areaId = request('area')) {
+            $courses->whereHas('occupationArea', function ($query) use ($areaId) {
+                $query->where('id', $areaId);
+            });
+        }
+
+        return view('courses.index', [
+            'courses' => $courses->paginate(9),
+            'coursesCount' => Course::count(),
+            'occupationAreas' => Category::occupationArea()->get(),
+        ]);
     }
 
-    public function show(Faker $faker)
+    public function show(Course $course)
     {
-        return view('courses.show', compact('faker'));
+        return view('courses.show', [
+            'course' => $course,
+            'relatedCourses' => Course::whereHas('occupationArea', function ($query) use ($course) {
+                $query->where('type', $course->occupationArea->name);
+            })
+        ]);
     }
 }

@@ -59,4 +59,37 @@ class ReadCoursesTest extends TestCase
         $this->get(route('dashboard.courses.show', create(Course::class)))
             ->assertRedirect(route('login'));
     }
+
+    /** @test */
+    function a_user_can_view_all_available_courses()
+    {
+        $course1 = create(Course::class, ['active' => 1]);
+        $course2 = create(Course::class, ['active' => 1]);
+
+        $this->get(route('courses.index'))
+            ->assertSee($course1->name)
+            ->assertSee($course2->name);
+    }
+
+    /** @test */
+    function a_user_can_filter_the_courses_by_those_that_have_the_same_occupation_area()
+    {
+        $course1 = create(Course::class);
+        $course2 = create(Course::class);
+
+        $this->get(route('courses.index').'?area='.$course1->occupationArea->id)
+            ->assertSee($course1->name)
+            ->assertDontSee($course2->name);
+
+        $this->get(route('courses.index').'?area='.$course2->occupationArea->id)
+            ->assertSee($course2->name)
+            ->assertDontSee($course1->name);
+    }
+
+    /** @test */
+    function a_user_can_view_a_single_course()
+    {
+        $this->get(route('courses.show', $course = create(Course::class)))
+            ->assertSee($course->name);
+    }
 }
