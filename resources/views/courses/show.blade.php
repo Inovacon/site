@@ -22,7 +22,7 @@
                                 <img class="mr-lg-3 img-thumbnail" src="{{ $course->publicImagePath }}"/>
 
                                 <p class="small text-center text-primary my-0">{{ $course->occupationArea->name }}
-                                    | {{ $course->modality->name }}</p>
+                                    &bull; {{ $course->modality->name }}</p>
 
                                 <div class="text-center text-primary border-bottom border-primary mt-2"
                                      style="border-width: 2px !important;">
@@ -45,15 +45,18 @@
                             <li class="nav-item">
                                 <a class="nav-link active" id="pills-info-content-tab" data-toggle="pill"
                                    href="#pills-info-content" role="tab" aria-controls="pills-info-content"
-                                   aria-selected="true"><i class="fas fa-info-circle mr-2"></i>Informações</a>
+                                   aria-selected="true">
+                                   <i class="fas fa-info-circle mr-2"></i>Informações
+                                </a>
                             </li>
 
                             @if ($course->content->count())
                                 <li class="nav-item">
                                     <a class="nav-link" id="pills-programmatic-content-tab" data-toggle="pill"
                                        href="#pills-programmatic-content" role="tab"
-                                       aria-controls="pills-programmatic-content" aria-selected="false"><i
-                                                class="fas fa-list-ul mr-2"></i>Conteúdo Programático</a>
+                                       aria-controls="pills-programmatic-content" aria-selected="false">
+                                       <i class="fas fa-list-ul mr-2"></i>Conteúdo Programático
+                                    </a>
                                 </li>
                             @endif
 
@@ -61,7 +64,9 @@
                                 <li class="nav-item">
                                     <a class="nav-link" id="pills-advantages-tab" data-toggle="pill"
                                        href="#pills-advantages" role="tab" aria-controls="pills-advantages"
-                                       aria-selected="false"><i class="fas fa-check mr-2"></i>Vantagens</a>
+                                       aria-selected="false">
+                                       <i class="fas fa-check mr-2"></i>Vantagens
+                                    </a>
                                 </li>
                             @endif
                         </ul>
@@ -72,36 +77,43 @@
                                 <ul class="list-group list-group-flush">
                                     <li class="list-group-item">
                                         <span class="font-weight-600">
-                                                <i class="fas fa-clock fa-fw text-primary pr-2"></i>Turno:
+                                            <i class="fas fa-clock fa-fw text-primary pr-2"></i>Turno:
                                         </span>
+
                                         <span>{{ $course->shift->name }}</span>
                                     </li>
 
                                     <li class="list-group-item">
-                                    <span class="font-weight-600">
-                                        <i class="fas fa-user-clock fa-fw text-primary mr-1"></i>Carga Horária:
-                                    </span>
+                                        <span class="font-weight-600">
+                                            <i class="fas fa-user-clock fa-fw text-primary mr-1"></i>Carga Horária:
+                                        </span>
+
                                         <span>{{ $course->hours }} h</span>
                                     </li>
 
                                     <li class="list-group-item">
-                                    <span class="font-weight-600">
-                                        <i class="fas fa-calendar-alt fa-fw text-primary mr-1"></i>Duração:
-                                    </span>
-                                        <span>De <span class="font-weight-600">{{ $course->begin_date->format('d/m/Y') }}</span> até <span class="font-weight-600">{{ $course->end_date->format('d/m/Y') }}</span></span>
+                                        <span class="font-weight-600">
+                                            <i class="fas fa-calendar-alt fa-fw text-primary mr-1"></i>Duração:
+                                        </span>
+
+                                        <span>
+                                            De <span class="font-weight-600">{{ $course->begin_date->format('d/m/Y') }}</span> até <span class="font-weight-600">{{ $course->end_date->format('d/m/Y') }}</span>
+                                        </span>
                                     </li>
 
                                     <li class="list-group-item">
-                                    <span class="font-weight-600">
-                                        <i class="fas fa-graduation-cap fa-fw text-primary mr-1"></i>Tipo de curso:
-                                    </span>
+                                        <span class="font-weight-600">
+                                            <i class="fas fa-graduation-cap fa-fw text-primary mr-1"></i>Tipo de curso:
+                                        </span>
+
                                         <span>{{ $course->type->name }}</span>
                                     </li>
 
                                     <li class="list-group-item">
-                                    <span class="font-weight-600">
-                                        <i class="fas fa-users fa-fw text-primary mr-1"></i>Público alvo:
-                                    </span>
+                                        <span class="font-weight-600">
+                                            <i class="fas fa-users fa-fw text-primary mr-1"></i>Público alvo:
+                                        </span>
+
                                         <span>{{ $course->targetAudience->name }}</span>
                                     </li>
                                 </ul>
@@ -143,6 +155,14 @@
                         </div>
                     </div>
 
+                    <div class="card-footer">
+                        <div class="align-self-end">
+                            <i class="fab fa-facebook-f text-facebook fa-lg mx-1"></i>
+                            <i class="fab fa-twitter text-twitter fa-lg mx-1"></i>
+                            <i class="fab fa-google-plus-g text-google fa-lg"></i>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
@@ -152,6 +172,7 @@
                         <h5 class="font-weight-bold text-primary">
                             <i class="fas fa-graduation-cap mr-1"></i>CURSOS RELACIONADOS
                         </h5>
+
                         <hr class="my-0 border-primary border-2">
                     </div>
 

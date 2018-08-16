@@ -48,6 +48,6 @@
   </div>
   
   <div class="form-group mb-0">
-    <button class="btn btn-success"><i class="fas fa-check mr-1"></i>Cadastrar-se</button>
+    <button class="btn btn-success" type="submit">Cadastrar-se</button>
   </div>
 </form>

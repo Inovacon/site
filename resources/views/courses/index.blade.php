@@ -13,7 +13,7 @@
         <div class="row">
             <div id="coursesSidebar" class="col-md-3">
                 <div class="card">
-                    <div class="card-header bg-primary">
+                    <div class="card-header bg-primary border-bottom">
                         <h6 class="text-center mb-0 text-white">ÁREAS DE CURSOS</h6>
                     </div>
 
@@ -50,25 +50,19 @@
                     @foreach ($courses as $course)
                         <div class="col-lg-4 col-sm-6 mb-3">
                             <div class="card">
-                                <img class="card-img-top" src="{{ $course->publicImagePath }}" width="250" height="145">
-                                <div class="card-img-overlay p-0">
-                                    <i class="text-primary p-2 {{ $course->occupationArea->icon }}"></i>
 
-                                    <div class="hidden-overlay">
-                                        <div class="overlay-content">
-                                            <p class="font-weight-600 text-center">
-                                                <i class="fas fa-hand-pointer fa-lg mx-2"></i>VER CURSO
-                                            </p>
-                                        </div>
-                                        <a href="{{ route('courses.show', $course) }}"></a>
-                                    </div>
+                                <div class="overlay-container">
+                                    <img class="card-img-top" src="{{ $course->publicImagePath }}" width="250" height="145">
+                                    <a href="{{ route('courses.show', $course) }}"></a>
                                 </div>
-
+                                
                                 <div class="card-header">
                                     <div class="d-flex justify-content-between">
                                         <div class="mb-0 text-primary text-uppercase font-weight-bold">
-                                            {{ $course->name }}
+                                            <a class="link" href="{{ route('courses.show', $course) }}">{{ $course->name }}</a>
                                         </div>
+
+                                        <i class="text-primary {{ $course->occupationArea->icon }}"></i>
                                     </div>
 
                                     <div class="d-flex justify-content-between">

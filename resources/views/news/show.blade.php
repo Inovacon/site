@@ -65,7 +65,7 @@
                     </div>
 
                     <div class="col d-flex flex-column justify-content-around pl-2">
-                      <span class="font-weight-bold small text-secondary text-uppercase">
+                      <span class="small text-secondary text-uppercase">
                         {{ str_limit($faker->sentence(rand(3, 5), true), 45) }}
                       </span>
                       

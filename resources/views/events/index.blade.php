@@ -16,22 +16,15 @@
       @for($i = 0; $i < 9; $i++)
         <div class="col-lg-3 mb-3">
           <div class="card">
-            <img class="card-img-top" src="http://via.placeholder.com/250x145" alt="">
-
-            <div class="card-img-overlay p-0">
-              <div class="hidden-overlay">
-                <div class="overlay-content">
-                  <p class="font-weight-600 text-center">
-                    <i class="fas fa-hand-pointer fa-lg mx-2"></i>VER EVENTO
-                  </p>
-                </div>
-
-                <a href="{{ url('eventos/show') }}"></a>
-              </div>
+            <div class="overlay-container">
+              <img class="card-img-top" src="http://via.placeholder.com/250x145" alt="">
+              <a href="{{ url('eventos/show') }}"></a>
             </div>
 
             <div class="card-header">
-              <div class="text-primary mb-0 text-uppercase font-weight-bold">{{ $faker->words(rand(1, 5), true) }}</div>
+              <div class="mb-0 text-uppercase font-weight-bold">
+                <a class="link" href="{{ url('eventos/show') }}">{{ $faker->words(rand(1, 5), true) }}</a>
+              </div>
 
               <div class="text-muted small font-weight-bold">DE 20/08 ATÉ 24/08</div>
             </div>
