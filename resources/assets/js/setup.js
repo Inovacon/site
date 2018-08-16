@@ -47,7 +47,9 @@ window.Vue.prototype.consoleLog = function (...data) {
  * jQuery
  */
 $(document).ready(function () {
-    $('form').one('submit', function () {
+
+    // Loading icon in submit buttons
+    $('form').one('submit', function() {
         $(this).find('[type="submit"]').attr('disabled', true);
         $(this).find('[type="submit"]').prepend('<i class="fas fa-spinner fa-pulse fa-fw"></i>&nbsp;');
     });
