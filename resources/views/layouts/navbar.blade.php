@@ -15,7 +15,7 @@
                     <a class="nav-link" href="/"><i class="fas fa-home fa-lg fa-fw mr-1"></i>INÍCIO</a>
                 </li>
 
-                <li class="nav-item  {{ request()->routeIs('courses.*') == 'cursos' ? 'active' : '' }}">
+                <li class="nav-item  {{ request()->routeIs('courses.*') ? 'active' : '' }}">
                     <a class="nav-link" href="/cursos"><i class="fas fa-graduation-cap fa-lg fa-fw mr-1"></i>CURSOS</a>
                 </li>
 
