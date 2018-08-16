@@ -1,3 +1,7 @@
+.navbar {
+  @include box-shadow(0px 0px 10px rgba(0, 0, 0, .2));
+}
+
 .navbar-nav .nav-link {
   @include transition(box-shadow .3s);
 }
@@ -13,6 +17,10 @@
 .navbar-toggler[aria-expanded="true"] {
   color: $primary !important;
   border-color: $primary;
+}
+
+.logo {
+  max-width: 150px;
 }
 
 @include media-breakpoint-down(sm) {

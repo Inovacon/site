@@ -6,8 +6,12 @@
   transition: all 0.3s;
 }
 
-#sidebar.active {
+#sidebar {
   margin-left: -250px;
+}
+
+#sidebar.active {
+  margin-left: 0;
 }
 
 #sidebar .sidebar-header {
@@ -33,17 +37,12 @@
 }
 
 #sidebar ul li a {
-  -webkit-border-radius: 0.1rem;
-  -moz-border-radius: 0.1rem;
-  border-radius: 0.1rem;
   padding: 12px;
   padding-left: 20px;
   font-size: 12px;
   font-weight: 600;
   display: flex;
   align-items: center;
-  margin-left: 15px;
-  margin-right: 15px;
   line-height: 25px;
   text-transform: uppercase;
 }
@@ -53,7 +52,7 @@
   background: rgba(255, 255, 255, 0.23);
 }
 
-#sidebar ul li.active>a {
+#sidebar ul li.active > a {
   color: #fff;
   background: rgba(255, 255, 255, 0.23);
 }

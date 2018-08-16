@@ -1,19 +1,12 @@
-<div class="sidebar-header text-center">
-    <h3 class="m-0">
-        <img src="/images/logo.png" width="170">
-    </h3>
-</div>
-
 <ul class="list-unstyled components">
     <li>
         <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
             <i class="fas fa-user fa-fw fa-2x mr-3"></i> {{ Auth::user()->name }}
         </a>
+        
         <ul class="collapse list-unstyled" id="pageSubmenu">
             <li>
-                <a onclick="
-                    event.preventDefault();
-                    document.getElementById('logoutForm').submit();" href="#">Sair</a>
+                <a href="#">Algo a mais</a>
             </li>
         </ul>
 

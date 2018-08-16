@@ -12,14 +12,14 @@
 </head>
 <body class="bg-light">
     <div id="root">
+        @include('dashboard._navbar')
+
         <div class="wrapper">
-            <nav id="sidebar">
+            <nav id="sidebar" class="active">
                 @include('dashboard._sidebar')
             </nav>
 
             <div id="content">
-                @include('dashboard._nav')
-
                 <div class="container p-4 px-md-5">
                     @yield('content')
                 </div>
@@ -37,6 +37,7 @@
         $('#sidebarCollapse').on('click', function (event) {
             event.preventDefault();
 
+            $(this).toggleClass('active');
             $('#sidebar').toggleClass('active');
         });
     </script>
