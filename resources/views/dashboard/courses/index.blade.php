@@ -3,13 +3,15 @@
 @section('title', 'Lista de Cursos')
 
 @section('content')
-    <div class="d-flex align-items-center justify-content-between mb-4">
-        <h3 class="font-weight-bold text-dark m-0">Cursos</h3>
-
-        <add-button
-                href="{{ route('dashboard.courses.create') }}"
-                content="Cadastrar Curso"></add-button>
+    <div class="d-flex align-items-center justify-content-between">
+        <h4 class="font-weight-600 text-gray-dark">Cursos</h4>
+    
+        <a class="link" href="{{ route('dashboard.courses.create') }}">
+            <i class="fas fa-graduation-cap"></i> Novo curso
+        </a>
     </div>
+
+    <hr>
 
     @if (count($courses))
         <div class="card p-0">

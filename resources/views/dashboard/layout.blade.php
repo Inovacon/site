@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Painel | @yield('title')</title>
+    <title>@yield('title') | Painel</title>
 
     <link rel="stylesheet" href="{{ mix('/css/admin.css') }}">
 </head>
@@ -15,9 +15,7 @@
         @include('dashboard._navbar')
 
         <div class="wrapper">
-            <nav id="sidebar" class="active">
-                @include('dashboard._sidebar')
-            </nav>
+            @include('dashboard._sidebar')
 
             <div id="content">
                 <div class="container p-4 px-md-5">
@@ -29,17 +27,8 @@
         <flash type="{{ session('type') ?: 'success' }}" message="{{ session('flash') }}"></flash>
     </div>
 
-    @routes('dashboard')
-
     <script src="{{ asset('/js/app.js') }}"></script>
-
-    <script>
-        $('#sidebarCollapse').on('click', function (event) {
-            event.preventDefault();
-
-            $(this).toggleClass('active');
-            $('#sidebar').toggleClass('active');
-        });
-    </script>
+    
+    @stack('scripts')
 </body>
 </html>

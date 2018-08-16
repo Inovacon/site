@@ -15758,7 +15758,7 @@ h6 {
   max-width: 150px;
 }
 
-@media (max-width: 767.98px) {
+@media (max-width: 991.98px) {
   .navbar .logo {
     max-width: 130px;
   }
@@ -15892,23 +15892,22 @@ h6 {
 #sidebar {
   min-width: 250px;
   max-width: 250px;
-  background: #04091e;
-  color: #bdb8d7;
+  background-color: #212120;
+  color: #B5B5B5;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
+  min-height: 100vh;
+  -webkit-box-shadow: inset -2px 0 5px rgba(0, 0, 0, 0.5);
+  box-shadow: inset -2px 0 5px rgba(0, 0, 0, 0.5);
 }
 
 #sidebar {
+  position: relative;
   margin-left: -250px;
 }
 
 #sidebar.active {
   margin-left: 0;
-}
-
-#sidebar .sidebar-header {
-  padding: 7px;
-  background-color: #fff;
 }
 
 #sidebar ul.components {
@@ -15920,13 +15919,21 @@ h6 {
   padding: 10px;
 }
 
+#sidebar ul li.active a:after {
+  border-right: 17px solid #f8f9fa;
+  border-top: 17px solid transparent;
+  border-bottom: 17px solid transparent;
+  content: "";
+  display: inline-block;
+  position: absolute;
+  right: 0;
+}
+
 #sidebar a,
 #sidebar a:hover,
 #sidebar a:focus {
   color: inherit;
   text-decoration: none;
-  -webkit-transition: all 0.3s;
-  transition: all 0.3s;
 }
 
 #sidebar ul li a {
@@ -15951,7 +15958,6 @@ h6 {
 
 #sidebar ul li.active > a {
   color: #fff;
-  background: rgba(255, 255, 255, 0.23);
 }
 
 #sidebar a[data-toggle="collapse"] {
@@ -15963,13 +15969,20 @@ h6 {
   padding-left: 30px !important;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 991.98px) {
+  #sidebar ul li.active a:after {
+    display: none;
+  }
+
   #sidebar {
-    margin-left: -250px;
+    z-index: 1010;
+    background-color: rgba(33, 33, 32, 0.95);
+    position: absolute;
+    margin-left: 0;
   }
 
   #sidebar.active {
-    margin-left: 0;
+    margin-left: -250px;
   }
 }
 

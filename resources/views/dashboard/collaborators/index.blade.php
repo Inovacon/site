@@ -3,14 +3,15 @@
 @section('title', 'Lista de Colaboradores')
 
 @section('content')
-    <div class="d-flex align-items-center justify-content-between mb-4">
-        <h3 class="font-weight-bold text-dark m-0">Colaboradores</h3>
+    <div class="d-flex align-items-center justify-content-between">
+        <h4 class="font-weight-600 text-gray-dark">Colaboradores</h4>
 
-        <add-button
-                href="{{ route('dashboard.collaborators.create') }}"
-                content="Cadastrar Colaborador"></add-button>
+        <a class="link" href="{{ route('dashboard.collaborators.create') }}">
+            <i class="fas fa-user-plus"></i> Novo colaborador
+        </a>
     </div>
-
+    
+    <hr>
 
     <div class="card p-0">
         <div class="card-body p-0">
