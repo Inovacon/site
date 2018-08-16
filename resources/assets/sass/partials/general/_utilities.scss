@@ -42,6 +42,14 @@ h1, h2, h3, h4, h5, h6 {
     text-indent: 2.5rem;
 }
 
+.link-absolute {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    left: 0;
+}
+
 .\100-vh {
     height: 100vh !important;
 }
@@ -52,6 +60,10 @@ h1, h2, h3, h4, h5, h6 {
 
 .bg-custom-dark-blue {
     background-color: $custom-dark-blue !important;
+}
+
+.bg-primary-darker {
+    background-color: $primary-darker !important;
 }
 
 .wrapper {

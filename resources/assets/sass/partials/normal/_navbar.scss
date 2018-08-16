@@ -1,5 +1,5 @@
 .navbar {
-  padding-bottom: 0px !important;
+  @include box-shadow(0px 0px 10px rgba(0, 0, 0, .2));
 }
 
 .navbar-nav .nav-link {
@@ -8,7 +8,7 @@
     @include transition(box-shadow .3s);
 }
 
-.navbar-nav.mr-auto .nav-link:hover {
+.nav-link-hover .nav-link:hover {
     @include box-shadow(0 $nav-link-border-width 0 $primary);
 }
 
@@ -41,22 +41,4 @@
     .navbar .logo {
         max-width: 130px;
     }
-}
-
-/** Admin */
-#adminNavbar {
-  padding: 10px !important;
-}
-
-#adminNavbar .nav-link {
-  padding: 0;
-  font-size: inherit !important;
-}
-
-#adminNavbar .navbar-nav .dropdown-menu {
-  position: absolute;
-}
-
-#adminNavbar .nav-link:hover {
-  box-shadow: none !important;
 }
