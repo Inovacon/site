@@ -65,9 +65,26 @@ class CategoryTest extends TestCase
         $category = create(Category::class, ['type' => 'occupation_area']);
         create(Course::class, ['occupation_area_id' => $category->id], 3);
 
-        $category = $category->fresh();
-
         $this->assertCount(3, $category->courses);
         $this->assertInstanceOf(Collection::class, $category->courses);
+    }
+
+    /** @test */
+    function a_category_can_retrieve_only_the_active_courses()
+    {
+        $category = create(Category::class, ['type' => 'occupation_area']);
+
+        create(Course::class, [
+            'active' => false,
+            'occupation_area_id' => $category->id,
+        ], 2);
+
+        create(Course::class, [
+            'active' => true,
+            'occupation_area_id' => $category->id,
+        ], 1);
+
+        $this->assertCount(1, $category->activeCourses);
+        $this->assertInstanceOf(Collection::class, $category->activeCourses);
     }
 }

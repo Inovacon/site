@@ -27,6 +27,16 @@ class Category extends Model
     }
 
     /**
+     * Retrieve a query to only the active courses.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function activeCourses()
+    {
+        return $this->courses()->where('active', true);
+    }
+
+    /**
      * A category is related to many courses based on its type.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

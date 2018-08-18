@@ -37,7 +37,7 @@
                                 </li>
 
                                 <span class="badge badge-pill badge-primary align-self-center">
-                                    {{ $area->courses()->count() }}
+                                    {{ $area->activeCourses()->count() }}
                                 </span>
                             </a>
                         @endforeach

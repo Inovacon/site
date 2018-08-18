@@ -8,7 +8,7 @@ Auth::routes();
 Route::get('/', 'PagesController@index')->name('home');
 
 Route::get('cursos', 'CourseController@index')->name('courses.index');
-Route::get('cursos/{course}', 'CourseController@show')->name('courses.show');
+Route::get('cursos/{activeCourse}', 'CourseController@show')->name('courses.show');
 
 Route::get('eventos', 'EventController@index')->name('events.index');
 Route::get('eventos/{evento}', 'EventController@show')->name('events.show');

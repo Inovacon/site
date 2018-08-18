@@ -74,8 +74,8 @@ class ReadCoursesTest extends TestCase
     /** @test */
     function a_user_can_filter_the_courses_by_those_that_have_the_same_occupation_area()
     {
-        $course1 = create(Course::class);
-        $course2 = create(Course::class);
+        $course1 = create(Course::class, ['active' => true]);
+        $course2 = create(Course::class, ['active' => true]);
 
         $this->get(route('courses.index').'?area='.$course1->occupationArea->id)
             ->assertSee($course1->name)
@@ -89,7 +89,23 @@ class ReadCoursesTest extends TestCase
     /** @test */
     function a_user_can_view_a_single_course()
     {
-        $this->get(route('courses.show', $course = create(Course::class)))
+        $course = create(Course::class, ['active' => true]);
+
+        $this->get(route('courses.show', $course))
             ->assertSee($course->name);
+    }
+
+    /** @test */
+    function a_course_should_only_be_visible_if_it_is_active()
+    {
+        $activeCourse = create(Course::class, ['active' => true]);
+        $inactiveCourse = create(Course::class, ['active' => false]);
+
+        $this->get(route('courses.index'))
+            ->assertSee($activeCourse->name)
+            ->assertDontSee($inactiveCourse->name);
+
+        $this->get(route('courses.show', $inactiveCourse))
+            ->assertNotFound();
     }
 }

@@ -9,7 +9,7 @@ class CourseController extends Controller
 {
     public function index()
     {
-        $courses = Course::latest();
+        $courses = Course::where('active', true)->latest();
 
         if ($areaId = request('area')) {
             $courses->whereHas('occupationArea', function ($query) use ($areaId) {
@@ -19,17 +19,17 @@ class CourseController extends Controller
 
         return view('courses.index', [
             'courses' => $courses->paginate(9),
-            'coursesCount' => Course::count(),
+            'coursesCount' => Course::where('active', true)->count(),
             'occupationAreas' => Category::occupationArea()->get(),
         ]);
     }
 
-    public function show(Course $course)
+    public function show(Course $activeCourse)
     {
         return view('courses.show', [
-            'course' => $course,
-            'relatedCourses' => Course::whereHas('occupationArea', function ($query) use ($course) {
-                $query->where('type', $course->occupationArea->name);
+            'course' => $activeCourse,
+            'relatedCourses' => Course::whereHas('occupationArea', function ($query) use ($activeCourse) {
+                $query->where('type', $activeCourse->occupationArea->name);
             })
         ]);
     }
