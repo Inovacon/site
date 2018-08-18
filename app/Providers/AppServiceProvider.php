@@ -2,11 +2,9 @@
 
 namespace App\Providers;
 
-use App\Course;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Blade;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Validator;
@@ -23,7 +21,6 @@ class AppServiceProvider extends ServiceProvider
         Schema::defaultStringLength(191);
 
         $this->bootBlade();
-        $this->bootRouting();
         $this->bootValidation();
 
         $this->logQueriesWhileDeveloping();
@@ -36,16 +33,6 @@ class AppServiceProvider extends ServiceProvider
     {
         Blade::if('role', function ($role) {
             return optional(auth()->user())->hasRole($role);
-        });
-    }
-
-    /**
-     * Boot the routing aspect of the application.
-     */
-    protected function bootRouting()
-    {
-        Route::bind('activeCourse', function ($value) {
-            return Course::where('active', true)->find($value) ?? abort(404);
         });
     }
 
