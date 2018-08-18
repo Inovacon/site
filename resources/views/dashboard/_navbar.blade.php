@@ -1,4 +1,4 @@
-<nav id="adminNavbar" class="navbar sticky-top navbar-light bg-white">
+<nav id="adminNavbar" class="navbar navbar-light bg-white">
     <div class="container-fluid">
 
         <ul class="navbar-nav">
