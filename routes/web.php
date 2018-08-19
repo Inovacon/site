@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
+Route::get('comprar', 'Payment\PaymentControllerInterface@store');
+
 Route::get('/', 'PagesController@index')->name('home');
 
 Route::get('cursos', 'CourseController@index')->name('courses.index');
