@@ -20,5 +20,8 @@
         "popper.js": "^1.12",
         "toastr": "^2.1.4",
         "vue": "^2.5.7"
+    },
+    "dependencies": {
+        "cleave.js": "^1.4.3"
     }
 }
