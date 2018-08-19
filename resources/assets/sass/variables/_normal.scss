@@ -1,13 +1,28 @@
 
 @import "general";
 
-// BUTTONS + FORMS
-$input-border-radius: .10rem;
-$input-btn-focus-width: 1px !default;
+
+// FORMS
+$input-padding-x: 0;
+$input-box-shadow: 0;
+$input-focus-width: 0;
+$input-border-width: 0;
+$input-border-radius: 0;
+$input-focus-box-shadow: 0;
+$input-placeholder-color: $gray-500;
+$input-focus-border-color: $primary-darker;
+$custom-checkbox-indicator-border-radius: .1rem;
+
+// BUTTONS
 $btn-font-weight: 500;
 $btn-border-radius: .1rem;
+$btn-border-radius-lg: .15rem;
 $btn-border-radius-sm: .1rem;
-$btn-border-radius-lg: .1rem;
+$input-btn-focus-width: 2px;
+$input-btn-focus-color: $primary-darker;
+$input-btn-focus-box-shadow: 0 2px 4px rgba(0, 0, 0, .4);
+$btn-box-shadow: none;
+$btn-transition: all .13s;
 
 // NAVS
 $nav-link-border-width: 3px;
@@ -29,4 +44,3 @@ $card-spacer-x: .75rem;
 
 // IMAGE THUMBNAILS
 $thumbnail-border-radius: .10rem;
-$thumbnail-box-shadow: 3px 3px 3px black;
