@@ -6,8 +6,8 @@
     <div class="d-flex align-items-center justify-content-between">
         <h4 class="font-weight-600 text-gray-dark">Colaboradores</h4>
 
-        <a class="link" href="{{ route('dashboard.collaborators.create') }}">
-            <i class="fas fa-user-plus"></i> Novo colaborador
+        <a class="btn btn-lg btn-outline-primary" href="{{ route('dashboard.collaborators.create') }}">
+            <i class="fas fa-plus"></i> Novo colaborador
         </a>
     </div>
     

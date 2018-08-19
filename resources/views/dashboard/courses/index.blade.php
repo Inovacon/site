@@ -6,8 +6,8 @@
     <div class="d-flex align-items-center justify-content-between">
         <h4 class="font-weight-600 text-gray-dark">Cursos</h4>
     
-        <a class="link" href="{{ route('dashboard.courses.create') }}">
-            <i class="fas fa-graduation-cap"></i> Novo curso
+        <a class="btn btn-outline-primary btn-lg" href="{{ route('dashboard.courses.create') }}">
+            <i class="fas fa-plus"></i> Novo curso
         </a>
     </div>
 

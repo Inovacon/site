@@ -6,5 +6,6 @@
 	<div>
 	    <h4 class="font-weight-600 text-gray-dark">Painel</h4>
 	</div>
+    
     <hr>
 @endsection

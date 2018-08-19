@@ -1,8 +1,5 @@
 <nav id="adminNavbar" class="navbar sticky-top navbar-light bg-white">
     <div class="container-fluid">
-        <a class="navbar-brand mr-4" href="{{ route('home') }}">
-            <img class="logo" src="{{ asset('images/logo.png') }}">
-        </a>
 
         <ul class="navbar-nav">
             <li class="nav-item">
@@ -14,6 +11,9 @@
             </li>
         </ul>
             
+        <a class="navbar-brand mx-4" href="{{ route('home') }}">
+            <img class="logo" src="{{ asset('images/logo.png') }}">
+        </a>
 
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
@@ -30,3 +30,15 @@
         </ul>
     </div>
 </nav>
+
+@push('scripts')
+    <script>
+
+        $('#sidebarCollapse').on('click', function (event) {
+            event.preventDefault();
+
+            $(this).toggleClass('active');
+            $('#sidebar').toggleClass('active');
+        });
+    </script>
+@endpush

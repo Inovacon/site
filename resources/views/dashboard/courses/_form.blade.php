@@ -147,7 +147,7 @@
                id="price"
                name="price"
                value="{{ old('price', $course->price) }}"
-               required>
+               required/>
     </div>
 </div>
 

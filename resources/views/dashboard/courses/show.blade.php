@@ -6,11 +6,11 @@
     <course-details-view inline-template :active="{{ json_encode($course->active) }}">
         <div>
             <div class="d-flex align-items-center justify-content-between mb-4">
-                <h3 class="font-weight-bold text-dark m-0">Detalhes do Curso</h3>
-
+                <h4 class="font-weight-600 text-gray-dark m-0">Detalhes do Curso</h4>
+                
                 <div class="d-flex align-items-center">
                     <activate-button
-                            size="3x"
+                            size="2x"
                             data-placement="top"
                             data-tooltip="tooltip"
                             title="Ativar/Desativar"
@@ -47,6 +47,7 @@
                     </a>
                 </div>
             </div>
+            <hr>
 
             <div class="card">
                 <div class="card-body">

@@ -1,16 +1,9 @@
-<nav id="sidebar" class="active">
+<nav id="sidebar">
     <ul class="list-unstyled components">
         <li>
-            <a href="#pageSubmenu" class="text-white" {{-- data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" --}}>
+            <a href="#pageSubmenu" class="text-white">
                 <i class="fas fa-user fa-fw fa-2x mr-3"></i> {{ Auth::user()->name }}
             </a>
-{{--             
-            <ul class="collapse list-unstyled" id="pageSubmenu">
-                <li>
-                    <a href="#">Algo a mais</a>
-                </li>
-            </ul> 
---}}
         </li>
 
         <hr class="bg-custom-gray">
@@ -48,14 +41,3 @@
         </li>
     </ul>
 </nav>
-
-@push('scripts')
-    <script>
-        $('#sidebarCollapse').on('click', function (event) {
-            event.preventDefault();
-
-            $(this).toggleClass('active');
-            $('#sidebar').toggleClass('active');
-        });
-    </script>
-@endpush

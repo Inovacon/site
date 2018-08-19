@@ -27,7 +27,7 @@
         <flash type="{{ session('type') ?: 'success' }}" message="{{ session('flash') }}"></flash>
     </div>
 
-    <script src="{{ asset('/js/app.js') }}"></script>
+    <script src="{{ asset('/js/admin.js') }}"></script>
     
     @stack('scripts')
 </body>
