@@ -34,7 +34,7 @@ input:focus:-webkit-autofill {
 }
 
 .md-input.active:focus + .md-label {
-	color: $primary !important;
+	color: $primary-darker !important;
 }
 
 .md-input.active + .md-label,
