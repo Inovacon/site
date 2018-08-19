@@ -25,7 +25,7 @@ class AppServiceProvider extends ServiceProvider
 
         $this->bootBlade();
         $this->bootValidation();
-        $this->bootMercadoLivre();
+        $this->bootMercadoPago();
 
         $this->logQueriesWhileDeveloping();
     }
@@ -65,7 +65,7 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Boot Mercado Livre SDK.
      */
-    protected function bootMercadoLivre()
+    protected function bootMercadoPago()
     {
         SDK::setClientId(env('MP_CLIENT_ID'));
         SDK::setClientSecret(env('MP_CLIENT_SECRET'));

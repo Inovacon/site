@@ -49,7 +49,7 @@ window.Vue.prototype.consoleLog = function (...data) {
 $(document).ready(function () {
 
     // Disable and put loading icon when submit form
-    $('form').one('submit', function() {
+    $('form').one('submit', function () {
         $(this).find('[type="submit"]').attr('disabled', true);
         $(this).find('[type="submit"]').prepend('<i class="fas fa-spinner fa-pulse fa-fw"></i>&nbsp;');
     });
@@ -57,12 +57,14 @@ $(document).ready(function () {
     // File input
     $('.custom-file-input').each(function () {
         $(this).on('change', function () {
-            $(this).next('.custom-file-label').addClass("selected").html($(this).val());
+            $(this).next('.custom-file-label')
+                .addClass("selected")
+                .html($(this).val());
         });
     });
 
     // Tooltip activate 
-    $('[data-tooltip="tooltip"]').tooltip()
+    $('[data-tooltip="tooltip"]').tooltip();
 
     // Material design inputs
     $('.md-input').focus(function() {
