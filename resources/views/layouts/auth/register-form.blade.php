@@ -35,3 +35,34 @@
         <button class="btn btn-success" type="submit">Cadastrar-se</button>
     </div>
 </form>
+
+@push('scripts')
+    <script>
+        // Cleave js masks
+        $('.birth-day').each(function() {
+            new Cleave(this, {
+                date: true,
+                datePattern: ['d', 'm', 'Y']
+            });
+        });
+
+        $('.phone').each(function() {
+            new Cleave(this, {
+                delimiters: [' ', '-'],
+                blocks: [2, 5, 4]
+            });
+        });
+
+        var cleaveCPF = new Cleave('.cpf', {
+            delimiters: ['.', '.', '-'],
+            blocks: [3, 3, 3, 2],
+            numericOnly: true
+        });
+
+        var cleaveCNPJ = new Cleave('.cnpj', {
+            delimiters: ['.', '.', '/', '-'],
+            blocks: [2, 3, 3, 4, 2],
+            numericOnly: true
+        });
+    </script>
+@endpush
