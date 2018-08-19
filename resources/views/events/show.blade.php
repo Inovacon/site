@@ -124,7 +124,7 @@
                 </div>
               </div>
               
-              <div class="tab-pane" id="pills-schedule" role="tabpanel" aria-labelledby="pills-schedule-tab">
+              <div class="tab-pane fade" id="pills-schedule" role="tabpanel" aria-labelledby="pills-schedule-tab">
                 <div class="table-responsive">
                   <table class="table">
                     @for($i = 0; $i < 2; $i++)

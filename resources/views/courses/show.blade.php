@@ -26,7 +26,7 @@
 
                                 <div class="text-center text-primary border-bottom border-primary mt-2"
                                      style="border-width: 2px !important;">
-                                    <span class="strong">R$ {{ $course->price }}</span>
+                                    <span class="strong">R${{ $course->price }}</span>
                                 </div>
                             </div>
 
@@ -87,8 +87,8 @@
                                         <span class="font-weight-600">
                                             <i class="fas fa-user-clock fa-fw text-primary mr-1"></i>Carga Horária:
                                         </span>
-
-                                        <span>{{ $course->hours }} h</span>
+                                        
+                                        <span>{{ $course->hours }}h</span>
                                     </li>
 
                                     <li class="list-group-item">
