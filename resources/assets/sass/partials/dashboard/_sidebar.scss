@@ -10,11 +10,11 @@
 
 #sidebar {
   position: relative;
-  margin-left: -250px;
+  margin-left: 0;
 }
 
 #sidebar.active {
-  margin-left: 0;
+  margin-left: -250px;
 }
 
 #sidebar ul.components {
@@ -61,7 +61,6 @@
 
 #sidebar ul li.active > a {
   color: #fff;
-  // background: rgba(255, 255, 255, 0.23);
 }
 
 #sidebar a[data-toggle="collapse"] {
@@ -80,12 +79,12 @@
 
   #sidebar {
     z-index: 1010;
-    background-color: rgba($sidebar-bg-color, .95);
+    background-color: rgba($sidebar-bg-color, .9);
     position: absolute;
-    margin-left: 0;
+    margin-left: -350px;
   }
 
   #sidebar.active {
-    margin-left: -250px;
+    margin-left: 0px;
   }
 }

@@ -15758,30 +15758,22 @@ h6 {
   max-width: 150px;
 }
 
+#sidebarCollapse.active {
+  color: #00a0f0;
+}
+
 @media (max-width: 991.98px) {
   .navbar .logo {
     max-width: 130px;
   }
-}
 
-/** Admin */
+  #sidebarCollapse {
+    color: #00a0f0;
+  }
 
-#adminNavbar {
-  padding: 10px !important;
-}
-
-#adminNavbar .nav-link {
-  padding: 0;
-  font-size: inherit !important;
-}
-
-#adminNavbar .navbar-nav .dropdown-menu {
-  position: absolute;
-}
-
-#adminNavbar .nav-link:hover {
-  -webkit-box-shadow: none !important;
-          box-shadow: none !important;
+  #sidebarCollapse.active {
+    color: initial;
+  }
 }
 
 .btn {
@@ -15903,11 +15895,11 @@ h6 {
 
 #sidebar {
   position: relative;
-  margin-left: -250px;
+  margin-left: 0;
 }
 
 #sidebar.active {
-  margin-left: 0;
+  margin-left: -250px;
 }
 
 #sidebar ul.components {
@@ -15976,13 +15968,13 @@ h6 {
 
   #sidebar {
     z-index: 1010;
-    background-color: rgba(33, 33, 32, 0.95);
+    background-color: rgba(33, 33, 32, 0.9);
     position: absolute;
-    margin-left: 0;
+    margin-left: -350px;
   }
 
   #sidebar.active {
-    margin-left: -250px;
+    margin-left: 0px;
   }
 }
 

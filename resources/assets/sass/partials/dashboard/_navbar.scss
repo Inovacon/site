@@ -23,26 +23,20 @@
   max-width: 150px;
 }
 
+#sidebarCollapse.active {
+  color: $primary;
+}
+
 @include media-breakpoint-down(md) {
   .navbar .logo {
     max-width: 130px;
   }
-}
+    
+  #sidebarCollapse {
+    color: $primary;
+  }
 
-/** Admin */
-#adminNavbar {
-  padding: 10px !important;
-}
-
-#adminNavbar .nav-link {
-  padding: 0;
-  font-size: inherit !important;
-}
-
-#adminNavbar .navbar-nav .dropdown-menu {
-  position: absolute;
-}
-
-#adminNavbar .nav-link:hover {
-  box-shadow: none !important;
+  #sidebarCollapse.active {
+    color: initial;
+  }
 }
