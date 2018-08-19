@@ -1,4 +1,6 @@
 <form action="{{ route('register') }}" method="POST">
+    @csrf 
+    
     <ul class="nav nav-pills nav-fill mb-3" id="pills-tab" role="tablist">
         <li class="nav-item">
             <a  class="nav-link active" 
@@ -31,13 +33,18 @@
         </div>
     </div>
 
-    <div class="form-group mb-0">
-        <button class="btn btn-success" type="submit">Cadastrar-se</button>
+    <div class="d-flex justify-content-between align-self-end">
+        <div class="form-group mb-0">
+            <button class="btn btn-success" type="submit">Cadastrar-se</button>
+        </div>
+
+        <p class="text-right small text-secondary">Já possui uma conta? <a class="link" href="/login">Entre</a>.</p>
     </div>
 </form>
 
 @push('scripts')
     <script>
+        
         // Cleave js masks
         $('.birth-day').each(function() {
             new Cleave(this, {

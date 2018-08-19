@@ -60,19 +60,469 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 205);
+/******/ 	return __webpack_require__(__webpack_require__.s = 197);
 /******/ })
 /************************************************************************/
-/******/ ({
+/******/ ([
+/* 0 */,
+/* 1 */,
+/* 2 */,
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
 
-/***/ 10:
+"use strict";
+
+
+var bind = __webpack_require__(11);
+var isBuffer = __webpack_require__(27);
+
+/*global toString:true*/
+
+// utils is a library of generic helper functions non-specific to axios
+
+var toString = Object.prototype.toString;
+
+/**
+ * Determine if a value is an Array
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is an Array, otherwise false
+ */
+function isArray(val) {
+  return toString.call(val) === '[object Array]';
+}
+
+/**
+ * Determine if a value is an ArrayBuffer
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is an ArrayBuffer, otherwise false
+ */
+function isArrayBuffer(val) {
+  return toString.call(val) === '[object ArrayBuffer]';
+}
+
+/**
+ * Determine if a value is a FormData
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is an FormData, otherwise false
+ */
+function isFormData(val) {
+  return (typeof FormData !== 'undefined') && (val instanceof FormData);
+}
+
+/**
+ * Determine if a value is a view on an ArrayBuffer
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a view on an ArrayBuffer, otherwise false
+ */
+function isArrayBufferView(val) {
+  var result;
+  if ((typeof ArrayBuffer !== 'undefined') && (ArrayBuffer.isView)) {
+    result = ArrayBuffer.isView(val);
+  } else {
+    result = (val) && (val.buffer) && (val.buffer instanceof ArrayBuffer);
+  }
+  return result;
+}
+
+/**
+ * Determine if a value is a String
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a String, otherwise false
+ */
+function isString(val) {
+  return typeof val === 'string';
+}
+
+/**
+ * Determine if a value is a Number
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a Number, otherwise false
+ */
+function isNumber(val) {
+  return typeof val === 'number';
+}
+
+/**
+ * Determine if a value is undefined
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if the value is undefined, otherwise false
+ */
+function isUndefined(val) {
+  return typeof val === 'undefined';
+}
+
+/**
+ * Determine if a value is an Object
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is an Object, otherwise false
+ */
+function isObject(val) {
+  return val !== null && typeof val === 'object';
+}
+
+/**
+ * Determine if a value is a Date
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a Date, otherwise false
+ */
+function isDate(val) {
+  return toString.call(val) === '[object Date]';
+}
+
+/**
+ * Determine if a value is a File
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a File, otherwise false
+ */
+function isFile(val) {
+  return toString.call(val) === '[object File]';
+}
+
+/**
+ * Determine if a value is a Blob
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a Blob, otherwise false
+ */
+function isBlob(val) {
+  return toString.call(val) === '[object Blob]';
+}
+
+/**
+ * Determine if a value is a Function
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a Function, otherwise false
+ */
+function isFunction(val) {
+  return toString.call(val) === '[object Function]';
+}
+
+/**
+ * Determine if a value is a Stream
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a Stream, otherwise false
+ */
+function isStream(val) {
+  return isObject(val) && isFunction(val.pipe);
+}
+
+/**
+ * Determine if a value is a URLSearchParams object
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a URLSearchParams object, otherwise false
+ */
+function isURLSearchParams(val) {
+  return typeof URLSearchParams !== 'undefined' && val instanceof URLSearchParams;
+}
+
+/**
+ * Trim excess whitespace off the beginning and end of a string
+ *
+ * @param {String} str The String to trim
+ * @returns {String} The String freed of excess whitespace
+ */
+function trim(str) {
+  return str.replace(/^\s*/, '').replace(/\s*$/, '');
+}
+
+/**
+ * Determine if we're running in a standard browser environment
+ *
+ * This allows axios to run in a web worker, and react-native.
+ * Both environments support XMLHttpRequest, but not fully standard globals.
+ *
+ * web workers:
+ *  typeof window -> undefined
+ *  typeof document -> undefined
+ *
+ * react-native:
+ *  navigator.product -> 'ReactNative'
+ */
+function isStandardBrowserEnv() {
+  if (typeof navigator !== 'undefined' && navigator.product === 'ReactNative') {
+    return false;
+  }
+  return (
+    typeof window !== 'undefined' &&
+    typeof document !== 'undefined'
+  );
+}
+
+/**
+ * Iterate over an Array or an Object invoking a function for each item.
+ *
+ * If `obj` is an Array callback will be called passing
+ * the value, index, and complete array for each item.
+ *
+ * If 'obj' is an Object callback will be called passing
+ * the value, key, and complete object for each property.
+ *
+ * @param {Object|Array} obj The object to iterate
+ * @param {Function} fn The callback to invoke for each item
+ */
+function forEach(obj, fn) {
+  // Don't bother if no value provided
+  if (obj === null || typeof obj === 'undefined') {
+    return;
+  }
+
+  // Force an array if not already something iterable
+  if (typeof obj !== 'object') {
+    /*eslint no-param-reassign:0*/
+    obj = [obj];
+  }
+
+  if (isArray(obj)) {
+    // Iterate over array values
+    for (var i = 0, l = obj.length; i < l; i++) {
+      fn.call(null, obj[i], i, obj);
+    }
+  } else {
+    // Iterate over object keys
+    for (var key in obj) {
+      if (Object.prototype.hasOwnProperty.call(obj, key)) {
+        fn.call(null, obj[key], key, obj);
+      }
+    }
+  }
+}
+
+/**
+ * Accepts varargs expecting each argument to be an object, then
+ * immutably merges the properties of each object and returns result.
+ *
+ * When multiple objects contain the same key the later object in
+ * the arguments list will take precedence.
+ *
+ * Example:
+ *
+ * ```js
+ * var result = merge({foo: 123}, {foo: 456});
+ * console.log(result.foo); // outputs 456
+ * ```
+ *
+ * @param {Object} obj1 Object to merge
+ * @returns {Object} Result of all merge properties
+ */
+function merge(/* obj1, obj2, obj3, ... */) {
+  var result = {};
+  function assignValue(val, key) {
+    if (typeof result[key] === 'object' && typeof val === 'object') {
+      result[key] = merge(result[key], val);
+    } else {
+      result[key] = val;
+    }
+  }
+
+  for (var i = 0, l = arguments.length; i < l; i++) {
+    forEach(arguments[i], assignValue);
+  }
+  return result;
+}
+
+/**
+ * Extends object a by mutably adding to it the properties of object b.
+ *
+ * @param {Object} a The object to be extended
+ * @param {Object} b The object to copy properties from
+ * @param {Object} thisArg The object to bind function to
+ * @return {Object} The resulting value of object a
+ */
+function extend(a, b, thisArg) {
+  forEach(b, function assignValue(val, key) {
+    if (thisArg && typeof val === 'function') {
+      a[key] = bind(val, thisArg);
+    } else {
+      a[key] = val;
+    }
+  });
+  return a;
+}
+
+module.exports = {
+  isArray: isArray,
+  isArrayBuffer: isArrayBuffer,
+  isBuffer: isBuffer,
+  isFormData: isFormData,
+  isArrayBufferView: isArrayBufferView,
+  isString: isString,
+  isNumber: isNumber,
+  isObject: isObject,
+  isUndefined: isUndefined,
+  isDate: isDate,
+  isFile: isFile,
+  isBlob: isBlob,
+  isFunction: isFunction,
+  isStream: isStream,
+  isURLSearchParams: isURLSearchParams,
+  isStandardBrowserEnv: isStandardBrowserEnv,
+  forEach: forEach,
+  merge: merge,
+  extend: extend,
+  trim: trim
+};
+
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports) {
+
+/* globals __VUE_SSR_CONTEXT__ */
+
+// IMPORTANT: Do NOT use ES2015 features in this file.
+// This module is a runtime utility for cleaner component module output and will
+// be included in the final webpack user bundle.
+
+module.exports = function normalizeComponent (
+  rawScriptExports,
+  compiledTemplate,
+  functionalTemplate,
+  injectStyles,
+  scopeId,
+  moduleIdentifier /* server only */
+) {
+  var esModule
+  var scriptExports = rawScriptExports = rawScriptExports || {}
+
+  // ES6 modules interop
+  var type = typeof rawScriptExports.default
+  if (type === 'object' || type === 'function') {
+    esModule = rawScriptExports
+    scriptExports = rawScriptExports.default
+  }
+
+  // Vue.extend constructor export interop
+  var options = typeof scriptExports === 'function'
+    ? scriptExports.options
+    : scriptExports
+
+  // render functions
+  if (compiledTemplate) {
+    options.render = compiledTemplate.render
+    options.staticRenderFns = compiledTemplate.staticRenderFns
+    options._compiled = true
+  }
+
+  // functional template
+  if (functionalTemplate) {
+    options.functional = true
+  }
+
+  // scopedId
+  if (scopeId) {
+    options._scopeId = scopeId
+  }
+
+  var hook
+  if (moduleIdentifier) { // server build
+    hook = function (context) {
+      // 2.3 injection
+      context =
+        context || // cached call
+        (this.$vnode && this.$vnode.ssrContext) || // stateful
+        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
+      // 2.2 with runInNewContext: true
+      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
+        context = __VUE_SSR_CONTEXT__
+      }
+      // inject component styles
+      if (injectStyles) {
+        injectStyles.call(this, context)
+      }
+      // register component module identifier for async chunk inferrence
+      if (context && context._registeredComponents) {
+        context._registeredComponents.add(moduleIdentifier)
+      }
+    }
+    // used by ssr in case component is cached and beforeCreate
+    // never gets called
+    options._ssrRegister = hook
+  } else if (injectStyles) {
+    hook = injectStyles
+  }
+
+  if (hook) {
+    var functional = options.functional
+    var existing = functional
+      ? options.render
+      : options.beforeCreate
+
+    if (!functional) {
+      // inject component registration as beforeCreate hook
+      options.beforeCreate = existing
+        ? [].concat(existing, hook)
+        : [hook]
+    } else {
+      // for template-only hot-reload because in that case the render fn doesn't
+      // go through the normalizer
+      options._injectStyles = hook
+      // register for functioal component in vue file
+      options.render = function renderWithStyleInjection (h, context) {
+        hook.call(context)
+        return existing(h, context)
+      }
+    }
+  }
+
+  return {
+    esModule: esModule,
+    exports: scriptExports,
+    options: options
+  }
+}
+
+
+/***/ }),
+/* 5 */,
+/* 6 */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1,eval)("this");
+} catch(e) {
+	// This works if the window reference is available
+	if(typeof window === "object")
+		g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
+/* 7 */,
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {
 
 var utils = __webpack_require__(3);
-var normalizeHeaderName = __webpack_require__(33);
+var normalizeHeaderName = __webpack_require__(29);
 
 var DEFAULT_CONTENT_TYPE = {
   'Content-Type': 'application/x-www-form-urlencoded'
@@ -88,10 +538,10 @@ function getDefaultAdapter() {
   var adapter;
   if (typeof XMLHttpRequest !== 'undefined') {
     // For browsers use XHR adapter
-    adapter = __webpack_require__(14);
+    adapter = __webpack_require__(12);
   } else if (typeof process !== 'undefined') {
     // For node use HTTP adapter
-    adapter = __webpack_require__(14);
+    adapter = __webpack_require__(12);
   }
   return adapter;
 }
@@ -166,11 +616,10 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 
 module.exports = defaults;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(12)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(10)))
 
 /***/ }),
-
-/***/ 11:
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -10541,8 +10990,7 @@ return jQuery;
 
 
 /***/ }),
-
-/***/ 12:
+/* 10 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -10732,8 +11180,7 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-
-/***/ 13:
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10751,20 +11198,19 @@ module.exports = function bind(fn, thisArg) {
 
 
 /***/ }),
-
-/***/ 14:
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var utils = __webpack_require__(3);
-var settle = __webpack_require__(34);
-var buildURL = __webpack_require__(36);
-var parseHeaders = __webpack_require__(37);
-var isURLSameOrigin = __webpack_require__(38);
-var createError = __webpack_require__(15);
-var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(39);
+var settle = __webpack_require__(30);
+var buildURL = __webpack_require__(32);
+var parseHeaders = __webpack_require__(33);
+var isURLSameOrigin = __webpack_require__(34);
+var createError = __webpack_require__(13);
+var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(35);
 
 module.exports = function xhrAdapter(config) {
   return new Promise(function dispatchXhrRequest(resolve, reject) {
@@ -10861,7 +11307,7 @@ module.exports = function xhrAdapter(config) {
     // This is only done if running in a standard browser environment.
     // Specifically not if we're in a web worker, or react-native.
     if (utils.isStandardBrowserEnv()) {
-      var cookies = __webpack_require__(40);
+      var cookies = __webpack_require__(36);
 
       // Add xsrf header
       var xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ?
@@ -10939,14 +11385,13 @@ module.exports = function xhrAdapter(config) {
 
 
 /***/ }),
-
-/***/ 15:
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var enhanceError = __webpack_require__(35);
+var enhanceError = __webpack_require__(31);
 
 /**
  * Create an Error with the specified message, config, error code, request and response.
@@ -10965,8 +11410,7 @@ module.exports = function createError(message, config, code, request, response) 
 
 
 /***/ }),
-
-/***/ 16:
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10978,8 +11422,7 @@ module.exports = function isCancel(value) {
 
 
 /***/ }),
-
-/***/ 17:
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11005,8 +11448,7 @@ module.exports = Cancel;
 
 
 /***/ }),
-
-/***/ 18:
+/* 16 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -13544,41 +13986,19 @@ Popper.Defaults = Defaults;
 /* harmony default export */ __webpack_exports__["default"] = (Popper);
 //# sourceMappingURL=popper.js.map
 
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(8)))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(6)))
 
 /***/ }),
-
-/***/ 205:
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(24);
-__webpack_require__(206);
-module.exports = __webpack_require__(207);
-
-
-/***/ }),
-
-/***/ 206:
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-
-/***/ 207:
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-
-/***/ 24:
+/* 17 */,
+/* 18 */,
+/* 19 */,
+/* 20 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__dependencies__ = __webpack_require__(25);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__setup__ = __webpack_require__(56);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__dependencies__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__setup__ = __webpack_require__(48);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__setup___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__setup__);
 
 
@@ -13589,34 +14009,33 @@ Vue.mixin({
     }
 });
 
-Vue.component('flash', __webpack_require__(57));
-Vue.component('add-button', __webpack_require__(60));
-Vue.component('activate-button', __webpack_require__(63));
+Vue.component('flash', __webpack_require__(49));
+Vue.component('add-button', __webpack_require__(52));
+Vue.component('activate-button', __webpack_require__(55));
 
-Vue.component('course-details-view', __webpack_require__(66));
+Vue.component('course-details-view', __webpack_require__(58));
 
 new Vue({
     el: '#root'
 });
 
 /***/ }),
-
-/***/ 25:
+/* 21 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(22);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios__ = __webpack_require__(25);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_axios__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_jquery__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_jquery__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_jquery__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_popper_js__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_bootstrap__ = __webpack_require__(48);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_popper_js__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_bootstrap__ = __webpack_require__(44);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_bootstrap___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_bootstrap__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_toastr__ = __webpack_require__(49);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_toastr__ = __webpack_require__(45);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_toastr___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_toastr__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_cleave_js__ = __webpack_require__(274);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_cleave_js__ = __webpack_require__(47);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_cleave_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_cleave_js__);
 
 
@@ -13634,8 +14053,7 @@ window.toastr = __WEBPACK_IMPORTED_MODULE_5_toastr___default.a;
 window.Cleave = __WEBPACK_IMPORTED_MODULE_6_cleave_js___default.a;
 
 /***/ }),
-
-/***/ 26:
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24598,11 +25016,10 @@ Vue.compile = compileToFunctions;
 
 module.exports = Vue;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8), __webpack_require__(27).setImmediate))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6), __webpack_require__(23).setImmediate))
 
 /***/ }),
-
-/***/ 27:
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {var scope = (typeof global !== "undefined" && global) ||
@@ -24658,7 +25075,7 @@ exports._unrefActive = exports.active = function(item) {
 };
 
 // setimmediate attaches itself to the global object
-__webpack_require__(28);
+__webpack_require__(24);
 // On some exotic environments, it's not clear which object `setimmediate` was
 // able to install onto.  Search each possibility in the same order as the
 // `setimmediate` library.
@@ -24669,1449 +25086,10 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
                          (typeof global !== "undefined" && global.clearImmediate) ||
                          (this && this.clearImmediate);
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
 
 /***/ }),
-
-/***/ 274:
-/***/ (function(module, exports, __webpack_require__) {
-
-(function webpackUniversalModuleDefinition(root, factory) {
-	if(true)
-		module.exports = factory();
-	else if(typeof define === 'function' && define.amd)
-		define([], factory);
-	else if(typeof exports === 'object')
-		exports["Cleave"] = factory();
-	else
-		root["Cleave"] = factory();
-})(this, function() {
-return /******/ (function(modules) { // webpackBootstrap
-/******/ 	// The module cache
-/******/ 	var installedModules = {};
-
-/******/ 	// The require function
-/******/ 	function __webpack_require__(moduleId) {
-
-/******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId])
-/******/ 			return installedModules[moduleId].exports;
-
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = installedModules[moduleId] = {
-/******/ 			exports: {},
-/******/ 			id: moduleId,
-/******/ 			loaded: false
-/******/ 		};
-
-/******/ 		// Execute the module function
-/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-
-/******/ 		// Flag the module as loaded
-/******/ 		module.loaded = true;
-
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
-
-
-/******/ 	// expose the modules object (__webpack_modules__)
-/******/ 	__webpack_require__.m = modules;
-
-/******/ 	// expose the module cache
-/******/ 	__webpack_require__.c = installedModules;
-
-/******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
-
-/******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(0);
-/******/ })
-/************************************************************************/
-/******/ ([
-/* 0 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(global) {'use strict';
-
-	/**
-	 * Construct a new Cleave instance by passing the configuration object
-	 *
-	 * @param {String | HTMLElement} element
-	 * @param {Object} opts
-	 */
-	var Cleave = function (element, opts) {
-	    var owner = this;
-
-	    if (typeof element === 'string') {
-	        owner.element = document.querySelector(element);
-	    } else {
-	        owner.element = ((typeof element.length !== 'undefined') && element.length > 0) ? element[0] : element;
-	    }
-
-	    if (!owner.element) {
-	        throw new Error('[cleave.js] Please check the element');
-	    }
-
-	    opts.initValue = owner.element.value;
-
-	    owner.properties = Cleave.DefaultProperties.assign({}, opts);
-
-	    owner.init();
-	};
-
-	Cleave.prototype = {
-	    init: function () {
-	        var owner = this, pps = owner.properties;
-
-	        // no need to use this lib
-	        if (!pps.numeral && !pps.phone && !pps.creditCard && !pps.time && !pps.date && (pps.blocksLength === 0 && !pps.prefix)) {
-	            owner.onInput(pps.initValue);
-
-	            return;
-	        }
-
-	        pps.maxLength = Cleave.Util.getMaxLength(pps.blocks);
-
-	        owner.isAndroid = Cleave.Util.isAndroid();
-	        owner.lastInputValue = '';
-
-	        owner.onChangeListener = owner.onChange.bind(owner);
-	        owner.onKeyDownListener = owner.onKeyDown.bind(owner);
-	        owner.onFocusListener = owner.onFocus.bind(owner);
-	        owner.onCutListener = owner.onCut.bind(owner);
-	        owner.onCopyListener = owner.onCopy.bind(owner);
-
-	        owner.element.addEventListener('input', owner.onChangeListener);
-	        owner.element.addEventListener('keydown', owner.onKeyDownListener);
-	        owner.element.addEventListener('focus', owner.onFocusListener);
-	        owner.element.addEventListener('cut', owner.onCutListener);
-	        owner.element.addEventListener('copy', owner.onCopyListener);
-
-
-	        owner.initPhoneFormatter();
-	        owner.initDateFormatter();
-	        owner.initTimeFormatter();
-	        owner.initNumeralFormatter();
-
-	        // avoid touch input field if value is null
-	        // otherwise Firefox will add red box-shadow for <input required />
-	        if (pps.initValue || (pps.prefix && !pps.noImmediatePrefix)) {
-	            owner.onInput(pps.initValue);
-	        }
-	    },
-
-	    initNumeralFormatter: function () {
-	        var owner = this, pps = owner.properties;
-
-	        if (!pps.numeral) {
-	            return;
-	        }
-
-	        pps.numeralFormatter = new Cleave.NumeralFormatter(
-	            pps.numeralDecimalMark,
-	            pps.numeralIntegerScale,
-	            pps.numeralDecimalScale,
-	            pps.numeralThousandsGroupStyle,
-	            pps.numeralPositiveOnly,
-	            pps.stripLeadingZeroes,
-	            pps.delimiter
-	        );
-	    },
-
-	    initTimeFormatter: function() {
-	        var owner = this, pps = owner.properties;
-
-	        if (!pps.time) {
-	            return;
-	        }
-
-	        pps.timeFormatter = new Cleave.TimeFormatter(pps.timePattern);
-	        pps.blocks = pps.timeFormatter.getBlocks();
-	        pps.blocksLength = pps.blocks.length;
-	        pps.maxLength = Cleave.Util.getMaxLength(pps.blocks);
-	    },
-
-	    initDateFormatter: function () {
-	        var owner = this, pps = owner.properties;
-
-	        if (!pps.date) {
-	            return;
-	        }
-
-	        pps.dateFormatter = new Cleave.DateFormatter(pps.datePattern);
-	        pps.blocks = pps.dateFormatter.getBlocks();
-	        pps.blocksLength = pps.blocks.length;
-	        pps.maxLength = Cleave.Util.getMaxLength(pps.blocks);
-	    },
-
-	    initPhoneFormatter: function () {
-	        var owner = this, pps = owner.properties;
-
-	        if (!pps.phone) {
-	            return;
-	        }
-
-	        // Cleave.AsYouTypeFormatter should be provided by
-	        // external google closure lib
-	        try {
-	            pps.phoneFormatter = new Cleave.PhoneFormatter(
-	                new pps.root.Cleave.AsYouTypeFormatter(pps.phoneRegionCode),
-	                pps.delimiter
-	            );
-	        } catch (ex) {
-	            throw new Error('[cleave.js] Please include phone-type-formatter.{country}.js lib');
-	        }
-	    },
-
-	    onKeyDown: function (event) {
-	        var owner = this, pps = owner.properties,
-	            charCode = event.which || event.keyCode,
-	            Util = Cleave.Util,
-	            currentValue = owner.element.value;
-
-	        if (Util.isAndroidBackspaceKeydown(owner.lastInputValue, currentValue)) {
-	            charCode = 8;
-	        }
-
-	        owner.lastInputValue = currentValue;
-
-	        // hit backspace when last character is delimiter
-	        if (charCode === 8 && Util.isDelimiter(currentValue.slice(-pps.delimiterLength), pps.delimiter, pps.delimiters)) {
-	            pps.backspace = true;
-
-	            return;
-	        }
-
-	        pps.backspace = false;
-	    },
-
-	    onChange: function () {
-	        this.onInput(this.element.value);
-	    },
-
-	    onFocus: function () {
-	        var owner = this,
-	            pps = owner.properties;
-
-	        Cleave.Util.fixPrefixCursor(owner.element, pps.prefix, pps.delimiter, pps.delimiters);
-	    },
-
-	    onCut: function (e) {
-	        this.copyClipboardData(e);
-	        this.onInput('');
-	    },
-
-	    onCopy: function (e) {
-	        this.copyClipboardData(e);
-	    },
-
-	    copyClipboardData: function (e) {
-	        var owner = this,
-	            pps = owner.properties,
-	            Util = Cleave.Util,
-	            inputValue = owner.element.value,
-	            textToCopy = '';
-
-	        if (!pps.copyDelimiter) {
-	            textToCopy = Util.stripDelimiters(inputValue, pps.delimiter, pps.delimiters);
-	        } else {
-	            textToCopy = inputValue;
-	        }
-
-	        try {
-	            if (e.clipboardData) {
-	                e.clipboardData.setData('Text', textToCopy);
-	            } else {
-	                window.clipboardData.setData('Text', textToCopy);
-	            }
-
-	            e.preventDefault();
-	        } catch (ex) {
-	            //  empty
-	        }
-	    },
-
-	    onInput: function (value) {
-	        var owner = this, pps = owner.properties,
-	            Util = Cleave.Util;
-
-	        // case 1: delete one more character "4"
-	        // 1234*| -> hit backspace -> 123|
-	        // case 2: last character is not delimiter which is:
-	        // 12|34* -> hit backspace -> 1|34*
-	        // note: no need to apply this for numeral mode
-	        if (!pps.numeral && pps.backspace && !Util.isDelimiter(value.slice(-pps.delimiterLength), pps.delimiter, pps.delimiters)) {
-	            value = Util.headStr(value, value.length - pps.delimiterLength);
-	        }
-
-	        // phone formatter
-	        if (pps.phone) {
-	            if (pps.prefix && (!pps.noImmediatePrefix || value.length)) {
-	                pps.result = pps.prefix + pps.phoneFormatter.format(value).slice(pps.prefix.length);
-	            } else {
-	                pps.result = pps.phoneFormatter.format(value);
-	            }
-	            owner.updateValueState();
-
-	            return;
-	        }
-
-	        // numeral formatter
-	        if (pps.numeral) {
-	            if (pps.prefix && (!pps.noImmediatePrefix || value.length)) {
-	                pps.result = pps.prefix + pps.numeralFormatter.format(value);
-	            } else {
-	                pps.result = pps.numeralFormatter.format(value);
-	            }
-	            owner.updateValueState();
-
-	            return;
-	        }
-
-	        // date
-	        if (pps.date) {
-	            value = pps.dateFormatter.getValidatedDate(value);
-	        }
-
-	        // time
-	        if (pps.time) {
-	            value = pps.timeFormatter.getValidatedTime(value);
-	        }
-
-	        // strip delimiters
-	        value = Util.stripDelimiters(value, pps.delimiter, pps.delimiters);
-
-	        // strip prefix
-	        value = Util.getPrefixStrippedValue(value, pps.prefix, pps.prefixLength, pps.result);
-
-	        // strip non-numeric characters
-	        value = pps.numericOnly ? Util.strip(value, /[^\d]/g) : value;
-
-	        // convert case
-	        value = pps.uppercase ? value.toUpperCase() : value;
-	        value = pps.lowercase ? value.toLowerCase() : value;
-
-	        // prefix
-	        if (pps.prefix && (!pps.noImmediatePrefix || value.length)) {
-	            value = pps.prefix + value;
-
-	            // no blocks specified, no need to do formatting
-	            if (pps.blocksLength === 0) {
-	                pps.result = value;
-	                owner.updateValueState();
-
-	                return;
-	            }
-	        }
-
-	        // update credit card props
-	        if (pps.creditCard) {
-	            owner.updateCreditCardPropsByValue(value);
-	        }
-
-	        // strip over length characters
-	        value = Util.headStr(value, pps.maxLength);
-
-	        // apply blocks
-	        pps.result = Util.getFormattedValue(
-	            value,
-	            pps.blocks, pps.blocksLength,
-	            pps.delimiter, pps.delimiters, pps.delimiterLazyShow
-	        );
-
-	        owner.updateValueState();
-	    },
-
-	    updateCreditCardPropsByValue: function (value) {
-	        var owner = this, pps = owner.properties,
-	            Util = Cleave.Util,
-	            creditCardInfo;
-
-	        // At least one of the first 4 characters has changed
-	        if (Util.headStr(pps.result, 4) === Util.headStr(value, 4)) {
-	            return;
-	        }
-
-	        creditCardInfo = Cleave.CreditCardDetector.getInfo(value, pps.creditCardStrictMode);
-
-	        pps.blocks = creditCardInfo.blocks;
-	        pps.blocksLength = pps.blocks.length;
-	        pps.maxLength = Util.getMaxLength(pps.blocks);
-
-	        // credit card type changed
-	        if (pps.creditCardType !== creditCardInfo.type) {
-	            pps.creditCardType = creditCardInfo.type;
-
-	            pps.onCreditCardTypeChanged.call(owner, pps.creditCardType);
-	        }
-	    },
-
-	    updateValueState: function () {
-	        var owner = this,
-	            Util = Cleave.Util,
-	            pps = owner.properties;
-
-	        if (!owner.element) {
-	            return;
-	        }
-
-	        var endPos = owner.element.selectionEnd;
-	        var oldValue = owner.element.value;
-	        var newValue = pps.result;
-
-	        endPos = Util.getNextCursorPosition(endPos, oldValue, newValue, pps.delimiter, pps.delimiters);
-
-	        // fix Android browser type="text" input field
-	        // cursor not jumping issue
-	        if (owner.isAndroid) {
-	            window.setTimeout(function () {
-	                owner.element.value = newValue;
-	                Util.setSelection(owner.element, endPos, pps.document, false);
-	                owner.callOnValueChanged();
-	            }, 1);
-
-	            return;
-	        }
-
-	        owner.element.value = newValue;
-	        Util.setSelection(owner.element, endPos, pps.document, false);
-	        owner.callOnValueChanged();
-	    },
-
-	    callOnValueChanged: function () {
-	        var owner = this,
-	            pps = owner.properties;
-
-	        pps.onValueChanged.call(owner, {
-	            target: {
-	                value: pps.result,
-	                rawValue: owner.getRawValue()
-	            }
-	        });
-	    },
-
-	    setPhoneRegionCode: function (phoneRegionCode) {
-	        var owner = this, pps = owner.properties;
-
-	        pps.phoneRegionCode = phoneRegionCode;
-	        owner.initPhoneFormatter();
-	        owner.onChange();
-	    },
-
-	    setRawValue: function (value) {
-	        var owner = this, pps = owner.properties;
-
-	        value = value !== undefined && value !== null ? value.toString() : '';
-
-	        if (pps.numeral) {
-	            value = value.replace('.', pps.numeralDecimalMark);
-	        }
-
-	        pps.backspace = false;
-
-	        owner.element.value = value;
-	        owner.onInput(value);
-	    },
-
-	    getRawValue: function () {
-	        var owner = this,
-	            pps = owner.properties,
-	            Util = Cleave.Util,
-	            rawValue = owner.element.value;
-
-	        if (pps.rawValueTrimPrefix) {
-	            rawValue = Util.getPrefixStrippedValue(rawValue, pps.prefix, pps.prefixLength, pps.result);
-	        }
-
-	        if (pps.numeral) {
-	            rawValue = pps.numeralFormatter.getRawValue(rawValue);
-	        } else {
-	            rawValue = Util.stripDelimiters(rawValue, pps.delimiter, pps.delimiters);
-	        }
-
-	        return rawValue;
-	    },
-
-	    getISOFormatDate: function () {
-	        var owner = this,
-	            pps = owner.properties;
-
-	        return pps.date ? pps.dateFormatter.getISOFormatDate() : '';
-	    },
-
-	    getFormattedValue: function () {
-	        return this.element.value;
-	    },
-
-	    destroy: function () {
-	        var owner = this;
-
-	        owner.element.removeEventListener('input', owner.onChangeListener);
-	        owner.element.removeEventListener('keydown', owner.onKeyDownListener);
-	        owner.element.removeEventListener('focus', owner.onFocusListener);
-	        owner.element.removeEventListener('cut', owner.onCutListener);
-	        owner.element.removeEventListener('copy', owner.onCopyListener);
-	    },
-
-	    toString: function () {
-	        return '[Cleave Object]';
-	    }
-	};
-
-	Cleave.NumeralFormatter = __webpack_require__(1);
-	Cleave.DateFormatter = __webpack_require__(2);
-	Cleave.TimeFormatter = __webpack_require__(3);
-	Cleave.PhoneFormatter = __webpack_require__(4);
-	Cleave.CreditCardDetector = __webpack_require__(5);
-	Cleave.Util = __webpack_require__(6);
-	Cleave.DefaultProperties = __webpack_require__(7);
-
-	// for angular directive
-	((typeof global === 'object' && global) ? global : window)['Cleave'] = Cleave;
-
-	// CommonJS
-	module.exports = Cleave;
-
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
-
-/***/ }),
-/* 1 */
-/***/ (function(module, exports) {
-
-	'use strict';
-
-	var NumeralFormatter = function (numeralDecimalMark,
-	                                 numeralIntegerScale,
-	                                 numeralDecimalScale,
-	                                 numeralThousandsGroupStyle,
-	                                 numeralPositiveOnly,
-	                                 stripLeadingZeroes,
-	                                 delimiter) {
-	    var owner = this;
-
-	    owner.numeralDecimalMark = numeralDecimalMark || '.';
-	    owner.numeralIntegerScale = numeralIntegerScale > 0 ? numeralIntegerScale : 0;
-	    owner.numeralDecimalScale = numeralDecimalScale >= 0 ? numeralDecimalScale : 2;
-	    owner.numeralThousandsGroupStyle = numeralThousandsGroupStyle || NumeralFormatter.groupStyle.thousand;
-	    owner.numeralPositiveOnly = !!numeralPositiveOnly;
-	    owner.stripLeadingZeroes = stripLeadingZeroes !== false;
-	    owner.delimiter = (delimiter || delimiter === '') ? delimiter : ',';
-	    owner.delimiterRE = delimiter ? new RegExp('\\' + delimiter, 'g') : '';
-	};
-
-	NumeralFormatter.groupStyle = {
-	    thousand: 'thousand',
-	    lakh:     'lakh',
-	    wan:      'wan',
-	    none:     'none'    
-	};
-
-	NumeralFormatter.prototype = {
-	    getRawValue: function (value) {
-	        return value.replace(this.delimiterRE, '').replace(this.numeralDecimalMark, '.');
-	    },
-
-	    format: function (value) {
-	        var owner = this, parts, partInteger, partDecimal = '';
-
-	        // strip alphabet letters
-	        value = value.replace(/[A-Za-z]/g, '')
-	            // replace the first decimal mark with reserved placeholder
-	            .replace(owner.numeralDecimalMark, 'M')
-
-	            // strip non numeric letters except minus and "M"
-	            // this is to ensure prefix has been stripped
-	            .replace(/[^\dM-]/g, '')
-
-	            // replace the leading minus with reserved placeholder
-	            .replace(/^\-/, 'N')
-
-	            // strip the other minus sign (if present)
-	            .replace(/\-/g, '')
-
-	            // replace the minus sign (if present)
-	            .replace('N', owner.numeralPositiveOnly ? '' : '-')
-
-	            // replace decimal mark
-	            .replace('M', owner.numeralDecimalMark);
-
-	        // strip any leading zeros
-	        if (owner.stripLeadingZeroes) {
-	            value = value.replace(/^(-)?0+(?=\d)/, '$1');
-	        }
-
-	        partInteger = value;
-
-	        if (value.indexOf(owner.numeralDecimalMark) >= 0) {
-	            parts = value.split(owner.numeralDecimalMark);
-	            partInteger = parts[0];
-	            partDecimal = owner.numeralDecimalMark + parts[1].slice(0, owner.numeralDecimalScale);
-	        }
-
-	        if (owner.numeralIntegerScale > 0) {
-	          partInteger = partInteger.slice(0, owner.numeralIntegerScale + (value.slice(0, 1) === '-' ? 1 : 0));
-	        }
-
-	        switch (owner.numeralThousandsGroupStyle) {
-	        case NumeralFormatter.groupStyle.lakh:
-	            partInteger = partInteger.replace(/(\d)(?=(\d\d)+\d$)/g, '$1' + owner.delimiter);
-
-	            break;
-
-	        case NumeralFormatter.groupStyle.wan:
-	            partInteger = partInteger.replace(/(\d)(?=(\d{4})+$)/g, '$1' + owner.delimiter);
-
-	            break;
-
-	        case NumeralFormatter.groupStyle.thousand:
-	            partInteger = partInteger.replace(/(\d)(?=(\d{3})+$)/g, '$1' + owner.delimiter);
-
-	            break;
-	        }
-
-	        return partInteger.toString() + (owner.numeralDecimalScale > 0 ? partDecimal.toString() : '');
-	    }
-	};
-
-	module.exports = NumeralFormatter;
-
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports) {
-
-	'use strict';
-
-	var DateFormatter = function (datePattern) {
-	    var owner = this;
-
-	    owner.date = [];
-	    owner.blocks = [];
-	    owner.datePattern = datePattern;
-	    owner.initBlocks();
-	};
-
-	DateFormatter.prototype = {
-	    initBlocks: function () {
-	        var owner = this;
-	        owner.datePattern.forEach(function (value) {
-	            if (value === 'Y') {
-	                owner.blocks.push(4);
-	            } else {
-	                owner.blocks.push(2);
-	            }
-	        });
-	    },
-
-	    getISOFormatDate: function () {
-	        var owner = this,
-	            date = owner.date;
-
-	        return date[2] ? (
-	            date[2] + '-' + owner.addLeadingZero(date[1]) + '-' + owner.addLeadingZero(date[0])
-	        ) : '';
-	    },
-
-	    getBlocks: function () {
-	        return this.blocks;
-	    },
-
-	    getValidatedDate: function (value) {
-	        var owner = this, result = '';
-
-	        value = value.replace(/[^\d]/g, '');
-
-	        owner.blocks.forEach(function (length, index) {
-	            if (value.length > 0) {
-	                var sub = value.slice(0, length),
-	                    sub0 = sub.slice(0, 1),
-	                    rest = value.slice(length);
-
-	                switch (owner.datePattern[index]) {
-	                case 'd':
-	                    if (sub === '00') {
-	                        sub = '01';
-	                    } else if (parseInt(sub0, 10) > 3) {
-	                        sub = '0' + sub0;
-	                    } else if (parseInt(sub, 10) > 31) {
-	                        sub = '31';
-	                    }
-
-	                    break;
-
-	                case 'm':
-	                    if (sub === '00') {
-	                        sub = '01';
-	                    } else if (parseInt(sub0, 10) > 1) {
-	                        sub = '0' + sub0;
-	                    } else if (parseInt(sub, 10) > 12) {
-	                        sub = '12';
-	                    }
-
-	                    break;
-	                }
-
-	                result += sub;
-
-	                // update remaining string
-	                value = rest;
-	            }
-	        });
-
-	        return this.getFixedDateString(result);
-	    },
-
-	    getFixedDateString: function (value) {
-	        var owner = this, datePattern = owner.datePattern, date = [],
-	            dayIndex = 0, monthIndex = 0, yearIndex = 0,
-	            dayStartIndex = 0, monthStartIndex = 0, yearStartIndex = 0,
-	            day, month, year, fullYearDone = false;
-
-	        // mm-dd || dd-mm
-	        if (value.length === 4 && datePattern[0].toLowerCase() !== 'y' && datePattern[1].toLowerCase() !== 'y') {
-	            dayStartIndex = datePattern[0] === 'd' ? 0 : 2;
-	            monthStartIndex = 2 - dayStartIndex;
-	            day = parseInt(value.slice(dayStartIndex, dayStartIndex + 2), 10);
-	            month = parseInt(value.slice(monthStartIndex, monthStartIndex + 2), 10);
-
-	            date = this.getFixedDate(day, month, 0);
-	        }
-
-	        // yyyy-mm-dd || yyyy-dd-mm || mm-dd-yyyy || dd-mm-yyyy || dd-yyyy-mm || mm-yyyy-dd
-	        if (value.length === 8) {
-	            datePattern.forEach(function (type, index) {
-	                switch (type) {
-	                case 'd':
-	                    dayIndex = index;
-	                    break;
-	                case 'm':
-	                    monthIndex = index;
-	                    break;
-	                default:
-	                    yearIndex = index;
-	                    break;
-	                }
-	            });
-
-	            yearStartIndex = yearIndex * 2;
-	            dayStartIndex = (dayIndex <= yearIndex) ? dayIndex * 2 : (dayIndex * 2 + 2);
-	            monthStartIndex = (monthIndex <= yearIndex) ? monthIndex * 2 : (monthIndex * 2 + 2);
-
-	            day = parseInt(value.slice(dayStartIndex, dayStartIndex + 2), 10);
-	            month = parseInt(value.slice(monthStartIndex, monthStartIndex + 2), 10);
-	            year = parseInt(value.slice(yearStartIndex, yearStartIndex + 4), 10);
-
-	            fullYearDone = value.slice(yearStartIndex, yearStartIndex + 4).length === 4;
-
-	            date = this.getFixedDate(day, month, year);
-	        }
-
-	        owner.date = date;
-
-	        return date.length === 0 ? value : datePattern.reduce(function (previous, current) {
-	            switch (current) {
-	            case 'd':
-	                return previous + owner.addLeadingZero(date[0]);
-	            case 'm':
-	                return previous + owner.addLeadingZero(date[1]);
-	            default:
-	                return previous + (fullYearDone ? owner.addLeadingZeroForYear(date[2]) : '');
-	            }
-	        }, '');
-	    },
-
-	    getFixedDate: function (day, month, year) {
-	        day = Math.min(day, 31);
-	        month = Math.min(month, 12);
-	        year = parseInt((year || 0), 10);
-
-	        if ((month < 7 && month % 2 === 0) || (month > 8 && month % 2 === 1)) {
-	            day = Math.min(day, month === 2 ? (this.isLeapYear(year) ? 29 : 28) : 30);
-	        }
-
-	        return [day, month, year];
-	    },
-
-	    isLeapYear: function (year) {
-	        return ((year % 4 === 0) && (year % 100 !== 0)) || (year % 400 === 0);
-	    },
-
-	    addLeadingZero: function (number) {
-	        return (number < 10 ? '0' : '') + number;
-	    },
-
-	    addLeadingZeroForYear: function (number) {
-	        return (number < 10 ? '000' : (number < 100 ? '00' : (number < 1000 ? '0' : ''))) + number;
-	    }
-	};
-
-	module.exports = DateFormatter;
-
-
-
-/***/ }),
-/* 3 */
-/***/ (function(module, exports) {
-
-	'use strict';
-
-	var TimeFormatter = function (timePattern) {
-	    var owner = this;
-
-	    owner.time = [];
-	    owner.blocks = [];
-	    owner.timePattern = timePattern;
-	    owner.initBlocks();
-	};
-
-	TimeFormatter.prototype = {
-	    initBlocks: function () {
-	        var owner = this;
-	        owner.timePattern.forEach(function () {
-	            owner.blocks.push(2);
-	        });
-	    },
-
-	    getISOFormatTime: function () {
-	        var owner = this,
-	            time = owner.time;
-
-	        return time[2] ? (
-	            owner.addLeadingZero(time[0]) + ':' + owner.addLeadingZero(time[1]) + ':' + owner.addLeadingZero(time[2])
-	        ) : '';
-	    },
-
-	    getBlocks: function () {
-	        return this.blocks;
-	    },
-
-	    getValidatedTime: function (value) {
-	        var owner = this, result = '';
-
-	        value = value.replace(/[^\d]/g, '');
-
-	        owner.blocks.forEach(function (length, index) {
-	            if (value.length > 0) {
-	                var sub = value.slice(0, length),
-	                    sub0 = sub.slice(0, 1),
-	                    rest = value.slice(length);
-
-	                switch (owner.timePattern[index]) {
-
-	                case 'h':
-	                    if (parseInt(sub0, 10) > 2) {
-	                        sub = '0' + sub0;
-	                    } else if (parseInt(sub, 10) > 23) {
-	                        sub = '23';
-	                    }
-
-	                    break;
-
-	                case 'm':
-	                case 's':
-	                    if (parseInt(sub0, 10) > 5) {
-	                        sub = '0' + sub0;
-	                    } else if (parseInt(sub, 10) > 60) {
-	                        sub = '60';
-	                    }
-	                    break;
-	                }
-
-	                result += sub;
-
-	                // update remaining string
-	                value = rest;
-	            }
-	        });
-
-	        return this.getFixedTimeString(result);
-	    },
-
-	    getFixedTimeString: function (value) {
-	        var owner = this, timePattern = owner.timePattern, time = [],
-	            secondIndex = 0, minuteIndex = 0, hourIndex = 0,
-	            secondStartIndex = 0, minuteStartIndex = 0, hourStartIndex = 0,
-	            second, minute, hour;
-
-	        if (value.length === 6) {
-	            timePattern.forEach(function (type, index) {
-	                switch (type) {
-	                case 's':
-	                    secondIndex = index * 2;
-	                    break;
-	                case 'm':
-	                    minuteIndex = index * 2;
-	                    break;
-	                case 'h':
-	                    hourIndex = index * 2;
-	                    break;
-	                }
-	            });
-
-	            hourStartIndex = hourIndex;
-	            minuteStartIndex = minuteIndex;
-	            secondStartIndex = secondIndex;
-
-	            second = parseInt(value.slice(secondStartIndex, secondStartIndex + 2), 10);
-	            minute = parseInt(value.slice(minuteStartIndex, minuteStartIndex + 2), 10);
-	            hour = parseInt(value.slice(hourStartIndex, hourStartIndex + 2), 10);
-
-	            time = this.getFixedTime(hour, minute, second);
-	        }
-
-	        if (value.length === 4 && owner.timePattern.indexOf('s') < 0) {
-	            timePattern.forEach(function (type, index) {
-	                switch (type) {
-	                case 'm':
-	                    minuteIndex = index * 2;
-	                    break;
-	                case 'h':
-	                    hourIndex = index * 2;
-	                    break;
-	                }
-	            });
-
-	            hourStartIndex = hourIndex;
-	            minuteStartIndex = minuteIndex;
-
-	            second = 0;
-	            minute = parseInt(value.slice(minuteStartIndex, minuteStartIndex + 2), 10);
-	            hour = parseInt(value.slice(hourStartIndex, hourStartIndex + 2), 10);
-
-	            time = this.getFixedTime(hour, minute, second);
-	        }
-
-	        owner.time = time;
-
-	        return time.length === 0 ? value : timePattern.reduce(function (previous, current) {
-	            switch (current) {
-	            case 's':
-	                return previous + owner.addLeadingZero(time[2]);
-	            case 'm':
-	                return previous + owner.addLeadingZero(time[1]);
-	            case 'h':
-	                return previous + owner.addLeadingZero(time[0]);
-	            }
-	        }, '');
-	    },
-
-	    getFixedTime: function (hour, minute, second) {
-	        second = Math.min(parseInt(second || 0, 10), 60);
-	        minute = Math.min(minute, 60);
-	        hour = Math.min(hour, 60);
-
-	        return [hour, minute, second];
-	    },
-
-	    addLeadingZero: function (number) {
-	        return (number < 10 ? '0' : '') + number;
-	    }
-	};
-
-	module.exports = TimeFormatter;
-
-
-/***/ }),
-/* 4 */
-/***/ (function(module, exports) {
-
-	'use strict';
-
-	var PhoneFormatter = function (formatter, delimiter) {
-	    var owner = this;
-
-	    owner.delimiter = (delimiter || delimiter === '') ? delimiter : ' ';
-	    owner.delimiterRE = delimiter ? new RegExp('\\' + delimiter, 'g') : '';
-
-	    owner.formatter = formatter;
-	};
-
-	PhoneFormatter.prototype = {
-	    setFormatter: function (formatter) {
-	        this.formatter = formatter;
-	    },
-
-	    format: function (phoneNumber) {
-	        var owner = this;
-
-	        owner.formatter.clear();
-
-	        // only keep number and +
-	        phoneNumber = phoneNumber.replace(/[^\d+]/g, '');
-
-	        // strip non-leading +
-	        phoneNumber = phoneNumber.replace(/^\+/, 'B').replace(/\+/g, '').replace('B', '+');
-
-	        // strip delimiter
-	        phoneNumber = phoneNumber.replace(owner.delimiterRE, '');
-
-	        var result = '', current, validated = false;
-
-	        for (var i = 0, iMax = phoneNumber.length; i < iMax; i++) {
-	            current = owner.formatter.inputDigit(phoneNumber.charAt(i));
-
-	            // has ()- or space inside
-	            if (/[\s()-]/g.test(current)) {
-	                result = current;
-
-	                validated = true;
-	            } else {
-	                if (!validated) {
-	                    result = current;
-	                }
-	                // else: over length input
-	                // it turns to invalid number again
-	            }
-	        }
-
-	        // strip ()
-	        // e.g. US: 7161234567 returns (716) 123-4567
-	        result = result.replace(/[()]/g, '');
-	        // replace library delimiter with user customized delimiter
-	        result = result.replace(/[\s-]/g, owner.delimiter);
-
-	        return result;
-	    }
-	};
-
-	module.exports = PhoneFormatter;
-
-
-/***/ }),
-/* 5 */
-/***/ (function(module, exports) {
-
-	'use strict';
-
-	var CreditCardDetector = {
-	    blocks: {
-	        uatp:          [4, 5, 6],
-	        amex:          [4, 6, 5],
-	        diners:        [4, 6, 4],
-	        discover:      [4, 4, 4, 4],
-	        mastercard:    [4, 4, 4, 4],
-	        dankort:       [4, 4, 4, 4],
-	        instapayment:  [4, 4, 4, 4],
-	        jcb15:         [4, 6, 5],
-	        jcb:           [4, 4, 4, 4],
-	        maestro:       [4, 4, 4, 4],
-	        visa:          [4, 4, 4, 4],
-	        mir:           [4, 4, 4, 4],
-	        unionPay:      [4, 4, 4, 4],
-	        general:       [4, 4, 4, 4],
-	        generalStrict: [4, 4, 4, 7]
-	    },
-
-	    re: {
-	        // starts with 1; 15 digits, not starts with 1800 (jcb card)
-	        uatp: /^(?!1800)1\d{0,14}/,
-
-	        // starts with 34/37; 15 digits
-	        amex: /^3[47]\d{0,13}/,
-
-	        // starts with 6011/65/644-649; 16 digits
-	        discover: /^(?:6011|65\d{0,2}|64[4-9]\d?)\d{0,12}/,
-
-	        // starts with 300-305/309 or 36/38/39; 14 digits
-	        diners: /^3(?:0([0-5]|9)|[689]\d?)\d{0,11}/,
-
-	        // starts with 51-55/2221–2720; 16 digits
-	        mastercard: /^(5[1-5]\d{0,2}|22[2-9]\d{0,1}|2[3-7]\d{0,2})\d{0,12}/,
-
-	        // starts with 5019/4175/4571; 16 digits
-	        dankort: /^(5019|4175|4571)\d{0,12}/,
-
-	        // starts with 637-639; 16 digits
-	        instapayment: /^63[7-9]\d{0,13}/,
-
-	        // starts with 2131/1800; 15 digits
-	        jcb15: /^(?:2131|1800)\d{0,11}/,
-
-	        // starts with 2131/1800/35; 16 digits
-	        jcb: /^(?:35\d{0,2})\d{0,12}/,
-
-	        // starts with 50/56-58/6304/67; 16 digits
-	        maestro: /^(?:5[0678]\d{0,2}|6304|67\d{0,2})\d{0,12}/,
-
-	        // starts with 22; 16 digits
-	        mir: /^220[0-4]\d{0,12}/,
-
-	        // starts with 4; 16 digits
-	        visa: /^4\d{0,15}/,
-
-	        // starts with 62; 16 digits
-	        unionPay: /^62\d{0,14}/
-	    },
-
-	    getInfo: function (value, strictMode) {
-	        var blocks = CreditCardDetector.blocks,
-	            re = CreditCardDetector.re;
-
-	        // Some credit card can have up to 19 digits number.
-	        // Set strictMode to true will remove the 16 max-length restrain,
-	        // however, I never found any website validate card number like
-	        // this, hence probably you don't want to enable this option.
-	        strictMode = !!strictMode;
-
-	        for (var key in re) {
-	            if (re[key].test(value)) {
-	                var block;
-
-	                if (strictMode) {
-	                    block = blocks.generalStrict;
-	                } else {
-	                    block = blocks[key];
-	                }
-
-	                return {
-	                    type: key,
-	                    blocks: block
-	                };
-	            }
-	        }
-
-	        return {
-	            type:   'unknown',
-	            blocks: strictMode ? blocks.generalStrict : blocks.general
-	        };
-	    }
-	};
-
-	module.exports = CreditCardDetector;
-
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports) {
-
-	'use strict';
-
-	var Util = {
-	    noop: function () {
-	    },
-
-	    strip: function (value, re) {
-	        return value.replace(re, '');
-	    },
-
-	    isDelimiter: function (letter, delimiter, delimiters) {
-	        // single delimiter
-	        if (delimiters.length === 0) {
-	            return letter === delimiter;
-	        }
-
-	        // multiple delimiters
-	        return delimiters.some(function (current) {
-	            if (letter === current) {
-	                return true;
-	            }
-	        });
-	    },
-
-	    getDelimiterREByDelimiter: function (delimiter) {
-	        return new RegExp(delimiter.replace(/([.?*+^$[\]\\(){}|-])/g, '\\$1'), 'g');
-	    },
-
-	    getNextCursorPosition: function (prevPos, oldValue, newValue, delimiter, delimiters) {
-	      // If cursor was at the end of value, just place it back.
-	      // Because new value could contain additional chars.
-	      if (oldValue.length === prevPos) {
-	          return newValue.length;
-	      }
-
-	      return prevPos + this.getPositionOffset(prevPos, oldValue, newValue, delimiter ,delimiters);
-	    },
-
-	    getPositionOffset: function (prevPos, oldValue, newValue, delimiter, delimiters) {
-	        var oldRawValue, newRawValue, lengthOffset;
-
-	        oldRawValue = this.stripDelimiters(oldValue.slice(0, prevPos), delimiter, delimiters);
-	        newRawValue = this.stripDelimiters(newValue.slice(0, prevPos), delimiter, delimiters);
-	        lengthOffset = oldRawValue.length - newRawValue.length;
-
-	        return (lengthOffset !== 0) ? (lengthOffset / Math.abs(lengthOffset)) : 0;
-	    },
-
-	    stripDelimiters: function (value, delimiter, delimiters) {
-	        var owner = this;
-
-	        // single delimiter
-	        if (delimiters.length === 0) {
-	            var delimiterRE = delimiter ? owner.getDelimiterREByDelimiter(delimiter) : '';
-
-	            return value.replace(delimiterRE, '');
-	        }
-
-	        // multiple delimiters
-	        delimiters.forEach(function (current) {
-	            value = value.replace(owner.getDelimiterREByDelimiter(current), '');
-	        });
-
-	        return value;
-	    },
-
-	    headStr: function (str, length) {
-	        return str.slice(0, length);
-	    },
-
-	    getMaxLength: function (blocks) {
-	        return blocks.reduce(function (previous, current) {
-	            return previous + current;
-	        }, 0);
-	    },
-
-	    // strip value by prefix length
-	    // for prefix: PRE
-	    // (PRE123, 3) -> 123
-	    // (PR123, 3) -> 23 this happens when user hits backspace in front of "PRE"
-	    getPrefixStrippedValue: function (value, prefix, prefixLength, prevValue) {
-	        if (value.slice(0, prefixLength) !== prefix) {
-
-	            // Check whether if it is a deletion
-	            if (value.length < prevValue.length) {
-	                value = value.length > prefixLength ? prevValue : prefix;
-	            } else {
-	                var diffIndex = this.getFirstDiffIndex(prefix, value.slice(0, prefixLength));
-	                value = prefix + value.slice(diffIndex, diffIndex + 1) + value.slice(prefixLength + 1);
-	            }
-	        }
-
-	        return value.slice(prefixLength);
-	    },
-
-	    getFirstDiffIndex: function (prev, current) {
-	        var index = 0;
-
-	        while (prev.charAt(index) === current.charAt(index)) {
-	            if (prev.charAt(index++) === '') {
-	                return -1;
-	            }
-	        }
-
-	        return index;
-	    },
-
-	    getFormattedValue: function (value, blocks, blocksLength, delimiter, delimiters, delimiterLazyShow) {
-	        var result = '',
-	            multipleDelimiters = delimiters.length > 0,
-	            currentDelimiter;
-
-	        // no options, normal input
-	        if (blocksLength === 0) {
-	            return value;
-	        }
-
-	        blocks.forEach(function (length, index) {
-	            if (value.length > 0) {
-	                var sub = value.slice(0, length),
-	                    rest = value.slice(length);
-
-	                if (multipleDelimiters) {
-	                    currentDelimiter = delimiters[delimiterLazyShow ? (index - 1) : index] || currentDelimiter;
-	                } else {
-	                    currentDelimiter = delimiter;
-	                }
-
-	                if (delimiterLazyShow) {
-	                    if (index > 0) {
-	                        result += currentDelimiter;
-	                    }
-
-	                    result += sub;
-	                } else {
-	                    result += sub;
-
-	                    if (sub.length === length && index < blocksLength - 1) {
-	                        result += currentDelimiter;
-	                    }
-	                }
-
-	                // update remaining string
-	                value = rest;
-	            }
-	        });
-
-	        return result;
-	    },
-
-	    // move cursor to the end
-	    // the first time user focuses on an input with prefix
-	    fixPrefixCursor: function (el, prefix, delimiter, delimiters) {
-	        if (!el) {
-	            return;
-	        }
-
-	        var val = el.value,
-	            appendix = delimiter || (delimiters[0] || ' ');
-
-	        if (!el.setSelectionRange || !prefix || (prefix.length + appendix.length) < val.length) {
-	            return;
-	        }
-
-	        var len = val.length * 2;
-
-	        // set timeout to avoid blink
-	        setTimeout(function () {
-	            el.setSelectionRange(len, len);
-	        }, 1);
-	    },
-
-	    setSelection: function (element, position, doc) {
-	        if (element !== this.getActiveElement(doc)) {
-	            return;
-	        }
-
-	        // cursor is already in the end
-	        if (element && element.value.length <= position) {
-	          return;
-	        }
-
-	        if (element.createTextRange) {
-	            var range = element.createTextRange();
-
-	            range.move('character', position);
-	            range.select();
-	        } else {
-	            try {
-	                element.setSelectionRange(position, position);
-	            } catch (e) {
-	                // eslint-disable-next-line
-	                console.warn('The input element type does not support selection');
-	            }
-	        }
-	    },
-	    
-	    getActiveElement: function(parent) {
-	        var activeElement = parent.activeElement;
-	        if (activeElement && activeElement.shadowRoot) {
-	            return this.getActiveElement(activeElement.shadowRoot);
-	        }
-	        return activeElement;
-	    },
-
-	    isAndroid: function () {
-	        return navigator && /android/i.test(navigator.userAgent);
-	    },
-
-	    // On Android chrome, the keyup and keydown events
-	    // always return key code 229 as a composition that
-	    // buffers the user’s keystrokes
-	    // see https://github.com/nosir/cleave.js/issues/147
-	    isAndroidBackspaceKeydown: function (lastInputValue, currentInputValue) {
-	        if (!this.isAndroid() || !lastInputValue || !currentInputValue) {
-	            return false;
-	        }
-
-	        return currentInputValue === lastInputValue.slice(0, -1);
-	    }
-	};
-
-	module.exports = Util;
-
-
-/***/ }),
-/* 7 */
-/***/ (function(module, exports) {
-
-	/* WEBPACK VAR INJECTION */(function(global) {'use strict';
-
-	/**
-	 * Props Assignment
-	 *
-	 * Separate this, so react module can share the usage
-	 */
-	var DefaultProperties = {
-	    // Maybe change to object-assign
-	    // for now just keep it as simple
-	    assign: function (target, opts) {
-	        target = target || {};
-	        opts = opts || {};
-
-	        // credit card
-	        target.creditCard = !!opts.creditCard;
-	        target.creditCardStrictMode = !!opts.creditCardStrictMode;
-	        target.creditCardType = '';
-	        target.onCreditCardTypeChanged = opts.onCreditCardTypeChanged || (function () {});
-
-	        // phone
-	        target.phone = !!opts.phone;
-	        target.phoneRegionCode = opts.phoneRegionCode || 'AU';
-	        target.phoneFormatter = {};
-
-	        // time
-	        target.time = !!opts.time;
-	        target.timePattern = opts.timePattern || ['h', 'm', 's'];
-	        target.timeFormatter = {};
-
-	        // date
-	        target.date = !!opts.date;
-	        target.datePattern = opts.datePattern || ['d', 'm', 'Y'];
-	        target.dateFormatter = {};
-
-	        // numeral
-	        target.numeral = !!opts.numeral;
-	        target.numeralIntegerScale = opts.numeralIntegerScale > 0 ? opts.numeralIntegerScale : 0;
-	        target.numeralDecimalScale = opts.numeralDecimalScale >= 0 ? opts.numeralDecimalScale : 2;
-	        target.numeralDecimalMark = opts.numeralDecimalMark || '.';
-	        target.numeralThousandsGroupStyle = opts.numeralThousandsGroupStyle || 'thousand';
-	        target.numeralPositiveOnly = !!opts.numeralPositiveOnly;
-	        target.stripLeadingZeroes = opts.stripLeadingZeroes !== false;
-
-	        // others
-	        target.numericOnly = target.creditCard || target.date || !!opts.numericOnly;
-
-	        target.uppercase = !!opts.uppercase;
-	        target.lowercase = !!opts.lowercase;
-
-	        target.prefix = (target.creditCard || target.date) ? '' : (opts.prefix || '');
-	        target.noImmediatePrefix = !!opts.noImmediatePrefix;
-	        target.prefixLength = target.prefix.length;
-	        target.rawValueTrimPrefix = !!opts.rawValueTrimPrefix;
-	        target.copyDelimiter = !!opts.copyDelimiter;
-
-	        target.initValue = (opts.initValue !== undefined && opts.initValue !== null) ? opts.initValue.toString() : '';
-
-	        target.delimiter =
-	            (opts.delimiter || opts.delimiter === '') ? opts.delimiter :
-	                (opts.date ? '/' :
-	                    (opts.time ? ':' :
-	                        (opts.numeral ? ',' :
-	                            (opts.phone ? ' ' :
-	                                ' '))));
-	        target.delimiterLength = target.delimiter.length;
-	        target.delimiterLazyShow = !!opts.delimiterLazyShow;
-	        target.delimiters = opts.delimiters || [];
-
-	        target.blocks = opts.blocks || [];
-	        target.blocksLength = target.blocks.length;
-
-	        target.root = (typeof global === 'object' && global) ? global : window;
-	        target.document = opts.document || target.root.document;
-
-	        target.maxLength = 0;
-
-	        target.backspace = false;
-	        target.result = '';
-
-	        target.onValueChanged = opts.onValueChanged || (function () {});
-
-	        return target;
-	    }
-	};
-
-	module.exports = DefaultProperties;
-
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
-
-/***/ })
-/******/ ])
-});
-;
-
-/***/ }),
-
-/***/ 28:
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {(function (global, undefined) {
@@ -26301,338 +25279,25 @@ return /******/ (function(modules) { // webpackBootstrap
     attachTo.clearImmediate = clearImmediate;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8), __webpack_require__(12)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6), __webpack_require__(10)))
 
 /***/ }),
-
-/***/ 29:
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(30);
+module.exports = __webpack_require__(26);
 
 /***/ }),
-
-/***/ 3:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var bind = __webpack_require__(13);
-var isBuffer = __webpack_require__(31);
-
-/*global toString:true*/
-
-// utils is a library of generic helper functions non-specific to axios
-
-var toString = Object.prototype.toString;
-
-/**
- * Determine if a value is an Array
- *
- * @param {Object} val The value to test
- * @returns {boolean} True if value is an Array, otherwise false
- */
-function isArray(val) {
-  return toString.call(val) === '[object Array]';
-}
-
-/**
- * Determine if a value is an ArrayBuffer
- *
- * @param {Object} val The value to test
- * @returns {boolean} True if value is an ArrayBuffer, otherwise false
- */
-function isArrayBuffer(val) {
-  return toString.call(val) === '[object ArrayBuffer]';
-}
-
-/**
- * Determine if a value is a FormData
- *
- * @param {Object} val The value to test
- * @returns {boolean} True if value is an FormData, otherwise false
- */
-function isFormData(val) {
-  return (typeof FormData !== 'undefined') && (val instanceof FormData);
-}
-
-/**
- * Determine if a value is a view on an ArrayBuffer
- *
- * @param {Object} val The value to test
- * @returns {boolean} True if value is a view on an ArrayBuffer, otherwise false
- */
-function isArrayBufferView(val) {
-  var result;
-  if ((typeof ArrayBuffer !== 'undefined') && (ArrayBuffer.isView)) {
-    result = ArrayBuffer.isView(val);
-  } else {
-    result = (val) && (val.buffer) && (val.buffer instanceof ArrayBuffer);
-  }
-  return result;
-}
-
-/**
- * Determine if a value is a String
- *
- * @param {Object} val The value to test
- * @returns {boolean} True if value is a String, otherwise false
- */
-function isString(val) {
-  return typeof val === 'string';
-}
-
-/**
- * Determine if a value is a Number
- *
- * @param {Object} val The value to test
- * @returns {boolean} True if value is a Number, otherwise false
- */
-function isNumber(val) {
-  return typeof val === 'number';
-}
-
-/**
- * Determine if a value is undefined
- *
- * @param {Object} val The value to test
- * @returns {boolean} True if the value is undefined, otherwise false
- */
-function isUndefined(val) {
-  return typeof val === 'undefined';
-}
-
-/**
- * Determine if a value is an Object
- *
- * @param {Object} val The value to test
- * @returns {boolean} True if value is an Object, otherwise false
- */
-function isObject(val) {
-  return val !== null && typeof val === 'object';
-}
-
-/**
- * Determine if a value is a Date
- *
- * @param {Object} val The value to test
- * @returns {boolean} True if value is a Date, otherwise false
- */
-function isDate(val) {
-  return toString.call(val) === '[object Date]';
-}
-
-/**
- * Determine if a value is a File
- *
- * @param {Object} val The value to test
- * @returns {boolean} True if value is a File, otherwise false
- */
-function isFile(val) {
-  return toString.call(val) === '[object File]';
-}
-
-/**
- * Determine if a value is a Blob
- *
- * @param {Object} val The value to test
- * @returns {boolean} True if value is a Blob, otherwise false
- */
-function isBlob(val) {
-  return toString.call(val) === '[object Blob]';
-}
-
-/**
- * Determine if a value is a Function
- *
- * @param {Object} val The value to test
- * @returns {boolean} True if value is a Function, otherwise false
- */
-function isFunction(val) {
-  return toString.call(val) === '[object Function]';
-}
-
-/**
- * Determine if a value is a Stream
- *
- * @param {Object} val The value to test
- * @returns {boolean} True if value is a Stream, otherwise false
- */
-function isStream(val) {
-  return isObject(val) && isFunction(val.pipe);
-}
-
-/**
- * Determine if a value is a URLSearchParams object
- *
- * @param {Object} val The value to test
- * @returns {boolean} True if value is a URLSearchParams object, otherwise false
- */
-function isURLSearchParams(val) {
-  return typeof URLSearchParams !== 'undefined' && val instanceof URLSearchParams;
-}
-
-/**
- * Trim excess whitespace off the beginning and end of a string
- *
- * @param {String} str The String to trim
- * @returns {String} The String freed of excess whitespace
- */
-function trim(str) {
-  return str.replace(/^\s*/, '').replace(/\s*$/, '');
-}
-
-/**
- * Determine if we're running in a standard browser environment
- *
- * This allows axios to run in a web worker, and react-native.
- * Both environments support XMLHttpRequest, but not fully standard globals.
- *
- * web workers:
- *  typeof window -> undefined
- *  typeof document -> undefined
- *
- * react-native:
- *  navigator.product -> 'ReactNative'
- */
-function isStandardBrowserEnv() {
-  if (typeof navigator !== 'undefined' && navigator.product === 'ReactNative') {
-    return false;
-  }
-  return (
-    typeof window !== 'undefined' &&
-    typeof document !== 'undefined'
-  );
-}
-
-/**
- * Iterate over an Array or an Object invoking a function for each item.
- *
- * If `obj` is an Array callback will be called passing
- * the value, index, and complete array for each item.
- *
- * If 'obj' is an Object callback will be called passing
- * the value, key, and complete object for each property.
- *
- * @param {Object|Array} obj The object to iterate
- * @param {Function} fn The callback to invoke for each item
- */
-function forEach(obj, fn) {
-  // Don't bother if no value provided
-  if (obj === null || typeof obj === 'undefined') {
-    return;
-  }
-
-  // Force an array if not already something iterable
-  if (typeof obj !== 'object') {
-    /*eslint no-param-reassign:0*/
-    obj = [obj];
-  }
-
-  if (isArray(obj)) {
-    // Iterate over array values
-    for (var i = 0, l = obj.length; i < l; i++) {
-      fn.call(null, obj[i], i, obj);
-    }
-  } else {
-    // Iterate over object keys
-    for (var key in obj) {
-      if (Object.prototype.hasOwnProperty.call(obj, key)) {
-        fn.call(null, obj[key], key, obj);
-      }
-    }
-  }
-}
-
-/**
- * Accepts varargs expecting each argument to be an object, then
- * immutably merges the properties of each object and returns result.
- *
- * When multiple objects contain the same key the later object in
- * the arguments list will take precedence.
- *
- * Example:
- *
- * ```js
- * var result = merge({foo: 123}, {foo: 456});
- * console.log(result.foo); // outputs 456
- * ```
- *
- * @param {Object} obj1 Object to merge
- * @returns {Object} Result of all merge properties
- */
-function merge(/* obj1, obj2, obj3, ... */) {
-  var result = {};
-  function assignValue(val, key) {
-    if (typeof result[key] === 'object' && typeof val === 'object') {
-      result[key] = merge(result[key], val);
-    } else {
-      result[key] = val;
-    }
-  }
-
-  for (var i = 0, l = arguments.length; i < l; i++) {
-    forEach(arguments[i], assignValue);
-  }
-  return result;
-}
-
-/**
- * Extends object a by mutably adding to it the properties of object b.
- *
- * @param {Object} a The object to be extended
- * @param {Object} b The object to copy properties from
- * @param {Object} thisArg The object to bind function to
- * @return {Object} The resulting value of object a
- */
-function extend(a, b, thisArg) {
-  forEach(b, function assignValue(val, key) {
-    if (thisArg && typeof val === 'function') {
-      a[key] = bind(val, thisArg);
-    } else {
-      a[key] = val;
-    }
-  });
-  return a;
-}
-
-module.exports = {
-  isArray: isArray,
-  isArrayBuffer: isArrayBuffer,
-  isBuffer: isBuffer,
-  isFormData: isFormData,
-  isArrayBufferView: isArrayBufferView,
-  isString: isString,
-  isNumber: isNumber,
-  isObject: isObject,
-  isUndefined: isUndefined,
-  isDate: isDate,
-  isFile: isFile,
-  isBlob: isBlob,
-  isFunction: isFunction,
-  isStream: isStream,
-  isURLSearchParams: isURLSearchParams,
-  isStandardBrowserEnv: isStandardBrowserEnv,
-  forEach: forEach,
-  merge: merge,
-  extend: extend,
-  trim: trim
-};
-
-
-/***/ }),
-
-/***/ 30:
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var utils = __webpack_require__(3);
-var bind = __webpack_require__(13);
-var Axios = __webpack_require__(32);
-var defaults = __webpack_require__(10);
+var bind = __webpack_require__(11);
+var Axios = __webpack_require__(28);
+var defaults = __webpack_require__(8);
 
 /**
  * Create an instance of Axios
@@ -26665,15 +25330,15 @@ axios.create = function create(instanceConfig) {
 };
 
 // Expose Cancel & CancelToken
-axios.Cancel = __webpack_require__(17);
-axios.CancelToken = __webpack_require__(46);
-axios.isCancel = __webpack_require__(16);
+axios.Cancel = __webpack_require__(15);
+axios.CancelToken = __webpack_require__(42);
+axios.isCancel = __webpack_require__(14);
 
 // Expose all/spread
 axios.all = function all(promises) {
   return Promise.all(promises);
 };
-axios.spread = __webpack_require__(47);
+axios.spread = __webpack_require__(43);
 
 module.exports = axios;
 
@@ -26682,8 +25347,7 @@ module.exports.default = axios;
 
 
 /***/ }),
-
-/***/ 31:
+/* 27 */
 /***/ (function(module, exports) {
 
 /*!
@@ -26710,17 +25374,16 @@ function isSlowBuffer (obj) {
 
 
 /***/ }),
-
-/***/ 32:
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var defaults = __webpack_require__(10);
+var defaults = __webpack_require__(8);
 var utils = __webpack_require__(3);
-var InterceptorManager = __webpack_require__(41);
-var dispatchRequest = __webpack_require__(42);
+var InterceptorManager = __webpack_require__(37);
+var dispatchRequest = __webpack_require__(38);
 
 /**
  * Create a new instance of Axios
@@ -26797,8 +25460,7 @@ module.exports = Axios;
 
 
 /***/ }),
-
-/***/ 33:
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26817,14 +25479,13 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 
 
 /***/ }),
-
-/***/ 34:
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var createError = __webpack_require__(15);
+var createError = __webpack_require__(13);
 
 /**
  * Resolve or reject a Promise based on response status.
@@ -26851,8 +25512,7 @@ module.exports = function settle(resolve, reject, response) {
 
 
 /***/ }),
-
-/***/ 35:
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26880,8 +25540,7 @@ module.exports = function enhanceError(error, config, code, request, response) {
 
 
 /***/ }),
-
-/***/ 36:
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26954,8 +25613,7 @@ module.exports = function buildURL(url, params, paramsSerializer) {
 
 
 /***/ }),
-
-/***/ 37:
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27015,8 +25673,7 @@ module.exports = function parseHeaders(headers) {
 
 
 /***/ }),
-
-/***/ 38:
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27091,8 +25748,7 @@ module.exports = (
 
 
 /***/ }),
-
-/***/ 39:
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27135,118 +25791,7 @@ module.exports = btoa;
 
 
 /***/ }),
-
-/***/ 4:
-/***/ (function(module, exports) {
-
-/* globals __VUE_SSR_CONTEXT__ */
-
-// IMPORTANT: Do NOT use ES2015 features in this file.
-// This module is a runtime utility for cleaner component module output and will
-// be included in the final webpack user bundle.
-
-module.exports = function normalizeComponent (
-  rawScriptExports,
-  compiledTemplate,
-  functionalTemplate,
-  injectStyles,
-  scopeId,
-  moduleIdentifier /* server only */
-) {
-  var esModule
-  var scriptExports = rawScriptExports = rawScriptExports || {}
-
-  // ES6 modules interop
-  var type = typeof rawScriptExports.default
-  if (type === 'object' || type === 'function') {
-    esModule = rawScriptExports
-    scriptExports = rawScriptExports.default
-  }
-
-  // Vue.extend constructor export interop
-  var options = typeof scriptExports === 'function'
-    ? scriptExports.options
-    : scriptExports
-
-  // render functions
-  if (compiledTemplate) {
-    options.render = compiledTemplate.render
-    options.staticRenderFns = compiledTemplate.staticRenderFns
-    options._compiled = true
-  }
-
-  // functional template
-  if (functionalTemplate) {
-    options.functional = true
-  }
-
-  // scopedId
-  if (scopeId) {
-    options._scopeId = scopeId
-  }
-
-  var hook
-  if (moduleIdentifier) { // server build
-    hook = function (context) {
-      // 2.3 injection
-      context =
-        context || // cached call
-        (this.$vnode && this.$vnode.ssrContext) || // stateful
-        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
-      // 2.2 with runInNewContext: true
-      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
-        context = __VUE_SSR_CONTEXT__
-      }
-      // inject component styles
-      if (injectStyles) {
-        injectStyles.call(this, context)
-      }
-      // register component module identifier for async chunk inferrence
-      if (context && context._registeredComponents) {
-        context._registeredComponents.add(moduleIdentifier)
-      }
-    }
-    // used by ssr in case component is cached and beforeCreate
-    // never gets called
-    options._ssrRegister = hook
-  } else if (injectStyles) {
-    hook = injectStyles
-  }
-
-  if (hook) {
-    var functional = options.functional
-    var existing = functional
-      ? options.render
-      : options.beforeCreate
-
-    if (!functional) {
-      // inject component registration as beforeCreate hook
-      options.beforeCreate = existing
-        ? [].concat(existing, hook)
-        : [hook]
-    } else {
-      // for template-only hot-reload because in that case the render fn doesn't
-      // go through the normalizer
-      options._injectStyles = hook
-      // register for functioal component in vue file
-      options.render = function renderWithStyleInjection (h, context) {
-        hook.call(context)
-        return existing(h, context)
-      }
-    }
-  }
-
-  return {
-    esModule: esModule,
-    exports: scriptExports,
-    options: options
-  }
-}
-
-
-/***/ }),
-
-/***/ 40:
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27306,8 +25851,7 @@ module.exports = (
 
 
 /***/ }),
-
-/***/ 41:
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27366,19 +25910,18 @@ module.exports = InterceptorManager;
 
 
 /***/ }),
-
-/***/ 42:
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var utils = __webpack_require__(3);
-var transformData = __webpack_require__(43);
-var isCancel = __webpack_require__(16);
-var defaults = __webpack_require__(10);
-var isAbsoluteURL = __webpack_require__(44);
-var combineURLs = __webpack_require__(45);
+var transformData = __webpack_require__(39);
+var isCancel = __webpack_require__(14);
+var defaults = __webpack_require__(8);
+var isAbsoluteURL = __webpack_require__(40);
+var combineURLs = __webpack_require__(41);
 
 /**
  * Throws a `Cancel` if cancellation has been requested.
@@ -27460,8 +26003,7 @@ module.exports = function dispatchRequest(config) {
 
 
 /***/ }),
-
-/***/ 43:
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27488,8 +26030,7 @@ module.exports = function transformData(data, headers, fns) {
 
 
 /***/ }),
-
-/***/ 44:
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27510,8 +26051,7 @@ module.exports = function isAbsoluteURL(url) {
 
 
 /***/ }),
-
-/***/ 45:
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27532,14 +26072,13 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 
 
 /***/ }),
-
-/***/ 46:
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var Cancel = __webpack_require__(17);
+var Cancel = __webpack_require__(15);
 
 /**
  * A `CancelToken` is an object that can be used to request cancellation of an operation.
@@ -27597,8 +26136,7 @@ module.exports = CancelToken;
 
 
 /***/ }),
-
-/***/ 47:
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27632,8 +26170,7 @@ module.exports = function spread(callback) {
 
 
 /***/ }),
-
-/***/ 48:
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*!
@@ -27642,7 +26179,7 @@ module.exports = function spread(callback) {
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
   */
 (function (global, factory) {
-   true ? factory(exports, __webpack_require__(11), __webpack_require__(18)) :
+   true ? factory(exports, __webpack_require__(9), __webpack_require__(16)) :
   typeof define === 'function' && define.amd ? define(['exports', 'jquery', 'popper.js'], factory) :
   (factory((global.bootstrap = {}),global.jQuery,global.Popper));
 }(this, (function (exports,$,Popper) { 'use strict';
@@ -31583,8 +30120,7 @@ module.exports = function spread(callback) {
 
 
 /***/ }),
-
-/***/ 49:
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*
@@ -31601,7 +30137,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*
  */
 /* global define */
 (function (define) {
-    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(11)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($) {
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(9)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($) {
         return (function () {
             var $container;
             var listener;
@@ -32057,12 +30593,11 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*
         })();
     }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-}(__webpack_require__(50)));
+}(__webpack_require__(46)));
 
 
 /***/ }),
-
-/***/ 50:
+/* 46 */
 /***/ (function(module, exports) {
 
 module.exports = function() {
@@ -32071,8 +30606,1444 @@ module.exports = function() {
 
 
 /***/ }),
+/* 47 */
+/***/ (function(module, exports, __webpack_require__) {
 
-/***/ 56:
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(true)
+		module.exports = factory();
+	else if(typeof define === 'function' && define.amd)
+		define([], factory);
+	else if(typeof exports === 'object')
+		exports["Cleave"] = factory();
+	else
+		root["Cleave"] = factory();
+})(this, function() {
+return /******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId])
+/******/ 			return installedModules[moduleId].exports;
+
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			exports: {},
+/******/ 			id: moduleId,
+/******/ 			loaded: false
+/******/ 		};
+
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+
+/******/ 		// Flag the module as loaded
+/******/ 		module.loaded = true;
+
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+
+
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(0);
+/******/ })
+/************************************************************************/
+/******/ ([
+/* 0 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(global) {'use strict';
+
+	/**
+	 * Construct a new Cleave instance by passing the configuration object
+	 *
+	 * @param {String | HTMLElement} element
+	 * @param {Object} opts
+	 */
+	var Cleave = function (element, opts) {
+	    var owner = this;
+
+	    if (typeof element === 'string') {
+	        owner.element = document.querySelector(element);
+	    } else {
+	        owner.element = ((typeof element.length !== 'undefined') && element.length > 0) ? element[0] : element;
+	    }
+
+	    if (!owner.element) {
+	        throw new Error('[cleave.js] Please check the element');
+	    }
+
+	    opts.initValue = owner.element.value;
+
+	    owner.properties = Cleave.DefaultProperties.assign({}, opts);
+
+	    owner.init();
+	};
+
+	Cleave.prototype = {
+	    init: function () {
+	        var owner = this, pps = owner.properties;
+
+	        // no need to use this lib
+	        if (!pps.numeral && !pps.phone && !pps.creditCard && !pps.time && !pps.date && (pps.blocksLength === 0 && !pps.prefix)) {
+	            owner.onInput(pps.initValue);
+
+	            return;
+	        }
+
+	        pps.maxLength = Cleave.Util.getMaxLength(pps.blocks);
+
+	        owner.isAndroid = Cleave.Util.isAndroid();
+	        owner.lastInputValue = '';
+
+	        owner.onChangeListener = owner.onChange.bind(owner);
+	        owner.onKeyDownListener = owner.onKeyDown.bind(owner);
+	        owner.onFocusListener = owner.onFocus.bind(owner);
+	        owner.onCutListener = owner.onCut.bind(owner);
+	        owner.onCopyListener = owner.onCopy.bind(owner);
+
+	        owner.element.addEventListener('input', owner.onChangeListener);
+	        owner.element.addEventListener('keydown', owner.onKeyDownListener);
+	        owner.element.addEventListener('focus', owner.onFocusListener);
+	        owner.element.addEventListener('cut', owner.onCutListener);
+	        owner.element.addEventListener('copy', owner.onCopyListener);
+
+
+	        owner.initPhoneFormatter();
+	        owner.initDateFormatter();
+	        owner.initTimeFormatter();
+	        owner.initNumeralFormatter();
+
+	        // avoid touch input field if value is null
+	        // otherwise Firefox will add red box-shadow for <input required />
+	        if (pps.initValue || (pps.prefix && !pps.noImmediatePrefix)) {
+	            owner.onInput(pps.initValue);
+	        }
+	    },
+
+	    initNumeralFormatter: function () {
+	        var owner = this, pps = owner.properties;
+
+	        if (!pps.numeral) {
+	            return;
+	        }
+
+	        pps.numeralFormatter = new Cleave.NumeralFormatter(
+	            pps.numeralDecimalMark,
+	            pps.numeralIntegerScale,
+	            pps.numeralDecimalScale,
+	            pps.numeralThousandsGroupStyle,
+	            pps.numeralPositiveOnly,
+	            pps.stripLeadingZeroes,
+	            pps.delimiter
+	        );
+	    },
+
+	    initTimeFormatter: function() {
+	        var owner = this, pps = owner.properties;
+
+	        if (!pps.time) {
+	            return;
+	        }
+
+	        pps.timeFormatter = new Cleave.TimeFormatter(pps.timePattern);
+	        pps.blocks = pps.timeFormatter.getBlocks();
+	        pps.blocksLength = pps.blocks.length;
+	        pps.maxLength = Cleave.Util.getMaxLength(pps.blocks);
+	    },
+
+	    initDateFormatter: function () {
+	        var owner = this, pps = owner.properties;
+
+	        if (!pps.date) {
+	            return;
+	        }
+
+	        pps.dateFormatter = new Cleave.DateFormatter(pps.datePattern);
+	        pps.blocks = pps.dateFormatter.getBlocks();
+	        pps.blocksLength = pps.blocks.length;
+	        pps.maxLength = Cleave.Util.getMaxLength(pps.blocks);
+	    },
+
+	    initPhoneFormatter: function () {
+	        var owner = this, pps = owner.properties;
+
+	        if (!pps.phone) {
+	            return;
+	        }
+
+	        // Cleave.AsYouTypeFormatter should be provided by
+	        // external google closure lib
+	        try {
+	            pps.phoneFormatter = new Cleave.PhoneFormatter(
+	                new pps.root.Cleave.AsYouTypeFormatter(pps.phoneRegionCode),
+	                pps.delimiter
+	            );
+	        } catch (ex) {
+	            throw new Error('[cleave.js] Please include phone-type-formatter.{country}.js lib');
+	        }
+	    },
+
+	    onKeyDown: function (event) {
+	        var owner = this, pps = owner.properties,
+	            charCode = event.which || event.keyCode,
+	            Util = Cleave.Util,
+	            currentValue = owner.element.value;
+
+	        if (Util.isAndroidBackspaceKeydown(owner.lastInputValue, currentValue)) {
+	            charCode = 8;
+	        }
+
+	        owner.lastInputValue = currentValue;
+
+	        // hit backspace when last character is delimiter
+	        if (charCode === 8 && Util.isDelimiter(currentValue.slice(-pps.delimiterLength), pps.delimiter, pps.delimiters)) {
+	            pps.backspace = true;
+
+	            return;
+	        }
+
+	        pps.backspace = false;
+	    },
+
+	    onChange: function () {
+	        this.onInput(this.element.value);
+	    },
+
+	    onFocus: function () {
+	        var owner = this,
+	            pps = owner.properties;
+
+	        Cleave.Util.fixPrefixCursor(owner.element, pps.prefix, pps.delimiter, pps.delimiters);
+	    },
+
+	    onCut: function (e) {
+	        this.copyClipboardData(e);
+	        this.onInput('');
+	    },
+
+	    onCopy: function (e) {
+	        this.copyClipboardData(e);
+	    },
+
+	    copyClipboardData: function (e) {
+	        var owner = this,
+	            pps = owner.properties,
+	            Util = Cleave.Util,
+	            inputValue = owner.element.value,
+	            textToCopy = '';
+
+	        if (!pps.copyDelimiter) {
+	            textToCopy = Util.stripDelimiters(inputValue, pps.delimiter, pps.delimiters);
+	        } else {
+	            textToCopy = inputValue;
+	        }
+
+	        try {
+	            if (e.clipboardData) {
+	                e.clipboardData.setData('Text', textToCopy);
+	            } else {
+	                window.clipboardData.setData('Text', textToCopy);
+	            }
+
+	            e.preventDefault();
+	        } catch (ex) {
+	            //  empty
+	        }
+	    },
+
+	    onInput: function (value) {
+	        var owner = this, pps = owner.properties,
+	            Util = Cleave.Util;
+
+	        // case 1: delete one more character "4"
+	        // 1234*| -> hit backspace -> 123|
+	        // case 2: last character is not delimiter which is:
+	        // 12|34* -> hit backspace -> 1|34*
+	        // note: no need to apply this for numeral mode
+	        if (!pps.numeral && pps.backspace && !Util.isDelimiter(value.slice(-pps.delimiterLength), pps.delimiter, pps.delimiters)) {
+	            value = Util.headStr(value, value.length - pps.delimiterLength);
+	        }
+
+	        // phone formatter
+	        if (pps.phone) {
+	            if (pps.prefix && (!pps.noImmediatePrefix || value.length)) {
+	                pps.result = pps.prefix + pps.phoneFormatter.format(value).slice(pps.prefix.length);
+	            } else {
+	                pps.result = pps.phoneFormatter.format(value);
+	            }
+	            owner.updateValueState();
+
+	            return;
+	        }
+
+	        // numeral formatter
+	        if (pps.numeral) {
+	            if (pps.prefix && (!pps.noImmediatePrefix || value.length)) {
+	                pps.result = pps.prefix + pps.numeralFormatter.format(value);
+	            } else {
+	                pps.result = pps.numeralFormatter.format(value);
+	            }
+	            owner.updateValueState();
+
+	            return;
+	        }
+
+	        // date
+	        if (pps.date) {
+	            value = pps.dateFormatter.getValidatedDate(value);
+	        }
+
+	        // time
+	        if (pps.time) {
+	            value = pps.timeFormatter.getValidatedTime(value);
+	        }
+
+	        // strip delimiters
+	        value = Util.stripDelimiters(value, pps.delimiter, pps.delimiters);
+
+	        // strip prefix
+	        value = Util.getPrefixStrippedValue(value, pps.prefix, pps.prefixLength, pps.result);
+
+	        // strip non-numeric characters
+	        value = pps.numericOnly ? Util.strip(value, /[^\d]/g) : value;
+
+	        // convert case
+	        value = pps.uppercase ? value.toUpperCase() : value;
+	        value = pps.lowercase ? value.toLowerCase() : value;
+
+	        // prefix
+	        if (pps.prefix && (!pps.noImmediatePrefix || value.length)) {
+	            value = pps.prefix + value;
+
+	            // no blocks specified, no need to do formatting
+	            if (pps.blocksLength === 0) {
+	                pps.result = value;
+	                owner.updateValueState();
+
+	                return;
+	            }
+	        }
+
+	        // update credit card props
+	        if (pps.creditCard) {
+	            owner.updateCreditCardPropsByValue(value);
+	        }
+
+	        // strip over length characters
+	        value = Util.headStr(value, pps.maxLength);
+
+	        // apply blocks
+	        pps.result = Util.getFormattedValue(
+	            value,
+	            pps.blocks, pps.blocksLength,
+	            pps.delimiter, pps.delimiters, pps.delimiterLazyShow
+	        );
+
+	        owner.updateValueState();
+	    },
+
+	    updateCreditCardPropsByValue: function (value) {
+	        var owner = this, pps = owner.properties,
+	            Util = Cleave.Util,
+	            creditCardInfo;
+
+	        // At least one of the first 4 characters has changed
+	        if (Util.headStr(pps.result, 4) === Util.headStr(value, 4)) {
+	            return;
+	        }
+
+	        creditCardInfo = Cleave.CreditCardDetector.getInfo(value, pps.creditCardStrictMode);
+
+	        pps.blocks = creditCardInfo.blocks;
+	        pps.blocksLength = pps.blocks.length;
+	        pps.maxLength = Util.getMaxLength(pps.blocks);
+
+	        // credit card type changed
+	        if (pps.creditCardType !== creditCardInfo.type) {
+	            pps.creditCardType = creditCardInfo.type;
+
+	            pps.onCreditCardTypeChanged.call(owner, pps.creditCardType);
+	        }
+	    },
+
+	    updateValueState: function () {
+	        var owner = this,
+	            Util = Cleave.Util,
+	            pps = owner.properties;
+
+	        if (!owner.element) {
+	            return;
+	        }
+
+	        var endPos = owner.element.selectionEnd;
+	        var oldValue = owner.element.value;
+	        var newValue = pps.result;
+
+	        endPos = Util.getNextCursorPosition(endPos, oldValue, newValue, pps.delimiter, pps.delimiters);
+
+	        // fix Android browser type="text" input field
+	        // cursor not jumping issue
+	        if (owner.isAndroid) {
+	            window.setTimeout(function () {
+	                owner.element.value = newValue;
+	                Util.setSelection(owner.element, endPos, pps.document, false);
+	                owner.callOnValueChanged();
+	            }, 1);
+
+	            return;
+	        }
+
+	        owner.element.value = newValue;
+	        Util.setSelection(owner.element, endPos, pps.document, false);
+	        owner.callOnValueChanged();
+	    },
+
+	    callOnValueChanged: function () {
+	        var owner = this,
+	            pps = owner.properties;
+
+	        pps.onValueChanged.call(owner, {
+	            target: {
+	                value: pps.result,
+	                rawValue: owner.getRawValue()
+	            }
+	        });
+	    },
+
+	    setPhoneRegionCode: function (phoneRegionCode) {
+	        var owner = this, pps = owner.properties;
+
+	        pps.phoneRegionCode = phoneRegionCode;
+	        owner.initPhoneFormatter();
+	        owner.onChange();
+	    },
+
+	    setRawValue: function (value) {
+	        var owner = this, pps = owner.properties;
+
+	        value = value !== undefined && value !== null ? value.toString() : '';
+
+	        if (pps.numeral) {
+	            value = value.replace('.', pps.numeralDecimalMark);
+	        }
+
+	        pps.backspace = false;
+
+	        owner.element.value = value;
+	        owner.onInput(value);
+	    },
+
+	    getRawValue: function () {
+	        var owner = this,
+	            pps = owner.properties,
+	            Util = Cleave.Util,
+	            rawValue = owner.element.value;
+
+	        if (pps.rawValueTrimPrefix) {
+	            rawValue = Util.getPrefixStrippedValue(rawValue, pps.prefix, pps.prefixLength, pps.result);
+	        }
+
+	        if (pps.numeral) {
+	            rawValue = pps.numeralFormatter.getRawValue(rawValue);
+	        } else {
+	            rawValue = Util.stripDelimiters(rawValue, pps.delimiter, pps.delimiters);
+	        }
+
+	        return rawValue;
+	    },
+
+	    getISOFormatDate: function () {
+	        var owner = this,
+	            pps = owner.properties;
+
+	        return pps.date ? pps.dateFormatter.getISOFormatDate() : '';
+	    },
+
+	    getFormattedValue: function () {
+	        return this.element.value;
+	    },
+
+	    destroy: function () {
+	        var owner = this;
+
+	        owner.element.removeEventListener('input', owner.onChangeListener);
+	        owner.element.removeEventListener('keydown', owner.onKeyDownListener);
+	        owner.element.removeEventListener('focus', owner.onFocusListener);
+	        owner.element.removeEventListener('cut', owner.onCutListener);
+	        owner.element.removeEventListener('copy', owner.onCopyListener);
+	    },
+
+	    toString: function () {
+	        return '[Cleave Object]';
+	    }
+	};
+
+	Cleave.NumeralFormatter = __webpack_require__(1);
+	Cleave.DateFormatter = __webpack_require__(2);
+	Cleave.TimeFormatter = __webpack_require__(3);
+	Cleave.PhoneFormatter = __webpack_require__(4);
+	Cleave.CreditCardDetector = __webpack_require__(5);
+	Cleave.Util = __webpack_require__(6);
+	Cleave.DefaultProperties = __webpack_require__(7);
+
+	// for angular directive
+	((typeof global === 'object' && global) ? global : window)['Cleave'] = Cleave;
+
+	// CommonJS
+	module.exports = Cleave;
+
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports) {
+
+	'use strict';
+
+	var NumeralFormatter = function (numeralDecimalMark,
+	                                 numeralIntegerScale,
+	                                 numeralDecimalScale,
+	                                 numeralThousandsGroupStyle,
+	                                 numeralPositiveOnly,
+	                                 stripLeadingZeroes,
+	                                 delimiter) {
+	    var owner = this;
+
+	    owner.numeralDecimalMark = numeralDecimalMark || '.';
+	    owner.numeralIntegerScale = numeralIntegerScale > 0 ? numeralIntegerScale : 0;
+	    owner.numeralDecimalScale = numeralDecimalScale >= 0 ? numeralDecimalScale : 2;
+	    owner.numeralThousandsGroupStyle = numeralThousandsGroupStyle || NumeralFormatter.groupStyle.thousand;
+	    owner.numeralPositiveOnly = !!numeralPositiveOnly;
+	    owner.stripLeadingZeroes = stripLeadingZeroes !== false;
+	    owner.delimiter = (delimiter || delimiter === '') ? delimiter : ',';
+	    owner.delimiterRE = delimiter ? new RegExp('\\' + delimiter, 'g') : '';
+	};
+
+	NumeralFormatter.groupStyle = {
+	    thousand: 'thousand',
+	    lakh:     'lakh',
+	    wan:      'wan',
+	    none:     'none'    
+	};
+
+	NumeralFormatter.prototype = {
+	    getRawValue: function (value) {
+	        return value.replace(this.delimiterRE, '').replace(this.numeralDecimalMark, '.');
+	    },
+
+	    format: function (value) {
+	        var owner = this, parts, partInteger, partDecimal = '';
+
+	        // strip alphabet letters
+	        value = value.replace(/[A-Za-z]/g, '')
+	            // replace the first decimal mark with reserved placeholder
+	            .replace(owner.numeralDecimalMark, 'M')
+
+	            // strip non numeric letters except minus and "M"
+	            // this is to ensure prefix has been stripped
+	            .replace(/[^\dM-]/g, '')
+
+	            // replace the leading minus with reserved placeholder
+	            .replace(/^\-/, 'N')
+
+	            // strip the other minus sign (if present)
+	            .replace(/\-/g, '')
+
+	            // replace the minus sign (if present)
+	            .replace('N', owner.numeralPositiveOnly ? '' : '-')
+
+	            // replace decimal mark
+	            .replace('M', owner.numeralDecimalMark);
+
+	        // strip any leading zeros
+	        if (owner.stripLeadingZeroes) {
+	            value = value.replace(/^(-)?0+(?=\d)/, '$1');
+	        }
+
+	        partInteger = value;
+
+	        if (value.indexOf(owner.numeralDecimalMark) >= 0) {
+	            parts = value.split(owner.numeralDecimalMark);
+	            partInteger = parts[0];
+	            partDecimal = owner.numeralDecimalMark + parts[1].slice(0, owner.numeralDecimalScale);
+	        }
+
+	        if (owner.numeralIntegerScale > 0) {
+	          partInteger = partInteger.slice(0, owner.numeralIntegerScale + (value.slice(0, 1) === '-' ? 1 : 0));
+	        }
+
+	        switch (owner.numeralThousandsGroupStyle) {
+	        case NumeralFormatter.groupStyle.lakh:
+	            partInteger = partInteger.replace(/(\d)(?=(\d\d)+\d$)/g, '$1' + owner.delimiter);
+
+	            break;
+
+	        case NumeralFormatter.groupStyle.wan:
+	            partInteger = partInteger.replace(/(\d)(?=(\d{4})+$)/g, '$1' + owner.delimiter);
+
+	            break;
+
+	        case NumeralFormatter.groupStyle.thousand:
+	            partInteger = partInteger.replace(/(\d)(?=(\d{3})+$)/g, '$1' + owner.delimiter);
+
+	            break;
+	        }
+
+	        return partInteger.toString() + (owner.numeralDecimalScale > 0 ? partDecimal.toString() : '');
+	    }
+	};
+
+	module.exports = NumeralFormatter;
+
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports) {
+
+	'use strict';
+
+	var DateFormatter = function (datePattern) {
+	    var owner = this;
+
+	    owner.date = [];
+	    owner.blocks = [];
+	    owner.datePattern = datePattern;
+	    owner.initBlocks();
+	};
+
+	DateFormatter.prototype = {
+	    initBlocks: function () {
+	        var owner = this;
+	        owner.datePattern.forEach(function (value) {
+	            if (value === 'Y') {
+	                owner.blocks.push(4);
+	            } else {
+	                owner.blocks.push(2);
+	            }
+	        });
+	    },
+
+	    getISOFormatDate: function () {
+	        var owner = this,
+	            date = owner.date;
+
+	        return date[2] ? (
+	            date[2] + '-' + owner.addLeadingZero(date[1]) + '-' + owner.addLeadingZero(date[0])
+	        ) : '';
+	    },
+
+	    getBlocks: function () {
+	        return this.blocks;
+	    },
+
+	    getValidatedDate: function (value) {
+	        var owner = this, result = '';
+
+	        value = value.replace(/[^\d]/g, '');
+
+	        owner.blocks.forEach(function (length, index) {
+	            if (value.length > 0) {
+	                var sub = value.slice(0, length),
+	                    sub0 = sub.slice(0, 1),
+	                    rest = value.slice(length);
+
+	                switch (owner.datePattern[index]) {
+	                case 'd':
+	                    if (sub === '00') {
+	                        sub = '01';
+	                    } else if (parseInt(sub0, 10) > 3) {
+	                        sub = '0' + sub0;
+	                    } else if (parseInt(sub, 10) > 31) {
+	                        sub = '31';
+	                    }
+
+	                    break;
+
+	                case 'm':
+	                    if (sub === '00') {
+	                        sub = '01';
+	                    } else if (parseInt(sub0, 10) > 1) {
+	                        sub = '0' + sub0;
+	                    } else if (parseInt(sub, 10) > 12) {
+	                        sub = '12';
+	                    }
+
+	                    break;
+	                }
+
+	                result += sub;
+
+	                // update remaining string
+	                value = rest;
+	            }
+	        });
+
+	        return this.getFixedDateString(result);
+	    },
+
+	    getFixedDateString: function (value) {
+	        var owner = this, datePattern = owner.datePattern, date = [],
+	            dayIndex = 0, monthIndex = 0, yearIndex = 0,
+	            dayStartIndex = 0, monthStartIndex = 0, yearStartIndex = 0,
+	            day, month, year, fullYearDone = false;
+
+	        // mm-dd || dd-mm
+	        if (value.length === 4 && datePattern[0].toLowerCase() !== 'y' && datePattern[1].toLowerCase() !== 'y') {
+	            dayStartIndex = datePattern[0] === 'd' ? 0 : 2;
+	            monthStartIndex = 2 - dayStartIndex;
+	            day = parseInt(value.slice(dayStartIndex, dayStartIndex + 2), 10);
+	            month = parseInt(value.slice(monthStartIndex, monthStartIndex + 2), 10);
+
+	            date = this.getFixedDate(day, month, 0);
+	        }
+
+	        // yyyy-mm-dd || yyyy-dd-mm || mm-dd-yyyy || dd-mm-yyyy || dd-yyyy-mm || mm-yyyy-dd
+	        if (value.length === 8) {
+	            datePattern.forEach(function (type, index) {
+	                switch (type) {
+	                case 'd':
+	                    dayIndex = index;
+	                    break;
+	                case 'm':
+	                    monthIndex = index;
+	                    break;
+	                default:
+	                    yearIndex = index;
+	                    break;
+	                }
+	            });
+
+	            yearStartIndex = yearIndex * 2;
+	            dayStartIndex = (dayIndex <= yearIndex) ? dayIndex * 2 : (dayIndex * 2 + 2);
+	            monthStartIndex = (monthIndex <= yearIndex) ? monthIndex * 2 : (monthIndex * 2 + 2);
+
+	            day = parseInt(value.slice(dayStartIndex, dayStartIndex + 2), 10);
+	            month = parseInt(value.slice(monthStartIndex, monthStartIndex + 2), 10);
+	            year = parseInt(value.slice(yearStartIndex, yearStartIndex + 4), 10);
+
+	            fullYearDone = value.slice(yearStartIndex, yearStartIndex + 4).length === 4;
+
+	            date = this.getFixedDate(day, month, year);
+	        }
+
+	        owner.date = date;
+
+	        return date.length === 0 ? value : datePattern.reduce(function (previous, current) {
+	            switch (current) {
+	            case 'd':
+	                return previous + owner.addLeadingZero(date[0]);
+	            case 'm':
+	                return previous + owner.addLeadingZero(date[1]);
+	            default:
+	                return previous + (fullYearDone ? owner.addLeadingZeroForYear(date[2]) : '');
+	            }
+	        }, '');
+	    },
+
+	    getFixedDate: function (day, month, year) {
+	        day = Math.min(day, 31);
+	        month = Math.min(month, 12);
+	        year = parseInt((year || 0), 10);
+
+	        if ((month < 7 && month % 2 === 0) || (month > 8 && month % 2 === 1)) {
+	            day = Math.min(day, month === 2 ? (this.isLeapYear(year) ? 29 : 28) : 30);
+	        }
+
+	        return [day, month, year];
+	    },
+
+	    isLeapYear: function (year) {
+	        return ((year % 4 === 0) && (year % 100 !== 0)) || (year % 400 === 0);
+	    },
+
+	    addLeadingZero: function (number) {
+	        return (number < 10 ? '0' : '') + number;
+	    },
+
+	    addLeadingZeroForYear: function (number) {
+	        return (number < 10 ? '000' : (number < 100 ? '00' : (number < 1000 ? '0' : ''))) + number;
+	    }
+	};
+
+	module.exports = DateFormatter;
+
+
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports) {
+
+	'use strict';
+
+	var TimeFormatter = function (timePattern) {
+	    var owner = this;
+
+	    owner.time = [];
+	    owner.blocks = [];
+	    owner.timePattern = timePattern;
+	    owner.initBlocks();
+	};
+
+	TimeFormatter.prototype = {
+	    initBlocks: function () {
+	        var owner = this;
+	        owner.timePattern.forEach(function () {
+	            owner.blocks.push(2);
+	        });
+	    },
+
+	    getISOFormatTime: function () {
+	        var owner = this,
+	            time = owner.time;
+
+	        return time[2] ? (
+	            owner.addLeadingZero(time[0]) + ':' + owner.addLeadingZero(time[1]) + ':' + owner.addLeadingZero(time[2])
+	        ) : '';
+	    },
+
+	    getBlocks: function () {
+	        return this.blocks;
+	    },
+
+	    getValidatedTime: function (value) {
+	        var owner = this, result = '';
+
+	        value = value.replace(/[^\d]/g, '');
+
+	        owner.blocks.forEach(function (length, index) {
+	            if (value.length > 0) {
+	                var sub = value.slice(0, length),
+	                    sub0 = sub.slice(0, 1),
+	                    rest = value.slice(length);
+
+	                switch (owner.timePattern[index]) {
+
+	                case 'h':
+	                    if (parseInt(sub0, 10) > 2) {
+	                        sub = '0' + sub0;
+	                    } else if (parseInt(sub, 10) > 23) {
+	                        sub = '23';
+	                    }
+
+	                    break;
+
+	                case 'm':
+	                case 's':
+	                    if (parseInt(sub0, 10) > 5) {
+	                        sub = '0' + sub0;
+	                    } else if (parseInt(sub, 10) > 60) {
+	                        sub = '60';
+	                    }
+	                    break;
+	                }
+
+	                result += sub;
+
+	                // update remaining string
+	                value = rest;
+	            }
+	        });
+
+	        return this.getFixedTimeString(result);
+	    },
+
+	    getFixedTimeString: function (value) {
+	        var owner = this, timePattern = owner.timePattern, time = [],
+	            secondIndex = 0, minuteIndex = 0, hourIndex = 0,
+	            secondStartIndex = 0, minuteStartIndex = 0, hourStartIndex = 0,
+	            second, minute, hour;
+
+	        if (value.length === 6) {
+	            timePattern.forEach(function (type, index) {
+	                switch (type) {
+	                case 's':
+	                    secondIndex = index * 2;
+	                    break;
+	                case 'm':
+	                    minuteIndex = index * 2;
+	                    break;
+	                case 'h':
+	                    hourIndex = index * 2;
+	                    break;
+	                }
+	            });
+
+	            hourStartIndex = hourIndex;
+	            minuteStartIndex = minuteIndex;
+	            secondStartIndex = secondIndex;
+
+	            second = parseInt(value.slice(secondStartIndex, secondStartIndex + 2), 10);
+	            minute = parseInt(value.slice(minuteStartIndex, minuteStartIndex + 2), 10);
+	            hour = parseInt(value.slice(hourStartIndex, hourStartIndex + 2), 10);
+
+	            time = this.getFixedTime(hour, minute, second);
+	        }
+
+	        if (value.length === 4 && owner.timePattern.indexOf('s') < 0) {
+	            timePattern.forEach(function (type, index) {
+	                switch (type) {
+	                case 'm':
+	                    minuteIndex = index * 2;
+	                    break;
+	                case 'h':
+	                    hourIndex = index * 2;
+	                    break;
+	                }
+	            });
+
+	            hourStartIndex = hourIndex;
+	            minuteStartIndex = minuteIndex;
+
+	            second = 0;
+	            minute = parseInt(value.slice(minuteStartIndex, minuteStartIndex + 2), 10);
+	            hour = parseInt(value.slice(hourStartIndex, hourStartIndex + 2), 10);
+
+	            time = this.getFixedTime(hour, minute, second);
+	        }
+
+	        owner.time = time;
+
+	        return time.length === 0 ? value : timePattern.reduce(function (previous, current) {
+	            switch (current) {
+	            case 's':
+	                return previous + owner.addLeadingZero(time[2]);
+	            case 'm':
+	                return previous + owner.addLeadingZero(time[1]);
+	            case 'h':
+	                return previous + owner.addLeadingZero(time[0]);
+	            }
+	        }, '');
+	    },
+
+	    getFixedTime: function (hour, minute, second) {
+	        second = Math.min(parseInt(second || 0, 10), 60);
+	        minute = Math.min(minute, 60);
+	        hour = Math.min(hour, 60);
+
+	        return [hour, minute, second];
+	    },
+
+	    addLeadingZero: function (number) {
+	        return (number < 10 ? '0' : '') + number;
+	    }
+	};
+
+	module.exports = TimeFormatter;
+
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports) {
+
+	'use strict';
+
+	var PhoneFormatter = function (formatter, delimiter) {
+	    var owner = this;
+
+	    owner.delimiter = (delimiter || delimiter === '') ? delimiter : ' ';
+	    owner.delimiterRE = delimiter ? new RegExp('\\' + delimiter, 'g') : '';
+
+	    owner.formatter = formatter;
+	};
+
+	PhoneFormatter.prototype = {
+	    setFormatter: function (formatter) {
+	        this.formatter = formatter;
+	    },
+
+	    format: function (phoneNumber) {
+	        var owner = this;
+
+	        owner.formatter.clear();
+
+	        // only keep number and +
+	        phoneNumber = phoneNumber.replace(/[^\d+]/g, '');
+
+	        // strip non-leading +
+	        phoneNumber = phoneNumber.replace(/^\+/, 'B').replace(/\+/g, '').replace('B', '+');
+
+	        // strip delimiter
+	        phoneNumber = phoneNumber.replace(owner.delimiterRE, '');
+
+	        var result = '', current, validated = false;
+
+	        for (var i = 0, iMax = phoneNumber.length; i < iMax; i++) {
+	            current = owner.formatter.inputDigit(phoneNumber.charAt(i));
+
+	            // has ()- or space inside
+	            if (/[\s()-]/g.test(current)) {
+	                result = current;
+
+	                validated = true;
+	            } else {
+	                if (!validated) {
+	                    result = current;
+	                }
+	                // else: over length input
+	                // it turns to invalid number again
+	            }
+	        }
+
+	        // strip ()
+	        // e.g. US: 7161234567 returns (716) 123-4567
+	        result = result.replace(/[()]/g, '');
+	        // replace library delimiter with user customized delimiter
+	        result = result.replace(/[\s-]/g, owner.delimiter);
+
+	        return result;
+	    }
+	};
+
+	module.exports = PhoneFormatter;
+
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports) {
+
+	'use strict';
+
+	var CreditCardDetector = {
+	    blocks: {
+	        uatp:          [4, 5, 6],
+	        amex:          [4, 6, 5],
+	        diners:        [4, 6, 4],
+	        discover:      [4, 4, 4, 4],
+	        mastercard:    [4, 4, 4, 4],
+	        dankort:       [4, 4, 4, 4],
+	        instapayment:  [4, 4, 4, 4],
+	        jcb15:         [4, 6, 5],
+	        jcb:           [4, 4, 4, 4],
+	        maestro:       [4, 4, 4, 4],
+	        visa:          [4, 4, 4, 4],
+	        mir:           [4, 4, 4, 4],
+	        unionPay:      [4, 4, 4, 4],
+	        general:       [4, 4, 4, 4],
+	        generalStrict: [4, 4, 4, 7]
+	    },
+
+	    re: {
+	        // starts with 1; 15 digits, not starts with 1800 (jcb card)
+	        uatp: /^(?!1800)1\d{0,14}/,
+
+	        // starts with 34/37; 15 digits
+	        amex: /^3[47]\d{0,13}/,
+
+	        // starts with 6011/65/644-649; 16 digits
+	        discover: /^(?:6011|65\d{0,2}|64[4-9]\d?)\d{0,12}/,
+
+	        // starts with 300-305/309 or 36/38/39; 14 digits
+	        diners: /^3(?:0([0-5]|9)|[689]\d?)\d{0,11}/,
+
+	        // starts with 51-55/2221–2720; 16 digits
+	        mastercard: /^(5[1-5]\d{0,2}|22[2-9]\d{0,1}|2[3-7]\d{0,2})\d{0,12}/,
+
+	        // starts with 5019/4175/4571; 16 digits
+	        dankort: /^(5019|4175|4571)\d{0,12}/,
+
+	        // starts with 637-639; 16 digits
+	        instapayment: /^63[7-9]\d{0,13}/,
+
+	        // starts with 2131/1800; 15 digits
+	        jcb15: /^(?:2131|1800)\d{0,11}/,
+
+	        // starts with 2131/1800/35; 16 digits
+	        jcb: /^(?:35\d{0,2})\d{0,12}/,
+
+	        // starts with 50/56-58/6304/67; 16 digits
+	        maestro: /^(?:5[0678]\d{0,2}|6304|67\d{0,2})\d{0,12}/,
+
+	        // starts with 22; 16 digits
+	        mir: /^220[0-4]\d{0,12}/,
+
+	        // starts with 4; 16 digits
+	        visa: /^4\d{0,15}/,
+
+	        // starts with 62; 16 digits
+	        unionPay: /^62\d{0,14}/
+	    },
+
+	    getInfo: function (value, strictMode) {
+	        var blocks = CreditCardDetector.blocks,
+	            re = CreditCardDetector.re;
+
+	        // Some credit card can have up to 19 digits number.
+	        // Set strictMode to true will remove the 16 max-length restrain,
+	        // however, I never found any website validate card number like
+	        // this, hence probably you don't want to enable this option.
+	        strictMode = !!strictMode;
+
+	        for (var key in re) {
+	            if (re[key].test(value)) {
+	                var block;
+
+	                if (strictMode) {
+	                    block = blocks.generalStrict;
+	                } else {
+	                    block = blocks[key];
+	                }
+
+	                return {
+	                    type: key,
+	                    blocks: block
+	                };
+	            }
+	        }
+
+	        return {
+	            type:   'unknown',
+	            blocks: strictMode ? blocks.generalStrict : blocks.general
+	        };
+	    }
+	};
+
+	module.exports = CreditCardDetector;
+
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports) {
+
+	'use strict';
+
+	var Util = {
+	    noop: function () {
+	    },
+
+	    strip: function (value, re) {
+	        return value.replace(re, '');
+	    },
+
+	    isDelimiter: function (letter, delimiter, delimiters) {
+	        // single delimiter
+	        if (delimiters.length === 0) {
+	            return letter === delimiter;
+	        }
+
+	        // multiple delimiters
+	        return delimiters.some(function (current) {
+	            if (letter === current) {
+	                return true;
+	            }
+	        });
+	    },
+
+	    getDelimiterREByDelimiter: function (delimiter) {
+	        return new RegExp(delimiter.replace(/([.?*+^$[\]\\(){}|-])/g, '\\$1'), 'g');
+	    },
+
+	    getNextCursorPosition: function (prevPos, oldValue, newValue, delimiter, delimiters) {
+	      // If cursor was at the end of value, just place it back.
+	      // Because new value could contain additional chars.
+	      if (oldValue.length === prevPos) {
+	          return newValue.length;
+	      }
+
+	      return prevPos + this.getPositionOffset(prevPos, oldValue, newValue, delimiter ,delimiters);
+	    },
+
+	    getPositionOffset: function (prevPos, oldValue, newValue, delimiter, delimiters) {
+	        var oldRawValue, newRawValue, lengthOffset;
+
+	        oldRawValue = this.stripDelimiters(oldValue.slice(0, prevPos), delimiter, delimiters);
+	        newRawValue = this.stripDelimiters(newValue.slice(0, prevPos), delimiter, delimiters);
+	        lengthOffset = oldRawValue.length - newRawValue.length;
+
+	        return (lengthOffset !== 0) ? (lengthOffset / Math.abs(lengthOffset)) : 0;
+	    },
+
+	    stripDelimiters: function (value, delimiter, delimiters) {
+	        var owner = this;
+
+	        // single delimiter
+	        if (delimiters.length === 0) {
+	            var delimiterRE = delimiter ? owner.getDelimiterREByDelimiter(delimiter) : '';
+
+	            return value.replace(delimiterRE, '');
+	        }
+
+	        // multiple delimiters
+	        delimiters.forEach(function (current) {
+	            value = value.replace(owner.getDelimiterREByDelimiter(current), '');
+	        });
+
+	        return value;
+	    },
+
+	    headStr: function (str, length) {
+	        return str.slice(0, length);
+	    },
+
+	    getMaxLength: function (blocks) {
+	        return blocks.reduce(function (previous, current) {
+	            return previous + current;
+	        }, 0);
+	    },
+
+	    // strip value by prefix length
+	    // for prefix: PRE
+	    // (PRE123, 3) -> 123
+	    // (PR123, 3) -> 23 this happens when user hits backspace in front of "PRE"
+	    getPrefixStrippedValue: function (value, prefix, prefixLength, prevValue) {
+	        if (value.slice(0, prefixLength) !== prefix) {
+
+	            // Check whether if it is a deletion
+	            if (value.length < prevValue.length) {
+	                value = value.length > prefixLength ? prevValue : prefix;
+	            } else {
+	                var diffIndex = this.getFirstDiffIndex(prefix, value.slice(0, prefixLength));
+	                value = prefix + value.slice(diffIndex, diffIndex + 1) + value.slice(prefixLength + 1);
+	            }
+	        }
+
+	        return value.slice(prefixLength);
+	    },
+
+	    getFirstDiffIndex: function (prev, current) {
+	        var index = 0;
+
+	        while (prev.charAt(index) === current.charAt(index)) {
+	            if (prev.charAt(index++) === '') {
+	                return -1;
+	            }
+	        }
+
+	        return index;
+	    },
+
+	    getFormattedValue: function (value, blocks, blocksLength, delimiter, delimiters, delimiterLazyShow) {
+	        var result = '',
+	            multipleDelimiters = delimiters.length > 0,
+	            currentDelimiter;
+
+	        // no options, normal input
+	        if (blocksLength === 0) {
+	            return value;
+	        }
+
+	        blocks.forEach(function (length, index) {
+	            if (value.length > 0) {
+	                var sub = value.slice(0, length),
+	                    rest = value.slice(length);
+
+	                if (multipleDelimiters) {
+	                    currentDelimiter = delimiters[delimiterLazyShow ? (index - 1) : index] || currentDelimiter;
+	                } else {
+	                    currentDelimiter = delimiter;
+	                }
+
+	                if (delimiterLazyShow) {
+	                    if (index > 0) {
+	                        result += currentDelimiter;
+	                    }
+
+	                    result += sub;
+	                } else {
+	                    result += sub;
+
+	                    if (sub.length === length && index < blocksLength - 1) {
+	                        result += currentDelimiter;
+	                    }
+	                }
+
+	                // update remaining string
+	                value = rest;
+	            }
+	        });
+
+	        return result;
+	    },
+
+	    // move cursor to the end
+	    // the first time user focuses on an input with prefix
+	    fixPrefixCursor: function (el, prefix, delimiter, delimiters) {
+	        if (!el) {
+	            return;
+	        }
+
+	        var val = el.value,
+	            appendix = delimiter || (delimiters[0] || ' ');
+
+	        if (!el.setSelectionRange || !prefix || (prefix.length + appendix.length) < val.length) {
+	            return;
+	        }
+
+	        var len = val.length * 2;
+
+	        // set timeout to avoid blink
+	        setTimeout(function () {
+	            el.setSelectionRange(len, len);
+	        }, 1);
+	    },
+
+	    setSelection: function (element, position, doc) {
+	        if (element !== this.getActiveElement(doc)) {
+	            return;
+	        }
+
+	        // cursor is already in the end
+	        if (element && element.value.length <= position) {
+	          return;
+	        }
+
+	        if (element.createTextRange) {
+	            var range = element.createTextRange();
+
+	            range.move('character', position);
+	            range.select();
+	        } else {
+	            try {
+	                element.setSelectionRange(position, position);
+	            } catch (e) {
+	                // eslint-disable-next-line
+	                console.warn('The input element type does not support selection');
+	            }
+	        }
+	    },
+	    
+	    getActiveElement: function(parent) {
+	        var activeElement = parent.activeElement;
+	        if (activeElement && activeElement.shadowRoot) {
+	            return this.getActiveElement(activeElement.shadowRoot);
+	        }
+	        return activeElement;
+	    },
+
+	    isAndroid: function () {
+	        return navigator && /android/i.test(navigator.userAgent);
+	    },
+
+	    // On Android chrome, the keyup and keydown events
+	    // always return key code 229 as a composition that
+	    // buffers the user’s keystrokes
+	    // see https://github.com/nosir/cleave.js/issues/147
+	    isAndroidBackspaceKeydown: function (lastInputValue, currentInputValue) {
+	        if (!this.isAndroid() || !lastInputValue || !currentInputValue) {
+	            return false;
+	        }
+
+	        return currentInputValue === lastInputValue.slice(0, -1);
+	    }
+	};
+
+	module.exports = Util;
+
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports) {
+
+	/* WEBPACK VAR INJECTION */(function(global) {'use strict';
+
+	/**
+	 * Props Assignment
+	 *
+	 * Separate this, so react module can share the usage
+	 */
+	var DefaultProperties = {
+	    // Maybe change to object-assign
+	    // for now just keep it as simple
+	    assign: function (target, opts) {
+	        target = target || {};
+	        opts = opts || {};
+
+	        // credit card
+	        target.creditCard = !!opts.creditCard;
+	        target.creditCardStrictMode = !!opts.creditCardStrictMode;
+	        target.creditCardType = '';
+	        target.onCreditCardTypeChanged = opts.onCreditCardTypeChanged || (function () {});
+
+	        // phone
+	        target.phone = !!opts.phone;
+	        target.phoneRegionCode = opts.phoneRegionCode || 'AU';
+	        target.phoneFormatter = {};
+
+	        // time
+	        target.time = !!opts.time;
+	        target.timePattern = opts.timePattern || ['h', 'm', 's'];
+	        target.timeFormatter = {};
+
+	        // date
+	        target.date = !!opts.date;
+	        target.datePattern = opts.datePattern || ['d', 'm', 'Y'];
+	        target.dateFormatter = {};
+
+	        // numeral
+	        target.numeral = !!opts.numeral;
+	        target.numeralIntegerScale = opts.numeralIntegerScale > 0 ? opts.numeralIntegerScale : 0;
+	        target.numeralDecimalScale = opts.numeralDecimalScale >= 0 ? opts.numeralDecimalScale : 2;
+	        target.numeralDecimalMark = opts.numeralDecimalMark || '.';
+	        target.numeralThousandsGroupStyle = opts.numeralThousandsGroupStyle || 'thousand';
+	        target.numeralPositiveOnly = !!opts.numeralPositiveOnly;
+	        target.stripLeadingZeroes = opts.stripLeadingZeroes !== false;
+
+	        // others
+	        target.numericOnly = target.creditCard || target.date || !!opts.numericOnly;
+
+	        target.uppercase = !!opts.uppercase;
+	        target.lowercase = !!opts.lowercase;
+
+	        target.prefix = (target.creditCard || target.date) ? '' : (opts.prefix || '');
+	        target.noImmediatePrefix = !!opts.noImmediatePrefix;
+	        target.prefixLength = target.prefix.length;
+	        target.rawValueTrimPrefix = !!opts.rawValueTrimPrefix;
+	        target.copyDelimiter = !!opts.copyDelimiter;
+
+	        target.initValue = (opts.initValue !== undefined && opts.initValue !== null) ? opts.initValue.toString() : '';
+
+	        target.delimiter =
+	            (opts.delimiter || opts.delimiter === '') ? opts.delimiter :
+	                (opts.date ? '/' :
+	                    (opts.time ? ':' :
+	                        (opts.numeral ? ',' :
+	                            (opts.phone ? ' ' :
+	                                ' '))));
+	        target.delimiterLength = target.delimiter.length;
+	        target.delimiterLazyShow = !!opts.delimiterLazyShow;
+	        target.delimiters = opts.delimiters || [];
+
+	        target.blocks = opts.blocks || [];
+	        target.blocksLength = target.blocks.length;
+
+	        target.root = (typeof global === 'object' && global) ? global : window;
+	        target.document = opts.document || target.root.document;
+
+	        target.maxLength = 0;
+
+	        target.backspace = false;
+	        target.result = '';
+
+	        target.onValueChanged = opts.onValueChanged || (function () {});
+
+	        return target;
+	    }
+	};
+
+	module.exports = DefaultProperties;
+
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
+
+/***/ })
+/******/ ])
+});
+;
+
+/***/ }),
+/* 48 */
 /***/ (function(module, exports) {
 
 /**
@@ -32158,16 +32129,15 @@ $(document).ready(function () {
 });
 
 /***/ }),
-
-/***/ 57:
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(4)
 /* script */
-var __vue_script__ = __webpack_require__(58)
+var __vue_script__ = __webpack_require__(50)
 /* template */
-var __vue_template__ = __webpack_require__(59)
+var __vue_template__ = __webpack_require__(51)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -32206,8 +32176,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-
-/***/ 58:
+/* 50 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -32226,8 +32195,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-
-/***/ 59:
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -32247,16 +32215,15 @@ if (false) {
 }
 
 /***/ }),
-
-/***/ 60:
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(4)
 /* script */
-var __vue_script__ = __webpack_require__(61)
+var __vue_script__ = __webpack_require__(53)
 /* template */
-var __vue_template__ = __webpack_require__(62)
+var __vue_template__ = __webpack_require__(54)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -32295,8 +32262,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-
-/***/ 61:
+/* 53 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -32314,8 +32280,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-
-/***/ 62:
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -32346,16 +32311,15 @@ if (false) {
 }
 
 /***/ }),
-
-/***/ 63:
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(4)
 /* script */
-var __vue_script__ = __webpack_require__(64)
+var __vue_script__ = __webpack_require__(56)
 /* template */
-var __vue_template__ = __webpack_require__(65)
+var __vue_template__ = __webpack_require__(57)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -32394,8 +32358,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-
-/***/ 64:
+/* 56 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -32450,8 +32413,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-
-/***/ 65:
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -32479,14 +32441,13 @@ if (false) {
 }
 
 /***/ }),
-
-/***/ 66:
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(4)
 /* script */
-var __vue_script__ = __webpack_require__(67)
+var __vue_script__ = __webpack_require__(59)
 /* template */
 var __vue_template__ = null
 /* template functional */
@@ -32527,13 +32488,12 @@ module.exports = Component.exports
 
 
 /***/ }),
-
-/***/ 67:
+/* 59 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_Dashboard_CourseFeatureModal__ = __webpack_require__(68);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_Dashboard_CourseFeatureModal__ = __webpack_require__(60);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_Dashboard_CourseFeatureModal___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__components_Dashboard_CourseFeatureModal__);
 
 
@@ -32560,16 +32520,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-
-/***/ 68:
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(4)
 /* script */
-var __vue_script__ = __webpack_require__(69)
+var __vue_script__ = __webpack_require__(61)
 /* template */
-var __vue_template__ = __webpack_require__(77)
+var __vue_template__ = __webpack_require__(69)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -32608,17 +32567,16 @@ module.exports = Component.exports
 
 
 /***/ }),
-
-/***/ 69:
+/* 61 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__CourseFeature__ = __webpack_require__(70);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__CourseFeature__ = __webpack_require__(62);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__CourseFeature___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__CourseFeature__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__NewCourseFeature__ = __webpack_require__(73);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__NewCourseFeature__ = __webpack_require__(65);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__NewCourseFeature___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__NewCourseFeature__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_collection__ = __webpack_require__(76);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_collection__ = __webpack_require__(68);
 //
 //
 //
@@ -32708,16 +32666,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-
-/***/ 70:
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(4)
 /* script */
-var __vue_script__ = __webpack_require__(71)
+var __vue_script__ = __webpack_require__(63)
 /* template */
-var __vue_template__ = __webpack_require__(72)
+var __vue_template__ = __webpack_require__(64)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -32756,8 +32713,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-
-/***/ 71:
+/* 63 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -32842,8 +32798,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-
-/***/ 72:
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -32950,16 +32905,15 @@ if (false) {
 }
 
 /***/ }),
-
-/***/ 73:
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(4)
 /* script */
-var __vue_script__ = __webpack_require__(74)
+var __vue_script__ = __webpack_require__(66)
 /* template */
-var __vue_template__ = __webpack_require__(75)
+var __vue_template__ = __webpack_require__(67)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -32998,8 +32952,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-
-/***/ 74:
+/* 66 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -33049,8 +33002,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-
-/***/ 75:
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -33109,8 +33061,7 @@ if (false) {
 }
 
 /***/ }),
-
-/***/ 76:
+/* 68 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -33141,8 +33092,7 @@ if (false) {
 });
 
 /***/ }),
-
-/***/ 77:
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -33255,33 +33205,152 @@ if (false) {
 }
 
 /***/ }),
+/* 70 */,
+/* 71 */,
+/* 72 */,
+/* 73 */,
+/* 74 */,
+/* 75 */,
+/* 76 */,
+/* 77 */,
+/* 78 */,
+/* 79 */,
+/* 80 */,
+/* 81 */,
+/* 82 */,
+/* 83 */,
+/* 84 */,
+/* 85 */,
+/* 86 */,
+/* 87 */,
+/* 88 */,
+/* 89 */,
+/* 90 */,
+/* 91 */,
+/* 92 */,
+/* 93 */,
+/* 94 */,
+/* 95 */,
+/* 96 */,
+/* 97 */,
+/* 98 */,
+/* 99 */,
+/* 100 */,
+/* 101 */,
+/* 102 */,
+/* 103 */,
+/* 104 */,
+/* 105 */,
+/* 106 */,
+/* 107 */,
+/* 108 */,
+/* 109 */,
+/* 110 */,
+/* 111 */,
+/* 112 */,
+/* 113 */,
+/* 114 */,
+/* 115 */,
+/* 116 */,
+/* 117 */,
+/* 118 */,
+/* 119 */,
+/* 120 */,
+/* 121 */,
+/* 122 */,
+/* 123 */,
+/* 124 */,
+/* 125 */,
+/* 126 */,
+/* 127 */,
+/* 128 */,
+/* 129 */,
+/* 130 */,
+/* 131 */,
+/* 132 */,
+/* 133 */,
+/* 134 */,
+/* 135 */,
+/* 136 */,
+/* 137 */,
+/* 138 */,
+/* 139 */,
+/* 140 */,
+/* 141 */,
+/* 142 */,
+/* 143 */,
+/* 144 */,
+/* 145 */,
+/* 146 */,
+/* 147 */,
+/* 148 */,
+/* 149 */,
+/* 150 */,
+/* 151 */,
+/* 152 */,
+/* 153 */,
+/* 154 */,
+/* 155 */,
+/* 156 */,
+/* 157 */,
+/* 158 */,
+/* 159 */,
+/* 160 */,
+/* 161 */,
+/* 162 */,
+/* 163 */,
+/* 164 */,
+/* 165 */,
+/* 166 */,
+/* 167 */,
+/* 168 */,
+/* 169 */,
+/* 170 */,
+/* 171 */,
+/* 172 */,
+/* 173 */,
+/* 174 */,
+/* 175 */,
+/* 176 */,
+/* 177 */,
+/* 178 */,
+/* 179 */,
+/* 180 */,
+/* 181 */,
+/* 182 */,
+/* 183 */,
+/* 184 */,
+/* 185 */,
+/* 186 */,
+/* 187 */,
+/* 188 */,
+/* 189 */,
+/* 190 */,
+/* 191 */,
+/* 192 */,
+/* 193 */,
+/* 194 */,
+/* 195 */,
+/* 196 */,
+/* 197 */
+/***/ (function(module, exports, __webpack_require__) {
 
-/***/ 8:
+__webpack_require__(20);
+__webpack_require__(198);
+module.exports = __webpack_require__(199);
+
+
+/***/ }),
+/* 198 */
 /***/ (function(module, exports) {
 
-var g;
+// removed by extract-text-webpack-plugin
 
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
+/***/ }),
+/* 199 */
+/***/ (function(module, exports) {
 
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1,eval)("this");
-} catch(e) {
-	// This works if the window reference is available
-	if(typeof window === "object")
-		g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
+// removed by extract-text-webpack-plugin
 
 /***/ })
-
-/******/ });
+/******/ ]);

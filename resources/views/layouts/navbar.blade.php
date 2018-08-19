@@ -44,8 +44,7 @@
                         </li>
 
                         <li class="nav-item px-1">
-                            <a href="#" class="nav-link px-2 btn btn-outline-primary" data-toggle="modal"
-                               data-target="#registerModal">
+                            <a href="/register" class="nav-link px-2 btn btn-outline-primary">
                                 <span>CADASTRE-SE</span>
                             </a>
                         </li>
@@ -95,26 +94,6 @@
                 
                 <div class="modal-body">
                     @include('layouts.auth.login-form')
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    {{-- REGISTER MODAL --}}
-    <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header bg-primary">
-                    <h6 class="modal-title font-weight-600 text-white" id="registerModalLabel">CADASTRE SEUS DADOS</h6>
-
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span class="text-white" aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                
-                <div class="modal-body">
-                    @include('layouts.auth.register-form')
                 </div>
             </div>
         </div>

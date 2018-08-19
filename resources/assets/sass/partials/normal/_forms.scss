@@ -1,4 +1,4 @@
-// Change background color when is autofilled
+// Change input background color when is autofilled
 input:-webkit-autofill {
     -webkit-box-shadow: 0 0 0 30px white inset !important;
 }
@@ -19,9 +19,18 @@ input:focus:-webkit-autofill {
 	font-family: 'Arial', sans-serif;
 }
 
+.invalid-feedback ~ .md-label {
+	
+}
+
 .md-input:focus {
 	border-color: $input-focus-border-color;
 	box-shadow: 0px 1px 0px $primary-darker !important; 
+}
+
+.md-input.is-invalid:focus {
+	border-color: $danger !important;
+	box-shadow: 0px 1px 0px $danger !important; 
 }
 
 .md-input + .md-label {

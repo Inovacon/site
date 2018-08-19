@@ -16116,6 +16116,12 @@ input:focus:-webkit-autofill {
           box-shadow: 0px 1px 0px #0D8DC4 !important;
 }
 
+.md-input.is-invalid:focus {
+  border-color: #c11d01 !important;
+  -webkit-box-shadow: 0px 1px 0px #c11d01 !important;
+          box-shadow: 0px 1px 0px #c11d01 !important;
+}
+
 .md-input + .md-label {
   color: #6c757d !important;
   -webkit-transition: all 0.2s;
