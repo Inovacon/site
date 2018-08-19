@@ -20,11 +20,11 @@
 
 .card .overlay-container a {
 	position: absolute;
+	z-index: 1;
 	bottom: 0;
 	right: 0;
 	left: 0;
 	top: 0;
-	z-index: 1;
 }
 
 .card .overlay-content {
@@ -58,29 +58,4 @@
 
 .card-footer a:hover {
 	background-color: rgba(0, 0, 0, .1);
-}
-
-.hidden-overlay,
-.hidden-overlay a {
-	position: absolute;
-	left: 0;
-	right: 0;
-	top: 0;
-	bottom: 0;
-}
-
-.hidden-overlay {
-	opacity: 0;
-	background-color: rgba(0, 0, 0, .2);
-	@include transition(linear all .15s);
-}
-
-.hidden-overlay .overlay-content {
-	color: $white;
-	text-shadow: 0px 0px 3px black;
-	height: 50%;
-}
-
-.card-img-overlay:hover .hidden-overlay {
-	opacity: 1;
 }

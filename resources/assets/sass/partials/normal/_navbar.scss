@@ -1,5 +1,11 @@
 .navbar {
   @include box-shadow(0px 0px 10px rgba(0, 0, 0, .2));
+  padding-bottom: $nav-link-border-width;
+  padding-top: $nav-link-border-width;
+}
+
+.navbar-nav.mr-auto .nav-link {
+  line-height: 55px;
 }
 
 .navbar-nav .nav-link {
@@ -8,12 +14,8 @@
     @include transition(box-shadow .3s);
 }
 
-.nav-link-hover .nav-link:hover {
+.navbar-nav.mr-auto .nav-link:hover {
     @include box-shadow(0 $nav-link-border-width 0 $primary);
-}
-
-.navbar-nav.ml-auto .nav-link:hover {
-    color: $primary;
 }
 
 .nav-item.active .nav-link {
@@ -33,8 +35,14 @@
   color: $primary;
 }
 
-#navButtons .nav-link:hover {
+#navButtons .nav-link[class*="btn-outline-"]:hover {
   color: $white;
+}
+
+@include media-breakpoint-down(lg) {
+    .navbar-nav.mr-auto .nav-link {
+        line-height: initial;
+    }
 }
 
 @include media-breakpoint-down(sm) {
