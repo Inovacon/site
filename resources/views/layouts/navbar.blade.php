@@ -10,46 +10,47 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto nav-link-hover">
-                <li class="nav-item  {{ request()->routeIs('home') ? 'active' : '' }}">
-                    <a class="nav-link" href="/"><i class="fas fa-home fa-lg fa-fw mr-1"></i>INÍCIO</a>
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item {{ request()->routeIs('home') ? 'active' : '' }}">
+                    <a class="nav-link" href="/">INÍCIO</a>
                 </li>
 
                 <li class="nav-item  {{ request()->routeIs('courses.*') ? 'active' : '' }}">
-                    <a class="nav-link" href="/cursos"><i class="fas fa-graduation-cap fa-lg fa-fw mr-1"></i>CURSOS</a>
+                    <a class="nav-link" href="/cursos">CURSOS</a>
                 </li>
 
                 <li class="nav-item  {{ request()->routeIs('events.*') ? 'active' : '' }}">
-                    <a class="nav-link" href="/eventos"><i class="fas fa-calendar-alt fa-lg fa-fw mr-1"></i>EVENTOS</a>
+                    <a class="nav-link" href="/eventos">EVENTOS</a>
                 </li>
 
                 <li class="nav-item  {{ request()->routeIs('news.*') ? 'active' : '' }}">
-                    <a class="nav-link" href="/noticias"><i class="fas fa-newspaper fa-lg fa-fw mr-1"></i>NOTÍCIAS</a>
+                    <a class="nav-link" href="/noticias">NOTÍCIAS</a>
                 </li>
 
                 <li class="nav-item ">
-                    <a class="nav-link" href="http://cnecsan.cnec.br/servicos-a-comunidade/" target="_blank"><i
-                                class="fas fa-briefcase fa-lg fa-fw mr-1"></i>PORTAL DO TRABALHO</a>
+                    <a class="nav-link" href="http://cnecsan.cnec.br/servicos-a-comunidade/" target="_blank">PORTAL DO TRABALHO</a>
                 </li>
             </ul>
 
             <hr class="d-lg-none d-block my-2">
 
             @guest
-                <ul id="navButtons" class="navbar-nav ml-auto d-flex flex-column flex-sm-row flex-lg-row">
-                    <li class="nav-item px-1 py-sm-0 py-2">
-                        <a href="#" class="nav-link px-2 btn btn-primary" data-toggle="modal" data-target="#loginModal">
-                            <span>ENTRE</span>
-                        </a>
-                    </li>
+                @if(! request()->is('register', 'login'))
+                    <ul id="navButtons" class="navbar-nav ml-auto d-flex flex-column flex-sm-row flex-lg-row">
+                        <li class="nav-item px-1 py-sm-0 py-2">
+                            <a href="#" class="nav-link px-2 btn btn-primary" data-toggle="modal" data-target="#loginModal">
+                                <span>ENTRE</span>
+                            </a>
+                        </li>
 
-                    <li class="nav-item px-1">
-                        <a href="#" class="nav-link px-2 btn btn-outline-primary" data-toggle="modal"
-                           data-target="#registerModal">
-                            <span>CADASTRE-SE</span>
-                        </a>
-                    </li>
-                </ul>
+                        <li class="nav-item px-1">
+                            <a href="#" class="nav-link px-2 btn btn-outline-primary" data-toggle="modal"
+                               data-target="#registerModal">
+                                <span>CADASTRE-SE</span>
+                            </a>
+                        </li>
+                    </ul>
+                @endif
             @else
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item dropdown">
@@ -78,5 +79,44 @@
     </div>
 </nav>
 
-@include('layouts.login-modal')
-@include('layouts.register-modal')
+@if(! request()->is('register', 'login'))
+
+    {{-- LOGIN MODAL --}}
+    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <h6 class="modal-title font-weight-600 text-white" id="loginModalLabel">ENTRE COM SUA CONTA</h6>
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span class="text-white" aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                
+                <div class="modal-body">
+                    @include('layouts.auth.login-form')
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    {{-- REGISTER MODAL --}}
+    <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <h6 class="modal-title font-weight-600 text-white" id="registerModalLabel">CADASTRE SEUS DADOS</h6>
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span class="text-white" aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                
+                <div class="modal-body">
+                    @include('layouts.auth.register-form')
+                </div>
+            </div>
+        </div>
+    </div>
+@endif

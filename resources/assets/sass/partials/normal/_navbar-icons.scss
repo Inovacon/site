@@ -1,0 +1,31 @@
+.navbar-nav.mr-auto .nav-item .nav-link:before {
+  font-family: "Font Awesome 5 Free"; 
+  font-weight: 900;
+  font-size: 1.33em;
+  margin-right: 4px;
+}
+
+// INICIO
+.navbar-nav.mr-auto .nav-item:nth-child(1) .nav-link:before { 
+	content: '\f015'; 
+}
+
+// CURSOS
+.navbar-nav.mr-auto .nav-item:nth-child(2) .nav-link:before { 
+	content: '\f19d'; 
+}
+
+// EVENTOS
+.navbar-nav.mr-auto .nav-item:nth-child(3) .nav-link:before { 
+	content: '\f073'; 
+}
+
+// NOTÍCIAS
+.navbar-nav.mr-auto .nav-item:nth-child(4) .nav-link:before { 
+	content: '\f1ea'; 
+}
+
+// PORTAL DO TRABALHO
+.navbar-nav.mr-auto .nav-item:nth-child(5) .nav-link:before { 
+	content: '\f0b1'; 
+}
