@@ -100,6 +100,9 @@ return [
     */
 
     'custom' => [
+        'name' => [
+            'required' => 'Por favor, informe seu nome'
+        ],
         'email' => [
             'required' => 'Por favor, informe um e-mail',
             'email' => 'Por favor, informe um e-mail válido'
@@ -108,6 +111,9 @@ return [
             'required' => 'Por favor, informe uma senha',
             'min' => 'A senha deve conter no mínimo :min caracteres'
         ],
+        'birth_date' => [
+            'required' => 'Por favor, informe a sua data de nascimento'
+        ]
     ],
 
     /*
@@ -122,8 +128,10 @@ return [
     */
 
     'attributes' => [
+        'name' => 'nome',
         'email' => 'e-mail',
-        'password' => 'senha'
+        'password' => 'senha',
+        'birth_date' => 'data de nascimento'
     ],
 
 ];
