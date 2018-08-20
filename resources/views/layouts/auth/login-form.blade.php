@@ -9,43 +9,35 @@
         @endpush
     @endif
 
-    <div class="form-group">
-        <div class="form-md-group">
-            <input  name="email" 
-                    id="email" 
-                    value="{{ old('email') }}" 
-                    class="form-control md-input {{ old('email') ? 'active' : '' }} {{ $errors->has('email') ? 'is-invalid' : '' }}" 
-                    type="email"/>
+    <div class="form-md-group {{ $errors->has('email') ? 'invalid-group' : '' }}">
+        <input  name="email" 
+                id="email" 
+                value="{{ old('email') }}" 
+                class="form-control {{ old('email') ? 'active' : '' }}" 
+                type="email"/>
 
-            <label class="md-label" for="email">
-                <i class="fas fa-envelope fa-md mr-1"></i> E-mail
-            </label>
+        <label for="email">
+            <i class="fas fa-envelope mr-1"></i> E-mail
+        </label>
 
-            @if($errors->has('email'))
-                <span class="invalid-feedback" role="alert">
-                    {{ $errors->first('email') }}
-                </span>
-            @endif
-        </div>
+        <span class="invalid-md-feedback" role="alert">
+            {{ $errors->first('email') }}
+        </span>
     </div>
 
-    <div class="form-group">
-        <div class="form-md-group">
-            <input  name="password" 
-                    id="password" 
-                    class="form-control md-input {{ $errors->has('password') ? 'is-invalid' : ''}}"  
-                    type="password"/>
+    <div class="form-md-group {{ $errors->has('password') ? 'invalid-group' : '' }}">
+        <input  name="password" 
+                id="password" 
+                class="form-control"  
+                type="password"/>
 
-            <label class="md-label" for="password">
-                <i class="fas fa-lock fa-md mr-1"></i> Senha
-            </label>
+        <label for="password">
+            <i class="fas fa-lock mr-1"></i> Senha
+        </label>
 
-            @if($errors->has('password'))
-                <span class="invalid-feedback" role="alert">
-                    {{ $errors->first('password') }}
-                </span>
-            @endif
-        </div>
+        <span class="invalid-md-feedback" role="alert">
+            {{ $errors->first('password') }}
+        </span>
     </div>
 
     <div class="form-group custom-control custom-checkbox">
@@ -59,9 +51,7 @@
 
     <div class="d-flex justify-content-between align-items-end">
         <div class="form-group mb-0">
-            <div class="form-md-group">
-                <button class="btn btn-primary" type="submit">Entrar</button>
-            </div>
+            <button class="btn btn-primary" type="submit">Entrar</button>
         </div>
         
         @if(request()->is('login'))

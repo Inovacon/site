@@ -67,11 +67,11 @@ $(document).ready(function () {
     $('[data-tooltip="tooltip"]').tooltip();
 
     // Material design inputs
-    $('.md-input').focus(function() {
+    $('.form-md-group input').focus(function() {
         $(this).addClass('active');
     });
 
-    $('.md-input').focusout(function() {
+    $('.form-md-group input').focusout(function() {
         if (! $(this).val()) {
             $(this).removeClass('active');
         }

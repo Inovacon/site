@@ -8,9 +8,9 @@
       <div class="col-md-8">
         <div class="card">
           <div class="card-header bg-primary">
-            <h5 class="font-weight-600 text-white mb-0">          
+            <h6 class="font-weight-600 text-white mb-0">          
               CADASTRE SEUS DADOS
-            </h5>
+            </h6>
 
           </div>
           
