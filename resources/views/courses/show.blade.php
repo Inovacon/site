@@ -77,28 +77,10 @@
                                 <ul class="list-group list-group-flush">
                                     <li class="list-group-item">
                                         <span class="font-weight-600">
-                                            <i class="fas fa-clock fa-fw text-primary pr-2"></i>Turno:
-                                        </span>
-
-                                        <span>{{ $course->shift->name }}</span>
-                                    </li>
-
-                                    <li class="list-group-item">
-                                        <span class="font-weight-600">
                                             <i class="fas fa-user-clock fa-fw text-primary mr-1"></i>Carga Horária:
                                         </span>
                                         
                                         <span>{{ $course->hours }}h</span>
-                                    </li>
-
-                                    <li class="list-group-item">
-                                        <span class="font-weight-600">
-                                            <i class="fas fa-calendar-alt fa-fw text-primary mr-1"></i>Duração:
-                                        </span>
-
-                                        <span>
-                                            De <span class="font-weight-600">{{ $course->begin_date->format('d/m/Y') }}</span> até <span class="font-weight-600">{{ $course->end_date->format('d/m/Y') }}</span>
-                                        </span>
                                     </li>
 
                                     <li class="list-group-item">
@@ -189,10 +171,6 @@
                                             <div class="col d-flex flex-column justify-content-around pl-2">
                                                 <span class="small text-secondary text-uppercase">
                                                     {{ $course->name }}
-                                                </span>
-
-                                                <span class="text-muted" style="font-size: .7rem;">
-                                                    <i class="fas fa-clock"></i> {{ $course->shift->name }}
                                                 </span>
                                             </div>
                                         </div>
