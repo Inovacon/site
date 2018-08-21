@@ -19,7 +19,7 @@ $(document).ready(function () {
     $('[data-tooltip="tooltip"]').tooltip();
 
     // Material design inputs
-    let $mdInput = $('.md-input');
+    let $mdInput = $('.form-md-group input');
 
     $mdInput.focus(function() {
         $(this).addClass('active');
