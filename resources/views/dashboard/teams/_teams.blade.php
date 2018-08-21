@@ -17,7 +17,7 @@
                 </td>
                 <td>
                     <a href="{{ route('dashboard.courses.show', $course) }}" class="font-weight-bold">
-                        {{ str_limit($course->name, 20) }}
+                        {{ str_limit($course->name, 40) }}
                     </a>
                 </td>
                 <td>

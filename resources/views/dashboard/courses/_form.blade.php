@@ -2,7 +2,8 @@
 
 <d-file-input name="image_path"
               label="Imagem"
-              placeholder="Escolha uma imagem"></d-file-input>
+              placeholder="Escolha uma imagem"
+              :required="false"></d-file-input>
 
 <d-select name="occupation_area_id"
           label="Área de atuação"
