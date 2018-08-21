@@ -39,6 +39,11 @@ Route::prefix('painel')->name('dashboard.')->namespace('Admin')->group(function 
         Route::post('{course}/vantagens', 'CourseAdvantagesController@store')->name('advantages.store');
         Route::patch('{course}/vantagens/{index}', 'CourseAdvantagesController@update')->name('advantages.update');
         Route::delete('{course}/vantagens/{index}', 'CourseAdvantagesController@destroy')->name('advantages.destroy');
+
+        Route::get('{course}/turmas', 'TeamController@index')->name('teams.index');
+        Route::get('{course}/turmas/cadastrar', 'TeamController@create')->name('teams.create');
+        Route::get('{course}/turmas/{team}', 'TeamController@show')->name('teams.show');
+        Route::post('{course}/turmas', 'TeamController@store')->name('teams.store');
     });
 
     Route::prefix('colaboradores')->name('collaborators.')->middleware('collab:admin')->group(function () {
