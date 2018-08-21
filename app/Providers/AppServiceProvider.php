@@ -63,12 +63,14 @@ class AppServiceProvider extends ServiceProvider
     }
 
     /**
-     * Boot Mercado Livre SDK.
+     * Boot Mercado Pago SDK.
      */
     protected function bootMercadoPago()
     {
-        SDK::setClientId(env('MP_CLIENT_ID'));
-        SDK::setClientSecret(env('MP_CLIENT_SECRET'));
+        if (! $this->app->runningUnitTests()) {
+            SDK::setClientId(env('MP_CLIENT_ID'));
+            SDK::setClientSecret(env('MP_CLIENT_SECRET'));
+        }
     }
 
     /**
