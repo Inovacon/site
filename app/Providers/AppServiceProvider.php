@@ -25,7 +25,6 @@ class AppServiceProvider extends ServiceProvider
 
         $this->bootBlade();
         $this->bootValidation();
-        $this->bootMercadoPago();
 
         $this->logQueriesWhileDeveloping();
     }
@@ -60,17 +59,6 @@ class AppServiceProvider extends ServiceProvider
     {
         Validator::extend('cpf', 'App\Validators\CpfValidator@validate');
         Validator::extend('cnpj', 'App\Validators\CnpjValidator@validate');
-    }
-
-    /**
-     * Boot Mercado Pago SDK.
-     */
-    protected function bootMercadoPago()
-    {
-        if (! $this->app->runningUnitTests()) {
-            SDK::setClientId(env('MP_CLIENT_ID'));
-            SDK::setClientSecret(env('MP_CLIENT_SECRET'));
-        }
     }
 
     /**

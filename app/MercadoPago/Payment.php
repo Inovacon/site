@@ -6,6 +6,7 @@ use App\User;
 use MercadoPago\Payer;
 use MercadoPago\Preference;
 use App\MercadoPago\Interfaces\Product;
+use MercadoPago\SDK;
 
 class Payment
 {
@@ -15,6 +16,17 @@ class Payment
      * @var string
      */
     protected $url;
+
+    /**
+     * Payment constructor.
+     *
+     * @return void
+     */
+    protected function __construct()
+    {
+        SDK::setClientId(env('MP_CLIENT_ID'));
+        SDK::setClientSecret(env('MP_CLIENT_SECRET'));
+    }
 
     /**
      * Initialize the checkout process.
