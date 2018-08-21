@@ -29,7 +29,7 @@
                             <i class="fas fa-eye fa-lg"></i>
                         </a>
 
-                        <a href="#" class="btn-icon ml-2">
+                        <a href="{{ route('dashboard.courses.teams.edit', [$course, $team]) }}" class="btn-icon ml-2">
                             <i class="fas fa-edit fa-lg"></i>
                         </a>
                     </div>

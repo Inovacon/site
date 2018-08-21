@@ -92,6 +92,16 @@ class ManageTeamsTest extends TestCase
         $this->post(route('dashboard.courses.teams.store', $c), [
             'maximum_students' => null,
         ])->assertSessionHasErrors('maximum_students');
+
+        $t = create(Team::class, ['course_id' => $c->id]);
+
+        $this->patch(route('dashboard.courses.teams.update', [$c, $t]), [
+            'minimum_students' => null,
+        ])->assertSessionHasErrors('minimum_students');
+
+        $this->patch(route('dashboard.courses.teams.update', [$c, $t]), [
+            'maximum_students' => null,
+        ])->assertSessionHasErrors('maximum_students');
     }
 
     /** @test */
@@ -109,5 +119,26 @@ class ManageTeamsTest extends TestCase
 
         $this->assertDatabaseHas($team->getTable(), $team->toArray());
         $this->assertEquals(3, Team::count());
+    }
+
+    /** @test */
+    function a_collaborator_can_update_a_team()
+    {
+        $this->withoutExceptionHandling()
+            ->signIn(['is_collaborator' => true]);
+
+        $c = create(Course::class);
+        $team = create(Team::class, ['course_id' => $c->id]);
+
+        $this->get(route('dashboard.courses.teams.edit', [$c, $team]))
+            ->assertOk();
+
+        $updatedTeam = raw(Team::class, ['course_id' => $c->id]);
+
+        $this->patch(route('dashboard.courses.teams.update', [$c, $team]),
+            $updatedTeam
+        );
+
+        $this->assertDatabaseHas($team->getTable(), $updatedTeam);
     }
 }

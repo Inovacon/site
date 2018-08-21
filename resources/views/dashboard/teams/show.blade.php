@@ -16,7 +16,7 @@
                         <i class="fas fa-cog"></i> Opções
                     </button>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="#">
+                        <a class="dropdown-item" href="{{ route('dashboard.courses.teams.edit', [$course, $team]) }}">
                             <i class="fas fa-pencil-alt fa-fw"></i> Editar
                         </a>
                     </div>

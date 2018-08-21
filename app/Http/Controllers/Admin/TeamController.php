@@ -41,5 +41,24 @@ class TeamController extends Controller
                 $request->only(['minimum_students', 'maximum_students'])
             );
         }
+
+        return back()->with('flash', 'Turma(s) criadas com sucesso.');
+    }
+
+    public function edit(Course $course, Team $team)
+    {
+        return view('dashboard.teams.edit', compact('course', 'team'));
+    }
+
+    public function update(Request $request, $courseId, Team $team)
+    {
+        $request->validate([
+            'minimum_students' => 'required',
+            'maximum_students' => 'required',
+        ]);
+
+        $team->update($request->only('minimum_students', 'maximum_students'));
+
+        return back()->with('flash', 'Turma atualizada com sucesso.');
     }
 }
