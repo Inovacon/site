@@ -3,6 +3,7 @@
 namespace Tests\Unit\MercadoPago;
 
 use Tests\TestCase;
+use MercadoPago\SDK;
 use MercadoPago\Item;
 use App\MercadoPago\Products\Course;
 use App\MercadoPago\Interfaces\Product;
@@ -11,6 +12,14 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 class CourseTest extends TestCase
 {
     use RefreshDatabase;
+
+    protected function setUp()
+    {
+        parent::setUp();
+
+        SDK::setClientId('1');
+        SDK::setClientSecret('1');
+    }
 
     /** @test */
     function it_can_be_converted_to_a_mercado_pago_item()
