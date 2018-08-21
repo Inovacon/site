@@ -19,14 +19,9 @@ class CreateCoursesTable extends Migration
             $table->text('description');
             $table->double('price');
             $table->boolean('active')->default(false);
-            $table->date('begin_date');
-            $table->date('end_date');
-            $table->unsignedMediumInteger('minimum_students');
-            $table->unsignedMediumInteger('maximum_students');
             $table->unsignedSmallInteger('hours');
             $table->unsignedInteger('course_type_id');
             $table->unsignedInteger('modality_id');
-            $table->unsignedInteger('shift_id');
             $table->unsignedInteger('occupation_area_id');
             $table->unsignedInteger('target_audience_id');
             $table->string('image_path')->nullable();

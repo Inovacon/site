@@ -63,7 +63,6 @@ class CourseController extends Controller
         return [
             'courseTypes' => Category::courseType()->get(),
             'modalities' => Category::modality()->get(),
-            'shifts' => Category::shift()->get(),
             'occupationAreas' => Category::occupationArea()->get(),
             'targetAudiences' => Category::targetAudience()->get(),
         ];

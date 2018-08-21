@@ -2,11 +2,13 @@
 
 namespace Tests\Unit;
 
+use App\Team;
 use App\Course;
 use App\Category;
 use Tests\TestCase;
 use Illuminate\Support\Collection;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 
 class CourseTest extends TestCase
 {
@@ -26,14 +28,6 @@ class CourseTest extends TestCase
         $course = create(Course::class);
 
         $this->assertInstanceOf(Category::class, $course->modality);
-    }
-
-    /** @test */
-    function it_has_a_shift()
-    {
-        $course = create(Course::class);
-
-        $this->assertInstanceOf(Category::class, $course->shift);
     }
 
     /** @test */
@@ -98,5 +92,15 @@ class CourseTest extends TestCase
 
         $this->assertInstanceOf(Collection::class, $course->advantages);
         $this->assertCount(2, $course->advantages);
+    }
+
+    /** @test */
+    function it_may_have_teams_associated()
+    {
+        $course = create(Course::class);
+        create(Team::class, ['course_id' => $course->id], 3);
+
+        $this->assertCount(3, $course->teams);
+        $this->assertInstanceOf(EloquentCollection::class, $course->teams);
     }
 }

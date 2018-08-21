@@ -25,15 +25,6 @@ class Course extends Model
     ];
 
     /**
-     * The attributes that should be mutated to dates.
-     *
-     * @var array
-     */
-    protected $dates = [
-        'begin_date', 'end_date',
-    ];
-
-    /**
      * Set the image_path attribute.
      *
      * @param  string|UploadedFile $path
@@ -143,16 +134,6 @@ class Course extends Model
     }
 
     /**
-     * A course has a shift.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function shift()
-    {
-        return $this->belongsTo(Category::class, 'shift_id')->shift();
-    }
-
-    /**
      * A course has an occupation area.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -170,6 +151,16 @@ class Course extends Model
     public function targetAudience()
     {
         return $this->belongsTo(Category::class, 'target_audience_id')->targetAudience();
+    }
+
+    /**
+     * A course has many teams.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function teams()
+    {
+        return $this->hasMany(Team::class);
     }
 
     /**
