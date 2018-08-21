@@ -1,5 +1,15 @@
-require('./app');
+import './dependencies';
+import './setup';
+import './components';
 
-import chart from 'chart.js';
+Vue.component('d-input', require('./components/Dashboard/Form/Input'));
+Vue.component('d-button', require('./components/Dashboard/Form/Button'));
+Vue.component('d-select', require('./components/Dashboard/Form/Select'));
+Vue.component('d-textarea', require('./components/Dashboard/Form/TextArea'));
+Vue.component('d-file-input', require('./components/Dashboard/Form/FileInput'));
 
-window.chart = chart;
+Vue.component('course-details-view', require('./pages/Dashboard/CourseDetails'));
+
+new Vue({
+    el: '#root'
+});
