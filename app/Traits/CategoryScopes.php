@@ -29,17 +29,6 @@ trait CategoryScopes
     }
 
     /**
-     * Add a filter to the query to only return shifts.
-     *
-     * @param  Builder $query
-     * @return Builder
-     */
-    public function scopeShift(Builder $query)
-    {
-        return $query->where('type', 'shift');
-    }
-
-    /**
      * Add a filter to the query to only return occupation areas.
      *
      * @param  Builder $query

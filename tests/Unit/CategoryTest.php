@@ -28,13 +28,6 @@ class CategoryTest extends TestCase
     }
 
     /** @test */
-    function it_can_be_filtered_by_shifts()
-    {
-        $this->assertInstanceOf(Builder::class, $builder = Category::shift());
-        $this->assertContains('shift', $builder->getBindings());
-    }
-
-    /** @test */
     function it_can_be_filtered_by_occupation_areas()
     {
         $this->assertInstanceOf(Builder::class, $builder = Category::occupationArea());

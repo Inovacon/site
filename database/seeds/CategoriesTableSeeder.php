@@ -15,7 +15,6 @@ class CategoriesTableSeeder extends Seeder
         DB::table('categories')->insert($this->getOccupationAreas());
         DB::table('categories')->insert($this->getModalities());
         DB::table('categories')->insert($this->getCourseTypes());
-        DB::table('categories')->insert($this->getShifts());
         DB::table('categories')->insert($this->getTargetAudiences());
     }
 
@@ -55,18 +54,6 @@ class CategoriesTableSeeder extends Seeder
     {
         return $this->getCategories('course_type', [
             'Curta duração', 'Curso de extensão',
-        ]);
-    }
-
-    /**
-     * Get the default shifts.
-     *
-     * @return array
-     */
-    protected function getShifts()
-    {
-        return $this->getCategories('shift', [
-            'Manhã', 'Tarde', 'Noite',
         ]);
     }
 
