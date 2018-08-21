@@ -61,7 +61,7 @@
         <div class="col">
             <div class="form-md-group {{ $errors->has('phone') ? 'invalid-group' : '' }}">
                 <input  name="phone"
-                        id="phone"
+                        id="physical-phone"
                         value="{{ old('phone') }}"
                         class="phone form-control {{ old('phone') ? 'active' : '' }}"
                         type="physical-phone" />
@@ -85,7 +85,7 @@
                         class="form-control"
                         type="password"/>
 
-                <label for="physical-register-password">
+                <label for="physical-password">
                     <i class="fas fa-lock fa-lg mr-1"></i> Senha
                 </label>
 

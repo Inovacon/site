@@ -117,36 +117,32 @@
         </div>
 
         <div class="col">
-            <div class="form-group">
-                <div class="form-md-group">
-                    <input  name="password_confirmation" 
-                            id="legal-password_confirmation" 
-                            class="form-control" 
-                            type="password"/>
+            <div class="form-md-group">
+                <input  name="password_confirmation" 
+                        id="legal-password_confirmation" 
+                        class="form-control" 
+                        type="password"/>
 
-                    <label for="legal-password_confirmation">Confirme sua senha</label>
-                </div>
+                <label for="legal-password_confirmation">Confirme sua senha</label>
             </div>
         </div>
     </div>
     
-    <div class="col">
-        <div class="form-group">
-            <div class="form-md-group">
-                <input  name="birth_date"
-                        value="{{ old('birth_date') }}"
-                        id="legal-birth_date"
-                        class="birth-day form-control {{ old('name') ? 'active' : '' }}"
-                        type="text"/>
+    <div class="col px-0">
+        <div class="form-md-group">
+            <input  name="birth_date"
+                    value="{{ old('birth_date') }}"
+                    id="legal-birth_date"
+                    class="birth-day form-control {{ old('name') ? 'active' : '' }}"
+                    type="text"/>
 
-                <label for="legal-birth_date">
-                    <i class="fas fa-calendar-alt fa-lg mr-1"></i>Data de nascimento
-                </label>
+            <label for="legal-birth_date">
+                <i class="fas fa-calendar-alt fa-lg mr-1"></i> Data de nascimento
+            </label>
 
-                <span class="invalid-md-feedback">
-                    {{ $errors->first('birth_date') }}
-                </span>
-            </div>
+            <span class="invalid-md-feedback">
+                {{ $errors->first('birth_date') }}
+            </span>
         </div>
     </div>
 

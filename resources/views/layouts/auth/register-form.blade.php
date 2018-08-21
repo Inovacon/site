@@ -44,7 +44,8 @@
         $('.phone').each(function() {
             new Cleave(this, {
                 delimiters: [' ', '-'],
-                blocks: [2, 5, 4]
+                blocks: [2, 5, 4],
+                numericOnly: true
             });
         });
 
