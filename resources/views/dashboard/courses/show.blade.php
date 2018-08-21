@@ -18,33 +18,35 @@
                             :active="{{ json_encode($course->active) }}"
                             @changed="onChange"></activate-button>
 
-                    <button data-placement="top"
-                            data-tooltip="tooltip"
-                            title="Conteúdo programático"
-                            type="button"
-                            class="btn btn-primary ml-3"
-                            data-toggle="modal"
-                            data-target="#contentModal">
-                        <i class="fas fa-list-ul fa-lg"></i>
-                    </button>
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle ml-3"
+                                type="button"
+                                id="dropdownMenuButton"
+                                data-toggle="dropdown">
+                            <i class="fas fa-cog"></i> Opções
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item"
+                               href="#"
+                               data-toggle="modal"
+                               data-target="#contentModal"><i class="fas fa-list fa-fw"></i> Conteúdo</a>
 
-                    <button data-placement="top"
-                            data-tooltip="tooltip"
-                            title="Vantagens"
-                            type="button"
-                            class="btn btn-primary ml-3"
-                            data-toggle="modal"
-                            data-target="#advantagesModal">
-                        <i class="fas fa-check fa-lg"></i>
-                    </button>
+                            <a class="dropdown-item"
+                               href="#"
+                               data-toggle="modal"
+                               data-target="#advantagesModal"><i class="fas fa-check fa-fw"></i> Vantagens</a>
 
-                    <a data-placement="top"
-                       data-tooltip="tooltip"
-                       title="Editar"
-                       class="btn btn-primary ml-3"
-                       href="{{ route('dashboard.courses.edit', $course) }}">
-                        <i class="fas fa-pencil-alt fa-lg"></i>
-                    </a>
+                            <a class="dropdown-item"
+                               href="{{ route('dashboard.courses.teams.index', $course) }}">
+                                <i class="fas fa-users fa-fw"></i> Turmas
+                            </a>
+
+                            <a class="dropdown-item"
+                               href="{{ route('dashboard.courses.edit', $course) }}">
+                                <i class="fas fa-pencil-alt fa-fw"></i> Editar
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
             <hr>

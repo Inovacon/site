@@ -31,22 +31,6 @@
         </td>
     </tr>
     <tr>
-        <th>Data de Início</th>
-        <td>{{ $course->begin_date->format('d/m/Y') }}</td>
-    </tr>
-    <tr>
-        <th>Date de Término</th>
-        <td>{{ $course->end_date->format('d/m/Y') }}</td>
-    </tr>
-    <tr>
-        <th>Mínimo de Alunos</th>
-        <td>{{ $course->minimum_students }}</td>
-    </tr>
-    <tr>
-        <th>Máximo de Alunos</th>
-        <td>{{ $course->maximum_students }}</td>
-    </tr>
-    <tr>
         <th>Carga Horária</th>
         <td>{{ $course->hours.' h' }}</td>
     </tr>
@@ -57,10 +41,6 @@
     <tr>
         <th>Modalidade</th>
         <td>{!! $course->modality->nameWithIcon !!}</td>
-    </tr>
-    <tr>
-        <th>Turno</th>
-        <td>{!! $course->shift->nameWithIcon !!}</td>
     </tr>
     <tr>
         <th>Área de Atuação</th>
