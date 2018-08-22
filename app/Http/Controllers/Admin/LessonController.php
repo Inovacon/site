@@ -6,7 +6,6 @@ use App\Team;
 use App\Lesson;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use phpDocumentor\Reflection\Types\Compound;
 
 class LessonController extends Controller
 {

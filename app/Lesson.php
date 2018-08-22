@@ -3,6 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Str;
 
 class Lesson extends Model
 {
@@ -21,4 +23,21 @@ class Lesson extends Model
     protected $dates = [
         'date',
     ];
+
+    /**
+     * Set the date attribute.
+     *
+     * @param  string $date
+     * @return void
+     */
+    public function setDateAttribute($date)
+    {
+        if (Str::is('*/*/*', $date)) {
+            $this->attributes['date'] = Carbon::createFromFormat('d/m/Y', $date);
+
+            return;
+        }
+
+        $this->attributes['date'] = $date;
+    }
 }
