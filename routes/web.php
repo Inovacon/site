@@ -44,8 +44,16 @@ Route::prefix('painel')->name('dashboard.')->namespace('Admin')->group(function 
         Route::get('{course}/turmas/cadastrar', 'TeamController@create')->name('teams.create');
         Route::get('{course}/turmas/{team}', 'TeamController@show')->name('teams.show');
         Route::post('{course}/turmas', 'TeamController@store')->name('teams.store');
-        Route::get('{course}/turmas/{team}/edit', 'TeamController@edit')->name('teams.edit');
+        Route::get('{course}/turmas/{team}/editar', 'TeamController@edit')->name('teams.edit');
         Route::patch('{course}/turmas/{team}', 'TeamController@update')->name('teams.update');
+
+        Route::get('turmas/{team}/aulas', 'LessonController@index')->name('lessons.index');
+        Route::get('turmas/{team}/aulas/cadastrar', 'LessonController@create')->name('lessons.create');
+        Route::get('turmas/{team}/aulas/{lesson}', 'LessonController@show')->name('lessons.show');
+        Route::post('turmas/{team}/aulas', 'LessonController@store')->name('lessons.store');
+        Route::get('turmas/{team}/aulas/{lesson}/editar', 'LessonController@edit')->name('lessons.edit');
+        Route::patch('turmas/{team}/aulas/{lesson}', 'LessonController@update')->name('lessons.update');
+        Route::delete('turmas/{team}/aulas/{lesson}', 'LessonController@destroy')->name('lessons.destroy');
     });
 
     Route::prefix('colaboradores')->name('collaborators.')->middleware('collab:admin')->group(function () {
