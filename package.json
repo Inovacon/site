@@ -18,9 +18,11 @@
         "cross-env": "^5.1",
         "jquery": "^3.2",
         "laravel-mix": "^2.0",
+        "moment": "^2.22.2",
         "popper.js": "^1.12",
         "sweetalert": "^2.1.0",
         "toastr": "^2.1.4",
-        "vue": "^2.5.7"
+        "vue": "^2.5.7",
+        "vuejs-datepicker": "^1.5.3"
     }
 }
