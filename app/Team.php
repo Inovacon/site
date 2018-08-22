@@ -22,4 +22,14 @@ class Team extends Model
     {
         return $this->belongsTo(Course::class);
     }
+
+    /**
+     * A team has many lessons.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function lessons()
+    {
+        return $this->hasMany(Lesson::class);
+    }
 }
