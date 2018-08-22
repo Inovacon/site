@@ -63833,7 +63833,7 @@ var render = function() {
           name: _vm.name,
           placeholder: _vm.placeholder,
           required: _vm.required,
-          step: "0.01"
+          step: _vm.type === "number" ? 0.01 : ""
         },
         domProps: { value: _vm.value }
       })

@@ -12,7 +12,7 @@
                    :value="value"
                    :placeholder="placeholder"
                    :required="required"
-                   step="0.01">
+                   :step="type === 'number' ? 0.01 : ''">
         </div>
     </div>
 </template>

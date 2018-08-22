@@ -3,7 +3,7 @@
 <d-input name="date"
          label="Data"
          type="date"
-         value="{{ old('date', $lesson->date->format('Y-m-d')) }}"></d-input>
+         value="{{ old('date', optional($lesson->date)->format('Y-m-d')) }}"></d-input>
 
 <d-input name="start_time"
          label="Hora de Início"
