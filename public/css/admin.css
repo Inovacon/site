@@ -15685,6 +15685,15 @@ h6 {
   box-shadow: none !important;
 }
 
+[v-cloak] {
+  display: none;
+}
+
+.shadow-none {
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+}
+
 .text-primary-l {
   color: #28bffc;
 }
