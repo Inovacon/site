@@ -1,29 +1,26 @@
 <template>
-    <div class="row border-bottom py-4">
-        <label class="col-md-3 col-form-label font-weight-semi-bold text-gray-dark"
-               :for="htmlId"
-               v-text="label"></label>
+    <control-wrapper :html-id="htmlId" :label="label">
+        <select class="form-control"
+                :name="name"
+                :id="htmlId"
+                :required="required">
 
-        <div class="col-md-6">
-            <select class="form-control"
-                    :name="name"
-                    :id="htmlId"
-                    :required="required">
+            <option v-if="!! placeholder"
+                    value=""
+                    v-text="placeholder"></option>
 
-                <option v-if="!! placeholder"
-                        value=""
-                        v-text="placeholder"></option>
-
-                <slot></slot>
-            </select>
-        </div>
-    </div>
+            <slot></slot>
+        </select>
+    </control-wrapper>
 </template>
 
 <script>
+    import ControlWrapper from './ControlWrapper';
     import FormControl from '../../../mixins/form-control';
 
     export default {
+        components: { ControlWrapper },
+
         mixins: [FormControl]
     }
 </script>
