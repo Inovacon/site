@@ -63795,6 +63795,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -63831,7 +63832,8 @@ var render = function() {
           id: _vm.htmlId,
           name: _vm.name,
           placeholder: _vm.placeholder,
-          required: _vm.required
+          required: _vm.required,
+          step: "0.01"
         },
         domProps: { value: _vm.value }
       })

@@ -11,7 +11,8 @@
                    :name="name"
                    :value="value"
                    :placeholder="placeholder"
-                   :required="required">
+                   :required="required"
+                   step="0.01">
         </div>
     </div>
 </template>
