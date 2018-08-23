@@ -4,12 +4,18 @@ export default {
         name: { required: true },
         label: { required: true },
         placeholder: { default: '' },
-        required: { default: true }
+        required: { default: true },
+        help: { default : '' },
+        helpColor: { default: 'muted' }
     },
 
     computed: {
         htmlId() {
             return this.id || this.name;
+        },
+
+        helpClasses() {
+            return ['form-text', 'text-' + this.helpColor];
         }
     }
 }

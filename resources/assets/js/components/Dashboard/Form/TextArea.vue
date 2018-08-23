@@ -1,5 +1,10 @@
 <template>
-    <control-wrapper :html-id="htmlId" :label="label">
+    <control-wrapper
+            :html-id="htmlId"
+            :label="label"
+            :help="help"
+            :help-classes="helpClasses">
+
         <textarea
                 class="form-control"
                 :name="name"
