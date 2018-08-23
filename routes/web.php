@@ -54,6 +54,8 @@ Route::prefix('painel')->name('dashboard.')->namespace('Admin')->group(function 
         Route::get('turmas/{team}/aulas/{lesson}/editar', 'LessonController@edit')->name('lessons.edit');
         Route::patch('turmas/{team}/aulas/{lesson}', 'LessonController@update')->name('lessons.update');
         Route::delete('turmas/{team}/aulas/{lesson}', 'LessonController@destroy')->name('lessons.destroy');
+
+        Route::post('turmas/{team}/cronograma', 'ScheduleController')->name('schedules.store');
     });
 
     Route::prefix('colaboradores')->name('collaborators.')->middleware('collab:admin')->group(function () {

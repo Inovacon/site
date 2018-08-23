@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Lesson;
 use App\Team;
+use Carbon\Carbon;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -117,5 +118,48 @@ class ManageLessonsTest extends TestCase
             ->assertSee($lesson->date->format('d/m/Y'))
             ->assertSee($lesson->start_time)
             ->assertSee($lesson->end_time);
+    }
+
+    /** @test */
+    function multiple_lessons_can_be_created_given_a_date_range()
+    {
+        $this->withoutExceptionHandling();
+        $this->signIn(['is_collaborator' => true]);
+
+        $team = create(Team::class);
+
+        $this->post(route('dashboard.courses.schedules.store', $team), [
+            'week_days' => [3, 5],
+            'first_day' => '22/08/2018',
+            'last_day' => '07/09/2018',
+            'start_time' => '17:30:00',
+            'end_time' => '19:30:00',
+        ]);
+
+        $lessons = $team->lessons()->orderBy('date')->get();
+
+        $this->assertCount(6, $lessons);
+        $this->assertStringStartsWith('2018-08-22', $lessons[0]->date);
+        $this->assertStringStartsWith('2018-08-24', $lessons[1]->date);
+        $this->assertStringStartsWith('2018-08-29', $lessons[2]->date);
+        $this->assertStringStartsWith('2018-08-31', $lessons[3]->date);
+        $this->assertStringStartsWith('2018-09-05', $lessons[4]->date);
+        $this->assertStringStartsWith('2018-09-07', $lessons[5]->date);
+    }
+
+    /** @test */
+    function a_schedule_of_lessons_cannot_be_created_with_empty_values()
+    {
+        $this->signIn(['is_collaborator' => true]);
+
+        $team = create(Team::class);
+
+        $this->post(route('dashboard.courses.schedules.store', $team), $data = [
+            'week_days' => null,
+            'first_day' => null,
+            'last_day' => null,
+            'start_time' => null,
+            'end_time' => null,
+        ])->assertSessionHasErrors(array_keys($data));
     }
 }
