@@ -17,9 +17,9 @@ Route::get('noticias', 'NewsController@index')->name('news.index');
 Route::get('noticias/{noticia}', 'NewsController@show')->name('news.show');
 
 Route::prefix('painel')->name('dashboard.')->namespace('Admin')->group(function () {
-    Route::get('/', 'DashboardController@index')->name('index')->middleware('collab');
+    Route::get('/', 'DashboardController@index')->name('index')->middleware('collaborator');
 
-    Route::prefix('cursos')->name('courses.')->middleware('collab')->group(function () {
+    Route::prefix('cursos')->name('courses.')->middleware('collaborator')->group(function () {
         Route::get('/', 'CourseController@index')->name('index');
         Route::get('cadastrar', 'CourseController@create')->name('create');
         Route::get('{course}', 'CourseController@show')->name('show');
@@ -30,35 +30,43 @@ Route::prefix('painel')->name('dashboard.')->namespace('Admin')->group(function 
         Route::post('{course}/ativacao', 'CourseActivationController@store')->name('activation');
         Route::delete('{course}/ativacao', 'CourseActivationController@destroy')->name('deactivation');
 
-        Route::get('{course}/conteudo', 'CourseContentController@index')->name('content.index');
-        Route::post('{course}/conteudo', 'CourseContentController@store')->name('content.store');
-        Route::patch('{course}/conteudo/{index}', 'CourseContentController@update')->name('content.update');
-        Route::delete('{course}/conteudo/{index}', 'CourseContentController@destroy')->name('content.destroy');
+        Route::prefix('{course}/conteudo')->name('content.')->group(function () {
+            Route::get('/', 'CourseContentController@index')->name('index');
+            Route::post('/', 'CourseContentController@store')->name('store');
+            Route::patch('{index}', 'CourseContentController@update')->name('update');
+            Route::delete('{index}', 'CourseContentController@destroy')->name('destroy');
+        });
 
-        Route::get('{course}/vantagens', 'CourseAdvantagesController@index')->name('advantages.index');
-        Route::post('{course}/vantagens', 'CourseAdvantagesController@store')->name('advantages.store');
-        Route::patch('{course}/vantagens/{index}', 'CourseAdvantagesController@update')->name('advantages.update');
-        Route::delete('{course}/vantagens/{index}', 'CourseAdvantagesController@destroy')->name('advantages.destroy');
+        Route::prefix('{course}/vantagens')->name('advantages.')->group(function () {
+            Route::get('/', 'CourseAdvantagesController@index')->name('index');
+            Route::post('/', 'CourseAdvantagesController@store')->name('store');
+            Route::patch('{index}', 'CourseAdvantagesController@update')->name('update');
+            Route::delete('{index}', 'CourseAdvantagesController@destroy')->name('destroy');
+        });
 
-        Route::get('{course}/turmas', 'TeamController@index')->name('teams.index');
-        Route::get('{course}/turmas/cadastrar', 'TeamController@create')->name('teams.create');
-        Route::get('{course}/turmas/{team}', 'TeamController@show')->name('teams.show');
-        Route::post('{course}/turmas', 'TeamController@store')->name('teams.store');
-        Route::get('{course}/turmas/{team}/editar', 'TeamController@edit')->name('teams.edit');
-        Route::patch('{course}/turmas/{team}', 'TeamController@update')->name('teams.update');
+        Route::prefix('{course}/turmas')->name('teams.')->group(function () {
+            Route::get('/', 'TeamController@index')->name('index');
+            Route::get('cadastrar', 'TeamController@create')->name('create');
+            Route::get('{team}', 'TeamController@show')->name('show');
+            Route::post('/', 'TeamController@store')->name('store');
+            Route::get('{team}/editar', 'TeamController@edit')->name('edit');
+            Route::patch('{team}', 'TeamController@update')->name('update');
+        });
 
-        Route::get('turmas/{team}/aulas', 'LessonController@index')->name('lessons.index');
-        Route::get('turmas/{team}/aulas/cadastrar', 'LessonController@create')->name('lessons.create');
-        Route::get('turmas/{team}/aulas/{lesson}', 'LessonController@show')->name('lessons.show');
-        Route::post('turmas/{team}/aulas', 'LessonController@store')->name('lessons.store');
-        Route::get('turmas/{team}/aulas/{lesson}/editar', 'LessonController@edit')->name('lessons.edit');
-        Route::patch('turmas/{team}/aulas/{lesson}', 'LessonController@update')->name('lessons.update');
-        Route::delete('turmas/{team}/aulas/{lesson}', 'LessonController@destroy')->name('lessons.destroy');
+        Route::prefix('turmas/{team}/aulas')->name('lessons.')->group(function () {
+            Route::get('/', 'LessonController@index')->name('index');
+            Route::get('cadastrar', 'LessonController@create')->name('create');
+            Route::get('{lesson}', 'LessonController@show')->name('show');
+            Route::post('/', 'LessonController@store')->name('store');
+            Route::get('{lesson}/editar', 'LessonController@edit')->name('edit');
+            Route::patch('{lesson}', 'LessonController@update')->name('update');
+            Route::delete('{lesson}', 'LessonController@destroy')->name('destroy');
+        });
 
         Route::post('turmas/{team}/cronograma', 'ScheduleController')->name('schedules.store');
     });
 
-    Route::prefix('colaboradores')->name('collaborators.')->middleware('collab:admin')->group(function () {
+    Route::prefix('colaboradores')->name('collaborators.')->middleware('collaborator:admin')->group(function () {
         Route::get('/', 'CollaboratorController@index')->name('index');
         Route::get('cadastrar', 'CollaboratorController@create')->name('create');
         Route::post('/', 'CollaboratorController@store')->name('store');
