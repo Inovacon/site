@@ -6,6 +6,7 @@ import 'bootstrap';
 import toastr from 'toastr';
 import Cleave from 'cleave.js';
 import chart from 'chart.js';
+import parsleyjs from 'parsleyjs';
 
 window.Vue = Vue;
 window.axios = axios;
@@ -14,3 +15,4 @@ window.Popper = Popper.default;
 window.toastr = toastr;
 window.Cleave = Cleave;
 window.chart = chart;
+window.parsleyjs = parsleyjs;

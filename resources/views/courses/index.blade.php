@@ -11,10 +11,10 @@
         <hr class="border-primary border-2">
 
         <div class="row">
-            <div id="coursesSidebar" class="col-md-3">
+            <div id="coursesAreas" class="col-md-3">
                 <div class="card">
-                    <div class="card-header bg-primary border-bottom">
-                        <h6 class="text-center mb-0 text-white">ÁREAS DE CURSOS</h6>
+                    <div class="card-header bg-primary">
+                        <h6 class="text-center mb-0 text-white font-weight-600">ÁREAS DE CURSOS</h6>
                     </div>
 
                     <ul class="list-group list-group-flush">
@@ -23,10 +23,6 @@
                             <li class="text-capitalize">
                                 <i class="fas fa-globe fa-fw"></i> Todas
                             </li>
-
-                            <span class="badge badge-pill badge-primary align-self-center">
-                                {{ $coursesCount }}
-                            </span>
                         </a>
 
                         @foreach ($occupationAreas as $area)
@@ -45,13 +41,19 @@
                 </div>
             </div>
 
-            <div id="courses" class="col-md-9">
+            <div id="coursesCard" class="col-md-9">
                 <div class="row">
-                    @foreach ($courses as $course)
+                    @forelse ($courses as $course)
                         <div class="col-lg-4 col-sm-6 mb-3">
-                            @include('courses._course')
+                            @include('courses._course-card')
                         </div>
-                    @endforeach
+                    @empty
+                        <div class="mx-auto text-muted">
+                            <div class="text-center mb-3"><i class="fas fa-info-circle fa-5x"></i></div>
+                            <div class="lead">Desculpe, no momento não há nenhum curso disponível para esta área, volte mais tarde!</div>
+                        </div>
+                        
+                    @endforelse
                 </div>
             </div>
         </div>

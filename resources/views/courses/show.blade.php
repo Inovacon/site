@@ -18,7 +18,7 @@
 
                     <div class="card-body no-gutters">
                         <div>
-                            <div class="col-sm-4 float-left" style="z-index: 1;">
+                            <div class="col-sm-5 float-left" style="z-index: 1;">
                                 <img class="mr-lg-3 img-thumbnail" src="{{ $course->publicImagePath }}"/>
 
                                 <p class="small text-center text-primary my-0">{{ $course->occupationArea->name }}

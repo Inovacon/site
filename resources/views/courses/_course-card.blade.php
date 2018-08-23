@@ -1,8 +1,13 @@
 <div class="card">
     <div class="overlay-container">
         <img class="card-img-top" src="{{ $course->publicImagePath }}" width="250" height="145">
-        <a href="{{ route('courses.show', $course) }}"></a>
+        <div class="card-ribbon font-weight-600">
+            R$ {{ $course->price }}
+            <span class="ribbon-hide"><i class="fas fa-clock"></i> {{ $course->hours }}h</span>
+        </div>
     </div>
+
+    <a class="link-absolute" href="{{ route('courses.show', $course) }}"></a>
 
     <div class="card-header">
         <div class="d-flex justify-content-between">
@@ -18,21 +23,13 @@
         </div>
     </div>
 
-    <div class="card-body">
+    <div class="card-body pb-0">
         <p class="small text-justify text-secondary">{{ str_limit($course->description, 150) }}</p>
     </div>
 
-    <div class="card-body info">
-        <div class="d-flex justify-content-between text-dark ">
-            <div class="font-weight-600">
-                <strong>R$</strong> {{ $course->price }}
-            </div>
-        </div>
-    </div>
-
-    <div class="card-footer p-0">
+    <div class="card-footer p-0"  style="z-index: 1";>
         <a href="{{ route('courses.show', $course) }}" class="link p-2 text-center d-block text-uppercase">
-            <i class="fas fa-plus-circle mr-2"></i><span class="font-weight-bold">Matricule-se</span>
+            <i class="fas fa-plus-circle mr-2"></i><span class="font-weight-600">Matricule-se</span>
         </a>
     </div>
 </div>

@@ -1,4 +1,4 @@
-<form action="{{ route('login') }}" method="POST">
+<form id="loginForm" action="{{ route('login') }}" method="POST">
     @csrf
     
     @if($errors->any())
@@ -14,7 +14,8 @@
                 id="email" 
                 value="{{ old('email') }}" 
                 class="form-control {{ old('email') ? 'active' : '' }}" 
-                type="email"/>
+                type="email"
+                required/>
 
         <label for="email">
             <i class="fas fa-envelope mr-1"></i> E-mail
@@ -23,6 +24,9 @@
         <span class="invalid-md-feedback" role="alert">
             {{ $errors->first('email') }}
         </span>
+        <div class="errorBlock">
+            
+        </div>
     </div>
 
     <div class="form-md-group {{ $errors->has('password') ? 'invalid-group' : '' }}">
@@ -61,3 +65,4 @@
         @endif
     </div>
 </form>
+
