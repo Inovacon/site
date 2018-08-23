@@ -1,5 +1,10 @@
 <template>
-    <control-wrapper :html-id="htmlId" :label="label">
+    <control-wrapper
+            :html-id="htmlId"
+            :label="label"
+            :help="help"
+            :help-classes="helpClasses">
+
         <datepicker :bootstrap-styling="true"
                     :id="htmlId"
                     :value="value"
@@ -7,6 +12,7 @@
                     :required="required"
                     :language="ptBR"
                     :format="formatter"
+                    :disabled-dates="disabledDates"
                     :name="name"></datepicker>
     </control-wrapper>
 </template>
@@ -20,7 +26,8 @@
 
     export default {
         props: {
-            value: { default: '' }
+            value: { default: '' },
+            disabledDates: { default: () => {} }
         },
 
         mixins: [FormControl],

@@ -1,5 +1,10 @@
 <template>
-    <control-wrapper :html-id="htmlId" :label="label">
+    <control-wrapper
+            :html-id="htmlId"
+            :label="label"
+            :help="help"
+            :help-classes="helpClasses">
+
         <div class="input-group">
             <div class="custom-file">
                 <input type="file"

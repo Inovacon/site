@@ -32784,12 +32784,17 @@ module.exports = Component.exports
         name: { required: true },
         label: { required: true },
         placeholder: { default: '' },
-        required: { default: true }
+        required: { default: true },
+        help: { default: '' },
+        helpColor: { default: 'muted' }
     },
 
     computed: {
         htmlId: function htmlId() {
             return this.id || this.name;
+        },
+        helpClasses: function helpClasses() {
+            return ['form-text', 'text-' + this.helpColor];
         }
     }
 });
@@ -66551,6 +66556,7 @@ Vue.component('d-file-input', __webpack_require__(269));
 Vue.component('secure-delete-button', __webpack_require__(272));
 
 Vue.component('course-details-view', __webpack_require__(276));
+Vue.component('lesson-special-form', __webpack_require__(304));
 
 new Vue({
     el: '#root'
@@ -66625,6 +66631,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -66658,11 +66669,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
         htmlId: { required: true },
-        label: { required: true }
+        label: { required: true },
+        help: { default: '' },
+        helpClasses: { default: function _default() {
+                return [];
+            } }
     }
 });
 
@@ -66682,7 +66699,21 @@ var render = function() {
       domProps: { textContent: _vm._s(_vm.label) }
     }),
     _vm._v(" "),
-    _c("div", { staticClass: "col-md-6" }, [_vm._t("default")], 2)
+    _c(
+      "div",
+      { staticClass: "col-md-6" },
+      [
+        _vm._t("default"),
+        _vm._v(" "),
+        _vm.help
+          ? _c("small", {
+              class: _vm.helpClasses,
+              domProps: { textContent: _vm._s(_vm.help) }
+            })
+          : _vm._e()
+      ],
+      2
+    )
   ])
 }
 var staticRenderFns = []
@@ -66705,7 +66736,14 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "control-wrapper",
-    { attrs: { "html-id": _vm.htmlId, label: _vm.label } },
+    {
+      attrs: {
+        "html-id": _vm.htmlId,
+        label: _vm.label,
+        help: _vm.help,
+        "help-classes": _vm.helpClasses
+      }
+    },
     [
       _c("input", {
         staticClass: "form-control",
@@ -66903,11 +66941,33 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+    props: {
+        value: { default: function _default() {
+                return [];
+            } },
+        multiple: { default: false }
+    },
+
+    data: function data() {
+        return {
+            selected: this.value
+        };
+    },
+
+
     components: { ControlWrapper: __WEBPACK_IMPORTED_MODULE_0__ControlWrapper___default.a },
 
     mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins_form_control__["a" /* default */]]
@@ -66923,13 +66983,53 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "control-wrapper",
-    { attrs: { "html-id": _vm.htmlId, label: _vm.label } },
+    {
+      attrs: {
+        "html-id": _vm.htmlId,
+        label: _vm.label,
+        help: _vm.help,
+        "help-classes": _vm.helpClasses
+      }
+    },
     [
       _c(
         "select",
         {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.selected,
+              expression: "selected"
+            }
+          ],
           staticClass: "form-control",
-          attrs: { name: _vm.name, id: _vm.htmlId, required: _vm.required }
+          attrs: {
+            name: _vm.name,
+            id: _vm.htmlId,
+            required: _vm.required,
+            multiple: _vm.multiple
+          },
+          on: {
+            change: [
+              function($event) {
+                var $$selectedVal = Array.prototype.filter
+                  .call($event.target.options, function(o) {
+                    return o.selected
+                  })
+                  .map(function(o) {
+                    var val = "_value" in o ? o._value : o.value
+                    return val
+                  })
+                _vm.selected = $event.target.multiple
+                  ? $$selectedVal
+                  : $$selectedVal[0]
+              },
+              function($event) {
+                _vm.$emit("input", _vm.selected)
+              }
+            ]
+          }
         },
         [
           !!_vm.placeholder
@@ -67024,6 +67124,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -67049,7 +67154,14 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "control-wrapper",
-    { attrs: { "html-id": _vm.htmlId, label: _vm.label } },
+    {
+      attrs: {
+        "html-id": _vm.htmlId,
+        label: _vm.label,
+        help: _vm.help,
+        "help-classes": _vm.helpClasses
+      }
+    },
     [
       _c(
         "textarea",
@@ -67151,6 +67263,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -67160,7 +67278,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
-        value: { default: '' }
+        value: { default: '' },
+        disabledDates: { default: function _default() {} }
     },
 
     mixins: [__WEBPACK_IMPORTED_MODULE_4__mixins_form_control__["a" /* default */]],
@@ -68729,7 +68848,14 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "control-wrapper",
-    { attrs: { "html-id": _vm.htmlId, label: _vm.label } },
+    {
+      attrs: {
+        "html-id": _vm.htmlId,
+        label: _vm.label,
+        help: _vm.help,
+        "help-classes": _vm.helpClasses
+      }
+    },
     [
       _c("datepicker", {
         attrs: {
@@ -68740,6 +68866,7 @@ var render = function() {
           required: _vm.required,
           language: _vm.ptBR,
           format: _vm.formatter,
+          "disabled-dates": _vm.disabledDates,
           name: _vm.name
         }
       })
@@ -68833,6 +68960,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -68853,7 +68985,14 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "control-wrapper",
-    { attrs: { "html-id": _vm.htmlId, label: _vm.label } },
+    {
+      attrs: {
+        "html-id": _vm.htmlId,
+        label: _vm.label,
+        help: _vm.help,
+        "help-classes": _vm.helpClasses
+      }
+    },
     [
       _c("div", { staticClass: "input-group" }, [
         _c("div", { staticClass: "custom-file" }, [
@@ -69810,6 +69949,122 @@ if (false) {
     require("vue-hot-reload-api")      .rerender("data-v-2c90b371", module.exports)
   }
 }
+
+/***/ }),
+/* 288 */,
+/* 289 */,
+/* 290 */,
+/* 291 */,
+/* 292 */,
+/* 293 */,
+/* 294 */,
+/* 295 */,
+/* 296 */,
+/* 297 */,
+/* 298 */,
+/* 299 */,
+/* 300 */,
+/* 301 */,
+/* 302 */,
+/* 303 */,
+/* 304 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(5)
+/* script */
+var __vue_script__ = __webpack_require__(305)
+/* template */
+var __vue_template__ = null
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\pages\\Dashboard\\LessonSpecialForm.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-64d59e36", Component.options)
+  } else {
+    hotAPI.reload("data-v-64d59e36", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 305 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_moment__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_moment__);
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            weekDays: [],
+            disabledDates: { customPredictor: function customPredictor(date) {
+                    return false;
+                } }
+        };
+    },
+    mounted: function mounted() {
+        var _this = this;
+
+        var disabledDates = {
+            customPredictor: function customPredictor(date) {
+                return _this.mustBeDisabled(date);
+            }
+        };
+
+        this.$nextTick(function () {
+            _this.disabledDates = disabledDates;
+        });
+    },
+    created: function created() {
+        __WEBPACK_IMPORTED_MODULE_0_moment___default.a.locale('pt-br');
+    },
+
+
+    methods: {
+        mustBeDisabled: function mustBeDisabled(date) {
+            return this.weekDays.length && !this.weekDays.includes(date.getDay().toString());
+        }
+    },
+
+    computed: {
+        selectedDays: function selectedDays() {
+            return this.weekDays.map(function (day) {
+                return __WEBPACK_IMPORTED_MODULE_0_moment___default()().weekday(day).format('dddd');
+            }).join(', ');
+        }
+    }
+});
 
 /***/ })
 /******/ ]);

@@ -11,6 +11,7 @@ Vue.component('d-file-input', require('./components/Dashboard/Form/FileInput'));
 Vue.component('secure-delete-button', require('./components/Dashboard/SecureDeleteButton'));
 
 Vue.component('course-details-view', require('./pages/Dashboard/CourseDetails'));
+Vue.component('lesson-special-form', require('./pages/Dashboard/LessonSpecialForm'));
 
 new Vue({
     el: '#root'

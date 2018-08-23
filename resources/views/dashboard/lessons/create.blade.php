@@ -15,15 +15,15 @@
                 <div class="px-sm-4 pt-3">
                     <div class="card-body">
                         <nav-tabs :fill="false">
-                            <tab-pane title="Uma" :active="true">
-                                <form method="POST" action="{{ route('dashboard.courses.lessons.store', $team) }}">
-                                    @include('dashboard.lessons._form')
+                            <tab-pane title="Todas" :active="true">
+                                <form method="POST" action="{{ route('dashboard.courses.schedules.store', $team) }}">
+                                    @include('dashboard.lessons._special-form')
                                 </form>
                             </tab-pane>
 
-                            <tab-pane title="Todas">
+                            <tab-pane title="Uma">
                                 <form method="POST" action="{{ route('dashboard.courses.lessons.store', $team) }}">
-                                    @include('dashboard.lessons._special-form')
+                                    @include('dashboard.lessons._form')
                                 </form>
                             </tab-pane>
                         </nav-tabs>
