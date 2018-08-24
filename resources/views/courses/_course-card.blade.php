@@ -1,7 +1,7 @@
 <div class="card">
     <div class="overlay-container">
         <img class="card-img-top" src="{{ $course->publicImagePath }}" width="250" height="145">
-        <div class="card-ribbon font-weight-600">
+        <div class="ribbon ribbon-left font-weight-600">
             R$ {{ $course->price }}
             <span class="ribbon-hide"><i class="fas fa-clock"></i> {{ $course->hours }}h</span>
         </div>
@@ -29,7 +29,7 @@
 
     <div class="card-footer p-0"  style="z-index: 1";>
         <a href="{{ route('courses.show', $course) }}" class="link p-2 text-center d-block text-uppercase">
-            <i class="fas fa-plus-circle mr-2"></i><span class="font-weight-600">Matricule-se</span>
+            <span class="font-weight-600"><i class="fas fa-plus-circle mr-1"></i>Matricule-se</span>
         </a>
     </div>
 </div>

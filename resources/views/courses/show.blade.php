@@ -3,35 +3,35 @@
 @section('title', 'Nome do Curso - Inovacon')
 
 @section('content')
-    <div class="container">
+    <div id="course" class="container">
         <div class="row">
             <div class="col-sm-8">
                 <div class="card mb-5">
-                    <div class="card-header">
-                        <h5 class="text-primary font-weight-bold">
+                    <div class="card-header bg-primary">
+                        <h5 class="text-white font-weight-bold mb-0">
                             <i class="{{ $course->occupationArea->icon }} mr-1"></i>
                             {{ $course->name }}
                         </h5>
-
-                        <hr class="border-primary border-2 my-0">
                     </div>
 
                     <div class="card-body no-gutters">
                         <div>
-                            <div class="col-sm-5 float-left" style="z-index: 1;">
-                                <img class="mr-lg-3 img-thumbnail" src="{{ $course->publicImagePath }}"/>
+                            <div class="col-lg-6 col mr-2 mb-2 float-left">
+                                <div class="overlay-container">
+                                    <img style="object-fit: cover;" class="img-thumbnail w-100" src="{{ $course->publicImagePath }}"/>
 
-                                <p class="small text-center text-primary my-0">{{ $course->occupationArea->name }}
-                                    &bull; {{ $course->modality->name }}</p>
+                                    <div class="ribbon horizontal-ribbon text-center">
+                                        <span class="text-uppercase">{{ $course->occupationArea->name }}</span>
+                                    </div>
 
-                                <div class="text-center text-primary border-bottom border-primary mt-2"
-                                     style="border-width: 2px !important;">
-                                    <span class="strong">R${{ $course->price }}</span>
+                                    <div class="ribbon corner-right-ribbon">
+                                        <span>R${{ $course->price }}</span>
+                                    </div>
                                 </div>
                             </div>
 
                             <div class="col">
-                                <div class="text-indent text-justify info" style="font-size: .9rem;">
+                                <div class="text-justify course-description">
                                     {{ $course->description }}
                                 </div>
                             </div>
@@ -155,8 +155,8 @@
                             <i class="fas fa-graduation-cap mr-1"></i>CURSOS RELACIONADOS
                         </h5>
 
-                        <hr class="my-0 border-primary border-2">
                     </div>
+                        <hr class="my-0 border-primary border-2">
 
                     <div class="card-body px-1">
                         <ul class="list-group list-group-flush">
