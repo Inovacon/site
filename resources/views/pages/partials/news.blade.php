@@ -15,7 +15,7 @@
 
               <a href="#">
                 <div class="carousel-caption d-none d-md-block">
-                  <h5 class="text-center text-shadow">{{ $faker->sentence(rand(6, 12), true) }}</h5>
+                  <div class="text-center title">{{ $faker->sentence(rand(6, 12), true) }}</div>
                   {{-- <p>...</p> --}}
                 </div>
               </a>
