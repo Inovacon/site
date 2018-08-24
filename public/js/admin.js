@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 248);
+/******/ 	return __webpack_require__(__webpack_require__.s = 247);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -4583,7 +4583,7 @@
 "use strict";
 
 
-module.exports = __webpack_require__(11);
+module.exports = __webpack_require__(10);
 module.exports.easing = __webpack_require__(178);
 module.exports.canvas = __webpack_require__(179);
 module.exports.options = __webpack_require__(180);
@@ -5165,33 +5165,6 @@ module.exports.Rectangle = __webpack_require__(189);
 
 /***/ }),
 /* 7 */
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1,eval)("this");
-} catch(e) {
-	// This works if the window reference is available
-	if(typeof window === "object")
-		g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
-/***/ }),
-/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5617,7 +5590,7 @@ module.exports = {
 
 
 /***/ }),
-/* 9 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5694,7 +5667,484 @@ module.exports = {
 
 
 /***/ }),
+/* 9 */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1,eval)("this");
+} catch(e) {
+	// This works if the window reference is available
+	if(typeof window === "object")
+		g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
 /* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * @namespace Chart.helpers
+ */
+var helpers = {
+	/**
+	 * An empty function that can be used, for example, for optional callback.
+	 */
+	noop: function() {},
+
+	/**
+	 * Returns a unique id, sequentially generated from a global variable.
+	 * @returns {Number}
+	 * @function
+	 */
+	uid: (function() {
+		var id = 0;
+		return function() {
+			return id++;
+		};
+	}()),
+
+	/**
+	 * Returns true if `value` is neither null nor undefined, else returns false.
+	 * @param {*} value - The value to test.
+	 * @returns {Boolean}
+	 * @since 2.7.0
+	 */
+	isNullOrUndef: function(value) {
+		return value === null || typeof value === 'undefined';
+	},
+
+	/**
+	 * Returns true if `value` is an array, else returns false.
+	 * @param {*} value - The value to test.
+	 * @returns {Boolean}
+	 * @function
+	 */
+	isArray: Array.isArray ? Array.isArray : function(value) {
+		return Object.prototype.toString.call(value) === '[object Array]';
+	},
+
+	/**
+	 * Returns true if `value` is an object (excluding null), else returns false.
+	 * @param {*} value - The value to test.
+	 * @returns {Boolean}
+	 * @since 2.7.0
+	 */
+	isObject: function(value) {
+		return value !== null && Object.prototype.toString.call(value) === '[object Object]';
+	},
+
+	/**
+	 * Returns `value` if defined, else returns `defaultValue`.
+	 * @param {*} value - The value to return if defined.
+	 * @param {*} defaultValue - The value to return if `value` is undefined.
+	 * @returns {*}
+	 */
+	valueOrDefault: function(value, defaultValue) {
+		return typeof value === 'undefined' ? defaultValue : value;
+	},
+
+	/**
+	 * Returns value at the given `index` in array if defined, else returns `defaultValue`.
+	 * @param {Array} value - The array to lookup for value at `index`.
+	 * @param {Number} index - The index in `value` to lookup for value.
+	 * @param {*} defaultValue - The value to return if `value[index]` is undefined.
+	 * @returns {*}
+	 */
+	valueAtIndexOrDefault: function(value, index, defaultValue) {
+		return helpers.valueOrDefault(helpers.isArray(value) ? value[index] : value, defaultValue);
+	},
+
+	/**
+	 * Calls `fn` with the given `args` in the scope defined by `thisArg` and returns the
+	 * value returned by `fn`. If `fn` is not a function, this method returns undefined.
+	 * @param {Function} fn - The function to call.
+	 * @param {Array|undefined|null} args - The arguments with which `fn` should be called.
+	 * @param {Object} [thisArg] - The value of `this` provided for the call to `fn`.
+	 * @returns {*}
+	 */
+	callback: function(fn, args, thisArg) {
+		if (fn && typeof fn.call === 'function') {
+			return fn.apply(thisArg, args);
+		}
+	},
+
+	/**
+	 * Note(SB) for performance sake, this method should only be used when loopable type
+	 * is unknown or in none intensive code (not called often and small loopable). Else
+	 * it's preferable to use a regular for() loop and save extra function calls.
+	 * @param {Object|Array} loopable - The object or array to be iterated.
+	 * @param {Function} fn - The function to call for each item.
+	 * @param {Object} [thisArg] - The value of `this` provided for the call to `fn`.
+	 * @param {Boolean} [reverse] - If true, iterates backward on the loopable.
+	 */
+	each: function(loopable, fn, thisArg, reverse) {
+		var i, len, keys;
+		if (helpers.isArray(loopable)) {
+			len = loopable.length;
+			if (reverse) {
+				for (i = len - 1; i >= 0; i--) {
+					fn.call(thisArg, loopable[i], i);
+				}
+			} else {
+				for (i = 0; i < len; i++) {
+					fn.call(thisArg, loopable[i], i);
+				}
+			}
+		} else if (helpers.isObject(loopable)) {
+			keys = Object.keys(loopable);
+			len = keys.length;
+			for (i = 0; i < len; i++) {
+				fn.call(thisArg, loopable[keys[i]], keys[i]);
+			}
+		}
+	},
+
+	/**
+	 * Returns true if the `a0` and `a1` arrays have the same content, else returns false.
+	 * @see http://stackoverflow.com/a/14853974
+	 * @param {Array} a0 - The array to compare
+	 * @param {Array} a1 - The array to compare
+	 * @returns {Boolean}
+	 */
+	arrayEquals: function(a0, a1) {
+		var i, ilen, v0, v1;
+
+		if (!a0 || !a1 || a0.length !== a1.length) {
+			return false;
+		}
+
+		for (i = 0, ilen = a0.length; i < ilen; ++i) {
+			v0 = a0[i];
+			v1 = a1[i];
+
+			if (v0 instanceof Array && v1 instanceof Array) {
+				if (!helpers.arrayEquals(v0, v1)) {
+					return false;
+				}
+			} else if (v0 !== v1) {
+				// NOTE: two different object instances will never be equal: {x:20} != {x:20}
+				return false;
+			}
+		}
+
+		return true;
+	},
+
+	/**
+	 * Returns a deep copy of `source` without keeping references on objects and arrays.
+	 * @param {*} source - The value to clone.
+	 * @returns {*}
+	 */
+	clone: function(source) {
+		if (helpers.isArray(source)) {
+			return source.map(helpers.clone);
+		}
+
+		if (helpers.isObject(source)) {
+			var target = {};
+			var keys = Object.keys(source);
+			var klen = keys.length;
+			var k = 0;
+
+			for (; k < klen; ++k) {
+				target[keys[k]] = helpers.clone(source[keys[k]]);
+			}
+
+			return target;
+		}
+
+		return source;
+	},
+
+	/**
+	 * The default merger when Chart.helpers.merge is called without merger option.
+	 * Note(SB): this method is also used by configMerge and scaleMerge as fallback.
+	 * @private
+	 */
+	_merger: function(key, target, source, options) {
+		var tval = target[key];
+		var sval = source[key];
+
+		if (helpers.isObject(tval) && helpers.isObject(sval)) {
+			helpers.merge(tval, sval, options);
+		} else {
+			target[key] = helpers.clone(sval);
+		}
+	},
+
+	/**
+	 * Merges source[key] in target[key] only if target[key] is undefined.
+	 * @private
+	 */
+	_mergerIf: function(key, target, source) {
+		var tval = target[key];
+		var sval = source[key];
+
+		if (helpers.isObject(tval) && helpers.isObject(sval)) {
+			helpers.mergeIf(tval, sval);
+		} else if (!target.hasOwnProperty(key)) {
+			target[key] = helpers.clone(sval);
+		}
+	},
+
+	/**
+	 * Recursively deep copies `source` properties into `target` with the given `options`.
+	 * IMPORTANT: `target` is not cloned and will be updated with `source` properties.
+	 * @param {Object} target - The target object in which all sources are merged into.
+	 * @param {Object|Array(Object)} source - Object(s) to merge into `target`.
+	 * @param {Object} [options] - Merging options:
+	 * @param {Function} [options.merger] - The merge method (key, target, source, options)
+	 * @returns {Object} The `target` object.
+	 */
+	merge: function(target, source, options) {
+		var sources = helpers.isArray(source) ? source : [source];
+		var ilen = sources.length;
+		var merge, i, keys, klen, k;
+
+		if (!helpers.isObject(target)) {
+			return target;
+		}
+
+		options = options || {};
+		merge = options.merger || helpers._merger;
+
+		for (i = 0; i < ilen; ++i) {
+			source = sources[i];
+			if (!helpers.isObject(source)) {
+				continue;
+			}
+
+			keys = Object.keys(source);
+			for (k = 0, klen = keys.length; k < klen; ++k) {
+				merge(keys[k], target, source, options);
+			}
+		}
+
+		return target;
+	},
+
+	/**
+	 * Recursively deep copies `source` properties into `target` *only* if not defined in target.
+	 * IMPORTANT: `target` is not cloned and will be updated with `source` properties.
+	 * @param {Object} target - The target object in which all sources are merged into.
+	 * @param {Object|Array(Object)} source - Object(s) to merge into `target`.
+	 * @returns {Object} The `target` object.
+	 */
+	mergeIf: function(target, source) {
+		return helpers.merge(target, source, {merger: helpers._mergerIf});
+	},
+
+	/**
+	 * Applies the contents of two or more objects together into the first object.
+	 * @param {Object} target - The target object in which all objects are merged into.
+	 * @param {Object} arg1 - Object containing additional properties to merge in target.
+	 * @param {Object} argN - Additional objects containing properties to merge in target.
+	 * @returns {Object} The `target` object.
+	 */
+	extend: function(target) {
+		var setFn = function(value, key) {
+			target[key] = value;
+		};
+		for (var i = 1, ilen = arguments.length; i < ilen; ++i) {
+			helpers.each(arguments[i], setFn);
+		}
+		return target;
+	},
+
+	/**
+	 * Basic javascript inheritance based on the model created in Backbone.js
+	 */
+	inherits: function(extensions) {
+		var me = this;
+		var ChartElement = (extensions && extensions.hasOwnProperty('constructor')) ? extensions.constructor : function() {
+			return me.apply(this, arguments);
+		};
+
+		var Surrogate = function() {
+			this.constructor = ChartElement;
+		};
+
+		Surrogate.prototype = me.prototype;
+		ChartElement.prototype = new Surrogate();
+		ChartElement.extend = helpers.inherits;
+
+		if (extensions) {
+			helpers.extend(ChartElement.prototype, extensions);
+		}
+
+		ChartElement.__super__ = me.prototype;
+		return ChartElement;
+	}
+};
+
+module.exports = helpers;
+
+// DEPRECATIONS
+
+/**
+ * Provided for backward compatibility, use Chart.helpers.callback instead.
+ * @function Chart.helpers.callCallback
+ * @deprecated since version 2.6.0
+ * @todo remove at version 3
+ * @private
+ */
+helpers.callCallback = helpers.callback;
+
+/**
+ * Provided for backward compatibility, use Array.prototype.indexOf instead.
+ * Array.prototype.indexOf compatibility: Chrome, Opera, Safari, FF1.5+, IE9+
+ * @function Chart.helpers.indexOf
+ * @deprecated since version 2.7.0
+ * @todo remove at version 3
+ * @private
+ */
+helpers.indexOf = function(array, item, fromIndex) {
+	return Array.prototype.indexOf.call(array, item, fromIndex);
+};
+
+/**
+ * Provided for backward compatibility, use Chart.helpers.valueOrDefault instead.
+ * @function Chart.helpers.getValueOrDefault
+ * @deprecated since version 2.7.0
+ * @todo remove at version 3
+ * @private
+ */
+helpers.getValueOrDefault = helpers.valueOrDefault;
+
+/**
+ * Provided for backward compatibility, use Chart.helpers.valueAtIndexOrDefault instead.
+ * @function Chart.helpers.getValueAtIndexOrDefault
+ * @deprecated since version 2.7.0
+ * @todo remove at version 3
+ * @private
+ */
+helpers.getValueAtIndexOrDefault = helpers.valueAtIndexOrDefault;
+
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {
+
+var utils = __webpack_require__(3);
+var normalizeHeaderName = __webpack_require__(157);
+
+var DEFAULT_CONTENT_TYPE = {
+  'Content-Type': 'application/x-www-form-urlencoded'
+};
+
+function setContentTypeIfUnset(headers, value) {
+  if (!utils.isUndefined(headers) && utils.isUndefined(headers['Content-Type'])) {
+    headers['Content-Type'] = value;
+  }
+}
+
+function getDefaultAdapter() {
+  var adapter;
+  if (typeof XMLHttpRequest !== 'undefined') {
+    // For browsers use XHR adapter
+    adapter = __webpack_require__(16);
+  } else if (typeof process !== 'undefined') {
+    // For node use HTTP adapter
+    adapter = __webpack_require__(16);
+  }
+  return adapter;
+}
+
+var defaults = {
+  adapter: getDefaultAdapter(),
+
+  transformRequest: [function transformRequest(data, headers) {
+    normalizeHeaderName(headers, 'Content-Type');
+    if (utils.isFormData(data) ||
+      utils.isArrayBuffer(data) ||
+      utils.isBuffer(data) ||
+      utils.isStream(data) ||
+      utils.isFile(data) ||
+      utils.isBlob(data)
+    ) {
+      return data;
+    }
+    if (utils.isArrayBufferView(data)) {
+      return data.buffer;
+    }
+    if (utils.isURLSearchParams(data)) {
+      setContentTypeIfUnset(headers, 'application/x-www-form-urlencoded;charset=utf-8');
+      return data.toString();
+    }
+    if (utils.isObject(data)) {
+      setContentTypeIfUnset(headers, 'application/json;charset=utf-8');
+      return JSON.stringify(data);
+    }
+    return data;
+  }],
+
+  transformResponse: [function transformResponse(data) {
+    /*eslint no-param-reassign:0*/
+    if (typeof data === 'string') {
+      try {
+        data = JSON.parse(data);
+      } catch (e) { /* Ignore */ }
+    }
+    return data;
+  }],
+
+  /**
+   * A timeout in milliseconds to abort a request. If set to 0 (default) a
+   * timeout is not created.
+   */
+  timeout: 0,
+
+  xsrfCookieName: 'XSRF-TOKEN',
+  xsrfHeaderName: 'X-XSRF-TOKEN',
+
+  maxContentLength: -1,
+
+  validateStatus: function validateStatus(status) {
+    return status >= 200 && status < 300;
+  }
+};
+
+defaults.headers = {
+  common: {
+    'Accept': 'application/json, text/plain, */*'
+  }
+};
+
+utils.forEach(['delete', 'get', 'head'], function forEachMethodNoData(method) {
+  defaults.headers[method] = {};
+});
+
+utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
+  defaults.headers[method] = utils.merge(DEFAULT_CONTENT_TYPE);
+});
+
+module.exports = defaults;
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(14)))
+
+/***/ }),
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -16065,456 +16515,6 @@ return jQuery;
 
 
 /***/ }),
-/* 11 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/**
- * @namespace Chart.helpers
- */
-var helpers = {
-	/**
-	 * An empty function that can be used, for example, for optional callback.
-	 */
-	noop: function() {},
-
-	/**
-	 * Returns a unique id, sequentially generated from a global variable.
-	 * @returns {Number}
-	 * @function
-	 */
-	uid: (function() {
-		var id = 0;
-		return function() {
-			return id++;
-		};
-	}()),
-
-	/**
-	 * Returns true if `value` is neither null nor undefined, else returns false.
-	 * @param {*} value - The value to test.
-	 * @returns {Boolean}
-	 * @since 2.7.0
-	 */
-	isNullOrUndef: function(value) {
-		return value === null || typeof value === 'undefined';
-	},
-
-	/**
-	 * Returns true if `value` is an array, else returns false.
-	 * @param {*} value - The value to test.
-	 * @returns {Boolean}
-	 * @function
-	 */
-	isArray: Array.isArray ? Array.isArray : function(value) {
-		return Object.prototype.toString.call(value) === '[object Array]';
-	},
-
-	/**
-	 * Returns true if `value` is an object (excluding null), else returns false.
-	 * @param {*} value - The value to test.
-	 * @returns {Boolean}
-	 * @since 2.7.0
-	 */
-	isObject: function(value) {
-		return value !== null && Object.prototype.toString.call(value) === '[object Object]';
-	},
-
-	/**
-	 * Returns `value` if defined, else returns `defaultValue`.
-	 * @param {*} value - The value to return if defined.
-	 * @param {*} defaultValue - The value to return if `value` is undefined.
-	 * @returns {*}
-	 */
-	valueOrDefault: function(value, defaultValue) {
-		return typeof value === 'undefined' ? defaultValue : value;
-	},
-
-	/**
-	 * Returns value at the given `index` in array if defined, else returns `defaultValue`.
-	 * @param {Array} value - The array to lookup for value at `index`.
-	 * @param {Number} index - The index in `value` to lookup for value.
-	 * @param {*} defaultValue - The value to return if `value[index]` is undefined.
-	 * @returns {*}
-	 */
-	valueAtIndexOrDefault: function(value, index, defaultValue) {
-		return helpers.valueOrDefault(helpers.isArray(value) ? value[index] : value, defaultValue);
-	},
-
-	/**
-	 * Calls `fn` with the given `args` in the scope defined by `thisArg` and returns the
-	 * value returned by `fn`. If `fn` is not a function, this method returns undefined.
-	 * @param {Function} fn - The function to call.
-	 * @param {Array|undefined|null} args - The arguments with which `fn` should be called.
-	 * @param {Object} [thisArg] - The value of `this` provided for the call to `fn`.
-	 * @returns {*}
-	 */
-	callback: function(fn, args, thisArg) {
-		if (fn && typeof fn.call === 'function') {
-			return fn.apply(thisArg, args);
-		}
-	},
-
-	/**
-	 * Note(SB) for performance sake, this method should only be used when loopable type
-	 * is unknown or in none intensive code (not called often and small loopable). Else
-	 * it's preferable to use a regular for() loop and save extra function calls.
-	 * @param {Object|Array} loopable - The object or array to be iterated.
-	 * @param {Function} fn - The function to call for each item.
-	 * @param {Object} [thisArg] - The value of `this` provided for the call to `fn`.
-	 * @param {Boolean} [reverse] - If true, iterates backward on the loopable.
-	 */
-	each: function(loopable, fn, thisArg, reverse) {
-		var i, len, keys;
-		if (helpers.isArray(loopable)) {
-			len = loopable.length;
-			if (reverse) {
-				for (i = len - 1; i >= 0; i--) {
-					fn.call(thisArg, loopable[i], i);
-				}
-			} else {
-				for (i = 0; i < len; i++) {
-					fn.call(thisArg, loopable[i], i);
-				}
-			}
-		} else if (helpers.isObject(loopable)) {
-			keys = Object.keys(loopable);
-			len = keys.length;
-			for (i = 0; i < len; i++) {
-				fn.call(thisArg, loopable[keys[i]], keys[i]);
-			}
-		}
-	},
-
-	/**
-	 * Returns true if the `a0` and `a1` arrays have the same content, else returns false.
-	 * @see http://stackoverflow.com/a/14853974
-	 * @param {Array} a0 - The array to compare
-	 * @param {Array} a1 - The array to compare
-	 * @returns {Boolean}
-	 */
-	arrayEquals: function(a0, a1) {
-		var i, ilen, v0, v1;
-
-		if (!a0 || !a1 || a0.length !== a1.length) {
-			return false;
-		}
-
-		for (i = 0, ilen = a0.length; i < ilen; ++i) {
-			v0 = a0[i];
-			v1 = a1[i];
-
-			if (v0 instanceof Array && v1 instanceof Array) {
-				if (!helpers.arrayEquals(v0, v1)) {
-					return false;
-				}
-			} else if (v0 !== v1) {
-				// NOTE: two different object instances will never be equal: {x:20} != {x:20}
-				return false;
-			}
-		}
-
-		return true;
-	},
-
-	/**
-	 * Returns a deep copy of `source` without keeping references on objects and arrays.
-	 * @param {*} source - The value to clone.
-	 * @returns {*}
-	 */
-	clone: function(source) {
-		if (helpers.isArray(source)) {
-			return source.map(helpers.clone);
-		}
-
-		if (helpers.isObject(source)) {
-			var target = {};
-			var keys = Object.keys(source);
-			var klen = keys.length;
-			var k = 0;
-
-			for (; k < klen; ++k) {
-				target[keys[k]] = helpers.clone(source[keys[k]]);
-			}
-
-			return target;
-		}
-
-		return source;
-	},
-
-	/**
-	 * The default merger when Chart.helpers.merge is called without merger option.
-	 * Note(SB): this method is also used by configMerge and scaleMerge as fallback.
-	 * @private
-	 */
-	_merger: function(key, target, source, options) {
-		var tval = target[key];
-		var sval = source[key];
-
-		if (helpers.isObject(tval) && helpers.isObject(sval)) {
-			helpers.merge(tval, sval, options);
-		} else {
-			target[key] = helpers.clone(sval);
-		}
-	},
-
-	/**
-	 * Merges source[key] in target[key] only if target[key] is undefined.
-	 * @private
-	 */
-	_mergerIf: function(key, target, source) {
-		var tval = target[key];
-		var sval = source[key];
-
-		if (helpers.isObject(tval) && helpers.isObject(sval)) {
-			helpers.mergeIf(tval, sval);
-		} else if (!target.hasOwnProperty(key)) {
-			target[key] = helpers.clone(sval);
-		}
-	},
-
-	/**
-	 * Recursively deep copies `source` properties into `target` with the given `options`.
-	 * IMPORTANT: `target` is not cloned and will be updated with `source` properties.
-	 * @param {Object} target - The target object in which all sources are merged into.
-	 * @param {Object|Array(Object)} source - Object(s) to merge into `target`.
-	 * @param {Object} [options] - Merging options:
-	 * @param {Function} [options.merger] - The merge method (key, target, source, options)
-	 * @returns {Object} The `target` object.
-	 */
-	merge: function(target, source, options) {
-		var sources = helpers.isArray(source) ? source : [source];
-		var ilen = sources.length;
-		var merge, i, keys, klen, k;
-
-		if (!helpers.isObject(target)) {
-			return target;
-		}
-
-		options = options || {};
-		merge = options.merger || helpers._merger;
-
-		for (i = 0; i < ilen; ++i) {
-			source = sources[i];
-			if (!helpers.isObject(source)) {
-				continue;
-			}
-
-			keys = Object.keys(source);
-			for (k = 0, klen = keys.length; k < klen; ++k) {
-				merge(keys[k], target, source, options);
-			}
-		}
-
-		return target;
-	},
-
-	/**
-	 * Recursively deep copies `source` properties into `target` *only* if not defined in target.
-	 * IMPORTANT: `target` is not cloned and will be updated with `source` properties.
-	 * @param {Object} target - The target object in which all sources are merged into.
-	 * @param {Object|Array(Object)} source - Object(s) to merge into `target`.
-	 * @returns {Object} The `target` object.
-	 */
-	mergeIf: function(target, source) {
-		return helpers.merge(target, source, {merger: helpers._mergerIf});
-	},
-
-	/**
-	 * Applies the contents of two or more objects together into the first object.
-	 * @param {Object} target - The target object in which all objects are merged into.
-	 * @param {Object} arg1 - Object containing additional properties to merge in target.
-	 * @param {Object} argN - Additional objects containing properties to merge in target.
-	 * @returns {Object} The `target` object.
-	 */
-	extend: function(target) {
-		var setFn = function(value, key) {
-			target[key] = value;
-		};
-		for (var i = 1, ilen = arguments.length; i < ilen; ++i) {
-			helpers.each(arguments[i], setFn);
-		}
-		return target;
-	},
-
-	/**
-	 * Basic javascript inheritance based on the model created in Backbone.js
-	 */
-	inherits: function(extensions) {
-		var me = this;
-		var ChartElement = (extensions && extensions.hasOwnProperty('constructor')) ? extensions.constructor : function() {
-			return me.apply(this, arguments);
-		};
-
-		var Surrogate = function() {
-			this.constructor = ChartElement;
-		};
-
-		Surrogate.prototype = me.prototype;
-		ChartElement.prototype = new Surrogate();
-		ChartElement.extend = helpers.inherits;
-
-		if (extensions) {
-			helpers.extend(ChartElement.prototype, extensions);
-		}
-
-		ChartElement.__super__ = me.prototype;
-		return ChartElement;
-	}
-};
-
-module.exports = helpers;
-
-// DEPRECATIONS
-
-/**
- * Provided for backward compatibility, use Chart.helpers.callback instead.
- * @function Chart.helpers.callCallback
- * @deprecated since version 2.6.0
- * @todo remove at version 3
- * @private
- */
-helpers.callCallback = helpers.callback;
-
-/**
- * Provided for backward compatibility, use Array.prototype.indexOf instead.
- * Array.prototype.indexOf compatibility: Chrome, Opera, Safari, FF1.5+, IE9+
- * @function Chart.helpers.indexOf
- * @deprecated since version 2.7.0
- * @todo remove at version 3
- * @private
- */
-helpers.indexOf = function(array, item, fromIndex) {
-	return Array.prototype.indexOf.call(array, item, fromIndex);
-};
-
-/**
- * Provided for backward compatibility, use Chart.helpers.valueOrDefault instead.
- * @function Chart.helpers.getValueOrDefault
- * @deprecated since version 2.7.0
- * @todo remove at version 3
- * @private
- */
-helpers.getValueOrDefault = helpers.valueOrDefault;
-
-/**
- * Provided for backward compatibility, use Chart.helpers.valueAtIndexOrDefault instead.
- * @function Chart.helpers.getValueAtIndexOrDefault
- * @deprecated since version 2.7.0
- * @todo remove at version 3
- * @private
- */
-helpers.getValueAtIndexOrDefault = helpers.valueAtIndexOrDefault;
-
-
-/***/ }),
-/* 12 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {
-
-var utils = __webpack_require__(3);
-var normalizeHeaderName = __webpack_require__(157);
-
-var DEFAULT_CONTENT_TYPE = {
-  'Content-Type': 'application/x-www-form-urlencoded'
-};
-
-function setContentTypeIfUnset(headers, value) {
-  if (!utils.isUndefined(headers) && utils.isUndefined(headers['Content-Type'])) {
-    headers['Content-Type'] = value;
-  }
-}
-
-function getDefaultAdapter() {
-  var adapter;
-  if (typeof XMLHttpRequest !== 'undefined') {
-    // For browsers use XHR adapter
-    adapter = __webpack_require__(16);
-  } else if (typeof process !== 'undefined') {
-    // For node use HTTP adapter
-    adapter = __webpack_require__(16);
-  }
-  return adapter;
-}
-
-var defaults = {
-  adapter: getDefaultAdapter(),
-
-  transformRequest: [function transformRequest(data, headers) {
-    normalizeHeaderName(headers, 'Content-Type');
-    if (utils.isFormData(data) ||
-      utils.isArrayBuffer(data) ||
-      utils.isBuffer(data) ||
-      utils.isStream(data) ||
-      utils.isFile(data) ||
-      utils.isBlob(data)
-    ) {
-      return data;
-    }
-    if (utils.isArrayBufferView(data)) {
-      return data.buffer;
-    }
-    if (utils.isURLSearchParams(data)) {
-      setContentTypeIfUnset(headers, 'application/x-www-form-urlencoded;charset=utf-8');
-      return data.toString();
-    }
-    if (utils.isObject(data)) {
-      setContentTypeIfUnset(headers, 'application/json;charset=utf-8');
-      return JSON.stringify(data);
-    }
-    return data;
-  }],
-
-  transformResponse: [function transformResponse(data) {
-    /*eslint no-param-reassign:0*/
-    if (typeof data === 'string') {
-      try {
-        data = JSON.parse(data);
-      } catch (e) { /* Ignore */ }
-    }
-    return data;
-  }],
-
-  /**
-   * A timeout in milliseconds to abort a request. If set to 0 (default) a
-   * timeout is not created.
-   */
-  timeout: 0,
-
-  xsrfCookieName: 'XSRF-TOKEN',
-  xsrfHeaderName: 'X-XSRF-TOKEN',
-
-  maxContentLength: -1,
-
-  validateStatus: function validateStatus(status) {
-    return status >= 200 && status < 300;
-  }
-};
-
-defaults.headers = {
-  common: {
-    'Accept': 'application/json, text/plain, */*'
-  }
-};
-
-utils.forEach(['delete', 'get', 'head'], function forEachMethodNoData(method) {
-  defaults.headers[method] = {};
-});
-
-utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
-  defaults.headers[method] = utils.merge(DEFAULT_CONTENT_TYPE);
-});
-
-module.exports = defaults;
-
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(14)))
-
-/***/ }),
 /* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -16582,7 +16582,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
                          (typeof global !== "undefined" && global.clearImmediate) ||
                          (this && this.clearImmediate);
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
 
 /***/ }),
 /* 14 */
@@ -19581,7 +19581,7 @@ Popper.Defaults = Defaults;
 /* harmony default export */ __webpack_exports__["default"] = (Popper);
 //# sourceMappingURL=popper.js.map
 
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(7)))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(9)))
 
 /***/ }),
 /* 21 */
@@ -32733,9 +32733,9 @@ module.exports = {
 var disposed = false
 var normalizeComponent = __webpack_require__(4)
 /* script */
-var __vue_script__ = __webpack_require__(252)
+var __vue_script__ = __webpack_require__(251)
 /* template */
-var __vue_template__ = __webpack_require__(253)
+var __vue_template__ = __webpack_require__(252)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -32808,7 +32808,7 @@ module.exports = Component.exports
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios__ = __webpack_require__(153);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_axios__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_jquery__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_jquery__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_jquery__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_popper_js__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_bootstrap__ = __webpack_require__(172);
@@ -32819,9 +32819,6 @@ module.exports = Component.exports
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_cleave_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_cleave_js__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_chart_js__ = __webpack_require__(176);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_chart_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_chart_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_parsleyjs__ = __webpack_require__(224);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_parsleyjs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8_parsleyjs__);
-
 
 
 
@@ -32838,7 +32835,6 @@ window.Popper = __WEBPACK_IMPORTED_MODULE_3_popper_js__["default"].default;
 window.toastr = __WEBPACK_IMPORTED_MODULE_5_toastr___default.a;
 window.Cleave = __WEBPACK_IMPORTED_MODULE_6_cleave_js___default.a;
 window.chart = __WEBPACK_IMPORTED_MODULE_7_chart_js___default.a;
-window.parsleyjs = __WEBPACK_IMPORTED_MODULE_8_parsleyjs___default.a;
 
 /***/ }),
 /* 151 */
@@ -43804,7 +43800,7 @@ Vue.compile = compileToFunctions;
 
 module.exports = Vue;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7), __webpack_require__(13).setImmediate))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9), __webpack_require__(13).setImmediate))
 
 /***/ }),
 /* 152 */
@@ -43997,7 +43993,7 @@ module.exports = Vue;
     attachTo.clearImmediate = clearImmediate;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7), __webpack_require__(14)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9), __webpack_require__(14)))
 
 /***/ }),
 /* 153 */
@@ -44015,7 +44011,7 @@ module.exports = __webpack_require__(154);
 var utils = __webpack_require__(3);
 var bind = __webpack_require__(15);
 var Axios = __webpack_require__(156);
-var defaults = __webpack_require__(12);
+var defaults = __webpack_require__(11);
 
 /**
  * Create an instance of Axios
@@ -44098,7 +44094,7 @@ function isSlowBuffer (obj) {
 "use strict";
 
 
-var defaults = __webpack_require__(12);
+var defaults = __webpack_require__(11);
 var utils = __webpack_require__(3);
 var InterceptorManager = __webpack_require__(165);
 var dispatchRequest = __webpack_require__(166);
@@ -44637,7 +44633,7 @@ module.exports = InterceptorManager;
 var utils = __webpack_require__(3);
 var transformData = __webpack_require__(167);
 var isCancel = __webpack_require__(18);
-var defaults = __webpack_require__(12);
+var defaults = __webpack_require__(11);
 var isAbsoluteURL = __webpack_require__(168);
 var combineURLs = __webpack_require__(169);
 
@@ -44897,7 +44893,7 @@ module.exports = function spread(callback) {
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
   */
 (function (global, factory) {
-   true ? factory(exports, __webpack_require__(10), __webpack_require__(20)) :
+   true ? factory(exports, __webpack_require__(12), __webpack_require__(20)) :
   typeof define === 'function' && define.amd ? define(['exports', 'jquery', 'popper.js'], factory) :
   (factory((global.bootstrap = {}),global.jQuery,global.Popper));
 }(this, (function (exports,$,Popper) { 'use strict';
@@ -48855,7 +48851,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*
  */
 /* global define */
 (function (define) {
-    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(10)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($) {
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(12)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($) {
         return (function () {
             var $container;
             var listener;
@@ -50778,10 +50774,10 @@ Chart.defaults = __webpack_require__(2);
 Chart.Element = __webpack_require__(5);
 Chart.elements = __webpack_require__(6);
 Chart.Interaction = __webpack_require__(22);
-Chart.layouts = __webpack_require__(8);
+Chart.layouts = __webpack_require__(7);
 Chart.platform = __webpack_require__(23);
 Chart.plugins = __webpack_require__(24);
-Chart.Ticks = __webpack_require__(9);
+Chart.Ticks = __webpack_require__(8);
 
 __webpack_require__(192)(Chart);
 __webpack_require__(193)(Chart);
@@ -50951,7 +50947,7 @@ module.exports = function() {
 "use strict";
 
 
-var helpers = __webpack_require__(11);
+var helpers = __webpack_require__(10);
 
 /**
  * Easing functions adapted from Robert Penner's easing equations.
@@ -51208,7 +51204,7 @@ helpers.easingEffects = effects;
 "use strict";
 
 
-var helpers = __webpack_require__(11);
+var helpers = __webpack_require__(10);
 
 /**
  * @namespace Chart.helpers.canvas
@@ -51429,7 +51425,7 @@ helpers.drawRoundedRectangle = function(ctx) {
 "use strict";
 
 
-var helpers = __webpack_require__(11);
+var helpers = __webpack_require__(10);
 
 /**
  * @alias Chart.helpers.options
@@ -54549,7 +54545,7 @@ module.exports = function(Chart) {
 var defaults = __webpack_require__(2);
 var helpers = __webpack_require__(1);
 var Interaction = __webpack_require__(22);
-var layouts = __webpack_require__(8);
+var layouts = __webpack_require__(7);
 var platform = __webpack_require__(23);
 var plugins = __webpack_require__(24);
 
@@ -55839,7 +55835,7 @@ module.exports = function(Chart) {
 
 var defaults = __webpack_require__(2);
 var helpers = __webpack_require__(1);
-var layouts = __webpack_require__(8);
+var layouts = __webpack_require__(7);
 
 module.exports = function(Chart) {
 
@@ -55893,7 +55889,7 @@ module.exports = function(Chart) {
 var defaults = __webpack_require__(2);
 var Element = __webpack_require__(5);
 var helpers = __webpack_require__(1);
-var Ticks = __webpack_require__(9);
+var Ticks = __webpack_require__(8);
 
 defaults._set('scale', {
 	display: true,
@@ -58123,7 +58119,7 @@ module.exports = function(Chart) {
 
 var defaults = __webpack_require__(2);
 var helpers = __webpack_require__(1);
-var Ticks = __webpack_require__(9);
+var Ticks = __webpack_require__(8);
 
 module.exports = function(Chart) {
 
@@ -58320,7 +58316,7 @@ module.exports = function(Chart) {
 
 
 var helpers = __webpack_require__(1);
-var Ticks = __webpack_require__(9);
+var Ticks = __webpack_require__(8);
 
 /**
  * Generate a set of logarithmic ticks
@@ -58675,7 +58671,7 @@ module.exports = function(Chart) {
 
 var defaults = __webpack_require__(2);
 var helpers = __webpack_require__(1);
-var Ticks = __webpack_require__(9);
+var Ticks = __webpack_require__(8);
 
 module.exports = function(Chart) {
 
@@ -62555,7 +62551,7 @@ module.exports = {
 var defaults = __webpack_require__(2);
 var Element = __webpack_require__(5);
 var helpers = __webpack_require__(1);
-var layouts = __webpack_require__(8);
+var layouts = __webpack_require__(7);
 
 var noop = helpers.noop;
 
@@ -63138,7 +63134,7 @@ module.exports = {
 var defaults = __webpack_require__(2);
 var Element = __webpack_require__(5);
 var helpers = __webpack_require__(1);
-var layouts = __webpack_require__(8);
+var layouts = __webpack_require__(7);
 
 var noop = helpers.noop;
 
@@ -63389,2519 +63385,18 @@ module.exports = {
 
 /***/ }),
 /* 224 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(global) {/*!
-* Parsley.js
-* Version 2.8.1 - built Sat, Feb 3rd 2018, 2:27 pm
-* http://parsleyjs.org
-* Guillaume Potier - <guillaume@wisembly.com>
-* Marc-Andre Lafortune - <petroselinum@marc-andre.ca>
-* MIT Licensed
-*/
-
-// The source code below is generated by babel as
-// Parsley is written in ECMAScript 6
-//
-var _slice = Array.prototype.slice;
-
-var _slicedToArray = (function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i['return']) _i['return'](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError('Invalid attempt to destructure non-iterable instance'); } }; })();
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) arr2[i] = arr[i]; return arr2; } else { return Array.from(arr); } }
-
-(function (global, factory) {
-   true ? module.exports = factory(__webpack_require__(10)) : typeof define === 'function' && define.amd ? define(['jquery'], factory) : global.parsley = factory(global.jQuery);
-})(this, function ($) {
-  'use strict';
-
-  var globalID = 1;
-  var pastWarnings = {};
-
-  var Utils = {
-    // Parsley DOM-API
-    // returns object from dom attributes and values
-    attr: function attr(element, namespace, obj) {
-      var i;
-      var attribute;
-      var attributes;
-      var regex = new RegExp('^' + namespace, 'i');
-
-      if ('undefined' === typeof obj) obj = {};else {
-        // Clear all own properties. This won't affect prototype's values
-        for (i in obj) {
-          if (obj.hasOwnProperty(i)) delete obj[i];
-        }
-      }
-
-      if (!element) return obj;
-
-      attributes = element.attributes;
-      for (i = attributes.length; i--;) {
-        attribute = attributes[i];
-
-        if (attribute && attribute.specified && regex.test(attribute.name)) {
-          obj[this.camelize(attribute.name.slice(namespace.length))] = this.deserializeValue(attribute.value);
-        }
-      }
-
-      return obj;
-    },
-
-    checkAttr: function checkAttr(element, namespace, _checkAttr) {
-      return element.hasAttribute(namespace + _checkAttr);
-    },
-
-    setAttr: function setAttr(element, namespace, attr, value) {
-      element.setAttribute(this.dasherize(namespace + attr), String(value));
-    },
-
-    getType: function getType(element) {
-      return element.getAttribute('type') || 'text';
-    },
-
-    generateID: function generateID() {
-      return '' + globalID++;
-    },
-
-    /** Third party functions **/
-    deserializeValue: function deserializeValue(value) {
-      var num;
-
-      try {
-        return value ? value == "true" || (value == "false" ? false : value == "null" ? null : !isNaN(num = Number(value)) ? num : /^[\[\{]/.test(value) ? JSON.parse(value) : value) : value;
-      } catch (e) {
-        return value;
-      }
-    },
-
-    // Zepto camelize function
-    camelize: function camelize(str) {
-      return str.replace(/-+(.)?/g, function (match, chr) {
-        return chr ? chr.toUpperCase() : '';
-      });
-    },
-
-    // Zepto dasherize function
-    dasherize: function dasherize(str) {
-      return str.replace(/::/g, '/').replace(/([A-Z]+)([A-Z][a-z])/g, '$1_$2').replace(/([a-z\d])([A-Z])/g, '$1_$2').replace(/_/g, '-').toLowerCase();
-    },
-
-    warn: function warn() {
-      var _window$console;
-
-      if (window.console && 'function' === typeof window.console.warn) (_window$console = window.console).warn.apply(_window$console, arguments);
-    },
-
-    warnOnce: function warnOnce(msg) {
-      if (!pastWarnings[msg]) {
-        pastWarnings[msg] = true;
-        this.warn.apply(this, arguments);
-      }
-    },
-
-    _resetWarnings: function _resetWarnings() {
-      pastWarnings = {};
-    },
-
-    trimString: function trimString(string) {
-      return string.replace(/^\s+|\s+$/g, '');
-    },
-
-    parse: {
-      date: function date(string) {
-        var parsed = string.match(/^(\d{4,})-(\d\d)-(\d\d)$/);
-        if (!parsed) return null;
-
-        var _parsed$map = parsed.map(function (x) {
-          return parseInt(x, 10);
-        });
-
-        var _parsed$map2 = _slicedToArray(_parsed$map, 4);
-
-        var _ = _parsed$map2[0];
-        var year = _parsed$map2[1];
-        var month = _parsed$map2[2];
-        var day = _parsed$map2[3];
-
-        var date = new Date(year, month - 1, day);
-        if (date.getFullYear() !== year || date.getMonth() + 1 !== month || date.getDate() !== day) return null;
-        return date;
-      },
-      string: function string(_string) {
-        return _string;
-      },
-      integer: function integer(string) {
-        if (isNaN(string)) return null;
-        return parseInt(string, 10);
-      },
-      number: function number(string) {
-        if (isNaN(string)) throw null;
-        return parseFloat(string);
-      },
-      'boolean': function _boolean(string) {
-        return !/^\s*false\s*$/i.test(string);
-      },
-      object: function object(string) {
-        return Utils.deserializeValue(string);
-      },
-      regexp: function regexp(_regexp) {
-        var flags = '';
-
-        // Test if RegExp is literal, if not, nothing to be done, otherwise, we need to isolate flags and pattern
-        if (/^\/.*\/(?:[gimy]*)$/.test(_regexp)) {
-          // Replace the regexp literal string with the first match group: ([gimy]*)
-          // If no flag is present, this will be a blank string
-          flags = _regexp.replace(/.*\/([gimy]*)$/, '$1');
-          // Again, replace the regexp literal string with the first match group:
-          // everything excluding the opening and closing slashes and the flags
-          _regexp = _regexp.replace(new RegExp('^/(.*?)/' + flags + '$'), '$1');
-        } else {
-          // Anchor regexp:
-          _regexp = '^' + _regexp + '$';
-        }
-        return new RegExp(_regexp, flags);
-      }
-    },
-
-    parseRequirement: function parseRequirement(requirementType, string) {
-      var converter = this.parse[requirementType || 'string'];
-      if (!converter) throw 'Unknown requirement specification: "' + requirementType + '"';
-      var converted = converter(string);
-      if (converted === null) throw 'Requirement is not a ' + requirementType + ': "' + string + '"';
-      return converted;
-    },
-
-    namespaceEvents: function namespaceEvents(events, namespace) {
-      events = this.trimString(events || '').split(/\s+/);
-      if (!events[0]) return '';
-      return $.map(events, function (evt) {
-        return evt + '.' + namespace;
-      }).join(' ');
-    },
-
-    difference: function difference(array, remove) {
-      // This is O(N^2), should be optimized
-      var result = [];
-      $.each(array, function (_, elem) {
-        if (remove.indexOf(elem) == -1) result.push(elem);
-      });
-      return result;
-    },
-
-    // Alter-ego to native Promise.all, but for jQuery
-    all: function all(promises) {
-      // jQuery treats $.when() and $.when(singlePromise) differently; let's avoid that and add spurious elements
-      return $.when.apply($, _toConsumableArray(promises).concat([42, 42]));
-    },
-
-    // Object.create polyfill, see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/create#Polyfill
-    objectCreate: Object.create || (function () {
-      var Object = function Object() {};
-      return function (prototype) {
-        if (arguments.length > 1) {
-          throw Error('Second argument not supported');
-        }
-        if (typeof prototype != 'object') {
-          throw TypeError('Argument must be an object');
-        }
-        Object.prototype = prototype;
-        var result = new Object();
-        Object.prototype = null;
-        return result;
-      };
-    })(),
-
-    _SubmitSelector: 'input[type="submit"], button:submit'
-  };
-
-  // All these options could be overriden and specified directly in DOM using
-  // `data-parsley-` default DOM-API
-  // eg: `inputs` can be set in DOM using `data-parsley-inputs="input, textarea"`
-  // eg: `data-parsley-stop-on-first-failing-constraint="false"`
-
-  var Defaults = {
-    // ### General
-
-    // Default data-namespace for DOM API
-    namespace: 'data-parsley-',
-
-    // Supported inputs by default
-    inputs: 'input, textarea, select',
-
-    // Excluded inputs by default
-    excluded: 'input[type=button], input[type=submit], input[type=reset], input[type=hidden]',
-
-    // Stop validating field on highest priority failing constraint
-    priorityEnabled: true,
-
-    // ### Field only
-
-    // identifier used to group together inputs (e.g. radio buttons...)
-    multiple: null,
-
-    // identifier (or array of identifiers) used to validate only a select group of inputs
-    group: null,
-
-    // ### UI
-    // Enable\Disable error messages
-    uiEnabled: true,
-
-    // Key events threshold before validation
-    validationThreshold: 3,
-
-    // Focused field on form validation error. 'first'|'last'|'none'
-    focus: 'first',
-
-    // event(s) that will trigger validation before first failure. eg: `input`...
-    trigger: false,
-
-    // event(s) that will trigger validation after first failure.
-    triggerAfterFailure: 'input',
-
-    // Class that would be added on every failing validation Parsley field
-    errorClass: 'parsley-error',
-
-    // Same for success validation
-    successClass: 'parsley-success',
-
-    // Return the `$element` that will receive these above success or error classes
-    // Could also be (and given directly from DOM) a valid selector like `'#div'`
-    classHandler: function classHandler(Field) {},
-
-    // Return the `$element` where errors will be appended
-    // Could also be (and given directly from DOM) a valid selector like `'#div'`
-    errorsContainer: function errorsContainer(Field) {},
-
-    // ul elem that would receive errors' list
-    errorsWrapper: '<ul class="parsley-errors-list"></ul>',
-
-    // li elem that would receive error message
-    errorTemplate: '<li></li>'
-  };
-
-  var Base = function Base() {
-    this.__id__ = Utils.generateID();
-  };
-
-  Base.prototype = {
-    asyncSupport: true, // Deprecated
-
-    _pipeAccordingToValidationResult: function _pipeAccordingToValidationResult() {
-      var _this = this;
-
-      var pipe = function pipe() {
-        var r = $.Deferred();
-        if (true !== _this.validationResult) r.reject();
-        return r.resolve().promise();
-      };
-      return [pipe, pipe];
-    },
-
-    actualizeOptions: function actualizeOptions() {
-      Utils.attr(this.element, this.options.namespace, this.domOptions);
-      if (this.parent && this.parent.actualizeOptions) this.parent.actualizeOptions();
-      return this;
-    },
-
-    _resetOptions: function _resetOptions(initOptions) {
-      this.domOptions = Utils.objectCreate(this.parent.options);
-      this.options = Utils.objectCreate(this.domOptions);
-      // Shallow copy of ownProperties of initOptions:
-      for (var i in initOptions) {
-        if (initOptions.hasOwnProperty(i)) this.options[i] = initOptions[i];
-      }
-      this.actualizeOptions();
-    },
-
-    _listeners: null,
-
-    // Register a callback for the given event name
-    // Callback is called with context as the first argument and the `this`
-    // The context is the current parsley instance, or window.Parsley if global
-    // A return value of `false` will interrupt the calls
-    on: function on(name, fn) {
-      this._listeners = this._listeners || {};
-      var queue = this._listeners[name] = this._listeners[name] || [];
-      queue.push(fn);
-
-      return this;
-    },
-
-    // Deprecated. Use `on` instead
-    subscribe: function subscribe(name, fn) {
-      $.listenTo(this, name.toLowerCase(), fn);
-    },
-
-    // Unregister a callback (or all if none is given) for the given event name
-    off: function off(name, fn) {
-      var queue = this._listeners && this._listeners[name];
-      if (queue) {
-        if (!fn) {
-          delete this._listeners[name];
-        } else {
-          for (var i = queue.length; i--;) if (queue[i] === fn) queue.splice(i, 1);
-        }
-      }
-      return this;
-    },
-
-    // Deprecated. Use `off`
-    unsubscribe: function unsubscribe(name, fn) {
-      $.unsubscribeTo(this, name.toLowerCase());
-    },
-
-    // Trigger an event of the given name
-    // A return value of `false` interrupts the callback chain
-    // Returns false if execution was interrupted
-    trigger: function trigger(name, target, extraArg) {
-      target = target || this;
-      var queue = this._listeners && this._listeners[name];
-      var result;
-      var parentResult;
-      if (queue) {
-        for (var i = queue.length; i--;) {
-          result = queue[i].call(target, target, extraArg);
-          if (result === false) return result;
-        }
-      }
-      if (this.parent) {
-        return this.parent.trigger(name, target, extraArg);
-      }
-      return true;
-    },
-
-    asyncIsValid: function asyncIsValid(group, force) {
-      Utils.warnOnce("asyncIsValid is deprecated; please use whenValid instead");
-      return this.whenValid({ group: group, force: force });
-    },
-
-    _findRelated: function _findRelated() {
-      return this.options.multiple ? $(this.parent.element.querySelectorAll('[' + this.options.namespace + 'multiple="' + this.options.multiple + '"]')) : this.$element;
-    }
-  };
-
-  var convertArrayRequirement = function convertArrayRequirement(string, length) {
-    var m = string.match(/^\s*\[(.*)\]\s*$/);
-    if (!m) throw 'Requirement is not an array: "' + string + '"';
-    var values = m[1].split(',').map(Utils.trimString);
-    if (values.length !== length) throw 'Requirement has ' + values.length + ' values when ' + length + ' are needed';
-    return values;
-  };
-
-  var convertExtraOptionRequirement = function convertExtraOptionRequirement(requirementSpec, string, extraOptionReader) {
-    var main = null;
-    var extra = {};
-    for (var key in requirementSpec) {
-      if (key) {
-        var value = extraOptionReader(key);
-        if ('string' === typeof value) value = Utils.parseRequirement(requirementSpec[key], value);
-        extra[key] = value;
-      } else {
-        main = Utils.parseRequirement(requirementSpec[key], string);
-      }
-    }
-    return [main, extra];
-  };
-
-  // A Validator needs to implement the methods `validate` and `parseRequirements`
-
-  var Validator = function Validator(spec) {
-    $.extend(true, this, spec);
-  };
-
-  Validator.prototype = {
-    // Returns `true` iff the given `value` is valid according the given requirements.
-    validate: function validate(value, requirementFirstArg) {
-      if (this.fn) {
-        // Legacy style validator
-
-        if (arguments.length > 3) // If more args then value, requirement, instance...
-          requirementFirstArg = [].slice.call(arguments, 1, -1); // Skip first arg (value) and last (instance), combining the rest
-        return this.fn(value, requirementFirstArg);
-      }
-
-      if (Array.isArray(value)) {
-        if (!this.validateMultiple) throw 'Validator `' + this.name + '` does not handle multiple values';
-        return this.validateMultiple.apply(this, arguments);
-      } else {
-        var instance = arguments[arguments.length - 1];
-        if (this.validateDate && instance._isDateInput()) {
-          arguments[0] = Utils.parse.date(arguments[0]);
-          if (arguments[0] === null) return false;
-          return this.validateDate.apply(this, arguments);
-        }
-        if (this.validateNumber) {
-          if (isNaN(value)) return false;
-          arguments[0] = parseFloat(arguments[0]);
-          return this.validateNumber.apply(this, arguments);
-        }
-        if (this.validateString) {
-          return this.validateString.apply(this, arguments);
-        }
-        throw 'Validator `' + this.name + '` only handles multiple values';
-      }
-    },
-
-    // Parses `requirements` into an array of arguments,
-    // according to `this.requirementType`
-    parseRequirements: function parseRequirements(requirements, extraOptionReader) {
-      if ('string' !== typeof requirements) {
-        // Assume requirement already parsed
-        // but make sure we return an array
-        return Array.isArray(requirements) ? requirements : [requirements];
-      }
-      var type = this.requirementType;
-      if (Array.isArray(type)) {
-        var values = convertArrayRequirement(requirements, type.length);
-        for (var i = 0; i < values.length; i++) values[i] = Utils.parseRequirement(type[i], values[i]);
-        return values;
-      } else if ($.isPlainObject(type)) {
-        return convertExtraOptionRequirement(type, requirements, extraOptionReader);
-      } else {
-        return [Utils.parseRequirement(type, requirements)];
-      }
-    },
-    // Defaults:
-    requirementType: 'string',
-
-    priority: 2
-
-  };
-
-  var ValidatorRegistry = function ValidatorRegistry(validators, catalog) {
-    this.__class__ = 'ValidatorRegistry';
-
-    // Default Parsley locale is en
-    this.locale = 'en';
-
-    this.init(validators || {}, catalog || {});
-  };
-
-  var typeTesters = {
-    email: /^((([a-zA-Z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-zA-Z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-zA-Z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-zA-Z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-zA-Z]|\d|-|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-zA-Z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-zA-Z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-zA-Z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-zA-Z]|\d|-|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-zA-Z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))$/,
-
-    // Follow https://www.w3.org/TR/html5/infrastructure.html#floating-point-numbers
-    number: /^-?(\d*\.)?\d+(e[-+]?\d+)?$/i,
-
-    integer: /^-?\d+$/,
-
-    digits: /^\d+$/,
-
-    alphanum: /^\w+$/i,
-
-    date: {
-      test: function test(value) {
-        return Utils.parse.date(value) !== null;
-      }
-    },
-
-    url: new RegExp("^" +
-    // protocol identifier
-    "(?:(?:https?|ftp)://)?" + // ** mod: make scheme optional
-    // user:pass authentication
-    "(?:\\S+(?::\\S*)?@)?" + "(?:" +
-    // IP address exclusion
-    // private & local networks
-    // "(?!(?:10|127)(?:\\.\\d{1,3}){3})" +   // ** mod: allow local networks
-    // "(?!(?:169\\.254|192\\.168)(?:\\.\\d{1,3}){2})" +  // ** mod: allow local networks
-    // "(?!172\\.(?:1[6-9]|2\\d|3[0-1])(?:\\.\\d{1,3}){2})" +  // ** mod: allow local networks
-    // IP address dotted notation octets
-    // excludes loopback network 0.0.0.0
-    // excludes reserved space >= 224.0.0.0
-    // excludes network & broacast addresses
-    // (first & last IP address of each class)
-    "(?:[1-9]\\d?|1\\d\\d|2[01]\\d|22[0-3])" + "(?:\\.(?:1?\\d{1,2}|2[0-4]\\d|25[0-5])){2}" + "(?:\\.(?:[1-9]\\d?|1\\d\\d|2[0-4]\\d|25[0-4]))" + "|" +
-    // host name
-    '(?:(?:[a-zA-Z\\u00a1-\\uffff0-9]-*)*[a-zA-Z\\u00a1-\\uffff0-9]+)' +
-    // domain name
-    '(?:\\.(?:[a-zA-Z\\u00a1-\\uffff0-9]-*)*[a-zA-Z\\u00a1-\\uffff0-9]+)*' +
-    // TLD identifier
-    '(?:\\.(?:[a-zA-Z\\u00a1-\\uffff]{2,}))' + ")" +
-    // port number
-    "(?::\\d{2,5})?" +
-    // resource path
-    "(?:/\\S*)?" + "$")
-  };
-  typeTesters.range = typeTesters.number;
-
-  // See http://stackoverflow.com/a/10454560/8279
-  var decimalPlaces = function decimalPlaces(num) {
-    var match = ('' + num).match(/(?:\.(\d+))?(?:[eE]([+-]?\d+))?$/);
-    if (!match) {
-      return 0;
-    }
-    return Math.max(0,
-    // Number of digits right of decimal point.
-    (match[1] ? match[1].length : 0) - (
-    // Adjust for scientific notation.
-    match[2] ? +match[2] : 0));
-  };
-
-  // parseArguments('number', ['1', '2']) => [1, 2]
-  var ValidatorRegistry__parseArguments = function ValidatorRegistry__parseArguments(type, args) {
-    return args.map(Utils.parse[type]);
-  };
-  // operatorToValidator returns a validating function for an operator function, applied to the given type
-  var ValidatorRegistry__operatorToValidator = function ValidatorRegistry__operatorToValidator(type, operator) {
-    return function (value) {
-      for (var _len = arguments.length, requirementsAndInput = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-        requirementsAndInput[_key - 1] = arguments[_key];
-      }
-
-      requirementsAndInput.pop(); // Get rid of `input` argument
-      return operator.apply(undefined, [value].concat(_toConsumableArray(ValidatorRegistry__parseArguments(type, requirementsAndInput))));
-    };
-  };
-
-  var ValidatorRegistry__comparisonOperator = function ValidatorRegistry__comparisonOperator(operator) {
-    return {
-      validateDate: ValidatorRegistry__operatorToValidator('date', operator),
-      validateNumber: ValidatorRegistry__operatorToValidator('number', operator),
-      requirementType: operator.length <= 2 ? 'string' : ['string', 'string'], // Support operators with a 1 or 2 requirement(s)
-      priority: 30
-    };
-  };
-
-  ValidatorRegistry.prototype = {
-    init: function init(validators, catalog) {
-      this.catalog = catalog;
-      // Copy prototype's validators:
-      this.validators = _extends({}, this.validators);
-
-      for (var name in validators) this.addValidator(name, validators[name].fn, validators[name].priority);
-
-      window.Parsley.trigger('parsley:validator:init');
-    },
-
-    // Set new messages locale if we have dictionary loaded in ParsleyConfig.i18n
-    setLocale: function setLocale(locale) {
-      if ('undefined' === typeof this.catalog[locale]) throw new Error(locale + ' is not available in the catalog');
-
-      this.locale = locale;
-
-      return this;
-    },
-
-    // Add a new messages catalog for a given locale. Set locale for this catalog if set === `true`
-    addCatalog: function addCatalog(locale, messages, set) {
-      if ('object' === typeof messages) this.catalog[locale] = messages;
-
-      if (true === set) return this.setLocale(locale);
-
-      return this;
-    },
-
-    // Add a specific message for a given constraint in a given locale
-    addMessage: function addMessage(locale, name, message) {
-      if ('undefined' === typeof this.catalog[locale]) this.catalog[locale] = {};
-
-      this.catalog[locale][name] = message;
-
-      return this;
-    },
-
-    // Add messages for a given locale
-    addMessages: function addMessages(locale, nameMessageObject) {
-      for (var name in nameMessageObject) this.addMessage(locale, name, nameMessageObject[name]);
-
-      return this;
-    },
-
-    // Add a new validator
-    //
-    //    addValidator('custom', {
-    //        requirementType: ['integer', 'integer'],
-    //        validateString: function(value, from, to) {},
-    //        priority: 22,
-    //        messages: {
-    //          en: "Hey, that's no good",
-    //          fr: "Aye aye, pas bon du tout",
-    //        }
-    //    })
-    //
-    // Old API was addValidator(name, function, priority)
-    //
-    addValidator: function addValidator(name, arg1, arg2) {
-      if (this.validators[name]) Utils.warn('Validator "' + name + '" is already defined.');else if (Defaults.hasOwnProperty(name)) {
-        Utils.warn('"' + name + '" is a restricted keyword and is not a valid validator name.');
-        return;
-      }
-      return this._setValidator.apply(this, arguments);
-    },
-
-    hasValidator: function hasValidator(name) {
-      return !!this.validators[name];
-    },
-
-    updateValidator: function updateValidator(name, arg1, arg2) {
-      if (!this.validators[name]) {
-        Utils.warn('Validator "' + name + '" is not already defined.');
-        return this.addValidator.apply(this, arguments);
-      }
-      return this._setValidator.apply(this, arguments);
-    },
-
-    removeValidator: function removeValidator(name) {
-      if (!this.validators[name]) Utils.warn('Validator "' + name + '" is not defined.');
-
-      delete this.validators[name];
-
-      return this;
-    },
-
-    _setValidator: function _setValidator(name, validator, priority) {
-      if ('object' !== typeof validator) {
-        // Old style validator, with `fn` and `priority`
-        validator = {
-          fn: validator,
-          priority: priority
-        };
-      }
-      if (!validator.validate) {
-        validator = new Validator(validator);
-      }
-      this.validators[name] = validator;
-
-      for (var locale in validator.messages || {}) this.addMessage(locale, name, validator.messages[locale]);
-
-      return this;
-    },
-
-    getErrorMessage: function getErrorMessage(constraint) {
-      var message;
-
-      // Type constraints are a bit different, we have to match their requirements too to find right error message
-      if ('type' === constraint.name) {
-        var typeMessages = this.catalog[this.locale][constraint.name] || {};
-        message = typeMessages[constraint.requirements];
-      } else message = this.formatMessage(this.catalog[this.locale][constraint.name], constraint.requirements);
-
-      return message || this.catalog[this.locale].defaultMessage || this.catalog.en.defaultMessage;
-    },
-
-    // Kind of light `sprintf()` implementation
-    formatMessage: function formatMessage(string, parameters) {
-      if ('object' === typeof parameters) {
-        for (var i in parameters) string = this.formatMessage(string, parameters[i]);
-
-        return string;
-      }
-
-      return 'string' === typeof string ? string.replace(/%s/i, parameters) : '';
-    },
-
-    // Here is the Parsley default validators list.
-    // A validator is an object with the following key values:
-    //  - priority: an integer
-    //  - requirement: 'string' (default), 'integer', 'number', 'regexp' or an Array of these
-    //  - validateString, validateMultiple, validateNumber: functions returning `true`, `false` or a promise
-    // Alternatively, a validator can be a function that returns such an object
-    //
-    validators: {
-      notblank: {
-        validateString: function validateString(value) {
-          return (/\S/.test(value)
-          );
-        },
-        priority: 2
-      },
-      required: {
-        validateMultiple: function validateMultiple(values) {
-          return values.length > 0;
-        },
-        validateString: function validateString(value) {
-          return (/\S/.test(value)
-          );
-        },
-        priority: 512
-      },
-      type: {
-        validateString: function validateString(value, type) {
-          var _ref = arguments.length <= 2 || arguments[2] === undefined ? {} : arguments[2];
-
-          var _ref$step = _ref.step;
-          var step = _ref$step === undefined ? 'any' : _ref$step;
-          var _ref$base = _ref.base;
-          var base = _ref$base === undefined ? 0 : _ref$base;
-
-          var tester = typeTesters[type];
-          if (!tester) {
-            throw new Error('validator type `' + type + '` is not supported');
-          }
-          if (!tester.test(value)) return false;
-          if ('number' === type) {
-            if (!/^any$/i.test(step || '')) {
-              var nb = Number(value);
-              var decimals = Math.max(decimalPlaces(step), decimalPlaces(base));
-              if (decimalPlaces(nb) > decimals) // Value can't have too many decimals
-                return false;
-              // Be careful of rounding errors by using integers.
-              var toInt = function toInt(f) {
-                return Math.round(f * Math.pow(10, decimals));
-              };
-              if ((toInt(nb) - toInt(base)) % toInt(step) != 0) return false;
-            }
-          }
-          return true;
-        },
-        requirementType: {
-          '': 'string',
-          step: 'string',
-          base: 'number'
-        },
-        priority: 256
-      },
-      pattern: {
-        validateString: function validateString(value, regexp) {
-          return regexp.test(value);
-        },
-        requirementType: 'regexp',
-        priority: 64
-      },
-      minlength: {
-        validateString: function validateString(value, requirement) {
-          return value.length >= requirement;
-        },
-        requirementType: 'integer',
-        priority: 30
-      },
-      maxlength: {
-        validateString: function validateString(value, requirement) {
-          return value.length <= requirement;
-        },
-        requirementType: 'integer',
-        priority: 30
-      },
-      length: {
-        validateString: function validateString(value, min, max) {
-          return value.length >= min && value.length <= max;
-        },
-        requirementType: ['integer', 'integer'],
-        priority: 30
-      },
-      mincheck: {
-        validateMultiple: function validateMultiple(values, requirement) {
-          return values.length >= requirement;
-        },
-        requirementType: 'integer',
-        priority: 30
-      },
-      maxcheck: {
-        validateMultiple: function validateMultiple(values, requirement) {
-          return values.length <= requirement;
-        },
-        requirementType: 'integer',
-        priority: 30
-      },
-      check: {
-        validateMultiple: function validateMultiple(values, min, max) {
-          return values.length >= min && values.length <= max;
-        },
-        requirementType: ['integer', 'integer'],
-        priority: 30
-      },
-      min: ValidatorRegistry__comparisonOperator(function (value, requirement) {
-        return value >= requirement;
-      }),
-      max: ValidatorRegistry__comparisonOperator(function (value, requirement) {
-        return value <= requirement;
-      }),
-      range: ValidatorRegistry__comparisonOperator(function (value, min, max) {
-        return value >= min && value <= max;
-      }),
-      equalto: {
-        validateString: function validateString(value, refOrValue) {
-          var $reference = $(refOrValue);
-          if ($reference.length) return value === $reference.val();else return value === refOrValue;
-        },
-        priority: 256
-      }
-    }
-  };
-
-  var UI = {};
-
-  var diffResults = function diffResults(newResult, oldResult, deep) {
-    var added = [];
-    var kept = [];
-
-    for (var i = 0; i < newResult.length; i++) {
-      var found = false;
-
-      for (var j = 0; j < oldResult.length; j++) if (newResult[i].assert.name === oldResult[j].assert.name) {
-        found = true;
-        break;
-      }
-
-      if (found) kept.push(newResult[i]);else added.push(newResult[i]);
-    }
-
-    return {
-      kept: kept,
-      added: added,
-      removed: !deep ? diffResults(oldResult, newResult, true).added : []
-    };
-  };
-
-  UI.Form = {
-
-    _actualizeTriggers: function _actualizeTriggers() {
-      var _this2 = this;
-
-      this.$element.on('submit.Parsley', function (evt) {
-        _this2.onSubmitValidate(evt);
-      });
-      this.$element.on('click.Parsley', Utils._SubmitSelector, function (evt) {
-        _this2.onSubmitButton(evt);
-      });
-
-      // UI could be disabled
-      if (false === this.options.uiEnabled) return;
-
-      this.element.setAttribute('novalidate', '');
-    },
-
-    focus: function focus() {
-      this._focusedField = null;
-
-      if (true === this.validationResult || 'none' === this.options.focus) return null;
-
-      for (var i = 0; i < this.fields.length; i++) {
-        var field = this.fields[i];
-        if (true !== field.validationResult && field.validationResult.length > 0 && 'undefined' === typeof field.options.noFocus) {
-          this._focusedField = field.$element;
-          if ('first' === this.options.focus) break;
-        }
-      }
-
-      if (null === this._focusedField) return null;
-
-      return this._focusedField.focus();
-    },
-
-    _destroyUI: function _destroyUI() {
-      // Reset all event listeners
-      this.$element.off('.Parsley');
-    }
-
-  };
-
-  UI.Field = {
-
-    _reflowUI: function _reflowUI() {
-      this._buildUI();
-
-      // If this field doesn't have an active UI don't bother doing something
-      if (!this._ui) return;
-
-      // Diff between two validation results
-      var diff = diffResults(this.validationResult, this._ui.lastValidationResult);
-
-      // Then store current validation result for next reflow
-      this._ui.lastValidationResult = this.validationResult;
-
-      // Handle valid / invalid / none field class
-      this._manageStatusClass();
-
-      // Add, remove, updated errors messages
-      this._manageErrorsMessages(diff);
-
-      // Triggers impl
-      this._actualizeTriggers();
-
-      // If field is not valid for the first time, bind keyup trigger to ease UX and quickly inform user
-      if ((diff.kept.length || diff.added.length) && !this._failedOnce) {
-        this._failedOnce = true;
-        this._actualizeTriggers();
-      }
-    },
-
-    // Returns an array of field's error message(s)
-    getErrorsMessages: function getErrorsMessages() {
-      // No error message, field is valid
-      if (true === this.validationResult) return [];
-
-      var messages = [];
-
-      for (var i = 0; i < this.validationResult.length; i++) messages.push(this.validationResult[i].errorMessage || this._getErrorMessage(this.validationResult[i].assert));
-
-      return messages;
-    },
-
-    // It's a goal of Parsley that this method is no longer required [#1073]
-    addError: function addError(name) {
-      var _ref2 = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
-
-      var message = _ref2.message;
-      var assert = _ref2.assert;
-      var _ref2$updateClass = _ref2.updateClass;
-      var updateClass = _ref2$updateClass === undefined ? true : _ref2$updateClass;
-
-      this._buildUI();
-      this._addError(name, { message: message, assert: assert });
-
-      if (updateClass) this._errorClass();
-    },
-
-    // It's a goal of Parsley that this method is no longer required [#1073]
-    updateError: function updateError(name) {
-      var _ref3 = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
-
-      var message = _ref3.message;
-      var assert = _ref3.assert;
-      var _ref3$updateClass = _ref3.updateClass;
-      var updateClass = _ref3$updateClass === undefined ? true : _ref3$updateClass;
-
-      this._buildUI();
-      this._updateError(name, { message: message, assert: assert });
-
-      if (updateClass) this._errorClass();
-    },
-
-    // It's a goal of Parsley that this method is no longer required [#1073]
-    removeError: function removeError(name) {
-      var _ref4 = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
-
-      var _ref4$updateClass = _ref4.updateClass;
-      var updateClass = _ref4$updateClass === undefined ? true : _ref4$updateClass;
-
-      this._buildUI();
-      this._removeError(name);
-
-      // edge case possible here: remove a standard Parsley error that is still failing in this.validationResult
-      // but highly improbable cuz' manually removing a well Parsley handled error makes no sense.
-      if (updateClass) this._manageStatusClass();
-    },
-
-    _manageStatusClass: function _manageStatusClass() {
-      if (this.hasConstraints() && this.needsValidation() && true === this.validationResult) this._successClass();else if (this.validationResult.length > 0) this._errorClass();else this._resetClass();
-    },
-
-    _manageErrorsMessages: function _manageErrorsMessages(diff) {
-      if ('undefined' !== typeof this.options.errorsMessagesDisabled) return;
-
-      // Case where we have errorMessage option that configure an unique field error message, regardless failing validators
-      if ('undefined' !== typeof this.options.errorMessage) {
-        if (diff.added.length || diff.kept.length) {
-          this._insertErrorWrapper();
-
-          if (0 === this._ui.$errorsWrapper.find('.parsley-custom-error-message').length) this._ui.$errorsWrapper.append($(this.options.errorTemplate).addClass('parsley-custom-error-message'));
-
-          return this._ui.$errorsWrapper.addClass('filled').find('.parsley-custom-error-message').html(this.options.errorMessage);
-        }
-
-        return this._ui.$errorsWrapper.removeClass('filled').find('.parsley-custom-error-message').remove();
-      }
-
-      // Show, hide, update failing constraints messages
-      for (var i = 0; i < diff.removed.length; i++) this._removeError(diff.removed[i].assert.name);
-
-      for (i = 0; i < diff.added.length; i++) this._addError(diff.added[i].assert.name, { message: diff.added[i].errorMessage, assert: diff.added[i].assert });
-
-      for (i = 0; i < diff.kept.length; i++) this._updateError(diff.kept[i].assert.name, { message: diff.kept[i].errorMessage, assert: diff.kept[i].assert });
-    },
-
-    _addError: function _addError(name, _ref5) {
-      var message = _ref5.message;
-      var assert = _ref5.assert;
-
-      this._insertErrorWrapper();
-      this._ui.$errorClassHandler.attr('aria-describedby', this._ui.errorsWrapperId);
-      this._ui.$errorsWrapper.addClass('filled').append($(this.options.errorTemplate).addClass('parsley-' + name).html(message || this._getErrorMessage(assert)));
-    },
-
-    _updateError: function _updateError(name, _ref6) {
-      var message = _ref6.message;
-      var assert = _ref6.assert;
-
-      this._ui.$errorsWrapper.addClass('filled').find('.parsley-' + name).html(message || this._getErrorMessage(assert));
-    },
-
-    _removeError: function _removeError(name) {
-      this._ui.$errorClassHandler.removeAttr('aria-describedby');
-      this._ui.$errorsWrapper.removeClass('filled').find('.parsley-' + name).remove();
-    },
-
-    _getErrorMessage: function _getErrorMessage(constraint) {
-      var customConstraintErrorMessage = constraint.name + 'Message';
-
-      if ('undefined' !== typeof this.options[customConstraintErrorMessage]) return window.Parsley.formatMessage(this.options[customConstraintErrorMessage], constraint.requirements);
-
-      return window.Parsley.getErrorMessage(constraint);
-    },
-
-    _buildUI: function _buildUI() {
-      // UI could be already built or disabled
-      if (this._ui || false === this.options.uiEnabled) return;
-
-      var _ui = {};
-
-      // Give field its Parsley id in DOM
-      this.element.setAttribute(this.options.namespace + 'id', this.__id__);
-
-      /** Generate important UI elements and store them in this **/
-      // $errorClassHandler is the $element that woul have parsley-error and parsley-success classes
-      _ui.$errorClassHandler = this._manageClassHandler();
-
-      // $errorsWrapper is a div that would contain the various field errors, it will be appended into $errorsContainer
-      _ui.errorsWrapperId = 'parsley-id-' + (this.options.multiple ? 'multiple-' + this.options.multiple : this.__id__);
-      _ui.$errorsWrapper = $(this.options.errorsWrapper).attr('id', _ui.errorsWrapperId);
-
-      // ValidationResult UI storage to detect what have changed bwt two validations, and update DOM accordingly
-      _ui.lastValidationResult = [];
-      _ui.validationInformationVisible = false;
-
-      // Store it in this for later
-      this._ui = _ui;
-    },
-
-    // Determine which element will have `parsley-error` and `parsley-success` classes
-    _manageClassHandler: function _manageClassHandler() {
-      // Class handled could also be determined by function given in Parsley options
-      if ('string' === typeof this.options.classHandler && $(this.options.classHandler).length) return $(this.options.classHandler);
-
-      // Class handled could also be determined by function given in Parsley options
-      var $handlerFunction = this.options.classHandler;
-
-      // It might also be the function name of a global function
-      if ('string' === typeof this.options.classHandler && 'function' === typeof window[this.options.classHandler]) $handlerFunction = window[this.options.classHandler];
-
-      if ('function' === typeof $handlerFunction) {
-        var $handler = $handlerFunction.call(this, this);
-
-        // If this function returned a valid existing DOM element, go for it
-        if ('undefined' !== typeof $handler && $handler.length) return $handler;
-      } else if ('object' === typeof $handlerFunction && $handlerFunction instanceof jQuery && $handlerFunction.length) {
-        return $handlerFunction;
-      } else if ($handlerFunction) {
-        Utils.warn('The class handler `' + $handlerFunction + '` does not exist in DOM nor as a global JS function');
-      }
-
-      return this._inputHolder();
-    },
-
-    _inputHolder: function _inputHolder() {
-      // if simple element (input, texatrea, select...) it will perfectly host the classes and precede the error container
-      if (!this.options.multiple || this.element.nodeName === 'SELECT') return this.$element;
-
-      // But if multiple element (radio, checkbox), that would be their parent
-      return this.$element.parent();
-    },
-
-    _insertErrorWrapper: function _insertErrorWrapper() {
-      var $errorsContainer = this.options.errorsContainer;
-
-      // Nothing to do if already inserted
-      if (0 !== this._ui.$errorsWrapper.parent().length) return this._ui.$errorsWrapper.parent();
-
-      if ('string' === typeof $errorsContainer) {
-        if ($($errorsContainer).length) return $($errorsContainer).append(this._ui.$errorsWrapper);else if ('function' === typeof window[$errorsContainer]) $errorsContainer = window[$errorsContainer];else Utils.warn('The errors container `' + $errorsContainer + '` does not exist in DOM nor as a global JS function');
-      }
-
-      if ('function' === typeof $errorsContainer) $errorsContainer = $errorsContainer.call(this, this);
-
-      if ('object' === typeof $errorsContainer && $errorsContainer.length) return $errorsContainer.append(this._ui.$errorsWrapper);
-
-      return this._inputHolder().after(this._ui.$errorsWrapper);
-    },
-
-    _actualizeTriggers: function _actualizeTriggers() {
-      var _this3 = this;
-
-      var $toBind = this._findRelated();
-      var trigger;
-
-      // Remove Parsley events already bound on this field
-      $toBind.off('.Parsley');
-      if (this._failedOnce) $toBind.on(Utils.namespaceEvents(this.options.triggerAfterFailure, 'Parsley'), function () {
-        _this3._validateIfNeeded();
-      });else if (trigger = Utils.namespaceEvents(this.options.trigger, 'Parsley')) {
-        $toBind.on(trigger, function (event) {
-          _this3._validateIfNeeded(event);
-        });
-      }
-    },
-
-    _validateIfNeeded: function _validateIfNeeded(event) {
-      var _this4 = this;
-
-      // For keyup, keypress, keydown, input... events that could be a little bit obstrusive
-      // do not validate if val length < min threshold on first validation. Once field have been validated once and info
-      // about success or failure have been displayed, always validate with this trigger to reflect every yalidation change.
-      if (event && /key|input/.test(event.type)) if (!(this._ui && this._ui.validationInformationVisible) && this.getValue().length <= this.options.validationThreshold) return;
-
-      if (this.options.debounce) {
-        window.clearTimeout(this._debounced);
-        this._debounced = window.setTimeout(function () {
-          return _this4.validate();
-        }, this.options.debounce);
-      } else this.validate();
-    },
-
-    _resetUI: function _resetUI() {
-      // Reset all event listeners
-      this._failedOnce = false;
-      this._actualizeTriggers();
-
-      // Nothing to do if UI never initialized for this field
-      if ('undefined' === typeof this._ui) return;
-
-      // Reset all errors' li
-      this._ui.$errorsWrapper.removeClass('filled').children().remove();
-
-      // Reset validation class
-      this._resetClass();
-
-      // Reset validation flags and last validation result
-      this._ui.lastValidationResult = [];
-      this._ui.validationInformationVisible = false;
-    },
-
-    _destroyUI: function _destroyUI() {
-      this._resetUI();
-
-      if ('undefined' !== typeof this._ui) this._ui.$errorsWrapper.remove();
-
-      delete this._ui;
-    },
-
-    _successClass: function _successClass() {
-      this._ui.validationInformationVisible = true;
-      this._ui.$errorClassHandler.removeClass(this.options.errorClass).addClass(this.options.successClass);
-    },
-    _errorClass: function _errorClass() {
-      this._ui.validationInformationVisible = true;
-      this._ui.$errorClassHandler.removeClass(this.options.successClass).addClass(this.options.errorClass);
-    },
-    _resetClass: function _resetClass() {
-      this._ui.$errorClassHandler.removeClass(this.options.successClass).removeClass(this.options.errorClass);
-    }
-  };
-
-  var Form = function Form(element, domOptions, options) {
-    this.__class__ = 'Form';
-
-    this.element = element;
-    this.$element = $(element);
-    this.domOptions = domOptions;
-    this.options = options;
-    this.parent = window.Parsley;
-
-    this.fields = [];
-    this.validationResult = null;
-  };
-
-  var Form__statusMapping = { pending: null, resolved: true, rejected: false };
-
-  Form.prototype = {
-    onSubmitValidate: function onSubmitValidate(event) {
-      var _this5 = this;
-
-      // This is a Parsley generated submit event, do not validate, do not prevent, simply exit and keep normal behavior
-      if (true === event.parsley) return;
-
-      // If we didn't come here through a submit button, use the first one in the form
-      var submitSource = this._submitSource || this.$element.find(Utils._SubmitSelector)[0];
-      this._submitSource = null;
-      this.$element.find('.parsley-synthetic-submit-button').prop('disabled', true);
-      if (submitSource && null !== submitSource.getAttribute('formnovalidate')) return;
-
-      window.Parsley._remoteCache = {};
-
-      var promise = this.whenValidate({ event: event });
-
-      if ('resolved' === promise.state() && false !== this._trigger('submit')) {
-        // All good, let event go through. We make this distinction because browsers
-        // differ in their handling of `submit` being called from inside a submit event [#1047]
-      } else {
-          // Rejected or pending: cancel this submit
-          event.stopImmediatePropagation();
-          event.preventDefault();
-          if ('pending' === promise.state()) promise.done(function () {
-            _this5._submit(submitSource);
-          });
-        }
-    },
-
-    onSubmitButton: function onSubmitButton(event) {
-      this._submitSource = event.currentTarget;
-    },
-    // internal
-    // _submit submits the form, this time without going through the validations.
-    // Care must be taken to "fake" the actual submit button being clicked.
-    _submit: function _submit(submitSource) {
-      if (false === this._trigger('submit')) return;
-      // Add submit button's data
-      if (submitSource) {
-        var $synthetic = this.$element.find('.parsley-synthetic-submit-button').prop('disabled', false);
-        if (0 === $synthetic.length) $synthetic = $('<input class="parsley-synthetic-submit-button" type="hidden">').appendTo(this.$element);
-        $synthetic.attr({
-          name: submitSource.getAttribute('name'),
-          value: submitSource.getAttribute('value')
-        });
-      }
-
-      this.$element.trigger(_extends($.Event('submit'), { parsley: true }));
-    },
-
-    // Performs validation on fields while triggering events.
-    // @returns `true` if all validations succeeds, `false`
-    // if a failure is immediately detected, or `null`
-    // if dependant on a promise.
-    // Consider using `whenValidate` instead.
-    validate: function validate(options) {
-      if (arguments.length >= 1 && !$.isPlainObject(options)) {
-        Utils.warnOnce('Calling validate on a parsley form without passing arguments as an object is deprecated.');
-
-        var _arguments = _slice.call(arguments);
-
-        var group = _arguments[0];
-        var force = _arguments[1];
-        var event = _arguments[2];
-
-        options = { group: group, force: force, event: event };
-      }
-      return Form__statusMapping[this.whenValidate(options).state()];
-    },
-
-    whenValidate: function whenValidate() {
-      var _Utils$all$done$fail$always,
-          _this6 = this;
-
-      var _ref7 = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
-
-      var group = _ref7.group;
-      var force = _ref7.force;
-      var event = _ref7.event;
-
-      this.submitEvent = event;
-      if (event) {
-        this.submitEvent = _extends({}, event, { preventDefault: function preventDefault() {
-            Utils.warnOnce("Using `this.submitEvent.preventDefault()` is deprecated; instead, call `this.validationResult = false`");
-            _this6.validationResult = false;
-          } });
-      }
-      this.validationResult = true;
-
-      // fire validate event to eventually modify things before every validation
-      this._trigger('validate');
-
-      // Refresh form DOM options and form's fields that could have changed
-      this._refreshFields();
-
-      var promises = this._withoutReactualizingFormOptions(function () {
-        return $.map(_this6.fields, function (field) {
-          return field.whenValidate({ force: force, group: group });
-        });
-      });
-
-      return (_Utils$all$done$fail$always = Utils.all(promises).done(function () {
-        _this6._trigger('success');
-      }).fail(function () {
-        _this6.validationResult = false;
-        _this6.focus();
-        _this6._trigger('error');
-      }).always(function () {
-        _this6._trigger('validated');
-      })).pipe.apply(_Utils$all$done$fail$always, _toConsumableArray(this._pipeAccordingToValidationResult()));
-    },
-
-    // Iterate over refreshed fields, and stop on first failure.
-    // Returns `true` if all fields are valid, `false` if a failure is detected
-    // or `null` if the result depends on an unresolved promise.
-    // Prefer using `whenValid` instead.
-    isValid: function isValid(options) {
-      if (arguments.length >= 1 && !$.isPlainObject(options)) {
-        Utils.warnOnce('Calling isValid on a parsley form without passing arguments as an object is deprecated.');
-
-        var _arguments2 = _slice.call(arguments);
-
-        var group = _arguments2[0];
-        var force = _arguments2[1];
-
-        options = { group: group, force: force };
-      }
-      return Form__statusMapping[this.whenValid(options).state()];
-    },
-
-    // Iterate over refreshed fields and validate them.
-    // Returns a promise.
-    // A validation that immediately fails will interrupt the validations.
-    whenValid: function whenValid() {
-      var _this7 = this;
-
-      var _ref8 = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
-
-      var group = _ref8.group;
-      var force = _ref8.force;
-
-      this._refreshFields();
-
-      var promises = this._withoutReactualizingFormOptions(function () {
-        return $.map(_this7.fields, function (field) {
-          return field.whenValid({ group: group, force: force });
-        });
-      });
-      return Utils.all(promises);
-    },
-
-    refresh: function refresh() {
-      this._refreshFields();
-      return this;
-    },
-
-    // Reset UI
-    reset: function reset() {
-      // Form case: emit a reset event for each field
-      for (var i = 0; i < this.fields.length; i++) this.fields[i].reset();
-
-      this._trigger('reset');
-    },
-
-    // Destroy Parsley instance (+ UI)
-    destroy: function destroy() {
-      // Field case: emit destroy event to clean UI and then destroy stored instance
-      this._destroyUI();
-
-      // Form case: destroy all its fields and then destroy stored instance
-      for (var i = 0; i < this.fields.length; i++) this.fields[i].destroy();
-
-      this.$element.removeData('Parsley');
-      this._trigger('destroy');
-    },
-
-    _refreshFields: function _refreshFields() {
-      return this.actualizeOptions()._bindFields();
-    },
-
-    _bindFields: function _bindFields() {
-      var _this8 = this;
-
-      var oldFields = this.fields;
-
-      this.fields = [];
-      this.fieldsMappedById = {};
-
-      this._withoutReactualizingFormOptions(function () {
-        _this8.$element.find(_this8.options.inputs).not(_this8.options.excluded).each(function (_, element) {
-          var fieldInstance = new window.Parsley.Factory(element, {}, _this8);
-
-          // Only add valid and not excluded `Field` and `FieldMultiple` children
-          if (('Field' === fieldInstance.__class__ || 'FieldMultiple' === fieldInstance.__class__) && true !== fieldInstance.options.excluded) {
-            var uniqueId = fieldInstance.__class__ + '-' + fieldInstance.__id__;
-            if ('undefined' === typeof _this8.fieldsMappedById[uniqueId]) {
-              _this8.fieldsMappedById[uniqueId] = fieldInstance;
-              _this8.fields.push(fieldInstance);
-            }
-          }
-        });
-
-        $.each(Utils.difference(oldFields, _this8.fields), function (_, field) {
-          field.reset();
-        });
-      });
-      return this;
-    },
-
-    // Internal only.
-    // Looping on a form's fields to do validation or similar
-    // will trigger reactualizing options on all of them, which
-    // in turn will reactualize the form's options.
-    // To avoid calling actualizeOptions so many times on the form
-    // for nothing, _withoutReactualizingFormOptions temporarily disables
-    // the method actualizeOptions on this form while `fn` is called.
-    _withoutReactualizingFormOptions: function _withoutReactualizingFormOptions(fn) {
-      var oldActualizeOptions = this.actualizeOptions;
-      this.actualizeOptions = function () {
-        return this;
-      };
-      var result = fn();
-      this.actualizeOptions = oldActualizeOptions;
-      return result;
-    },
-
-    // Internal only.
-    // Shortcut to trigger an event
-    // Returns true iff event is not interrupted and default not prevented.
-    _trigger: function _trigger(eventName) {
-      return this.trigger('form:' + eventName);
-    }
-
-  };
-
-  var Constraint = function Constraint(parsleyField, name, requirements, priority, isDomConstraint) {
-    var validatorSpec = window.Parsley._validatorRegistry.validators[name];
-    var validator = new Validator(validatorSpec);
-    priority = priority || parsleyField.options[name + 'Priority'] || validator.priority;
-    isDomConstraint = true === isDomConstraint;
-
-    _extends(this, {
-      validator: validator,
-      name: name,
-      requirements: requirements,
-      priority: priority,
-      isDomConstraint: isDomConstraint
-    });
-    this._parseRequirements(parsleyField.options);
-  };
-
-  var capitalize = function capitalize(str) {
-    var cap = str[0].toUpperCase();
-    return cap + str.slice(1);
-  };
-
-  Constraint.prototype = {
-    validate: function validate(value, instance) {
-      var _validator;
-
-      return (_validator = this.validator).validate.apply(_validator, [value].concat(_toConsumableArray(this.requirementList), [instance]));
-    },
-
-    _parseRequirements: function _parseRequirements(options) {
-      var _this9 = this;
-
-      this.requirementList = this.validator.parseRequirements(this.requirements, function (key) {
-        return options[_this9.name + capitalize(key)];
-      });
-    }
-  };
-
-  var Field = function Field(field, domOptions, options, parsleyFormInstance) {
-    this.__class__ = 'Field';
-
-    this.element = field;
-    this.$element = $(field);
-
-    // Set parent if we have one
-    if ('undefined' !== typeof parsleyFormInstance) {
-      this.parent = parsleyFormInstance;
-    }
-
-    this.options = options;
-    this.domOptions = domOptions;
-
-    // Initialize some properties
-    this.constraints = [];
-    this.constraintsByName = {};
-    this.validationResult = true;
-
-    // Bind constraints
-    this._bindConstraints();
-  };
-
-  var parsley_field__statusMapping = { pending: null, resolved: true, rejected: false };
-
-  Field.prototype = {
-    // # Public API
-    // Validate field and trigger some events for mainly `UI`
-    // @returns `true`, an array of the validators that failed, or
-    // `null` if validation is not finished. Prefer using whenValidate
-    validate: function validate(options) {
-      if (arguments.length >= 1 && !$.isPlainObject(options)) {
-        Utils.warnOnce('Calling validate on a parsley field without passing arguments as an object is deprecated.');
-        options = { options: options };
-      }
-      var promise = this.whenValidate(options);
-      if (!promise) // If excluded with `group` option
-        return true;
-      switch (promise.state()) {
-        case 'pending':
-          return null;
-        case 'resolved':
-          return true;
-        case 'rejected':
-          return this.validationResult;
-      }
-    },
-
-    // Validate field and trigger some events for mainly `UI`
-    // @returns a promise that succeeds only when all validations do
-    // or `undefined` if field is not in the given `group`.
-    whenValidate: function whenValidate() {
-      var _whenValid$always$done$fail$always,
-          _this10 = this;
-
-      var _ref9 = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
-
-      var force = _ref9.force;
-      var group = _ref9.group;
-
-      // do not validate a field if not the same as given validation group
-      this.refresh();
-      if (group && !this._isInGroup(group)) return;
-
-      this.value = this.getValue();
-
-      // Field Validate event. `this.value` could be altered for custom needs
-      this._trigger('validate');
-
-      return (_whenValid$always$done$fail$always = this.whenValid({ force: force, value: this.value, _refreshed: true }).always(function () {
-        _this10._reflowUI();
-      }).done(function () {
-        _this10._trigger('success');
-      }).fail(function () {
-        _this10._trigger('error');
-      }).always(function () {
-        _this10._trigger('validated');
-      })).pipe.apply(_whenValid$always$done$fail$always, _toConsumableArray(this._pipeAccordingToValidationResult()));
-    },
-
-    hasConstraints: function hasConstraints() {
-      return 0 !== this.constraints.length;
-    },
-
-    // An empty optional field does not need validation
-    needsValidation: function needsValidation(value) {
-      if ('undefined' === typeof value) value = this.getValue();
-
-      // If a field is empty and not required, it is valid
-      // Except if `data-parsley-validate-if-empty` explicitely added, useful for some custom validators
-      if (!value.length && !this._isRequired() && 'undefined' === typeof this.options.validateIfEmpty) return false;
-
-      return true;
-    },
-
-    _isInGroup: function _isInGroup(group) {
-      if (Array.isArray(this.options.group)) return -1 !== $.inArray(group, this.options.group);
-      return this.options.group === group;
-    },
-
-    // Just validate field. Do not trigger any event.
-    // Returns `true` iff all constraints pass, `false` if there are failures,
-    // or `null` if the result can not be determined yet (depends on a promise)
-    // See also `whenValid`.
-    isValid: function isValid(options) {
-      if (arguments.length >= 1 && !$.isPlainObject(options)) {
-        Utils.warnOnce('Calling isValid on a parsley field without passing arguments as an object is deprecated.');
-
-        var _arguments3 = _slice.call(arguments);
-
-        var force = _arguments3[0];
-        var value = _arguments3[1];
-
-        options = { force: force, value: value };
-      }
-      var promise = this.whenValid(options);
-      if (!promise) // Excluded via `group`
-        return true;
-      return parsley_field__statusMapping[promise.state()];
-    },
-
-    // Just validate field. Do not trigger any event.
-    // @returns a promise that succeeds only when all validations do
-    // or `undefined` if the field is not in the given `group`.
-    // The argument `force` will force validation of empty fields.
-    // If a `value` is given, it will be validated instead of the value of the input.
-    whenValid: function whenValid() {
-      var _this11 = this;
-
-      var _ref10 = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
-
-      var _ref10$force = _ref10.force;
-      var force = _ref10$force === undefined ? false : _ref10$force;
-      var value = _ref10.value;
-      var group = _ref10.group;
-      var _refreshed = _ref10._refreshed;
-
-      // Recompute options and rebind constraints to have latest changes
-      if (!_refreshed) this.refresh();
-      // do not validate a field if not the same as given validation group
-      if (group && !this._isInGroup(group)) return;
-
-      this.validationResult = true;
-
-      // A field without constraint is valid
-      if (!this.hasConstraints()) return $.when();
-
-      // Value could be passed as argument, needed to add more power to 'field:validate'
-      if ('undefined' === typeof value || null === value) value = this.getValue();
-
-      if (!this.needsValidation(value) && true !== force) return $.when();
-
-      var groupedConstraints = this._getGroupedConstraints();
-      var promises = [];
-      $.each(groupedConstraints, function (_, constraints) {
-        // Process one group of constraints at a time, we validate the constraints
-        // and combine the promises together.
-        var promise = Utils.all($.map(constraints, function (constraint) {
-          return _this11._validateConstraint(value, constraint);
-        }));
-        promises.push(promise);
-        if (promise.state() === 'rejected') return false; // Interrupt processing if a group has already failed
-      });
-      return Utils.all(promises);
-    },
-
-    // @returns a promise
-    _validateConstraint: function _validateConstraint(value, constraint) {
-      var _this12 = this;
-
-      var result = constraint.validate(value, this);
-      // Map false to a failed promise
-      if (false === result) result = $.Deferred().reject();
-      // Make sure we return a promise and that we record failures
-      return Utils.all([result]).fail(function (errorMessage) {
-        if (!(_this12.validationResult instanceof Array)) _this12.validationResult = [];
-        _this12.validationResult.push({
-          assert: constraint,
-          errorMessage: 'string' === typeof errorMessage && errorMessage
-        });
-      });
-    },
-
-    // @returns Parsley field computed value that could be overrided or configured in DOM
-    getValue: function getValue() {
-      var value;
-
-      // Value could be overriden in DOM or with explicit options
-      if ('function' === typeof this.options.value) value = this.options.value(this);else if ('undefined' !== typeof this.options.value) value = this.options.value;else value = this.$element.val();
-
-      // Handle wrong DOM or configurations
-      if ('undefined' === typeof value || null === value) return '';
-
-      return this._handleWhitespace(value);
-    },
-
-    // Reset UI
-    reset: function reset() {
-      this._resetUI();
-      return this._trigger('reset');
-    },
-
-    // Destroy Parsley instance (+ UI)
-    destroy: function destroy() {
-      // Field case: emit destroy event to clean UI and then destroy stored instance
-      this._destroyUI();
-      this.$element.removeData('Parsley');
-      this.$element.removeData('FieldMultiple');
-      this._trigger('destroy');
-    },
-
-    // Actualize options and rebind constraints
-    refresh: function refresh() {
-      this._refreshConstraints();
-      return this;
-    },
-
-    _refreshConstraints: function _refreshConstraints() {
-      return this.actualizeOptions()._bindConstraints();
-    },
-
-    refreshConstraints: function refreshConstraints() {
-      Utils.warnOnce("Parsley's refreshConstraints is deprecated. Please use refresh");
-      return this.refresh();
-    },
-
-    /**
-    * Add a new constraint to a field
-    *
-    * @param {String}   name
-    * @param {Mixed}    requirements      optional
-    * @param {Number}   priority          optional
-    * @param {Boolean}  isDomConstraint   optional
-    */
-    addConstraint: function addConstraint(name, requirements, priority, isDomConstraint) {
-
-      if (window.Parsley._validatorRegistry.validators[name]) {
-        var constraint = new Constraint(this, name, requirements, priority, isDomConstraint);
-
-        // if constraint already exist, delete it and push new version
-        if ('undefined' !== this.constraintsByName[constraint.name]) this.removeConstraint(constraint.name);
-
-        this.constraints.push(constraint);
-        this.constraintsByName[constraint.name] = constraint;
-      }
-
-      return this;
-    },
-
-    // Remove a constraint
-    removeConstraint: function removeConstraint(name) {
-      for (var i = 0; i < this.constraints.length; i++) if (name === this.constraints[i].name) {
-        this.constraints.splice(i, 1);
-        break;
-      }
-      delete this.constraintsByName[name];
-      return this;
-    },
-
-    // Update a constraint (Remove + re-add)
-    updateConstraint: function updateConstraint(name, parameters, priority) {
-      return this.removeConstraint(name).addConstraint(name, parameters, priority);
-    },
-
-    // # Internals
-
-    // Internal only.
-    // Bind constraints from config + options + DOM
-    _bindConstraints: function _bindConstraints() {
-      var constraints = [];
-      var constraintsByName = {};
-
-      // clean all existing DOM constraints to only keep javascript user constraints
-      for (var i = 0; i < this.constraints.length; i++) if (false === this.constraints[i].isDomConstraint) {
-        constraints.push(this.constraints[i]);
-        constraintsByName[this.constraints[i].name] = this.constraints[i];
-      }
-
-      this.constraints = constraints;
-      this.constraintsByName = constraintsByName;
-
-      // then re-add Parsley DOM-API constraints
-      for (var name in this.options) this.addConstraint(name, this.options[name], undefined, true);
-
-      // finally, bind special HTML5 constraints
-      return this._bindHtml5Constraints();
-    },
-
-    // Internal only.
-    // Bind specific HTML5 constraints to be HTML5 compliant
-    _bindHtml5Constraints: function _bindHtml5Constraints() {
-      // html5 required
-      if (null !== this.element.getAttribute('required')) this.addConstraint('required', true, undefined, true);
-
-      // html5 pattern
-      if (null !== this.element.getAttribute('pattern')) this.addConstraint('pattern', this.element.getAttribute('pattern'), undefined, true);
-
-      // range
-      var min = this.element.getAttribute('min');
-      var max = this.element.getAttribute('max');
-      if (null !== min && null !== max) this.addConstraint('range', [min, max], undefined, true);
-
-      // HTML5 min
-      else if (null !== min) this.addConstraint('min', min, undefined, true);
-
-        // HTML5 max
-        else if (null !== max) this.addConstraint('max', max, undefined, true);
-
-      // length
-      if (null !== this.element.getAttribute('minlength') && null !== this.element.getAttribute('maxlength')) this.addConstraint('length', [this.element.getAttribute('minlength'), this.element.getAttribute('maxlength')], undefined, true);
-
-      // HTML5 minlength
-      else if (null !== this.element.getAttribute('minlength')) this.addConstraint('minlength', this.element.getAttribute('minlength'), undefined, true);
-
-        // HTML5 maxlength
-        else if (null !== this.element.getAttribute('maxlength')) this.addConstraint('maxlength', this.element.getAttribute('maxlength'), undefined, true);
-
-      // html5 types
-      var type = Utils.getType(this.element);
-
-      // Small special case here for HTML5 number: integer validator if step attribute is undefined or an integer value, number otherwise
-      if ('number' === type) {
-        return this.addConstraint('type', ['number', {
-          step: this.element.getAttribute('step') || '1',
-          base: min || this.element.getAttribute('value')
-        }], undefined, true);
-        // Regular other HTML5 supported types
-      } else if (/^(email|url|range|date)$/i.test(type)) {
-          return this.addConstraint('type', type, undefined, true);
-        }
-      return this;
-    },
-
-    // Internal only.
-    // Field is required if have required constraint without `false` value
-    _isRequired: function _isRequired() {
-      if ('undefined' === typeof this.constraintsByName.required) return false;
-
-      return false !== this.constraintsByName.required.requirements;
-    },
-
-    // Internal only.
-    // Shortcut to trigger an event
-    _trigger: function _trigger(eventName) {
-      return this.trigger('field:' + eventName);
-    },
-
-    // Internal only
-    // Handles whitespace in a value
-    // Use `data-parsley-whitespace="squish"` to auto squish input value
-    // Use `data-parsley-whitespace="trim"` to auto trim input value
-    _handleWhitespace: function _handleWhitespace(value) {
-      if (true === this.options.trimValue) Utils.warnOnce('data-parsley-trim-value="true" is deprecated, please use data-parsley-whitespace="trim"');
-
-      if ('squish' === this.options.whitespace) value = value.replace(/\s{2,}/g, ' ');
-
-      if ('trim' === this.options.whitespace || 'squish' === this.options.whitespace || true === this.options.trimValue) value = Utils.trimString(value);
-
-      return value;
-    },
-
-    _isDateInput: function _isDateInput() {
-      var c = this.constraintsByName.type;
-      return c && c.requirements === 'date';
-    },
-
-    // Internal only.
-    // Returns the constraints, grouped by descending priority.
-    // The result is thus an array of arrays of constraints.
-    _getGroupedConstraints: function _getGroupedConstraints() {
-      if (false === this.options.priorityEnabled) return [this.constraints];
-
-      var groupedConstraints = [];
-      var index = {};
-
-      // Create array unique of priorities
-      for (var i = 0; i < this.constraints.length; i++) {
-        var p = this.constraints[i].priority;
-        if (!index[p]) groupedConstraints.push(index[p] = []);
-        index[p].push(this.constraints[i]);
-      }
-      // Sort them by priority DESC
-      groupedConstraints.sort(function (a, b) {
-        return b[0].priority - a[0].priority;
-      });
-
-      return groupedConstraints;
-    }
-
-  };
-
-  var parsley_field = Field;
-
-  var Multiple = function Multiple() {
-    this.__class__ = 'FieldMultiple';
-  };
-
-  Multiple.prototype = {
-    // Add new `$element` sibling for multiple field
-    addElement: function addElement($element) {
-      this.$elements.push($element);
-
-      return this;
-    },
-
-    // See `Field._refreshConstraints()`
-    _refreshConstraints: function _refreshConstraints() {
-      var fieldConstraints;
-
-      this.constraints = [];
-
-      // Select multiple special treatment
-      if (this.element.nodeName === 'SELECT') {
-        this.actualizeOptions()._bindConstraints();
-
-        return this;
-      }
-
-      // Gather all constraints for each input in the multiple group
-      for (var i = 0; i < this.$elements.length; i++) {
-
-        // Check if element have not been dynamically removed since last binding
-        if (!$('html').has(this.$elements[i]).length) {
-          this.$elements.splice(i, 1);
-          continue;
-        }
-
-        fieldConstraints = this.$elements[i].data('FieldMultiple')._refreshConstraints().constraints;
-
-        for (var j = 0; j < fieldConstraints.length; j++) this.addConstraint(fieldConstraints[j].name, fieldConstraints[j].requirements, fieldConstraints[j].priority, fieldConstraints[j].isDomConstraint);
-      }
-
-      return this;
-    },
-
-    // See `Field.getValue()`
-    getValue: function getValue() {
-      // Value could be overriden in DOM
-      if ('function' === typeof this.options.value) return this.options.value(this);else if ('undefined' !== typeof this.options.value) return this.options.value;
-
-      // Radio input case
-      if (this.element.nodeName === 'INPUT') {
-        var type = Utils.getType(this.element);
-        if (type === 'radio') return this._findRelated().filter(':checked').val() || '';
-
-        // checkbox input case
-        if (type === 'checkbox') {
-          var values = [];
-
-          this._findRelated().filter(':checked').each(function () {
-            values.push($(this).val());
-          });
-
-          return values;
-        }
-      }
-
-      // Select multiple case
-      if (this.element.nodeName === 'SELECT' && null === this.$element.val()) return [];
-
-      // Default case that should never happen
-      return this.$element.val();
-    },
-
-    _init: function _init() {
-      this.$elements = [this.$element];
-
-      return this;
-    }
-  };
-
-  var Factory = function Factory(element, options, parsleyFormInstance) {
-    this.element = element;
-    this.$element = $(element);
-
-    // If the element has already been bound, returns its saved Parsley instance
-    var savedparsleyFormInstance = this.$element.data('Parsley');
-    if (savedparsleyFormInstance) {
-
-      // If the saved instance has been bound without a Form parent and there is one given in this call, add it
-      if ('undefined' !== typeof parsleyFormInstance && savedparsleyFormInstance.parent === window.Parsley) {
-        savedparsleyFormInstance.parent = parsleyFormInstance;
-        savedparsleyFormInstance._resetOptions(savedparsleyFormInstance.options);
-      }
-
-      if ('object' === typeof options) {
-        _extends(savedparsleyFormInstance.options, options);
-      }
-
-      return savedparsleyFormInstance;
-    }
-
-    // Parsley must be instantiated with a DOM element or jQuery $element
-    if (!this.$element.length) throw new Error('You must bind Parsley on an existing element.');
-
-    if ('undefined' !== typeof parsleyFormInstance && 'Form' !== parsleyFormInstance.__class__) throw new Error('Parent instance must be a Form instance');
-
-    this.parent = parsleyFormInstance || window.Parsley;
-    return this.init(options);
-  };
-
-  Factory.prototype = {
-    init: function init(options) {
-      this.__class__ = 'Parsley';
-      this.__version__ = '2.8.1';
-      this.__id__ = Utils.generateID();
-
-      // Pre-compute options
-      this._resetOptions(options);
-
-      // A Form instance is obviously a `<form>` element but also every node that is not an input and has the `data-parsley-validate` attribute
-      if (this.element.nodeName === 'FORM' || Utils.checkAttr(this.element, this.options.namespace, 'validate') && !this.$element.is(this.options.inputs)) return this.bind('parsleyForm');
-
-      // Every other element is bound as a `Field` or `FieldMultiple`
-      return this.isMultiple() ? this.handleMultiple() : this.bind('parsleyField');
-    },
-
-    isMultiple: function isMultiple() {
-      var type = Utils.getType(this.element);
-      return type === 'radio' || type === 'checkbox' || this.element.nodeName === 'SELECT' && null !== this.element.getAttribute('multiple');
-    },
-
-    // Multiples fields are a real nightmare :(
-    // Maybe some refactoring would be appreciated here...
-    handleMultiple: function handleMultiple() {
-      var _this13 = this;
-
-      var name;
-      var multiple;
-      var parsleyMultipleInstance;
-
-      // Handle multiple name
-      this.options.multiple = this.options.multiple || (name = this.element.getAttribute('name')) || this.element.getAttribute('id');
-
-      // Special select multiple input
-      if (this.element.nodeName === 'SELECT' && null !== this.element.getAttribute('multiple')) {
-        this.options.multiple = this.options.multiple || this.__id__;
-        return this.bind('parsleyFieldMultiple');
-
-        // Else for radio / checkboxes, we need a `name` or `data-parsley-multiple` to properly bind it
-      } else if (!this.options.multiple) {
-          Utils.warn('To be bound by Parsley, a radio, a checkbox and a multiple select input must have either a name or a multiple option.', this.$element);
-          return this;
-        }
-
-      // Remove special chars
-      this.options.multiple = this.options.multiple.replace(/(:|\.|\[|\]|\{|\}|\$)/g, '');
-
-      // Add proper `data-parsley-multiple` to siblings if we have a valid multiple name
-      if (name) {
-        $('input[name="' + name + '"]').each(function (i, input) {
-          var type = Utils.getType(input);
-          if (type === 'radio' || type === 'checkbox') input.setAttribute(_this13.options.namespace + 'multiple', _this13.options.multiple);
-        });
-      }
-
-      // Check here if we don't already have a related multiple instance saved
-      var $previouslyRelated = this._findRelated();
-      for (var i = 0; i < $previouslyRelated.length; i++) {
-        parsleyMultipleInstance = $($previouslyRelated.get(i)).data('Parsley');
-        if ('undefined' !== typeof parsleyMultipleInstance) {
-
-          if (!this.$element.data('FieldMultiple')) {
-            parsleyMultipleInstance.addElement(this.$element);
-          }
-
-          break;
-        }
-      }
-
-      // Create a secret Field instance for every multiple field. It will be stored in `data('FieldMultiple')`
-      // And will be useful later to access classic `Field` stuff while being in a `FieldMultiple` instance
-      this.bind('parsleyField', true);
-
-      return parsleyMultipleInstance || this.bind('parsleyFieldMultiple');
-    },
-
-    // Return proper `Form`, `Field` or `FieldMultiple`
-    bind: function bind(type, doNotStore) {
-      var parsleyInstance;
-
-      switch (type) {
-        case 'parsleyForm':
-          parsleyInstance = $.extend(new Form(this.element, this.domOptions, this.options), new Base(), window.ParsleyExtend)._bindFields();
-          break;
-        case 'parsleyField':
-          parsleyInstance = $.extend(new parsley_field(this.element, this.domOptions, this.options, this.parent), new Base(), window.ParsleyExtend);
-          break;
-        case 'parsleyFieldMultiple':
-          parsleyInstance = $.extend(new parsley_field(this.element, this.domOptions, this.options, this.parent), new Multiple(), new Base(), window.ParsleyExtend)._init();
-          break;
-        default:
-          throw new Error(type + 'is not a supported Parsley type');
-      }
-
-      if (this.options.multiple) Utils.setAttr(this.element, this.options.namespace, 'multiple', this.options.multiple);
-
-      if ('undefined' !== typeof doNotStore) {
-        this.$element.data('FieldMultiple', parsleyInstance);
-
-        return parsleyInstance;
-      }
-
-      // Store the freshly bound instance in a DOM element for later access using jQuery `data()`
-      this.$element.data('Parsley', parsleyInstance);
-
-      // Tell the world we have a new Form or Field instance!
-      parsleyInstance._actualizeTriggers();
-      parsleyInstance._trigger('init');
-
-      return parsleyInstance;
-    }
-  };
-
-  var vernums = $.fn.jquery.split('.');
-  if (parseInt(vernums[0]) <= 1 && parseInt(vernums[1]) < 8) {
-    throw "The loaded version of jQuery is too old. Please upgrade to 1.8.x or better.";
-  }
-  if (!vernums.forEach) {
-    Utils.warn('Parsley requires ES5 to run properly. Please include https://github.com/es-shims/es5-shim');
-  }
-  // Inherit `on`, `off` & `trigger` to Parsley:
-  var Parsley = _extends(new Base(), {
-    element: document,
-    $element: $(document),
-    actualizeOptions: null,
-    _resetOptions: null,
-    Factory: Factory,
-    version: '2.8.1'
-  });
-
-  // Supplement Field and Form with Base
-  // This way, the constructors will have access to those methods
-  _extends(parsley_field.prototype, UI.Field, Base.prototype);
-  _extends(Form.prototype, UI.Form, Base.prototype);
-  // Inherit actualizeOptions and _resetOptions:
-  _extends(Factory.prototype, Base.prototype);
-
-  // ### jQuery API
-  // `$('.elem').parsley(options)` or `$('.elem').psly(options)`
-  $.fn.parsley = $.fn.psly = function (options) {
-    if (this.length > 1) {
-      var instances = [];
-
-      this.each(function () {
-        instances.push($(this).parsley(options));
-      });
-
-      return instances;
-    }
-
-    // Return undefined if applied to non existing DOM element
-    if (this.length == 0) {
-      return;
-    }
-
-    return new Factory(this[0], options);
-  };
-
-  // ### Field and Form extension
-  // Ensure the extension is now defined if it wasn't previously
-  if ('undefined' === typeof window.ParsleyExtend) window.ParsleyExtend = {};
-
-  // ### Parsley config
-  // Inherit from ParsleyDefault, and copy over any existing values
-  Parsley.options = _extends(Utils.objectCreate(Defaults), window.ParsleyConfig);
-  window.ParsleyConfig = Parsley.options; // Old way of accessing global options
-
-  // ### Globals
-  window.Parsley = window.psly = Parsley;
-  Parsley.Utils = Utils;
-  window.ParsleyUtils = {};
-  $.each(Utils, function (key, value) {
-    if ('function' === typeof value) {
-      window.ParsleyUtils[key] = function () {
-        Utils.warnOnce('Accessing `window.ParsleyUtils` is deprecated. Use `window.Parsley.Utils` instead.');
-        return Utils[key].apply(Utils, arguments);
-      };
-    }
-  });
-
-  // ### Define methods that forward to the registry, and deprecate all access except through window.Parsley
-  var registry = window.Parsley._validatorRegistry = new ValidatorRegistry(window.ParsleyConfig.validators, window.ParsleyConfig.i18n);
-  window.ParsleyValidator = {};
-  $.each('setLocale addCatalog addMessage addMessages getErrorMessage formatMessage addValidator updateValidator removeValidator hasValidator'.split(' '), function (i, method) {
-    window.Parsley[method] = function () {
-      return registry[method].apply(registry, arguments);
-    };
-    window.ParsleyValidator[method] = function () {
-      var _window$Parsley;
-
-      Utils.warnOnce('Accessing the method \'' + method + '\' through Validator is deprecated. Simply call \'window.Parsley.' + method + '(...)\'');
-      return (_window$Parsley = window.Parsley)[method].apply(_window$Parsley, arguments);
-    };
-  });
-
-  // ### UI
-  // Deprecated global object
-  window.Parsley.UI = UI;
-  window.ParsleyUI = {
-    removeError: function removeError(instance, name, doNotUpdateClass) {
-      var updateClass = true !== doNotUpdateClass;
-      Utils.warnOnce('Accessing UI is deprecated. Call \'removeError\' on the instance directly. Please comment in issue 1073 as to your need to call this method.');
-      return instance.removeError(name, { updateClass: updateClass });
-    },
-    getErrorsMessages: function getErrorsMessages(instance) {
-      Utils.warnOnce('Accessing UI is deprecated. Call \'getErrorsMessages\' on the instance directly.');
-      return instance.getErrorsMessages();
-    }
-  };
-  $.each('addError updateError'.split(' '), function (i, method) {
-    window.ParsleyUI[method] = function (instance, name, message, assert, doNotUpdateClass) {
-      var updateClass = true !== doNotUpdateClass;
-      Utils.warnOnce('Accessing UI is deprecated. Call \'' + method + '\' on the instance directly. Please comment in issue 1073 as to your need to call this method.');
-      return instance[method](name, { message: message, assert: assert, updateClass: updateClass });
-    };
-  });
-
-  // ### PARSLEY auto-binding
-  // Prevent it by setting `ParsleyConfig.autoBind` to `false`
-  if (false !== window.ParsleyConfig.autoBind) {
-    $(function () {
-      // Works only on `data-parsley-validate`.
-      if ($('[data-parsley-validate]').length) $('[data-parsley-validate]').parsley();
-    });
-  }
-
-  var o = $({});
-  var deprecated = function deprecated() {
-    Utils.warnOnce("Parsley's pubsub module is deprecated; use the 'on' and 'off' methods on parsley instances or window.Parsley");
-  };
-
-  // Returns an event handler that calls `fn` with the arguments it expects
-  function adapt(fn, context) {
-    // Store to allow unbinding
-    if (!fn.parsleyAdaptedCallback) {
-      fn.parsleyAdaptedCallback = function () {
-        var args = Array.prototype.slice.call(arguments, 0);
-        args.unshift(this);
-        fn.apply(context || o, args);
-      };
-    }
-    return fn.parsleyAdaptedCallback;
-  }
-
-  var eventPrefix = 'parsley:';
-  // Converts 'parsley:form:validate' into 'form:validate'
-  function eventName(name) {
-    if (name.lastIndexOf(eventPrefix, 0) === 0) return name.substr(eventPrefix.length);
-    return name;
-  }
-
-  // $.listen is deprecated. Use Parsley.on instead.
-  $.listen = function (name, callback) {
-    var context;
-    deprecated();
-    if ('object' === typeof arguments[1] && 'function' === typeof arguments[2]) {
-      context = arguments[1];
-      callback = arguments[2];
-    }
-
-    if ('function' !== typeof callback) throw new Error('Wrong parameters');
-
-    window.Parsley.on(eventName(name), adapt(callback, context));
-  };
-
-  $.listenTo = function (instance, name, fn) {
-    deprecated();
-    if (!(instance instanceof parsley_field) && !(instance instanceof Form)) throw new Error('Must give Parsley instance');
-
-    if ('string' !== typeof name || 'function' !== typeof fn) throw new Error('Wrong parameters');
-
-    instance.on(eventName(name), adapt(fn));
-  };
-
-  $.unsubscribe = function (name, fn) {
-    deprecated();
-    if ('string' !== typeof name || 'function' !== typeof fn) throw new Error('Wrong arguments');
-    window.Parsley.off(eventName(name), fn.parsleyAdaptedCallback);
-  };
-
-  $.unsubscribeTo = function (instance, name) {
-    deprecated();
-    if (!(instance instanceof parsley_field) && !(instance instanceof Form)) throw new Error('Must give Parsley instance');
-    instance.off(eventName(name));
-  };
-
-  $.unsubscribeAll = function (name) {
-    deprecated();
-    window.Parsley.off(eventName(name));
-    $('form,input,textarea,select').each(function () {
-      var instance = $(this).data('Parsley');
-      if (instance) {
-        instance.off(eventName(name));
-      }
-    });
-  };
-
-  // $.emit is deprecated. Use jQuery events instead.
-  $.emit = function (name, instance) {
-    var _instance;
-
-    deprecated();
-    var instanceGiven = instance instanceof parsley_field || instance instanceof Form;
-    var args = Array.prototype.slice.call(arguments, instanceGiven ? 2 : 1);
-    args.unshift(eventName(name));
-    if (!instanceGiven) {
-      instance = window.Parsley;
-    }
-    (_instance = instance).trigger.apply(_instance, _toConsumableArray(args));
-  };
-
-  var pubsub = {};
-
-  $.extend(true, Parsley, {
-    asyncValidators: {
-      'default': {
-        fn: function fn(xhr) {
-          // By default, only status 2xx are deemed successful.
-          // Note: we use status instead of state() because responses with status 200
-          // but invalid messages (e.g. an empty body for content type set to JSON) will
-          // result in state() === 'rejected'.
-          return xhr.status >= 200 && xhr.status < 300;
-        },
-        url: false
-      },
-      reverse: {
-        fn: function fn(xhr) {
-          // If reverse option is set, a failing ajax request is considered successful
-          return xhr.status < 200 || xhr.status >= 300;
-        },
-        url: false
-      }
-    },
-
-    addAsyncValidator: function addAsyncValidator(name, fn, url, options) {
-      Parsley.asyncValidators[name] = {
-        fn: fn,
-        url: url || false,
-        options: options || {}
-      };
-
-      return this;
-    }
-
-  });
-
-  Parsley.addValidator('remote', {
-    requirementType: {
-      '': 'string',
-      'validator': 'string',
-      'reverse': 'boolean',
-      'options': 'object'
-    },
-
-    validateString: function validateString(value, url, options, instance) {
-      var data = {};
-      var ajaxOptions;
-      var csr;
-      var validator = options.validator || (true === options.reverse ? 'reverse' : 'default');
-
-      if ('undefined' === typeof Parsley.asyncValidators[validator]) throw new Error('Calling an undefined async validator: `' + validator + '`');
-
-      url = Parsley.asyncValidators[validator].url || url;
-
-      // Fill current value
-      if (url.indexOf('{value}') > -1) {
-        url = url.replace('{value}', encodeURIComponent(value));
-      } else {
-        data[instance.element.getAttribute('name') || instance.element.getAttribute('id')] = value;
-      }
-
-      // Merge options passed in from the function with the ones in the attribute
-      var remoteOptions = $.extend(true, options.options || {}, Parsley.asyncValidators[validator].options);
-
-      // All `$.ajax(options)` could be overridden or extended directly from DOM in `data-parsley-remote-options`
-      ajaxOptions = $.extend(true, {}, {
-        url: url,
-        data: data,
-        type: 'GET'
-      }, remoteOptions);
-
-      // Generate store key based on ajax options
-      instance.trigger('field:ajaxoptions', instance, ajaxOptions);
-
-      csr = $.param(ajaxOptions);
-
-      // Initialise querry cache
-      if ('undefined' === typeof Parsley._remoteCache) Parsley._remoteCache = {};
-
-      // Try to retrieve stored xhr
-      var xhr = Parsley._remoteCache[csr] = Parsley._remoteCache[csr] || $.ajax(ajaxOptions);
-
-      var handleXhr = function handleXhr() {
-        var result = Parsley.asyncValidators[validator].fn.call(instance, xhr, url, options);
-        if (!result) // Map falsy results to rejected promise
-          result = $.Deferred().reject();
-        return $.when(result);
-      };
-
-      return xhr.then(handleXhr, handleXhr);
-    },
-
-    priority: -1
-  });
-
-  Parsley.on('form:submit', function () {
-    Parsley._remoteCache = {};
-  });
-
-  Base.prototype.addAsyncValidator = function () {
-    Utils.warnOnce('Accessing the method `addAsyncValidator` through an instance is deprecated. Simply call `Parsley.addAsyncValidator(...)`');
-    return Parsley.addAsyncValidator.apply(Parsley, arguments);
-  };
-
-  // This is included with the Parsley library itself,
-  // thus there is no use in adding it to your project.
-  Parsley.addMessages('en', {
-    defaultMessage: "This value seems to be invalid.",
-    type: {
-      email: "This value should be a valid email.",
-      url: "This value should be a valid url.",
-      number: "This value should be a valid number.",
-      integer: "This value should be a valid integer.",
-      digits: "This value should be digits.",
-      alphanum: "This value should be alphanumeric."
-    },
-    notblank: "This value should not be blank.",
-    required: "This value is required.",
-    pattern: "This value seems to be invalid.",
-    min: "This value should be greater than or equal to %s.",
-    max: "This value should be lower than or equal to %s.",
-    range: "This value should be between %s and %s.",
-    minlength: "This value is too short. It should have %s characters or more.",
-    maxlength: "This value is too long. It should have %s characters or fewer.",
-    length: "This value length is invalid. It should be between %s and %s characters long.",
-    mincheck: "You must select at least %s choices.",
-    maxcheck: "You must select %s choices or fewer.",
-    check: "You must select between %s and %s choices.",
-    equalto: "This value should be the same."
-  });
-
-  Parsley.setLocale('en');
-
-  /**
-   * inputevent - Alleviate browser bugs for input events
-   * https://github.com/marcandre/inputevent
-   * @version v0.0.3 - (built Thu, Apr 14th 2016, 5:58 pm)
-   * @author Marc-Andre Lafortune <github@marc-andre.ca>
-   * @license MIT
-   */
-
-  function InputEvent() {
-    var _this14 = this;
-
-    var globals = window || global;
-
-    // Slightly odd way construct our object. This way methods are force bound.
-    // Used to test for duplicate library.
-    _extends(this, {
-
-      // For browsers that do not support isTrusted, assumes event is native.
-      isNativeEvent: function isNativeEvent(evt) {
-        return evt.originalEvent && evt.originalEvent.isTrusted !== false;
-      },
-
-      fakeInputEvent: function fakeInputEvent(evt) {
-        if (_this14.isNativeEvent(evt)) {
-          $(evt.target).trigger('input');
-        }
-      },
-
-      misbehaves: function misbehaves(evt) {
-        if (_this14.isNativeEvent(evt)) {
-          _this14.behavesOk(evt);
-          $(document).on('change.inputevent', evt.data.selector, _this14.fakeInputEvent);
-          _this14.fakeInputEvent(evt);
-        }
-      },
-
-      behavesOk: function behavesOk(evt) {
-        if (_this14.isNativeEvent(evt)) {
-          $(document) // Simply unbinds the testing handler
-          .off('input.inputevent', evt.data.selector, _this14.behavesOk).off('change.inputevent', evt.data.selector, _this14.misbehaves);
-        }
-      },
-
-      // Bind the testing handlers
-      install: function install() {
-        if (globals.inputEventPatched) {
-          return;
-        }
-        globals.inputEventPatched = '0.0.3';
-        var _arr = ['select', 'input[type="checkbox"]', 'input[type="radio"]', 'input[type="file"]'];
-        for (var _i = 0; _i < _arr.length; _i++) {
-          var selector = _arr[_i];
-          $(document).on('input.inputevent', selector, { selector: selector }, _this14.behavesOk).on('change.inputevent', selector, { selector: selector }, _this14.misbehaves);
-        }
-      },
-
-      uninstall: function uninstall() {
-        delete globals.inputEventPatched;
-        $(document).off('.inputevent');
-      }
-
-    });
-  };
-
-  var inputevent = new InputEvent();
-
-  inputevent.install();
-
-  var parsley = Parsley;
-
-  return parsley;
-});
-//# sourceMappingURL=parsley.js.map
-
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)))
-
-/***/ }),
-/* 225 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__setup_vanilla__ = __webpack_require__(226);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__setup_vanilla__ = __webpack_require__(225);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__setup_vanilla___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__setup_vanilla__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__setup_axios__ = __webpack_require__(227);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__setup_axios__ = __webpack_require__(226);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__setup_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__setup_axios__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__setup_toastr__ = __webpack_require__(228);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__setup_toastr__ = __webpack_require__(227);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__setup_toastr___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__setup_toastr__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__setup_vue__ = __webpack_require__(229);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__setup_vue__ = __webpack_require__(228);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__setup_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__setup_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__setup_jquery__ = __webpack_require__(230);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__setup_jquery__ = __webpack_require__(229);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__setup_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__setup_jquery__);
 
 
@@ -65910,7 +63405,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
 
 /***/ }),
-/* 226 */
+/* 225 */
 /***/ (function(module, exports) {
 
 if (window.hasOwnProperty('oldInput')) {
@@ -65926,7 +63421,7 @@ if (window.hasOwnProperty('oldInput')) {
 }
 
 /***/ }),
-/* 227 */
+/* 226 */
 /***/ (function(module, exports) {
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
@@ -65940,7 +63435,7 @@ if (token) {
 }
 
 /***/ }),
-/* 228 */
+/* 227 */
 /***/ (function(module, exports) {
 
 toastr.options = {
@@ -65960,7 +63455,7 @@ toastr.options = {
 };
 
 /***/ }),
-/* 229 */
+/* 228 */
 /***/ (function(module, exports) {
 
 window.events = new Vue();
@@ -65984,7 +63479,7 @@ Vue.mixin({
 });
 
 /***/ }),
-/* 230 */
+/* 229 */
 /***/ (function(module, exports) {
 
 $(document).ready(function () {
@@ -66020,24 +63515,24 @@ $(document).ready(function () {
 });
 
 /***/ }),
-/* 231 */
+/* 230 */
 /***/ (function(module, exports, __webpack_require__) {
 
-Vue.component('flash', __webpack_require__(232));
-Vue.component('activate-button', __webpack_require__(235));
-Vue.component('nav-tabs', __webpack_require__(238));
-Vue.component('tab-pane', __webpack_require__(241));
+Vue.component('flash', __webpack_require__(231));
+Vue.component('activate-button', __webpack_require__(234));
+Vue.component('nav-tabs', __webpack_require__(237));
+Vue.component('tab-pane', __webpack_require__(240));
 
 /***/ }),
-/* 232 */
+/* 231 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(4)
 /* script */
-var __vue_script__ = __webpack_require__(233)
+var __vue_script__ = __webpack_require__(232)
 /* template */
-var __vue_template__ = __webpack_require__(234)
+var __vue_template__ = __webpack_require__(233)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -66076,7 +63571,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 233 */
+/* 232 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -66095,7 +63590,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 234 */
+/* 233 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -66115,15 +63610,15 @@ if (false) {
 }
 
 /***/ }),
-/* 235 */
+/* 234 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(4)
 /* script */
-var __vue_script__ = __webpack_require__(236)
+var __vue_script__ = __webpack_require__(235)
 /* template */
-var __vue_template__ = __webpack_require__(237)
+var __vue_template__ = __webpack_require__(236)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -66162,7 +63657,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 236 */
+/* 235 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -66217,7 +63712,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 237 */
+/* 236 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -66245,15 +63740,15 @@ if (false) {
 }
 
 /***/ }),
-/* 238 */
+/* 237 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(4)
 /* script */
-var __vue_script__ = __webpack_require__(239)
+var __vue_script__ = __webpack_require__(238)
 /* template */
-var __vue_template__ = __webpack_require__(240)
+var __vue_template__ = __webpack_require__(239)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -66292,7 +63787,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 239 */
+/* 238 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -66355,7 +63850,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 240 */
+/* 239 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -66405,15 +63900,15 @@ if (false) {
 }
 
 /***/ }),
-/* 241 */
+/* 240 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(4)
 /* script */
-var __vue_script__ = __webpack_require__(242)
+var __vue_script__ = __webpack_require__(241)
 /* template */
-var __vue_template__ = __webpack_require__(243)
+var __vue_template__ = __webpack_require__(242)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -66452,7 +63947,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 242 */
+/* 241 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -66494,7 +63989,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 243 */
+/* 242 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -66523,55 +64018,55 @@ if (false) {
 }
 
 /***/ }),
+/* 243 */,
 /* 244 */,
 /* 245 */,
 /* 246 */,
-/* 247 */,
-/* 248 */
+/* 247 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(249);
+module.exports = __webpack_require__(248);
 
 
 /***/ }),
-/* 249 */
+/* 248 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__dependencies__ = __webpack_require__(150);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__setup__ = __webpack_require__(225);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components__ = __webpack_require__(231);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__setup__ = __webpack_require__(224);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components__ = __webpack_require__(230);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__components__);
 
 
 
 
-Vue.component('d-input', __webpack_require__(250));
-Vue.component('d-button', __webpack_require__(255));
-Vue.component('d-select', __webpack_require__(258));
-Vue.component('d-textarea', __webpack_require__(261));
-Vue.component('d-date-input', __webpack_require__(264));
-Vue.component('d-file-input', __webpack_require__(269));
-Vue.component('secure-delete-button', __webpack_require__(272));
+Vue.component('d-input', __webpack_require__(249));
+Vue.component('d-button', __webpack_require__(254));
+Vue.component('d-select', __webpack_require__(257));
+Vue.component('d-textarea', __webpack_require__(260));
+Vue.component('d-date-input', __webpack_require__(263));
+Vue.component('d-file-input', __webpack_require__(268));
+Vue.component('secure-delete-button', __webpack_require__(271));
 
-Vue.component('course-details-view', __webpack_require__(276));
-Vue.component('lesson-special-form', __webpack_require__(288));
+Vue.component('course-details-view', __webpack_require__(275));
+Vue.component('lesson-special-form', __webpack_require__(287));
 
 new Vue({
     el: '#root'
 });
 
 /***/ }),
-/* 250 */
+/* 249 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(4)
 /* script */
-var __vue_script__ = __webpack_require__(251)
+var __vue_script__ = __webpack_require__(250)
 /* template */
-var __vue_template__ = __webpack_require__(254)
+var __vue_template__ = __webpack_require__(253)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -66610,7 +64105,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 251 */
+/* 250 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -66652,7 +64147,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 252 */
+/* 251 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -66684,7 +64179,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 253 */
+/* 252 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -66727,7 +64222,7 @@ if (false) {
 }
 
 /***/ }),
-/* 254 */
+/* 253 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -66771,15 +64266,15 @@ if (false) {
 }
 
 /***/ }),
-/* 255 */
+/* 254 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(4)
 /* script */
-var __vue_script__ = __webpack_require__(256)
+var __vue_script__ = __webpack_require__(255)
 /* template */
-var __vue_template__ = __webpack_require__(257)
+var __vue_template__ = __webpack_require__(256)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -66818,7 +64313,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 256 */
+/* 255 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -66842,7 +64337,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 257 */
+/* 256 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -66870,15 +64365,15 @@ if (false) {
 }
 
 /***/ }),
-/* 258 */
+/* 257 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(4)
 /* script */
-var __vue_script__ = __webpack_require__(259)
+var __vue_script__ = __webpack_require__(258)
 /* template */
-var __vue_template__ = __webpack_require__(260)
+var __vue_template__ = __webpack_require__(259)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -66917,7 +64412,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 259 */
+/* 258 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -66974,7 +64469,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 260 */
+/* 259 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -67057,15 +64552,15 @@ if (false) {
 }
 
 /***/ }),
-/* 261 */
+/* 260 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(4)
 /* script */
-var __vue_script__ = __webpack_require__(262)
+var __vue_script__ = __webpack_require__(261)
 /* template */
-var __vue_template__ = __webpack_require__(263)
+var __vue_template__ = __webpack_require__(262)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -67104,7 +64599,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 262 */
+/* 261 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -67145,7 +64640,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 263 */
+/* 262 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -67191,15 +64686,15 @@ if (false) {
 }
 
 /***/ }),
-/* 264 */
+/* 263 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(4)
 /* script */
-var __vue_script__ = __webpack_require__(265)
+var __vue_script__ = __webpack_require__(264)
 /* template */
-var __vue_template__ = __webpack_require__(268)
+var __vue_template__ = __webpack_require__(267)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -67238,15 +64733,15 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 265 */
+/* 264 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_moment__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_moment__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuejs_datepicker_dist_locale__ = __webpack_require__(266);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuejs_datepicker__ = __webpack_require__(267);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuejs_datepicker_dist_locale__ = __webpack_require__(265);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuejs_datepicker__ = __webpack_require__(266);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ControlWrapper__ = __webpack_require__(148);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ControlWrapper___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__ControlWrapper__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mixins_form_control__ = __webpack_require__(149);
@@ -67301,7 +64796,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 266 */
+/* 265 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -67355,7 +64850,7 @@ var Language=function(e,a,r,n){this.language=e,this.months=a,this.monthsAbbr=r,t
 
 
 /***/ }),
-/* 267 */
+/* 266 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -68839,7 +66334,7 @@ var Datepicker = {render: function(){var _vm=this;var _h=_vm.$createElement;var 
 
 
 /***/ }),
-/* 268 */
+/* 267 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -68885,15 +66380,15 @@ if (false) {
 }
 
 /***/ }),
-/* 269 */
+/* 268 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(4)
 /* script */
-var __vue_script__ = __webpack_require__(270)
+var __vue_script__ = __webpack_require__(269)
 /* template */
-var __vue_template__ = __webpack_require__(271)
+var __vue_template__ = __webpack_require__(270)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -68932,7 +66427,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 270 */
+/* 269 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -68976,7 +66471,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 271 */
+/* 270 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -69028,15 +66523,15 @@ if (false) {
 }
 
 /***/ }),
-/* 272 */
+/* 271 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(4)
 /* script */
-var __vue_script__ = __webpack_require__(273)
+var __vue_script__ = __webpack_require__(272)
 /* template */
-var __vue_template__ = __webpack_require__(275)
+var __vue_template__ = __webpack_require__(274)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -69075,12 +66570,12 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 273 */
+/* 272 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sweetalert__ = __webpack_require__(274);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sweetalert__ = __webpack_require__(273);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sweetalert___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_sweetalert__);
 //
 //
@@ -69129,14 +66624,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 274 */
+/* 273 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(setImmediate, clearImmediate) {!function(t,e){ true?module.exports=e():"function"==typeof define&&define.amd?define([],e):"object"==typeof exports?exports.swal=e():t.swal=e()}(this,function(){return function(t){function e(o){if(n[o])return n[o].exports;var r=n[o]={i:o,l:!1,exports:{}};return t[o].call(r.exports,r,r.exports,e),r.l=!0,r.exports}var n={};return e.m=t,e.c=n,e.d=function(t,n,o){e.o(t,n)||Object.defineProperty(t,n,{configurable:!1,enumerable:!0,get:o})},e.n=function(t){var n=t&&t.__esModule?function(){return t.default}:function(){return t};return e.d(n,"a",n),n},e.o=function(t,e){return Object.prototype.hasOwnProperty.call(t,e)},e.p="",e(e.s=8)}([function(t,e,n){"use strict";Object.defineProperty(e,"__esModule",{value:!0});var o="swal-button";e.CLASS_NAMES={MODAL:"swal-modal",OVERLAY:"swal-overlay",SHOW_MODAL:"swal-overlay--show-modal",MODAL_TITLE:"swal-title",MODAL_TEXT:"swal-text",ICON:"swal-icon",ICON_CUSTOM:"swal-icon--custom",CONTENT:"swal-content",FOOTER:"swal-footer",BUTTON_CONTAINER:"swal-button-container",BUTTON:o,CONFIRM_BUTTON:o+"--confirm",CANCEL_BUTTON:o+"--cancel",DANGER_BUTTON:o+"--danger",BUTTON_LOADING:o+"--loading",BUTTON_LOADER:o+"__loader"},e.default=e.CLASS_NAMES},function(t,e,n){"use strict";Object.defineProperty(e,"__esModule",{value:!0}),e.getNode=function(t){var e="."+t;return document.querySelector(e)},e.stringToNode=function(t){var e=document.createElement("div");return e.innerHTML=t.trim(),e.firstChild},e.insertAfter=function(t,e){var n=e.nextSibling;e.parentNode.insertBefore(t,n)},e.removeNode=function(t){t.parentElement.removeChild(t)},e.throwErr=function(t){throw t=t.replace(/ +(?= )/g,""),"SweetAlert: "+(t=t.trim())},e.isPlainObject=function(t){if("[object Object]"!==Object.prototype.toString.call(t))return!1;var e=Object.getPrototypeOf(t);return null===e||e===Object.prototype},e.ordinalSuffixOf=function(t){var e=t%10,n=t%100;return 1===e&&11!==n?t+"st":2===e&&12!==n?t+"nd":3===e&&13!==n?t+"rd":t+"th"}},function(t,e,n){"use strict";function o(t){for(var n in t)e.hasOwnProperty(n)||(e[n]=t[n])}Object.defineProperty(e,"__esModule",{value:!0}),o(n(25));var r=n(26);e.overlayMarkup=r.default,o(n(27)),o(n(28)),o(n(29));var i=n(0),a=i.default.MODAL_TITLE,s=i.default.MODAL_TEXT,c=i.default.ICON,l=i.default.FOOTER;e.iconMarkup='\n  <div class="'+c+'"></div>',e.titleMarkup='\n  <div class="'+a+'"></div>\n',e.textMarkup='\n  <div class="'+s+'"></div>',e.footerMarkup='\n  <div class="'+l+'"></div>\n'},function(t,e,n){"use strict";Object.defineProperty(e,"__esModule",{value:!0});var o=n(1);e.CONFIRM_KEY="confirm",e.CANCEL_KEY="cancel";var r={visible:!0,text:null,value:null,className:"",closeModal:!0},i=Object.assign({},r,{visible:!1,text:"Cancel",value:null}),a=Object.assign({},r,{text:"OK",value:!0});e.defaultButtonList={cancel:i,confirm:a};var s=function(t){switch(t){case e.CONFIRM_KEY:return a;case e.CANCEL_KEY:return i;default:var n=t.charAt(0).toUpperCase()+t.slice(1);return Object.assign({},r,{text:n,value:t})}},c=function(t,e){var n=s(t);return!0===e?Object.assign({},n,{visible:!0}):"string"==typeof e?Object.assign({},n,{visible:!0,text:e}):o.isPlainObject(e)?Object.assign({visible:!0},n,e):Object.assign({},n,{visible:!1})},l=function(t){for(var e={},n=0,o=Object.keys(t);n<o.length;n++){var r=o[n],a=t[r],s=c(r,a);e[r]=s}return e.cancel||(e.cancel=i),e},u=function(t){var n={};switch(t.length){case 1:n[e.CANCEL_KEY]=Object.assign({},i,{visible:!1});break;case 2:n[e.CANCEL_KEY]=c(e.CANCEL_KEY,t[0]),n[e.CONFIRM_KEY]=c(e.CONFIRM_KEY,t[1]);break;default:o.throwErr("Invalid number of 'buttons' in array ("+t.length+").\n      If you want more than 2 buttons, you need to use an object!")}return n};e.getButtonListOpts=function(t){var n=e.defaultButtonList;return"string"==typeof t?n[e.CONFIRM_KEY]=c(e.CONFIRM_KEY,t):Array.isArray(t)?n=u(t):o.isPlainObject(t)?n=l(t):!0===t?n=u([!0,!0]):!1===t?n=u([!1,!1]):void 0===t&&(n=e.defaultButtonList),n}},function(t,e,n){"use strict";Object.defineProperty(e,"__esModule",{value:!0});var o=n(1),r=n(2),i=n(0),a=i.default.MODAL,s=i.default.OVERLAY,c=n(30),l=n(31),u=n(32),f=n(33);e.injectElIntoModal=function(t){var e=o.getNode(a),n=o.stringToNode(t);return e.appendChild(n),n};var d=function(t){t.className=a,t.textContent=""},p=function(t,e){d(t);var n=e.className;n&&t.classList.add(n)};e.initModalContent=function(t){var e=o.getNode(a);p(e,t),c.default(t.icon),l.initTitle(t.title),l.initText(t.text),f.default(t.content),u.default(t.buttons,t.dangerMode)};var m=function(){var t=o.getNode(s),e=o.stringToNode(r.modalMarkup);t.appendChild(e)};e.default=m},function(t,e,n){"use strict";Object.defineProperty(e,"__esModule",{value:!0});var o=n(3),r={isOpen:!1,promise:null,actions:{},timer:null},i=Object.assign({},r);e.resetState=function(){i=Object.assign({},r)},e.setActionValue=function(t){if("string"==typeof t)return a(o.CONFIRM_KEY,t);for(var e in t)a(e,t[e])};var a=function(t,e){i.actions[t]||(i.actions[t]={}),Object.assign(i.actions[t],{value:e})};e.setActionOptionsFor=function(t,e){var n=(void 0===e?{}:e).closeModal,o=void 0===n||n;Object.assign(i.actions[t],{closeModal:o})},e.default=i},function(t,e,n){"use strict";Object.defineProperty(e,"__esModule",{value:!0});var o=n(1),r=n(3),i=n(0),a=i.default.OVERLAY,s=i.default.SHOW_MODAL,c=i.default.BUTTON,l=i.default.BUTTON_LOADING,u=n(5);e.openModal=function(){o.getNode(a).classList.add(s),u.default.isOpen=!0};var f=function(){o.getNode(a).classList.remove(s),u.default.isOpen=!1};e.onAction=function(t){void 0===t&&(t=r.CANCEL_KEY);var e=u.default.actions[t],n=e.value;if(!1===e.closeModal){var i=c+"--"+t;o.getNode(i).classList.add(l)}else f();u.default.promise.resolve(n)},e.getState=function(){var t=Object.assign({},u.default);return delete t.promise,delete t.timer,t},e.stopLoading=function(){for(var t=document.querySelectorAll("."+c),e=0;e<t.length;e++){t[e].classList.remove(l)}}},function(t,e){var n;n=function(){return this}();try{n=n||Function("return this")()||(0,eval)("this")}catch(t){"object"==typeof window&&(n=window)}t.exports=n},function(t,e,n){(function(e){t.exports=e.sweetAlert=n(9)}).call(e,n(7))},function(t,e,n){(function(e){t.exports=e.swal=n(10)}).call(e,n(7))},function(t,e,n){"undefined"!=typeof window&&n(11),n(16);var o=n(23).default;t.exports=o},function(t,e,n){var o=n(12);"string"==typeof o&&(o=[[t.i,o,""]]);var r={insertAt:"top"};r.transform=void 0;n(14)(o,r);o.locals&&(t.exports=o.locals)},function(t,e,n){e=t.exports=n(13)(void 0),e.push([t.i,'.swal-icon--error{border-color:#f27474;-webkit-animation:animateErrorIcon .5s;animation:animateErrorIcon .5s}.swal-icon--error__x-mark{position:relative;display:block;-webkit-animation:animateXMark .5s;animation:animateXMark .5s}.swal-icon--error__line{position:absolute;height:5px;width:47px;background-color:#f27474;display:block;top:37px;border-radius:2px}.swal-icon--error__line--left{-webkit-transform:rotate(45deg);transform:rotate(45deg);left:17px}.swal-icon--error__line--right{-webkit-transform:rotate(-45deg);transform:rotate(-45deg);right:16px}@-webkit-keyframes animateErrorIcon{0%{-webkit-transform:rotateX(100deg);transform:rotateX(100deg);opacity:0}to{-webkit-transform:rotateX(0deg);transform:rotateX(0deg);opacity:1}}@keyframes animateErrorIcon{0%{-webkit-transform:rotateX(100deg);transform:rotateX(100deg);opacity:0}to{-webkit-transform:rotateX(0deg);transform:rotateX(0deg);opacity:1}}@-webkit-keyframes animateXMark{0%{-webkit-transform:scale(.4);transform:scale(.4);margin-top:26px;opacity:0}50%{-webkit-transform:scale(.4);transform:scale(.4);margin-top:26px;opacity:0}80%{-webkit-transform:scale(1.15);transform:scale(1.15);margin-top:-6px}to{-webkit-transform:scale(1);transform:scale(1);margin-top:0;opacity:1}}@keyframes animateXMark{0%{-webkit-transform:scale(.4);transform:scale(.4);margin-top:26px;opacity:0}50%{-webkit-transform:scale(.4);transform:scale(.4);margin-top:26px;opacity:0}80%{-webkit-transform:scale(1.15);transform:scale(1.15);margin-top:-6px}to{-webkit-transform:scale(1);transform:scale(1);margin-top:0;opacity:1}}.swal-icon--warning{border-color:#f8bb86;-webkit-animation:pulseWarning .75s infinite alternate;animation:pulseWarning .75s infinite alternate}.swal-icon--warning__body{width:5px;height:47px;top:10px;border-radius:2px;margin-left:-2px}.swal-icon--warning__body,.swal-icon--warning__dot{position:absolute;left:50%;background-color:#f8bb86}.swal-icon--warning__dot{width:7px;height:7px;border-radius:50%;margin-left:-4px;bottom:-11px}@-webkit-keyframes pulseWarning{0%{border-color:#f8d486}to{border-color:#f8bb86}}@keyframes pulseWarning{0%{border-color:#f8d486}to{border-color:#f8bb86}}.swal-icon--success{border-color:#a5dc86}.swal-icon--success:after,.swal-icon--success:before{content:"";border-radius:50%;position:absolute;width:60px;height:120px;background:#fff;-webkit-transform:rotate(45deg);transform:rotate(45deg)}.swal-icon--success:before{border-radius:120px 0 0 120px;top:-7px;left:-33px;-webkit-transform:rotate(-45deg);transform:rotate(-45deg);-webkit-transform-origin:60px 60px;transform-origin:60px 60px}.swal-icon--success:after{border-radius:0 120px 120px 0;top:-11px;left:30px;-webkit-transform:rotate(-45deg);transform:rotate(-45deg);-webkit-transform-origin:0 60px;transform-origin:0 60px;-webkit-animation:rotatePlaceholder 4.25s ease-in;animation:rotatePlaceholder 4.25s ease-in}.swal-icon--success__ring{width:80px;height:80px;border:4px solid hsla(98,55%,69%,.2);border-radius:50%;box-sizing:content-box;position:absolute;left:-4px;top:-4px;z-index:2}.swal-icon--success__hide-corners{width:5px;height:90px;background-color:#fff;padding:1px;position:absolute;left:28px;top:8px;z-index:1;-webkit-transform:rotate(-45deg);transform:rotate(-45deg)}.swal-icon--success__line{height:5px;background-color:#a5dc86;display:block;border-radius:2px;position:absolute;z-index:2}.swal-icon--success__line--tip{width:25px;left:14px;top:46px;-webkit-transform:rotate(45deg);transform:rotate(45deg);-webkit-animation:animateSuccessTip .75s;animation:animateSuccessTip .75s}.swal-icon--success__line--long{width:47px;right:8px;top:38px;-webkit-transform:rotate(-45deg);transform:rotate(-45deg);-webkit-animation:animateSuccessLong .75s;animation:animateSuccessLong .75s}@-webkit-keyframes rotatePlaceholder{0%{-webkit-transform:rotate(-45deg);transform:rotate(-45deg)}5%{-webkit-transform:rotate(-45deg);transform:rotate(-45deg)}12%{-webkit-transform:rotate(-405deg);transform:rotate(-405deg)}to{-webkit-transform:rotate(-405deg);transform:rotate(-405deg)}}@keyframes rotatePlaceholder{0%{-webkit-transform:rotate(-45deg);transform:rotate(-45deg)}5%{-webkit-transform:rotate(-45deg);transform:rotate(-45deg)}12%{-webkit-transform:rotate(-405deg);transform:rotate(-405deg)}to{-webkit-transform:rotate(-405deg);transform:rotate(-405deg)}}@-webkit-keyframes animateSuccessTip{0%{width:0;left:1px;top:19px}54%{width:0;left:1px;top:19px}70%{width:50px;left:-8px;top:37px}84%{width:17px;left:21px;top:48px}to{width:25px;left:14px;top:45px}}@keyframes animateSuccessTip{0%{width:0;left:1px;top:19px}54%{width:0;left:1px;top:19px}70%{width:50px;left:-8px;top:37px}84%{width:17px;left:21px;top:48px}to{width:25px;left:14px;top:45px}}@-webkit-keyframes animateSuccessLong{0%{width:0;right:46px;top:54px}65%{width:0;right:46px;top:54px}84%{width:55px;right:0;top:35px}to{width:47px;right:8px;top:38px}}@keyframes animateSuccessLong{0%{width:0;right:46px;top:54px}65%{width:0;right:46px;top:54px}84%{width:55px;right:0;top:35px}to{width:47px;right:8px;top:38px}}.swal-icon--info{border-color:#c9dae1}.swal-icon--info:before{width:5px;height:29px;bottom:17px;border-radius:2px;margin-left:-2px}.swal-icon--info:after,.swal-icon--info:before{content:"";position:absolute;left:50%;background-color:#c9dae1}.swal-icon--info:after{width:7px;height:7px;border-radius:50%;margin-left:-3px;top:19px}.swal-icon{width:80px;height:80px;border-width:4px;border-style:solid;border-radius:50%;padding:0;position:relative;box-sizing:content-box;margin:20px auto}.swal-icon:first-child{margin-top:32px}.swal-icon--custom{width:auto;height:auto;max-width:100%;border:none;border-radius:0}.swal-icon img{max-width:100%;max-height:100%}.swal-title{color:rgba(0,0,0,.65);font-weight:600;text-transform:none;position:relative;display:block;padding:13px 16px;font-size:27px;line-height:normal;text-align:center;margin-bottom:0}.swal-title:first-child{margin-top:26px}.swal-title:not(:first-child){padding-bottom:0}.swal-title:not(:last-child){margin-bottom:13px}.swal-text{font-size:16px;position:relative;float:none;line-height:normal;vertical-align:top;text-align:left;display:inline-block;margin:0;padding:0 10px;font-weight:400;color:rgba(0,0,0,.64);max-width:calc(100% - 20px);overflow-wrap:break-word;box-sizing:border-box}.swal-text:first-child{margin-top:45px}.swal-text:last-child{margin-bottom:45px}.swal-footer{text-align:right;padding-top:13px;margin-top:13px;padding:13px 16px;border-radius:inherit;border-top-left-radius:0;border-top-right-radius:0}.swal-button-container{margin:5px;display:inline-block;position:relative}.swal-button{background-color:#7cd1f9;color:#fff;border:none;box-shadow:none;border-radius:5px;font-weight:600;font-size:14px;padding:10px 24px;margin:0;cursor:pointer}.swal-button[not:disabled]:hover{background-color:#78cbf2}.swal-button:active{background-color:#70bce0}.swal-button:focus{outline:none;box-shadow:0 0 0 1px #fff,0 0 0 3px rgba(43,114,165,.29)}.swal-button[disabled]{opacity:.5;cursor:default}.swal-button::-moz-focus-inner{border:0}.swal-button--cancel{color:#555;background-color:#efefef}.swal-button--cancel[not:disabled]:hover{background-color:#e8e8e8}.swal-button--cancel:active{background-color:#d7d7d7}.swal-button--cancel:focus{box-shadow:0 0 0 1px #fff,0 0 0 3px rgba(116,136,150,.29)}.swal-button--danger{background-color:#e64942}.swal-button--danger[not:disabled]:hover{background-color:#df4740}.swal-button--danger:active{background-color:#cf423b}.swal-button--danger:focus{box-shadow:0 0 0 1px #fff,0 0 0 3px rgba(165,43,43,.29)}.swal-content{padding:0 20px;margin-top:20px;font-size:medium}.swal-content:last-child{margin-bottom:20px}.swal-content__input,.swal-content__textarea{-webkit-appearance:none;background-color:#fff;border:none;font-size:14px;display:block;box-sizing:border-box;width:100%;border:1px solid rgba(0,0,0,.14);padding:10px 13px;border-radius:2px;transition:border-color .2s}.swal-content__input:focus,.swal-content__textarea:focus{outline:none;border-color:#6db8ff}.swal-content__textarea{resize:vertical}.swal-button--loading{color:transparent}.swal-button--loading~.swal-button__loader{opacity:1}.swal-button__loader{position:absolute;height:auto;width:43px;z-index:2;left:50%;top:50%;-webkit-transform:translateX(-50%) translateY(-50%);transform:translateX(-50%) translateY(-50%);text-align:center;pointer-events:none;opacity:0}.swal-button__loader div{display:inline-block;float:none;vertical-align:baseline;width:9px;height:9px;padding:0;border:none;margin:2px;opacity:.4;border-radius:7px;background-color:hsla(0,0%,100%,.9);transition:background .2s;-webkit-animation:swal-loading-anim 1s infinite;animation:swal-loading-anim 1s infinite}.swal-button__loader div:nth-child(3n+2){-webkit-animation-delay:.15s;animation-delay:.15s}.swal-button__loader div:nth-child(3n+3){-webkit-animation-delay:.3s;animation-delay:.3s}@-webkit-keyframes swal-loading-anim{0%{opacity:.4}20%{opacity:.4}50%{opacity:1}to{opacity:.4}}@keyframes swal-loading-anim{0%{opacity:.4}20%{opacity:.4}50%{opacity:1}to{opacity:.4}}.swal-overlay{position:fixed;top:0;bottom:0;left:0;right:0;text-align:center;font-size:0;overflow-y:auto;background-color:rgba(0,0,0,.4);z-index:10000;pointer-events:none;opacity:0;transition:opacity .3s}.swal-overlay:before{content:" ";display:inline-block;vertical-align:middle;height:100%}.swal-overlay--show-modal{opacity:1;pointer-events:auto}.swal-overlay--show-modal .swal-modal{opacity:1;pointer-events:auto;box-sizing:border-box;-webkit-animation:showSweetAlert .3s;animation:showSweetAlert .3s;will-change:transform}.swal-modal{width:478px;opacity:0;pointer-events:none;background-color:#fff;text-align:center;border-radius:5px;position:static;margin:20px auto;display:inline-block;vertical-align:middle;-webkit-transform:scale(1);transform:scale(1);-webkit-transform-origin:50% 50%;transform-origin:50% 50%;z-index:10001;transition:opacity .2s,-webkit-transform .3s;transition:transform .3s,opacity .2s;transition:transform .3s,opacity .2s,-webkit-transform .3s}@media (max-width:500px){.swal-modal{width:calc(100% - 20px)}}@-webkit-keyframes showSweetAlert{0%{-webkit-transform:scale(1);transform:scale(1)}1%{-webkit-transform:scale(.5);transform:scale(.5)}45%{-webkit-transform:scale(1.05);transform:scale(1.05)}80%{-webkit-transform:scale(.95);transform:scale(.95)}to{-webkit-transform:scale(1);transform:scale(1)}}@keyframes showSweetAlert{0%{-webkit-transform:scale(1);transform:scale(1)}1%{-webkit-transform:scale(.5);transform:scale(.5)}45%{-webkit-transform:scale(1.05);transform:scale(1.05)}80%{-webkit-transform:scale(.95);transform:scale(.95)}to{-webkit-transform:scale(1);transform:scale(1)}}',""])},function(t,e){function n(t,e){var n=t[1]||"",r=t[3];if(!r)return n;if(e&&"function"==typeof btoa){var i=o(r);return[n].concat(r.sources.map(function(t){return"/*# sourceURL="+r.sourceRoot+t+" */"})).concat([i]).join("\n")}return[n].join("\n")}function o(t){return"/*# sourceMappingURL=data:application/json;charset=utf-8;base64,"+btoa(unescape(encodeURIComponent(JSON.stringify(t))))+" */"}t.exports=function(t){var e=[];return e.toString=function(){return this.map(function(e){var o=n(e,t);return e[2]?"@media "+e[2]+"{"+o+"}":o}).join("")},e.i=function(t,n){"string"==typeof t&&(t=[[null,t,""]]);for(var o={},r=0;r<this.length;r++){var i=this[r][0];"number"==typeof i&&(o[i]=!0)}for(r=0;r<t.length;r++){var a=t[r];"number"==typeof a[0]&&o[a[0]]||(n&&!a[2]?a[2]=n:n&&(a[2]="("+a[2]+") and ("+n+")"),e.push(a))}},e}},function(t,e,n){function o(t,e){for(var n=0;n<t.length;n++){var o=t[n],r=m[o.id];if(r){r.refs++;for(var i=0;i<r.parts.length;i++)r.parts[i](o.parts[i]);for(;i<o.parts.length;i++)r.parts.push(u(o.parts[i],e))}else{for(var a=[],i=0;i<o.parts.length;i++)a.push(u(o.parts[i],e));m[o.id]={id:o.id,refs:1,parts:a}}}}function r(t,e){for(var n=[],o={},r=0;r<t.length;r++){var i=t[r],a=e.base?i[0]+e.base:i[0],s=i[1],c=i[2],l=i[3],u={css:s,media:c,sourceMap:l};o[a]?o[a].parts.push(u):n.push(o[a]={id:a,parts:[u]})}return n}function i(t,e){var n=v(t.insertInto);if(!n)throw new Error("Couldn't find a style target. This probably means that the value for the 'insertInto' parameter is invalid.");var o=w[w.length-1];if("top"===t.insertAt)o?o.nextSibling?n.insertBefore(e,o.nextSibling):n.appendChild(e):n.insertBefore(e,n.firstChild),w.push(e);else{if("bottom"!==t.insertAt)throw new Error("Invalid value for parameter 'insertAt'. Must be 'top' or 'bottom'.");n.appendChild(e)}}function a(t){if(null===t.parentNode)return!1;t.parentNode.removeChild(t);var e=w.indexOf(t);e>=0&&w.splice(e,1)}function s(t){var e=document.createElement("style");return t.attrs.type="text/css",l(e,t.attrs),i(t,e),e}function c(t){var e=document.createElement("link");return t.attrs.type="text/css",t.attrs.rel="stylesheet",l(e,t.attrs),i(t,e),e}function l(t,e){Object.keys(e).forEach(function(n){t.setAttribute(n,e[n])})}function u(t,e){var n,o,r,i;if(e.transform&&t.css){if(!(i=e.transform(t.css)))return function(){};t.css=i}if(e.singleton){var l=h++;n=g||(g=s(e)),o=f.bind(null,n,l,!1),r=f.bind(null,n,l,!0)}else t.sourceMap&&"function"==typeof URL&&"function"==typeof URL.createObjectURL&&"function"==typeof URL.revokeObjectURL&&"function"==typeof Blob&&"function"==typeof btoa?(n=c(e),o=p.bind(null,n,e),r=function(){a(n),n.href&&URL.revokeObjectURL(n.href)}):(n=s(e),o=d.bind(null,n),r=function(){a(n)});return o(t),function(e){if(e){if(e.css===t.css&&e.media===t.media&&e.sourceMap===t.sourceMap)return;o(t=e)}else r()}}function f(t,e,n,o){var r=n?"":o.css;if(t.styleSheet)t.styleSheet.cssText=x(e,r);else{var i=document.createTextNode(r),a=t.childNodes;a[e]&&t.removeChild(a[e]),a.length?t.insertBefore(i,a[e]):t.appendChild(i)}}function d(t,e){var n=e.css,o=e.media;if(o&&t.setAttribute("media",o),t.styleSheet)t.styleSheet.cssText=n;else{for(;t.firstChild;)t.removeChild(t.firstChild);t.appendChild(document.createTextNode(n))}}function p(t,e,n){var o=n.css,r=n.sourceMap,i=void 0===e.convertToAbsoluteUrls&&r;(e.convertToAbsoluteUrls||i)&&(o=y(o)),r&&(o+="\n/*# sourceMappingURL=data:application/json;base64,"+btoa(unescape(encodeURIComponent(JSON.stringify(r))))+" */");var a=new Blob([o],{type:"text/css"}),s=t.href;t.href=URL.createObjectURL(a),s&&URL.revokeObjectURL(s)}var m={},b=function(t){var e;return function(){return void 0===e&&(e=t.apply(this,arguments)),e}}(function(){return window&&document&&document.all&&!window.atob}),v=function(t){var e={};return function(n){return void 0===e[n]&&(e[n]=t.call(this,n)),e[n]}}(function(t){return document.querySelector(t)}),g=null,h=0,w=[],y=n(15);t.exports=function(t,e){if("undefined"!=typeof DEBUG&&DEBUG&&"object"!=typeof document)throw new Error("The style-loader cannot be used in a non-browser environment");e=e||{},e.attrs="object"==typeof e.attrs?e.attrs:{},e.singleton||(e.singleton=b()),e.insertInto||(e.insertInto="head"),e.insertAt||(e.insertAt="bottom");var n=r(t,e);return o(n,e),function(t){for(var i=[],a=0;a<n.length;a++){var s=n[a],c=m[s.id];c.refs--,i.push(c)}if(t){o(r(t,e),e)}for(var a=0;a<i.length;a++){var c=i[a];if(0===c.refs){for(var l=0;l<c.parts.length;l++)c.parts[l]();delete m[c.id]}}}};var x=function(){var t=[];return function(e,n){return t[e]=n,t.filter(Boolean).join("\n")}}()},function(t,e){t.exports=function(t){var e="undefined"!=typeof window&&window.location;if(!e)throw new Error("fixUrls requires window.location");if(!t||"string"!=typeof t)return t;var n=e.protocol+"//"+e.host,o=n+e.pathname.replace(/\/[^\/]*$/,"/");return t.replace(/url\s*\(((?:[^)(]|\((?:[^)(]+|\([^)(]*\))*\))*)\)/gi,function(t,e){var r=e.trim().replace(/^"(.*)"$/,function(t,e){return e}).replace(/^'(.*)'$/,function(t,e){return e});if(/^(#|data:|http:\/\/|https:\/\/|file:\/\/\/)/i.test(r))return t;var i;return i=0===r.indexOf("//")?r:0===r.indexOf("/")?n+r:o+r.replace(/^\.\//,""),"url("+JSON.stringify(i)+")"})}},function(t,e,n){var o=n(17);"undefined"==typeof window||window.Promise||(window.Promise=o),n(21),String.prototype.includes||(String.prototype.includes=function(t,e){"use strict";return"number"!=typeof e&&(e=0),!(e+t.length>this.length)&&-1!==this.indexOf(t,e)}),Array.prototype.includes||Object.defineProperty(Array.prototype,"includes",{value:function(t,e){if(null==this)throw new TypeError('"this" is null or not defined');var n=Object(this),o=n.length>>>0;if(0===o)return!1;for(var r=0|e,i=Math.max(r>=0?r:o-Math.abs(r),0);i<o;){if(function(t,e){return t===e||"number"==typeof t&&"number"==typeof e&&isNaN(t)&&isNaN(e)}(n[i],t))return!0;i++}return!1}}),"undefined"!=typeof window&&function(t){t.forEach(function(t){t.hasOwnProperty("remove")||Object.defineProperty(t,"remove",{configurable:!0,enumerable:!0,writable:!0,value:function(){this.parentNode.removeChild(this)}})})}([Element.prototype,CharacterData.prototype,DocumentType.prototype])},function(t,e,n){(function(e){!function(n){function o(){}function r(t,e){return function(){t.apply(e,arguments)}}function i(t){if("object"!=typeof this)throw new TypeError("Promises must be constructed via new");if("function"!=typeof t)throw new TypeError("not a function");this._state=0,this._handled=!1,this._value=void 0,this._deferreds=[],f(t,this)}function a(t,e){for(;3===t._state;)t=t._value;if(0===t._state)return void t._deferreds.push(e);t._handled=!0,i._immediateFn(function(){var n=1===t._state?e.onFulfilled:e.onRejected;if(null===n)return void(1===t._state?s:c)(e.promise,t._value);var o;try{o=n(t._value)}catch(t){return void c(e.promise,t)}s(e.promise,o)})}function s(t,e){try{if(e===t)throw new TypeError("A promise cannot be resolved with itself.");if(e&&("object"==typeof e||"function"==typeof e)){var n=e.then;if(e instanceof i)return t._state=3,t._value=e,void l(t);if("function"==typeof n)return void f(r(n,e),t)}t._state=1,t._value=e,l(t)}catch(e){c(t,e)}}function c(t,e){t._state=2,t._value=e,l(t)}function l(t){2===t._state&&0===t._deferreds.length&&i._immediateFn(function(){t._handled||i._unhandledRejectionFn(t._value)});for(var e=0,n=t._deferreds.length;e<n;e++)a(t,t._deferreds[e]);t._deferreds=null}function u(t,e,n){this.onFulfilled="function"==typeof t?t:null,this.onRejected="function"==typeof e?e:null,this.promise=n}function f(t,e){var n=!1;try{t(function(t){n||(n=!0,s(e,t))},function(t){n||(n=!0,c(e,t))})}catch(t){if(n)return;n=!0,c(e,t)}}var d=setTimeout;i.prototype.catch=function(t){return this.then(null,t)},i.prototype.then=function(t,e){var n=new this.constructor(o);return a(this,new u(t,e,n)),n},i.all=function(t){var e=Array.prototype.slice.call(t);return new i(function(t,n){function o(i,a){try{if(a&&("object"==typeof a||"function"==typeof a)){var s=a.then;if("function"==typeof s)return void s.call(a,function(t){o(i,t)},n)}e[i]=a,0==--r&&t(e)}catch(t){n(t)}}if(0===e.length)return t([]);for(var r=e.length,i=0;i<e.length;i++)o(i,e[i])})},i.resolve=function(t){return t&&"object"==typeof t&&t.constructor===i?t:new i(function(e){e(t)})},i.reject=function(t){return new i(function(e,n){n(t)})},i.race=function(t){return new i(function(e,n){for(var o=0,r=t.length;o<r;o++)t[o].then(e,n)})},i._immediateFn="function"==typeof e&&function(t){e(t)}||function(t){d(t,0)},i._unhandledRejectionFn=function(t){"undefined"!=typeof console&&console&&console.warn("Possible Unhandled Promise Rejection:",t)},i._setImmediateFn=function(t){i._immediateFn=t},i._setUnhandledRejectionFn=function(t){i._unhandledRejectionFn=t},void 0!==t&&t.exports?t.exports=i:n.Promise||(n.Promise=i)}(this)}).call(e,n(18).setImmediate)},function(t,e,n){function o(t,e){this._id=t,this._clearFn=e}var r=Function.prototype.apply;e.setTimeout=function(){return new o(r.call(setTimeout,window,arguments),clearTimeout)},e.setInterval=function(){return new o(r.call(setInterval,window,arguments),clearInterval)},e.clearTimeout=e.clearInterval=function(t){t&&t.close()},o.prototype.unref=o.prototype.ref=function(){},o.prototype.close=function(){this._clearFn.call(window,this._id)},e.enroll=function(t,e){clearTimeout(t._idleTimeoutId),t._idleTimeout=e},e.unenroll=function(t){clearTimeout(t._idleTimeoutId),t._idleTimeout=-1},e._unrefActive=e.active=function(t){clearTimeout(t._idleTimeoutId);var e=t._idleTimeout;e>=0&&(t._idleTimeoutId=setTimeout(function(){t._onTimeout&&t._onTimeout()},e))},n(19),e.setImmediate=setImmediate,e.clearImmediate=clearImmediate},function(t,e,n){(function(t,e){!function(t,n){"use strict";function o(t){"function"!=typeof t&&(t=new Function(""+t));for(var e=new Array(arguments.length-1),n=0;n<e.length;n++)e[n]=arguments[n+1];var o={callback:t,args:e};return l[c]=o,s(c),c++}function r(t){delete l[t]}function i(t){var e=t.callback,o=t.args;switch(o.length){case 0:e();break;case 1:e(o[0]);break;case 2:e(o[0],o[1]);break;case 3:e(o[0],o[1],o[2]);break;default:e.apply(n,o)}}function a(t){if(u)setTimeout(a,0,t);else{var e=l[t];if(e){u=!0;try{i(e)}finally{r(t),u=!1}}}}if(!t.setImmediate){var s,c=1,l={},u=!1,f=t.document,d=Object.getPrototypeOf&&Object.getPrototypeOf(t);d=d&&d.setTimeout?d:t,"[object process]"==={}.toString.call(t.process)?function(){s=function(t){e.nextTick(function(){a(t)})}}():function(){if(t.postMessage&&!t.importScripts){var e=!0,n=t.onmessage;return t.onmessage=function(){e=!1},t.postMessage("","*"),t.onmessage=n,e}}()?function(){var e="setImmediate$"+Math.random()+"$",n=function(n){n.source===t&&"string"==typeof n.data&&0===n.data.indexOf(e)&&a(+n.data.slice(e.length))};t.addEventListener?t.addEventListener("message",n,!1):t.attachEvent("onmessage",n),s=function(n){t.postMessage(e+n,"*")}}():t.MessageChannel?function(){var t=new MessageChannel;t.port1.onmessage=function(t){a(t.data)},s=function(e){t.port2.postMessage(e)}}():f&&"onreadystatechange"in f.createElement("script")?function(){var t=f.documentElement;s=function(e){var n=f.createElement("script");n.onreadystatechange=function(){a(e),n.onreadystatechange=null,t.removeChild(n),n=null},t.appendChild(n)}}():function(){s=function(t){setTimeout(a,0,t)}}(),d.setImmediate=o,d.clearImmediate=r}}("undefined"==typeof self?void 0===t?this:t:self)}).call(e,n(7),n(20))},function(t,e){function n(){throw new Error("setTimeout has not been defined")}function o(){throw new Error("clearTimeout has not been defined")}function r(t){if(u===setTimeout)return setTimeout(t,0);if((u===n||!u)&&setTimeout)return u=setTimeout,setTimeout(t,0);try{return u(t,0)}catch(e){try{return u.call(null,t,0)}catch(e){return u.call(this,t,0)}}}function i(t){if(f===clearTimeout)return clearTimeout(t);if((f===o||!f)&&clearTimeout)return f=clearTimeout,clearTimeout(t);try{return f(t)}catch(e){try{return f.call(null,t)}catch(e){return f.call(this,t)}}}function a(){b&&p&&(b=!1,p.length?m=p.concat(m):v=-1,m.length&&s())}function s(){if(!b){var t=r(a);b=!0;for(var e=m.length;e;){for(p=m,m=[];++v<e;)p&&p[v].run();v=-1,e=m.length}p=null,b=!1,i(t)}}function c(t,e){this.fun=t,this.array=e}function l(){}var u,f,d=t.exports={};!function(){try{u="function"==typeof setTimeout?setTimeout:n}catch(t){u=n}try{f="function"==typeof clearTimeout?clearTimeout:o}catch(t){f=o}}();var p,m=[],b=!1,v=-1;d.nextTick=function(t){var e=new Array(arguments.length-1);if(arguments.length>1)for(var n=1;n<arguments.length;n++)e[n-1]=arguments[n];m.push(new c(t,e)),1!==m.length||b||r(s)},c.prototype.run=function(){this.fun.apply(null,this.array)},d.title="browser",d.browser=!0,d.env={},d.argv=[],d.version="",d.versions={},d.on=l,d.addListener=l,d.once=l,d.off=l,d.removeListener=l,d.removeAllListeners=l,d.emit=l,d.prependListener=l,d.prependOnceListener=l,d.listeners=function(t){return[]},d.binding=function(t){throw new Error("process.binding is not supported")},d.cwd=function(){return"/"},d.chdir=function(t){throw new Error("process.chdir is not supported")},d.umask=function(){return 0}},function(t,e,n){"use strict";n(22).polyfill()},function(t,e,n){"use strict";function o(t,e){if(void 0===t||null===t)throw new TypeError("Cannot convert first argument to object");for(var n=Object(t),o=1;o<arguments.length;o++){var r=arguments[o];if(void 0!==r&&null!==r)for(var i=Object.keys(Object(r)),a=0,s=i.length;a<s;a++){var c=i[a],l=Object.getOwnPropertyDescriptor(r,c);void 0!==l&&l.enumerable&&(n[c]=r[c])}}return n}function r(){Object.assign||Object.defineProperty(Object,"assign",{enumerable:!1,configurable:!0,writable:!0,value:o})}t.exports={assign:o,polyfill:r}},function(t,e,n){"use strict";Object.defineProperty(e,"__esModule",{value:!0});var o=n(24),r=n(6),i=n(5),a=n(36),s=function(){for(var t=[],e=0;e<arguments.length;e++)t[e]=arguments[e];if("undefined"!=typeof window){var n=a.getOpts.apply(void 0,t);return new Promise(function(t,e){i.default.promise={resolve:t,reject:e},o.default(n),setTimeout(function(){r.openModal()})})}};s.close=r.onAction,s.getState=r.getState,s.setActionValue=i.setActionValue,s.stopLoading=r.stopLoading,s.setDefaults=a.setDefaults,e.default=s},function(t,e,n){"use strict";Object.defineProperty(e,"__esModule",{value:!0});var o=n(1),r=n(0),i=r.default.MODAL,a=n(4),s=n(34),c=n(35),l=n(1);e.init=function(t){o.getNode(i)||(document.body||l.throwErr("You can only use SweetAlert AFTER the DOM has loaded!"),s.default(),a.default()),a.initModalContent(t),c.default(t)},e.default=e.init},function(t,e,n){"use strict";Object.defineProperty(e,"__esModule",{value:!0});var o=n(0),r=o.default.MODAL;e.modalMarkup='\n  <div class="'+r+'" role="dialog" aria-modal="true"></div>',e.default=e.modalMarkup},function(t,e,n){"use strict";Object.defineProperty(e,"__esModule",{value:!0});var o=n(0),r=o.default.OVERLAY,i='<div \n    class="'+r+'"\n    tabIndex="-1">\n  </div>';e.default=i},function(t,e,n){"use strict";Object.defineProperty(e,"__esModule",{value:!0});var o=n(0),r=o.default.ICON;e.errorIconMarkup=function(){var t=r+"--error",e=t+"__line";return'\n    <div class="'+t+'__x-mark">\n      <span class="'+e+" "+e+'--left"></span>\n      <span class="'+e+" "+e+'--right"></span>\n    </div>\n  '},e.warningIconMarkup=function(){var t=r+"--warning";return'\n    <span class="'+t+'__body">\n      <span class="'+t+'__dot"></span>\n    </span>\n  '},e.successIconMarkup=function(){var t=r+"--success";return'\n    <span class="'+t+"__line "+t+'__line--long"></span>\n    <span class="'+t+"__line "+t+'__line--tip"></span>\n\n    <div class="'+t+'__ring"></div>\n    <div class="'+t+'__hide-corners"></div>\n  '}},function(t,e,n){"use strict";Object.defineProperty(e,"__esModule",{value:!0});var o=n(0),r=o.default.CONTENT;e.contentMarkup='\n  <div class="'+r+'">\n\n  </div>\n'},function(t,e,n){"use strict";Object.defineProperty(e,"__esModule",{value:!0});var o=n(0),r=o.default.BUTTON_CONTAINER,i=o.default.BUTTON,a=o.default.BUTTON_LOADER;e.buttonMarkup='\n  <div class="'+r+'">\n\n    <button\n      class="'+i+'"\n    ></button>\n\n    <div class="'+a+'">\n      <div></div>\n      <div></div>\n      <div></div>\n    </div>\n\n  </div>\n'},function(t,e,n){"use strict";Object.defineProperty(e,"__esModule",{value:!0});var o=n(4),r=n(2),i=n(0),a=i.default.ICON,s=i.default.ICON_CUSTOM,c=["error","warning","success","info"],l={error:r.errorIconMarkup(),warning:r.warningIconMarkup(),success:r.successIconMarkup()},u=function(t,e){var n=a+"--"+t;e.classList.add(n);var o=l[t];o&&(e.innerHTML=o)},f=function(t,e){e.classList.add(s);var n=document.createElement("img");n.src=t,e.appendChild(n)},d=function(t){if(t){var e=o.injectElIntoModal(r.iconMarkup);c.includes(t)?u(t,e):f(t,e)}};e.default=d},function(t,e,n){"use strict";Object.defineProperty(e,"__esModule",{value:!0});var o=n(2),r=n(4),i=function(t){navigator.userAgent.includes("AppleWebKit")&&(t.style.display="none",t.offsetHeight,t.style.display="")};e.initTitle=function(t){if(t){var e=r.injectElIntoModal(o.titleMarkup);e.textContent=t,i(e)}},e.initText=function(t){if(t){var e=document.createDocumentFragment();t.split("\n").forEach(function(t,n,o){e.appendChild(document.createTextNode(t)),n<o.length-1&&e.appendChild(document.createElement("br"))});var n=r.injectElIntoModal(o.textMarkup);n.appendChild(e),i(n)}}},function(t,e,n){"use strict";Object.defineProperty(e,"__esModule",{value:!0});var o=n(1),r=n(4),i=n(0),a=i.default.BUTTON,s=i.default.DANGER_BUTTON,c=n(3),l=n(2),u=n(6),f=n(5),d=function(t,e,n){var r=e.text,i=e.value,d=e.className,p=e.closeModal,m=o.stringToNode(l.buttonMarkup),b=m.querySelector("."+a),v=a+"--"+t;if(b.classList.add(v),d){(Array.isArray(d)?d:d.split(" ")).filter(function(t){return t.length>0}).forEach(function(t){b.classList.add(t)})}n&&t===c.CONFIRM_KEY&&b.classList.add(s),b.textContent=r;var g={};return g[t]=i,f.setActionValue(g),f.setActionOptionsFor(t,{closeModal:p}),b.addEventListener("click",function(){return u.onAction(t)}),m},p=function(t,e){var n=r.injectElIntoModal(l.footerMarkup);for(var o in t){var i=t[o],a=d(o,i,e);i.visible&&n.appendChild(a)}0===n.children.length&&n.remove()};e.default=p},function(t,e,n){"use strict";Object.defineProperty(e,"__esModule",{value:!0});var o=n(3),r=n(4),i=n(2),a=n(5),s=n(6),c=n(0),l=c.default.CONTENT,u=function(t){t.addEventListener("input",function(t){var e=t.target,n=e.value;a.setActionValue(n)}),t.addEventListener("keyup",function(t){if("Enter"===t.key)return s.onAction(o.CONFIRM_KEY)}),setTimeout(function(){t.focus(),a.setActionValue("")},0)},f=function(t,e,n){var o=document.createElement(e),r=l+"__"+e;o.classList.add(r);for(var i in n){var a=n[i];o[i]=a}"input"===e&&u(o),t.appendChild(o)},d=function(t){if(t){var e=r.injectElIntoModal(i.contentMarkup),n=t.element,o=t.attributes;"string"==typeof n?f(e,n,o):e.appendChild(n)}};e.default=d},function(t,e,n){"use strict";Object.defineProperty(e,"__esModule",{value:!0});var o=n(1),r=n(2),i=function(){var t=o.stringToNode(r.overlayMarkup);document.body.appendChild(t)};e.default=i},function(t,e,n){"use strict";Object.defineProperty(e,"__esModule",{value:!0});var o=n(5),r=n(6),i=n(1),a=n(3),s=n(0),c=s.default.MODAL,l=s.default.BUTTON,u=s.default.OVERLAY,f=function(t){t.preventDefault(),v()},d=function(t){t.preventDefault(),g()},p=function(t){if(o.default.isOpen)switch(t.key){case"Escape":return r.onAction(a.CANCEL_KEY)}},m=function(t){if(o.default.isOpen)switch(t.key){case"Tab":return f(t)}},b=function(t){if(o.default.isOpen)return"Tab"===t.key&&t.shiftKey?d(t):void 0},v=function(){var t=i.getNode(l);t&&(t.tabIndex=0,t.focus())},g=function(){var t=i.getNode(c),e=t.querySelectorAll("."+l),n=e.length-1,o=e[n];o&&o.focus()},h=function(t){t[t.length-1].addEventListener("keydown",m)},w=function(t){t[0].addEventListener("keydown",b)},y=function(){var t=i.getNode(c),e=t.querySelectorAll("."+l);e.length&&(h(e),w(e))},x=function(t){if(i.getNode(u)===t.target)return r.onAction(a.CANCEL_KEY)},_=function(t){var e=i.getNode(u);e.removeEventListener("click",x),t&&e.addEventListener("click",x)},k=function(t){o.default.timer&&clearTimeout(o.default.timer),t&&(o.default.timer=window.setTimeout(function(){return r.onAction(a.CANCEL_KEY)},t))},O=function(t){t.closeOnEsc?document.addEventListener("keyup",p):document.removeEventListener("keyup",p),t.dangerMode?v():g(),y(),_(t.closeOnClickOutside),k(t.timer)};e.default=O},function(t,e,n){"use strict";Object.defineProperty(e,"__esModule",{value:!0});var o=n(1),r=n(3),i=n(37),a=n(38),s={title:null,text:null,icon:null,buttons:r.defaultButtonList,content:null,className:null,closeOnClickOutside:!0,closeOnEsc:!0,dangerMode:!1,timer:null},c=Object.assign({},s);e.setDefaults=function(t){c=Object.assign({},s,t)};var l=function(t){var e=t&&t.button,n=t&&t.buttons;return void 0!==e&&void 0!==n&&o.throwErr("Cannot set both 'button' and 'buttons' options!"),void 0!==e?{confirm:e}:n},u=function(t){return o.ordinalSuffixOf(t+1)},f=function(t,e){o.throwErr(u(e)+" argument ('"+t+"') is invalid")},d=function(t,e){var n=t+1,r=e[n];o.isPlainObject(r)||void 0===r||o.throwErr("Expected "+u(n)+" argument ('"+r+"') to be a plain object")},p=function(t,e){var n=t+1,r=e[n];void 0!==r&&o.throwErr("Unexpected "+u(n)+" argument ("+r+")")},m=function(t,e,n,r){var i=typeof e,a="string"===i,s=e instanceof Element;if(a){if(0===n)return{text:e};if(1===n)return{text:e,title:r[0]};if(2===n)return d(n,r),{icon:e};f(e,n)}else{if(s&&0===n)return d(n,r),{content:e};if(o.isPlainObject(e))return p(n,r),e;f(e,n)}};e.getOpts=function(){for(var t=[],e=0;e<arguments.length;e++)t[e]=arguments[e];var n={};t.forEach(function(e,o){var r=m(0,e,o,t);Object.assign(n,r)});var o=l(n);n.buttons=r.getButtonListOpts(o),delete n.button,n.content=i.getContentOpts(n.content);var u=Object.assign({},s,c,n);return Object.keys(u).forEach(function(t){a.DEPRECATED_OPTS[t]&&a.logDeprecation(t)}),u}},function(t,e,n){"use strict";Object.defineProperty(e,"__esModule",{value:!0});var o=n(1),r={element:"input",attributes:{placeholder:""}};e.getContentOpts=function(t){var e={};return o.isPlainObject(t)?Object.assign(e,t):t instanceof Element?{element:t}:"input"===t?r:null}},function(t,e,n){"use strict";Object.defineProperty(e,"__esModule",{value:!0}),e.logDeprecation=function(t){var n=e.DEPRECATED_OPTS[t],o=n.onlyRename,r=n.replacement,i=n.subOption,a=n.link,s=o?"renamed":"deprecated",c='SweetAlert warning: "'+t+'" option has been '+s+".";if(r){c+=" Please use"+(i?' "'+i+'" in ':" ")+'"'+r+'" instead.'}var l="https://sweetalert.js.org";c+=a?" More details: "+l+a:" More details: "+l+"/guides/#upgrading-from-1x",console.warn(c)},e.DEPRECATED_OPTS={type:{replacement:"icon",link:"/docs/#icon"},imageUrl:{replacement:"icon",link:"/docs/#icon"},customClass:{replacement:"className",onlyRename:!0,link:"/docs/#classname"},imageSize:{},showCancelButton:{replacement:"buttons",link:"/docs/#buttons"},showConfirmButton:{replacement:"button",link:"/docs/#button"},confirmButtonText:{replacement:"button",link:"/docs/#button"},confirmButtonColor:{},cancelButtonText:{replacement:"buttons",link:"/docs/#buttons"},closeOnConfirm:{replacement:"button",subOption:"closeModal",link:"/docs/#button"},closeOnCancel:{replacement:"buttons",subOption:"closeModal",link:"/docs/#buttons"},showLoaderOnConfirm:{replacement:"buttons"},animation:{},inputType:{replacement:"content",link:"/docs/#content"},inputValue:{replacement:"content",link:"/docs/#content"},inputPlaceholder:{replacement:"content",link:"/docs/#content"},html:{replacement:"content",link:"/docs/#content"},allowEscapeKey:{replacement:"closeOnEsc",onlyRename:!0,link:"/docs/#closeonesc"},allowClickOutside:{replacement:"closeOnClickOutside",onlyRename:!0,link:"/docs/#closeonclickoutside"}}}])});
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(13).setImmediate, __webpack_require__(13).clearImmediate))
 
 /***/ }),
-/* 275 */
+/* 274 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -69187,13 +66682,13 @@ if (false) {
 }
 
 /***/ }),
-/* 276 */
+/* 275 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(4)
 /* script */
-var __vue_script__ = __webpack_require__(277)
+var __vue_script__ = __webpack_require__(276)
 /* template */
 var __vue_template__ = null
 /* template functional */
@@ -69234,12 +66729,12 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 277 */
+/* 276 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_Dashboard_CourseFeatureModal__ = __webpack_require__(278);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_Dashboard_CourseFeatureModal__ = __webpack_require__(277);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_Dashboard_CourseFeatureModal___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__components_Dashboard_CourseFeatureModal__);
 
 
@@ -69266,15 +66761,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 278 */
+/* 277 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(4)
 /* script */
-var __vue_script__ = __webpack_require__(279)
+var __vue_script__ = __webpack_require__(278)
 /* template */
-var __vue_template__ = __webpack_require__(287)
+var __vue_template__ = __webpack_require__(286)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -69313,16 +66808,16 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 279 */
+/* 278 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__CourseFeature__ = __webpack_require__(280);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__CourseFeature__ = __webpack_require__(279);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__CourseFeature___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__CourseFeature__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__NewCourseFeature__ = __webpack_require__(283);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__NewCourseFeature__ = __webpack_require__(282);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__NewCourseFeature___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__NewCourseFeature__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_collection__ = __webpack_require__(286);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_collection__ = __webpack_require__(285);
 //
 //
 //
@@ -69412,15 +66907,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 280 */
+/* 279 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(4)
 /* script */
-var __vue_script__ = __webpack_require__(281)
+var __vue_script__ = __webpack_require__(280)
 /* template */
-var __vue_template__ = __webpack_require__(282)
+var __vue_template__ = __webpack_require__(281)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -69459,7 +66954,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 281 */
+/* 280 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -69544,7 +67039,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 282 */
+/* 281 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -69651,15 +67146,15 @@ if (false) {
 }
 
 /***/ }),
-/* 283 */
+/* 282 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(4)
 /* script */
-var __vue_script__ = __webpack_require__(284)
+var __vue_script__ = __webpack_require__(283)
 /* template */
-var __vue_template__ = __webpack_require__(285)
+var __vue_template__ = __webpack_require__(284)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -69698,7 +67193,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 284 */
+/* 283 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -69748,7 +67243,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 285 */
+/* 284 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -69807,7 +67302,7 @@ if (false) {
 }
 
 /***/ }),
-/* 286 */
+/* 285 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -69838,7 +67333,7 @@ if (false) {
 });
 
 /***/ }),
-/* 287 */
+/* 286 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -69951,13 +67446,13 @@ if (false) {
 }
 
 /***/ }),
-/* 288 */
+/* 287 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(4)
 /* script */
-var __vue_script__ = __webpack_require__(289)
+var __vue_script__ = __webpack_require__(288)
 /* template */
 var __vue_template__ = null
 /* template functional */
@@ -69998,7 +67493,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 289 */
+/* 288 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

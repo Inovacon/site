@@ -15598,6 +15598,8 @@ h6 {
 
 .box-shadow {
   -webkit-box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+  -ms-box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+  -o-box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
 }
 
@@ -15735,15 +15737,23 @@ h6 {
 
 .navbar {
   -webkit-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  -ms-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  -o-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
 }
 
 .navbar-nav .nav-link {
-  -webkit-transition: box-shadow 0.3s;
   -webkit-transition: -webkit-box-shadow 0.3s;
   transition: -webkit-box-shadow 0.3s;
   transition: box-shadow 0.3s;
   transition: box-shadow 0.3s, -webkit-box-shadow 0.3s;
+}
+
+@media screen and (prefers-reduced-motion: reduce) {
+  .navbar-nav .nav-link {
+    -webkit-transition: none;
+    transition: none;
+  }
 }
 
 .navbar-nav.ml-auto .nav-link:hover {
@@ -15808,6 +15818,8 @@ h6 {
 
 .card {
   -webkit-box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+  -ms-box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+  -o-box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
 }
 
@@ -15859,6 +15871,13 @@ h6 {
   transition: all 0.3s;
 }
 
+@media screen and (prefers-reduced-motion: reduce) {
+  .hidden-overlay {
+    -webkit-transition: none;
+    transition: none;
+  }
+}
+
 .hidden-overlay .overlay-content {
   margin-top: 25%;
   color: #ffffff;
@@ -15895,6 +15914,8 @@ h6 {
   transition: all 0.3s;
   min-height: 100vh;
   -webkit-box-shadow: inset -2px 0 5px rgba(0, 0, 0, 0.5);
+  -ms-box-shadow: inset -2px 0 5px rgba(0, 0, 0, 0.5);
+  -o-box-shadow: inset -2px 0 5px rgba(0, 0, 0, 0.5);
   box-shadow: inset -2px 0 5px rgba(0, 0, 0, 0.5);
 }
 

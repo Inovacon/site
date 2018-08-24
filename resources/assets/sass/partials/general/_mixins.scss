@@ -1,48 +1,36 @@
-@mixin transform($property) {
-    -webkit-transform: $property;
-    -moz-transform: $property;
-    -ms-transform: $property;
-    -o-transform: $property;
-    transform: $property;
+@mixin css3-prefix($property, $value) {
+  -webkit-#{$property}: #{$value};
+   -khtml-#{$property}: #{$value};
+     -moz-#{$property}: #{$value};
+      -ms-#{$property}: #{$value};
+       -o-#{$property}: #{$value};
+          #{$property}: #{$value};
 }
 
-@mixin transition($property...) {
-    -webkit-transition: $property;
-    -moz-transition: $property;
-    -o-transition: $property;
-    transition: $property;
+@mixin transform($value) {
+    @include css3-prefix('transform', $value);
 }
 
-@mixin background-size($property) {
-    -webkit-background-size: $property;
-    -moz-background-size: $property;
-    -o-background-size: $property;
-    background-size: $property;
+@mixin box-shadow($value) {
+    @include css3-prefix('box-shadow', $value);
 }
 
-@mixin box-shadow($property...) {
-    -webkit-box-shadow: $property;
-    -moz-box-shadow: $property;
-    box-shadow: $property; 
+@mixin background-size($value) {
+    @include css3-prefix('background-size', $value);
 }
 
-@mixin border-radius($property) {
-    -webkit-border-radius: $property;
-    -moz-border-radius: $property;
-    border-radius: $property;
+@mixin border-radius($value) {
+    @include css3-prefix('border-radius', $value);
 }
 
-@mixin animation($property) {
-    -webkit-animation: $property;
-    -moz-animation: $property;
-    -o-animation: $property;
-    animation: $property; 
+@mixin animation($value) {
+    @include css3-prefix('animation', $value);
 }
 
-@mixin bg-linear-gradient($property1, $property2) {
-    background: -webkit-linear-gradient($property1, $property2);
-    background: -moz-linear-gradient($property1, $property2);
-    background: -ms-linear-gradient($property1, $property2);
-    background: -o-linear-gradient($property1, $property2);
-    background: linear-gradient($property1, $property2);
+@mixin bg-linear-gradient($value1, $value2) {
+    background: -webkit-linear-gradient($value1, $value2);
+    background: -moz-linear-gradient($value1, $value2);
+    background: -ms-linear-gradient($value1, $value2);
+    background: -o-linear-gradient($value1, $value2);
+    background: linear-gradient($value1, $value2);
 }
