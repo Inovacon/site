@@ -35,11 +35,13 @@ class LessonController extends Controller
             'end_time' => 'required',
         ]);
 
-        $team->lessons()->create(
+        $lesson = $team->lessons()->create(
             $request->only(['date', 'start_time', 'end_time'])
         );
 
-        return back()->with('flash', 'Aula criada com sucesso.');
+        return redirect()
+            ->route('dashboard.courses.lessons.show', [$team, $lesson])
+            ->with('flash', 'Aula criada com sucesso.');
     }
 
     public function edit(Team $team, Lesson $lesson)
@@ -57,7 +59,9 @@ class LessonController extends Controller
 
         $lesson->update($request->only(['date', 'start_time', 'end_time']));
 
-        return back()->with('flash', 'Aula atualizada com sucesso.');
+        return redirect()
+            ->route('dashboard.courses.lessons.show', [$teamId, $lesson])
+            ->with('flash', 'Aula atualizada com sucesso.');
     }
 
     public function destroy($teamId, Lesson $lesson)

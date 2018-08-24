@@ -25,6 +25,8 @@ class ScheduleController extends Controller
             $first->addDays(1);
         }
 
-        return back();
+        return redirect()
+            ->route('dashboard.courses.lessons.index', $team)
+            ->with('flash', 'Cronograma de aulas criado com sucesso.');
     }
 }

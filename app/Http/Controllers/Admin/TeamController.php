@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Team;
 use App\Course;
 use App\Http\Controllers\Controller;
+use App\Team;
 use Illuminate\Http\Request;
 
 class TeamController extends Controller
@@ -35,14 +35,15 @@ class TeamController extends Controller
         ]);
 
         $times = abs($request->times) ?: 1;
+        $attributes = $request->only(['minimum_students', 'maximum_students']);
 
         while ($times--) {
-            $course->teams()->create(
-                $request->only(['minimum_students', 'maximum_students'])
-            );
+            $course->teams()->create($attributes);
         }
 
-        return back()->with('flash', 'Turma(s) criadas com sucesso.');
+        return redirect()
+            ->route('dashboard.courses.teams.index', $course)
+            ->with('flash', 'Turma(s) criadas com sucesso.');
     }
 
     public function edit(Course $course, Team $team)
@@ -57,8 +58,12 @@ class TeamController extends Controller
             'maximum_students' => 'required',
         ]);
 
-        $team->update($request->only('minimum_students', 'maximum_students'));
+        $team->update(
+            $request->only('minimum_students', 'maximum_students')
+        );
 
-        return back()->with('flash', 'Turma atualizada com sucesso.');
+        return redirect()
+            ->route('dashboard.courses.teams.show', [$courseId, $team])
+            ->with('flash', 'Turma atualizada com sucesso.');
     }
 }
