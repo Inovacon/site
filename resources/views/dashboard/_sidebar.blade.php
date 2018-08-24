@@ -1,12 +1,14 @@
 <nav id="sidebar">
     <ul class="list-unstyled components">
-        <li>
-            <a href="#pageSubmenu" class="text-white">
-                <i class="fas fa-user fa-fw fa-2x mr-3"></i> {{ Auth::user()->name }}
-            </a>
-        </li>
+        @auth
+            <li>
+                <a href="#pageSubmenu" class="text-white">
+                    <i class="fas fa-user fa-fw fa-2x mr-3"></i> {{ Auth::user()->name }}
+                </a>
+            </li>
 
-        <hr class="bg-custom-gray">
+            <hr class="bg-custom-gray">
+        @endauth
 
         <li class="{{ request()->routeIs('dashboard.index') ? 'active' : '' }}">
             <a href="{{ route('dashboard.index') }}">

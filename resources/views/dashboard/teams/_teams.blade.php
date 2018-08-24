@@ -2,7 +2,6 @@
     <thead>
         <tr>
             <th>Nome</th>
-            <th>Curso</th>
             <th>Área</th>
             <th></th>
         </tr>
@@ -14,11 +13,6 @@
                 <td>
                     <a href="{{ route('dashboard.courses.teams.show', [$course, $team]) }}"
                        class="font-weight-bold">Turma {{ $team->id }}</a>
-                </td>
-                <td>
-                    <a href="{{ route('dashboard.courses.show', $course) }}" class="font-weight-bold">
-                        {{ str_limit($course->name, 40) }}
-                    </a>
                 </td>
                 <td>
                     {!! $course->occupationArea->nameWithIcon !!}
