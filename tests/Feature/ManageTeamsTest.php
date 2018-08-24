@@ -122,6 +122,20 @@ class ManageTeamsTest extends TestCase
     }
 
     /** @test */
+    function when_creating_more_than_one_team_the_number_sign_is_ignored()
+    {
+        $this->signIn(['is_collaborator' => true]);
+
+        $team = make(Team::class);
+
+        $this->post(route('dashboard.courses.teams.store', $team->course),
+            $team->toArray() + ['times' => -3]
+        );
+
+        $this->assertEquals(3, Team::count());
+    }
+
+    /** @test */
     function a_collaborator_can_update_a_team()
     {
         $this->withoutExceptionHandling()
