@@ -9,8 +9,8 @@
 
     <div class="row mt-3">
         <div class="col-md-12">
-            <div class="card mb-5 px-sm-4 pb-sm-2">
-                <div class="card-body">
+            <div class="card mb-5">
+                <div class="card-body p-4">
                     <form method="POST" action="{{ route('dashboard.courses.store') }}" enctype="multipart/form-data">
                         @include('dashboard.courses._form')
                     </form>

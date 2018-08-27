@@ -1,66 +1,88 @@
 @csrf
 
-<d-file-input name="image_path"
-              label="Imagem"
-              placeholder="Escolha uma imagem"
-              :required="false"></d-file-input>
+@include('dashboard.form.file-input', [
+    'name' => 'image_path',
+    'label' => 'Imagem',
+    'placeholder' => 'Escolha uma imagem',
+    'required' => false
+])
 
-<d-select name="occupation_area_id"
-          label="Área de atuação"
-          placeholder="Selecione uma área de atuação...">
+<div class="row">
+    <div class="col-md-6">
+        @include('dashboard.form.select', [
+            'name' => 'occupation_area_id',
+            'placeholder' => 'Selecione uma área de atuação...',
+            'label' => 'Área de atuação',
+            'options' => $occupationAreas,
+            'model' => $course
+        ])
+    </div>
 
-    @include('dashboard.courses._options', [
-        'options' => $occupationAreas,
-        'name' => 'occupation_area_id'
-    ])
-</d-select>
+    <div class="col-md-6">
+        @include('dashboard.form.select', [
+            'name' => 'course_type_id',
+            'placeholder' => 'Selecione um tipo...',
+            'label' => 'Tipo',
+            'options' => $courseTypes,
+            'model' => $course
+        ])
+    </div>
+</div>
 
-<d-select name="course_type_id"
-          label="Tipo"
-          placeholder="Selecione um tipo...">
+<div class="row">
+    <div class="col-md-6">
+        @include('dashboard.form.select', [
+            'name' => 'modality_id',
+            'placeholder' => 'Selecione uma modalidade...',
+            'label' => 'Modalidade',
+            'options' => $modalities,
+            'model' => $course
+        ])
+    </div>
 
-    @include('dashboard.courses._options', [
-        'options' => $courseTypes,
-        'name' => 'course_type_id'
-    ])
-</d-select>
+    <div class="col-md-6">
+        @include('dashboard.form.select', [
+            'name' => 'target_audience_id',
+            'placeholder' => 'Selecione um público alvo...',
+            'label' => 'Público alvo',
+            'options' => $targetAudiences,
+            'model' => $course
+        ])
+    </div>
+</div>
 
-<d-select name="modality_id"
-          label="Modalidade"
-          placeholder="Selecione uma modalidade...">
+@include('dashboard.form.input', [
+    'name' => 'name',
+    'label' => 'Nome',
+    'value' => old('name', $course->name)
+])
 
-    @include('dashboard.courses._options', [
-        'options' => $modalities,
-        'name' => 'modality_id'
-    ])
-</d-select>
+@include('dashboard.form.textarea', [
+    'name' => 'description',
+    'label' => 'Descrição',
+    'value' => old('description', $course->description)
+])
 
-<d-select name="target_audience_id"
-          label="Público alvo"
-          placeholder="Selecione um público alvo...">
+<div class="row">
+    <div class="col-md-6">
+        @include('dashboard.form.input', [
+            'name' => 'price',
+            'type' => 'number',
+            'label' => 'Preço',
+            'value' => old('price', $course->price)
+        ])
+    </div>
 
-    @include('dashboard.courses._options', [
-        'options' => $targetAudiences,
-        'name' => 'target_audience_id'
-    ])
-</d-select>
+    <div class="col-md-6">
+        @include('dashboard.form.input', [
+            'name' => 'hours',
+            'type' => 'number',
+            'label' => 'Carga Horária',
+            'value' => old('hours', $course->hours)
+        ])
+    </div>
+</div>
 
-<d-input name="name"
-         label="Nome"
-         value="{{ old('name', $course->name) }}"></d-input>
-
-<d-textarea name="description"
-            label="Descrição"
-            value="{{ old('description', $course->description) }}"></d-textarea>
-
-<d-input name="price"
-         type="number"
-         label="Preço"
-         value="{{ old('price', $course->price) }}"></d-input>
-
-<d-input name="hours"
-         type="number"
-         label="Carga Horária"
-         value="{{ old('hours', $course->hours) }}"></d-input>
-
-<d-button></d-button>
+@component('dashboard.form.button')
+    Salvar
+@endcomponent

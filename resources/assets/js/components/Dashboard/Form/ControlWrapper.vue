@@ -1,6 +1,6 @@
 <template>
-    <div class="row border-bottom py-4 mx-0">
-        <label class="col-md-3 pl-0 col-form-label font-weight-semi-bold text-gray-dark"
+    <div class="form-group row mx-0">
+        <label class="col-md-3 pl-0 col-form-label text-gray-dark"
                :for="htmlId"
                v-text="label"></label>
 

@@ -17,8 +17,8 @@
                 </ul>
             @endif
 
-            <div class="card mb-5 px-sm-4 pb-sm-2">
-                <div class="card-body">
+            <div class="card mb-5">
+                <div class="card-body p-4">
                     <form method="POST" action="{{ route('dashboard.collaborators.store') }}">
                         @include('dashboard.collaborators._form')
                     </form>

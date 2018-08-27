@@ -1,18 +1,26 @@
 @csrf
 
-<d-input name="minimum_students"
-         label="Mínimo de alunos"
-         type="number"
-         value="{{ old('minimum_students', $team->minimum_students) }}"></d-input>
+@include('dashboard.form.input', [
+    'name' => 'minimum_students',
+    'type' => 'number',
+    'label' => 'Mínimo de alunos',
+    'value' => old('minimum_students', $team->minimum_students)
+])
 
-<d-input name="maximum_students"
-         label="Máximo de alunos"
-         type="number"
-         value="{{ old('maximum_students', $team->maximum_students) }}"></d-input>
+@include('dashboard.form.input', [
+    'name' => 'maximum_students',
+    'type' => 'number',
+    'label' => 'Máximo de alunos',
+    'value' => old('maximum_students', $team->maximum_students)
+])
 
-<d-input name="times"
-         label="Quantidade"
-         type="number"
-         :value="1"></d-input>
+@include('dashboard.form.input', [
+    'name' => 'times',
+    'type' => 'number',
+    'label' => 'Quantidade',
+    'value' => 1
+])
 
-<d-button></d-button>
+@component('dashboard.form.button')
+    Salvar
+@endcomponent
