@@ -64605,8 +64605,118 @@ module.exports = Component.exports
 
 
 /***/ }),
+<<<<<<< HEAD
 /* 261 */
 =======
+=======
+/* 242 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: {
+        title: { required: true },
+        fade: { default: false },
+        show: { default: false },
+        active: { default: false }
+    },
+
+    data: function data() {
+        return {
+            id: ''
+        };
+    },
+
+
+    computed: {
+        classes: function classes() {
+            return {
+                'fade': this.fade,
+                'active': this.active,
+                'show': this.show
+            };
+        }
+    }
+});
+
+/***/ }),
+/* 243 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      staticClass: "tab-pane",
+      class: _vm.classes,
+      attrs: { role: "tabpanel", id: _vm.id }
+    },
+    [_vm._t("default")],
+    2
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-2505f4f6", module.exports)
+  }
+}
+
+/***/ }),
+/* 244 */,
+/* 245 */,
+/* 246 */,
+/* 247 */,
+/* 248 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(249);
+
+
+/***/ }),
+/* 249 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__dependencies__ = __webpack_require__(150);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__setup__ = __webpack_require__(225);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components__ = __webpack_require__(231);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__components__);
+
+
+
+
+Vue.component('d-select', __webpack_require__(258));
+Vue.component('d-date-input', __webpack_require__(264));
+Vue.component('secure-delete-button', __webpack_require__(272));
+
+Vue.component('course-details-view', __webpack_require__(276));
+Vue.component('lesson-special-form', __webpack_require__(288));
+
+new Vue({
+    el: '#root'
+});
+
+/***/ }),
+>>>>>>> ajustes
 /* 250 */,
 /* 251 */,
 /* 252 */
@@ -64653,16 +64763,15 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "form-group row mx-0" }, [
+  return _c("div", { staticClass: "form-group" }, [
     _c("label", {
-      staticClass: "col-md-3 pl-0 col-form-label text-gray-dark",
+      staticClass: "font-weight-bold",
       attrs: { for: _vm.htmlId },
       domProps: { textContent: _vm._s(_vm.label) }
     }),
     _vm._v(" "),
     _c(
       "div",
-      { staticClass: "col-md-6" },
       [
         _vm._t("default"),
         _vm._v(" "),
@@ -64695,9 +64804,193 @@ if (false) {
 /* 255 */,
 /* 256 */,
 /* 257 */,
-/* 258 */,
-/* 259 */,
-/* 260 */,
+/* 258 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(4)
+/* script */
+var __vue_script__ = __webpack_require__(259)
+/* template */
+var __vue_template__ = __webpack_require__(260)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\Dashboard\\Form\\Select.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-c9b40e36", Component.options)
+  } else {
+    hotAPI.reload("data-v-c9b40e36", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 259 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ControlWrapper__ = __webpack_require__(148);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ControlWrapper___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__ControlWrapper__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_form_control__ = __webpack_require__(149);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: {
+        value: { default: function _default() {
+                return [];
+            } },
+        multiple: { default: false }
+    },
+
+    data: function data() {
+        return {
+            selected: this.value
+        };
+    },
+
+
+    components: { ControlWrapper: __WEBPACK_IMPORTED_MODULE_0__ControlWrapper___default.a },
+
+    mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins_form_control__["a" /* default */]]
+});
+
+/***/ }),
+/* 260 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "control-wrapper",
+    {
+      attrs: {
+        "html-id": _vm.htmlId,
+        label: _vm.label,
+        help: _vm.help,
+        "help-classes": _vm.helpClasses
+      }
+    },
+    [
+      _c(
+        "select",
+        {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.selected,
+              expression: "selected"
+            }
+          ],
+          staticClass: "form-control",
+          attrs: {
+            name: _vm.name,
+            id: _vm.htmlId,
+            required: _vm.required,
+            multiple: _vm.multiple
+          },
+          on: {
+            change: [
+              function($event) {
+                var $$selectedVal = Array.prototype.filter
+                  .call($event.target.options, function(o) {
+                    return o.selected
+                  })
+                  .map(function(o) {
+                    var val = "_value" in o ? o._value : o.value
+                    return val
+                  })
+                _vm.selected = $event.target.multiple
+                  ? $$selectedVal
+                  : $$selectedVal[0]
+              },
+              function($event) {
+                _vm.$emit("input", _vm.selected)
+              }
+            ]
+          }
+        },
+        [
+          !!_vm.placeholder
+            ? _c("option", {
+                attrs: { value: "" },
+                domProps: { textContent: _vm._s(_vm.placeholder) }
+              })
+            : _vm._e(),
+          _vm._v(" "),
+          _vm._t("default")
+        ],
+        2
+      )
+    ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-c9b40e36", module.exports)
+  }
+}
+
+/***/ }),
 /* 261 */,
 /* 262 */,
 /* 263 */,

@@ -1,5 +1,7 @@
 @csrf
 
+<br>
+
 <lesson-special-form inline-template>
     <div>
         <d-select name="week_days[]"
@@ -16,24 +18,44 @@
             <option value="0">Domingo</option>
         </d-select>
 
-        <d-date-input name="first_day"
-                      label="Primeiro Dia"
-                      placeholder="dd/mm/aaaa"
-                      :disabled-dates="disabledDates"></d-date-input>
+        <div class="row">
+            <div class="col-md-6">
+                <d-date-input name="first_day"
+                              label="Primeiro Dia"
+                              placeholder="dd/mm/aaaa"
+                              :disabled-dates="disabledDates"></d-date-input>
+            </div>
 
-        <d-date-input name="last_day"
-                      label="Último Dia"
-                      placeholder="dd/mm/aaaa"
-                      :disabled-dates="disabledDates"></d-date-input>
+            <div class="col-md-6">
+                <d-date-input name="last_day"
+                              label="Último Dia"
+                              placeholder="dd/mm/aaaa"
+                              :disabled-dates="disabledDates"></d-date-input>
+            </div>
+        </div>
 
-        <d-input name="start_time"
-                 label="Hora de Início"
-                 type="time"></d-input>
+        <div class="row">
+            <div class="col-md-6">
+                @include('dashboard.form.input', [
+                    'name' => 'start_time',
+                    'type' => 'time',
+                    'label' => 'Hora de Início',
+                    'value' => old('start_time', $lesson->start_time)
+                ])
+            </div>
 
-        <d-input name="end_time"
-                 label="Hora de Término"
-                 type="time"></d-input>
+            <div class="col-md-6">
+                @include('dashboard.form.input', [
+                    'name' => 'end_time',
+                    'type' => 'time',
+                    'label' => 'Hora de Término',
+                    'value' => old('end_time', $lesson->end_time)
+                ])
+            </div>
+        </div>
 
-        <d-button></d-button>
+        @component('dashboard.form.button')
+            Salvar
+        @endcomponent
     </div>
 </lesson-special-form>
