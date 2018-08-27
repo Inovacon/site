@@ -3,7 +3,7 @@
         <img class="card-img-top" src="{{ $course->publicImagePath }}" width="250" height="145">
         <div class="ribbon ribbon-left font-weight-600">
             R$ {{ $course->price }}
-            <span class="ribbon-hide"><i class="fas fa-clock"></i> {{ $course->hours }}h</span>
+            <span class="ribbon-hide"><i class="fas fa-user-clock"></i> {{ $course->hours }}h</span>
         </div>
     </div>
 

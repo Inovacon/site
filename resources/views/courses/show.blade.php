@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Nome do Curso - Inovacon')
+@section('title', $course->name . ' | Inovacon')
 
 @section('content')
     <div id="course" class="container">
@@ -8,7 +8,7 @@
             <div class="col-sm-8">
                 <div class="card mb-5">
                     <div class="card-header bg-primary">
-                        <h5 class="text-white font-weight-bold mb-0">
+                        <h5 class="text-white text-uppercase font-weight-bold mb-0">
                             <i class="{{ $course->occupationArea->icon }} mr-1"></i>
                             {{ $course->name }}
                         </h5>
@@ -21,7 +21,7 @@
                                     <img style="object-fit: cover;" class="img-thumbnail w-100" src="{{ $course->publicImagePath }}"/>
 
                                     <div class="ribbon horizontal-ribbon text-center">
-                                        <span class="text-uppercase">{{ $course->occupationArea->name }}</span>
+                                        <span class="text-uppercase">{{ $course->modality->name }}</span>
                                     </div>
 
                                     <div class="ribbon corner-right-ribbon">
@@ -50,37 +50,33 @@
                                 </a>
                             </li>
 
-                            @if ($course->content->count())
-                                <li class="nav-item">
-                                    <a class="nav-link" id="pills-programmatic-content-tab" data-toggle="pill"
-                                       href="#pills-programmatic-content" role="tab"
-                                       aria-controls="pills-programmatic-content" aria-selected="false">
-                                       <i class="fas fa-list-ul mr-2"></i>Conteúdo Programático
-                                    </a>
-                                </li>
-                            @endif
+                            <li class="nav-item">
+                                <a class="nav-link" id="pills-programmatic-content-tab" data-toggle="pill"
+                                   href="#pills-programmatic-content" role="tab"
+                                   aria-controls="pills-programmatic-content" aria-selected="false">
+                                   <i class="fas fa-list-ul mr-2"></i>Conteúdo Programático
+                                </a>
+                            </li>
 
-                            @if ($course->advantages->count())
-                                <li class="nav-item">
-                                    <a class="nav-link" id="pills-advantages-tab" data-toggle="pill"
-                                       href="#pills-advantages" role="tab" aria-controls="pills-advantages"
-                                       aria-selected="false">
-                                       <i class="fas fa-check mr-2"></i>Vantagens
-                                    </a>
-                                </li>
-                            @endif
+                            <li class="nav-item">
+                                <a class="nav-link" id="pills-advantages-tab" data-toggle="pill"
+                                   href="#pills-advantages" role="tab" aria-controls="pills-advantages"
+                                   aria-selected="false">
+                                   <i class="fas fa-check mr-2"></i>Vantagens
+                                </a>
+                            </li>
                         </ul>
 
-                        <div class="tab-content" id="pills-tabContent">
+                        <div class="tab-content text-dark" id="pills-tabContent">
                             <div class="tab-pane fade show active" id="pills-info-content" role="tabpanel"
                                  aria-labelledby="pills-programmatic-content-tab">
                                 <ul class="list-group list-group-flush">
                                     <li class="list-group-item">
                                         <span class="font-weight-600">
-                                            <i class="fas fa-user-clock fa-fw text-primary mr-1"></i>Carga Horária:
+                                            <i class="fas fa-graduation-cap fa-fw text-primary mr-1"></i>Área relacionada:
                                         </span>
-                                        
-                                        <span>{{ $course->hours }}h</span>
+
+                                        <span>{{ $course->occupationArea->name }}</span>
                                     </li>
 
                                     <li class="list-group-item">
@@ -93,39 +89,64 @@
 
                                     <li class="list-group-item">
                                         <span class="font-weight-600">
+                                            <i class="fas fa-user-clock fa-fw text-primary mr-1"></i>Carga Horária:
+                                        </span>
+                                        
+                                        <span>{{ $course->hours }}h</span>
+                                    </li>
+
+
+                                    <li class="list-group-item">
+                                        <span class="font-weight-600">
+                                            <i class="fas fa-chalkboard-teacher fa-fw text-primary mr-1"></i>Modalidade:
+                                        </span>
+
+                                        <span>{{ $course->modality->name }}</span>
+                                    </li>
+                                    
+                                    <li class="list-group-item">
+                                        <span class="font-weight-600">
                                             <i class="fas fa-users fa-fw text-primary mr-1"></i>Público alvo:
                                         </span>
 
                                         <span>{{ $course->targetAudience->name }}</span>
                                     </li>
+
                                 </ul>
                             </div>
 
-                            @if ($course->content->count())
-                                <div class="tab-pane fade" id="pills-programmatic-content" role="tabpanel"
-                                     aria-labelledby="pills-programmatic-content-tab">
-                                    <ul class="list-group list-group-flush font-weight-600">
-                                        @foreach ($course->content as $value)
-                                            <li class="list-group-item">
-                                                <i class="fas fa-angle-double-right fa-sm text-primary pr-2"></i>{{ $value }}
-                                            </li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            @endif
+                            <div class="tab-pane fade" id="pills-programmatic-content" role="tabpanel"
+                                 aria-labelledby="pills-programmatic-content-tab">
+                                <ul class="list-group list-group-flush">
+                                    @forelse ($course->content as $value)
+                                        <li class="list-group-item">
+                                            <i class="fas fa-angle-right fa-sm text-primary pr-2"></i>{{ $value }}
+                                        </li>
 
-                            @if ($course->advantages->count())
-                                <div class="tab-pane fade" id="pills-advantages" role="tabpanel"
-                                     aria-labelledby="pills-advantages-tab">
-                                    <ul class="list-group list-group-flush font-weight-600">
-                                        @foreach ($course->advantages as $advantage)
+                                    @empty
+                                        <div class="text-center text-secondary">
+                                            <i class="fas fa-info-circle fa-3x mt-4"></i>
+                                            <p class="mt-3">Desculpe, nenhum conteúdo programático foi cadastrada para este curso ainda.</p>
+                                        </div>
+                                    @endforelse
+                                </ul>
+                            </div>
+
+                            <div class="tab-pane fade" id="pills-advantages" role="tabpanel"
+                                 aria-labelledby="pills-advantages-tab">
+                                    @forelse ($course->advantages as $advantage)
+                                        <ul class="list-group list-group-flush">
                                             <li class="list-group-item">
                                                 <i class="fas fa-check fa-sm text-primary pr-2"></i>{{ $advantage }}
                                             </li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            @endif
+                                        </ul>
+                                    @empty
+                                        <div class="text-center text-secondary">
+                                            <i class="fas fa-info-circle fa-3x mt-4"></i>
+                                            <p class="mt-3">Desculpe, nenhuma vantagem foi cadastrada para este curso ainda.</p>
+                                        </div>
+                                    @endforelse
+                            </div>
                         </div>
 
                         <div class="mt-5 d-flex flex-column align-items-center">
