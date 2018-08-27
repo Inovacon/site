@@ -64042,6 +64042,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
+<<<<<<< HEAD
 Vue.component('d-input', __webpack_require__(249));
 Vue.component('d-button', __webpack_require__(254));
 Vue.component('d-select', __webpack_require__(257));
@@ -64049,6 +64050,10 @@ Vue.component('d-textarea', __webpack_require__(260));
 Vue.component('d-date-input', __webpack_require__(263));
 Vue.component('d-file-input', __webpack_require__(268));
 Vue.component('secure-delete-button', __webpack_require__(271));
+=======
+Vue.component('d-date-input', __webpack_require__(264));
+Vue.component('secure-delete-button', __webpack_require__(272));
+>>>>>>> compiled
 
 Vue.component('course-details-view', __webpack_require__(275));
 Vue.component('lesson-special-form', __webpack_require__(287));
@@ -64058,6 +64063,7 @@ new Vue({
 });
 
 /***/ }),
+<<<<<<< HEAD
 /* 249 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -64600,13 +64606,15 @@ module.exports = Component.exports
 
 /***/ }),
 /* 261 */
+=======
+/* 250 */,
+/* 251 */,
+/* 252 */
+>>>>>>> compiled
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ControlWrapper__ = __webpack_require__(148);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ControlWrapper___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__ControlWrapper__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_form_control__ = __webpack_require__(149);
 //
 //
 //
@@ -64621,59 +64629,53 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-
-
-
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    components: { ControlWrapper: __WEBPACK_IMPORTED_MODULE_0__ControlWrapper___default.a },
-
-    mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins_form_control__["a" /* default */]],
-
     props: {
-        value: { default: '' },
-        rows: { default: 3 }
+        htmlId: { required: true },
+        label: { required: true },
+        help: { default: '' },
+        helpClasses: { default: function _default() {
+                return [];
+            } }
     }
 });
 
 /***/ }),
+<<<<<<< HEAD
 /* 262 */
+=======
+/* 253 */
+>>>>>>> compiled
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "control-wrapper",
-    {
-      attrs: {
-        "html-id": _vm.htmlId,
-        label: _vm.label,
-        help: _vm.help,
-        "help-classes": _vm.helpClasses
-      }
-    },
-    [
-      _c(
-        "textarea",
-        {
-          staticClass: "form-control",
-          attrs: {
-            name: _vm.name,
-            id: _vm.htmlId,
-            rows: _vm.rows,
-            placeholder: _vm.placeholder,
-            required: _vm.required
-          }
-        },
-        [_vm._v(_vm._s(_vm.value))]
-      )
-    ]
-  )
+  return _c("div", { staticClass: "form-group row mx-0" }, [
+    _c("label", {
+      staticClass: "col-md-3 pl-0 col-form-label text-gray-dark",
+      attrs: { for: _vm.htmlId },
+      domProps: { textContent: _vm._s(_vm.label) }
+    }),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "col-md-6" },
+      [
+        _vm._t("default"),
+        _vm._v(" "),
+        _vm.help
+          ? _c("small", {
+              class: _vm.helpClasses,
+              domProps: { textContent: _vm._s(_vm.help) }
+            })
+          : _vm._e()
+      ],
+      2
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -64681,12 +64683,26 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-88e1fffa", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-079a0b42", module.exports)
   }
 }
 
 /***/ }),
+<<<<<<< HEAD
 /* 263 */
+=======
+/* 254 */,
+/* 255 */,
+/* 256 */,
+/* 257 */,
+/* 258 */,
+/* 259 */,
+/* 260 */,
+/* 261 */,
+/* 262 */,
+/* 263 */,
+/* 264 */
+>>>>>>> compiled
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
@@ -66380,6 +66396,7 @@ if (false) {
 }
 
 /***/ }),
+<<<<<<< HEAD
 /* 268 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -66524,6 +66541,12 @@ if (false) {
 
 /***/ }),
 /* 271 */
+=======
+/* 269 */,
+/* 270 */,
+/* 271 */,
+/* 272 */
+>>>>>>> compiled
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
