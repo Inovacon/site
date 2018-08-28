@@ -5,6 +5,10 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
+Route::get('/selecao-de-turma', function() {
+    return view('courses._team-selection');
+})->name('selecao-de-turma');
+
 Route::get('/', 'PagesController@index')->name('home');
 
 Route::get('cursos', 'CourseController@index')->name('courses.index');

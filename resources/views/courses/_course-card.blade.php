@@ -1,6 +1,7 @@
 <div class="card">
     <div class="overlay-container">
-        <img class="card-img-top" src="{{ $course->publicImagePath }}" width="250" height="145">
+        <img class="card-img-top" src="{{ $course->publicImagePath }}">
+
         <div class="ribbon ribbon-left font-weight-600">
             R$ {{ $course->price }}
             <span class="ribbon-hide"><i class="fas fa-user-clock"></i> {{ $course->hours }}h</span>

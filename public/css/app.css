@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Raleway:400,500|Open+Sans:400,600);/*!
+@import url(https://fonts.googleapis.com/css?family=Raleway:400,600|Open+Sans:400,600);/*!
  * Font Awesome Free 5.2.0 by @fontawesome - https://fontawesome.com
  * License - https://fontawesome.com/license (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  */
@@ -8597,7 +8597,7 @@ fieldset:disabled a.btn {
   padding: 0.5rem 1rem;
   font-size: 1.25rem;
   line-height: 1.5;
-  border-radius: 0.15rem;
+  border-radius: 0.1rem;
 }
 
 .btn-sm,
@@ -11310,7 +11310,7 @@ button.close {
   pointer-events: auto;
   background-color: #ffffff;
   background-clip: padding-box;
-  border: 1px solid rgba(0, 0, 0, 0.2);
+  border: 0 solid rgba(0, 0, 0, 0.2);
   border-radius: 0.15rem;
   outline: 0;
 }
@@ -11344,7 +11344,7 @@ button.close {
       -ms-flex-pack: justify;
           justify-content: space-between;
   padding: 1rem;
-  border-bottom: 1px solid #e9ecef;
+  border-bottom: 0 solid #e9ecef;
   border-top-left-radius: 0.15rem;
   border-top-right-radius: 0.15rem;
 }
@@ -11378,7 +11378,7 @@ button.close {
       -ms-flex-pack: end;
           justify-content: flex-end;
   padding: 1rem;
-  border-top: 1px solid #e9ecef;
+  border-top: 0 solid #e9ecef;
 }
 
 .modal-footer > :not(:first-child) {
@@ -15690,6 +15690,20 @@ h6 {
   box-shadow: none !important;
 }
 
+.border-bottom-mid:before {
+  content: '';
+  position: absolute;
+  width: 100px;
+  height: 3px;
+  border: 2px solid #00a0f0;
+  bottom: -5px;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 12px;
+}
+
 .text-primary-l {
   color: #28bffc;
 }
@@ -15790,6 +15804,12 @@ h6 {
   color: #ffffff;
 }
 
+.close {
+  font-weight: 100 !important;
+  -webkit-box-shadow: none !important;
+          box-shadow: none !important;
+}
+
 @media (max-width: 1199.98px) {
   .navbar-nav.mr-auto .nav-link {
     line-height: initial;
@@ -15841,6 +15861,8 @@ h6 {
 [class*="btn-outline"] {
   -webkit-box-shadow: none !important;
           box-shadow: none !important;
+  -webkit-transition: all .3s;
+  transition: all .3s;
 }
 
 .carousel-indicators li {
@@ -15913,15 +15935,8 @@ h6 {
   color: #495057;
 }
 
-#coursesCard .card {
-  -webkit-box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.2);
-  -ms-box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.2);
-  -o-box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.2);
-  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.2);
-  -webkit-transition: -webkit-box-shadow .3s, -webkit-transform .3s;
-  transition: -webkit-box-shadow .3s, -webkit-transform .3s;
-  transition: box-shadow .3s, transform .3s;
-  transition: box-shadow .3s, transform .3s, -webkit-box-shadow .3s, -webkit-transform .3s;
+#course #pills-tabContent {
+  font-size: .93rem;
 }
 
 #coursesCard .card:hover {
@@ -15929,6 +15944,10 @@ h6 {
   -ms-box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.2);
   -o-box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.2);
   box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.2);
+}
+
+#coursesCard .card-img-top {
+  max-height: 145px !important;
 }
 
 #coursesAreas .list-group {
@@ -16005,6 +16024,15 @@ h6 {
 
 .overlay-container {
   position: relative;
+}
+
+.overlay-container .overlay-content {
+  background-color: rgba(0, 0, 0, 0.45);
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
 }
 
 #pills-schedule .table thead th {
@@ -16301,7 +16329,7 @@ select:-webkit-autofill:focus {
   -webkit-box-shadow: 0px -2px 5px rgba(0, 0, 0, 0.3);
           box-shadow: 0px -2px 5px rgba(0, 0, 0, 0.3);
   position: absolute;
-  font-size: .8rem;
+  font-size: .9rem;
   font-weight: 600;
   -webkit-transform: scale(1.06);
           transform: scale(1.06);
@@ -16370,5 +16398,12 @@ select:-webkit-autofill:focus {
 
 .card:hover .overlay-container .ribbon-left .ribbon-hide {
   display: inline;
+}
+
+#eventsCard .card:hover {
+  -webkit-box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.2);
+  -ms-box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.2);
+  -o-box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.2);
 }
 
