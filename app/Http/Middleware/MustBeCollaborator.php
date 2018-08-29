@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\User;
 use Closure;
 
 class MustBeCollaborator
@@ -20,14 +21,24 @@ class MustBeCollaborator
             return redirect()->route('login');
         }
 
-        $user = $request->user();
+        $this->authorizeUser($request->user(), $roles);
 
+        return $next($request);
+    }
+
+    /**
+     * Authorize the authenticated user.
+     *
+     * @param  User $user
+     * @param  array $roles
+     * @return void
+     */
+    protected function authorizeUser(User $user, array $roles)
+    {
         abort_unless($user->isCollaborator(), 403);
 
         if (count($roles)) {
             abort_unless($user->hasAnyRole($roles), 403);
         }
-
-        return $next($request);
     }
 }
