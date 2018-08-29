@@ -1,5 +1,3 @@
-@csrf
-
 @include('dashboard.form.input', [
     'name' => 'minimum_students',
     'type' => 'number',
@@ -20,7 +18,3 @@
     'label' => 'Quantidade',
     'value' => 1
 ])
-
-@component('dashboard.form.button')
-    Salvar
-@endcomponent

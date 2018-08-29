@@ -5,10 +5,13 @@
 @section('content')
     <course-details-view inline-template :active="{{ json_encode($course->active) }}">
         <div>
-            <div class="d-flex align-items-center justify-content-between mb-4">
-                <h4 class="font-weight-600 text-gray-dark m-0">Detalhes do Curso</h4>
+            <h4 class="font-weight-600 text-gray-dark mb-3">Detalhes do Curso</h4>
+
+            <div class="d-flex flex-column flex-sm-row align-items-center justify-content-between mb-4">
+                <a href="{{ route('dashboard.courses.index') }}"
+                   class="btn btn-outline-primary align-self-start mb-3 mb-sm-0">Voltar</a>
                 
-                <div class="d-flex align-items-center">
+                <div class="d-flex align-self-start align-items-center">
                     <activate-button
                             size="2x"
                             data-placement="top"

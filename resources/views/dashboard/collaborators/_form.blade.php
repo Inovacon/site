@@ -1,5 +1,3 @@
-@csrf
-
 @include('dashboard.form.input', [
     'name' => 'name',
     'label' => 'Nome Completo',
@@ -24,7 +22,3 @@
     'type' => 'password',
     'label' => 'Confirme a Senha'
 ])
-
-@component('dashboard.form.button')
-    Salvar
-@endcomponent

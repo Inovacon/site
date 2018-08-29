@@ -1,10 +1,20 @@
-@csrf
+@include('dashboard.form.input', [
+    'name' => 'name',
+    'label' => 'Nome',
+    'value' => old('name', $course->name)
+])
 
 @include('dashboard.form.file-input', [
     'name' => 'image_path',
     'label' => 'Imagem',
     'placeholder' => 'Escolha uma imagem',
     'required' => false
+])
+
+@include('dashboard.form.textarea', [
+    'name' => 'description',
+    'label' => 'Descrição',
+    'value' => old('description', $course->description)
 ])
 
 <div class="row">
@@ -51,25 +61,14 @@
     </div>
 </div>
 
-@include('dashboard.form.input', [
-    'name' => 'name',
-    'label' => 'Nome',
-    'value' => old('name', $course->name)
-])
-
-@include('dashboard.form.textarea', [
-    'name' => 'description',
-    'label' => 'Descrição',
-    'value' => old('description', $course->description)
-])
-
 <div class="row">
     <div class="col-md-6">
         @include('dashboard.form.input', [
             'name' => 'price',
             'type' => 'number',
             'label' => 'Preço',
-            'value' => old('price', $course->price)
+            'value' => old('price', $course->price),
+            'step' => 0.01
         ])
     </div>
 
@@ -78,11 +77,8 @@
             'name' => 'hours',
             'type' => 'number',
             'label' => 'Carga Horária',
-            'value' => old('hours', $course->hours)
+            'value' => old('hours', $course->hours),
+            'step' => 0.1
         ])
     </div>
 </div>
-
-@component('dashboard.form.button')
-    Salvar
-@endcomponent

@@ -11,5 +11,5 @@
            value="{{ $value ?? '' }}"
             {{ isset($placeholder) ? "placeholder=\"{$placeholder}\"" : '' }}
             {{ isset($required) && ! $required ? '' : 'required' }}
-            {{ isset($step) ? "step=\"{$step}\"" : '' }}>
+            {{ isset($step) ? "step={$step}" : '' }}>
 @endcomponent
