@@ -1,5 +1,5 @@
 <template>
-    <button @click="toggle" class="btn-icon ml-2" :class="color">
+    <button @click="toggle" class="btn-icon" :class="color">
         <i :class="icon"></i>
     </button>
 </template>
