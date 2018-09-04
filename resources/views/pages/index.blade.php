@@ -3,11 +3,16 @@
 @section('title', 'Inovacon Empresa Júnior')
 
 @section('content')
-	<div class="mb-5">
+	<div id="noticias" class="mt-3">
     	@include('pages.partials.noticias')
     </div>
 
-    <div class="mb-5">
+    <div id="quemSomos">
     	@include('pages.partials.quem-somos')
-    </div>
+    </div>	
+
+
+	@for($i = 0; $i < 10; $i++)
+    <div class="py-5"></div>
+    @endfor
 @endsection

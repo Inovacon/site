@@ -43,4 +43,11 @@
       </div>
     </div>
   </div>
+
+  <div class="text-right small">
+      <a href="/noticias" class="link pr-2">
+        Mais notícias
+      </a>
+  </div>
 </div>
+

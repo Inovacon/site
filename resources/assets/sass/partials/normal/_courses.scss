@@ -13,7 +13,8 @@
 }
 
 #coursesCard .card-img-top {
-	max-height: 145px !important;
+	object-fit: cover;
+	min-height: 145px;
 }
 
 #coursesAreas .list-group {

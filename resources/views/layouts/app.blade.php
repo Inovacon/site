@@ -20,6 +20,6 @@
     </div>
 
     <script src="{{ mix('/js/app.js') }}"></script>
-    @stack('scripts');
+    @stack('scripts')
 </body>
 </html>

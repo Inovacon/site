@@ -12,7 +12,7 @@
 				</div>
 				
 				<div class="overlay-container">
-					<img style="object-fit: cover;" class="card-img-top" height="200" src="{{ asset('images/default-course.jpg') }}" alt="">
+					<img style="object-fit: cover;" class="card-img-top" height="200" src="{{ asset('images/default-course.jpg') }}">
 
 					<div class="overlay-content d-flex flex-column justify-content-center align-items-center">
 						<h1 class="mx-auto text-white font-weight-bold text-shadow">R$50</h1>

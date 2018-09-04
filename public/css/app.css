@@ -15690,18 +15690,18 @@ h6 {
   box-shadow: none !important;
 }
 
-.border-bottom-mid:before {
+.divider:before {
   content: '';
   position: absolute;
-  width: 100px;
-  height: 3px;
-  border: 2px solid #00a0f0;
-  bottom: -5px;
-  left: 0;
+  bottom: 0;
+  width: 400px;
+  height: 2px;
   right: 0;
+  left: 0;
   margin-left: auto;
   margin-right: auto;
-  border-radius: 12px;
+  border-radius: 20px;
+  background-color: #0D8DC4;
 }
 
 .text-primary-l {
@@ -15758,6 +15758,11 @@ h6 {
 
 .navbar-nav.mr-auto .nav-link {
   line-height: 55px;
+}
+
+.navbar-nav.mr-auto .nav-item {
+  margin-right: 5px;
+  margin-left: 5px;
 }
 
 .navbar-nav .nav-link {
@@ -15947,7 +15952,9 @@ h6 {
 }
 
 #coursesCard .card-img-top {
-  max-height: 145px !important;
+  -o-object-fit: cover;
+     object-fit: cover;
+  min-height: 145px;
 }
 
 #coursesAreas .list-group {
