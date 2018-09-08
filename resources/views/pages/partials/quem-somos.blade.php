@@ -1,11 +1,9 @@
-<div class="container">
-	<div class="position-relative">
-		<div class="divider my-3"></div>
-	</div>
-
-	<div class="col mb-5">
-		<div class="text-center">
-			<img style="width: 83%;" class="img-fluid" src="{{ asset('images/logo_adm_ads_cc.png') }}" alt="">
+<div class="py-4">
+	<div class="container">
+		<div class="col">
+			<div class="text-center">
+				<img style="width: 80%;" class="img-fluid" src="{{ asset('images/logo_adm_ads_cc.png') }}" alt="">
+			</div>
 		</div>
 	</div>
 </div>

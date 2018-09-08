@@ -31,4 +31,13 @@ $(document).ready(function () {
         }
     });
 
+    // OWL Carousel
+    $('.owl-parceiros').owlCarousel({
+        loop: true,
+        margin: 15,
+        autoWidth: true,
+        dots: false,
+        autoplay: true,
+        autoplayTimeout: 3500
+    });
 });

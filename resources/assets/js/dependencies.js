@@ -14,3 +14,5 @@ window.Popper = Popper.default;
 window.toastr = toastr;
 window.Cleave = Cleave;
 window.chart = chart;
+
+require('owl.carousel');
