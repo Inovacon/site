@@ -18,3 +18,11 @@
 @import "events";
 @import "services";
 
+.bg-parallax {
+	background: url('/images/services.jpg');
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+

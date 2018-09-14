@@ -34,8 +34,9 @@ $(document).ready(function () {
     // OWL Carousel
     $('.owl-parceiros').owlCarousel({
         loop: true,
+        items: 4,
         margin: 15,
-        autoWidth: true,
+        // autoWidth: true,
         dots: false,
         autoplay: true,
         autoplayTimeout: 3500
