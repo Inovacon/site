@@ -91,7 +91,7 @@
                                         <span class="font-weight-600">
                                             <i class="fas fa-user-clock fa-fw text-primary mr-1"></i>Carga Horária:
                                         </span>
-                                        
+
                                         <span>{{ $course->hours }}h</span>
                                     </li>
 
@@ -103,7 +103,7 @@
 
                                         <span>{{ $course->modality->name }}</span>
                                     </li>
-                                    
+
                                     <li class="list-group-item">
                                         <span class="font-weight-600">
                                             <i class="fas fa-users fa-fw text-primary mr-1"></i>Público alvo:
@@ -159,7 +159,7 @@
 
                         <div class="mt-5 d-flex flex-column align-items-center">
                             <div>
-                                <a href="{{ route('selecao-de-turma') }}" class="btn btn-outline-success btn-lg font-weight-bold">
+                                <a href="{{ route('teams.index', $course) }}" class="btn btn-outline-success btn-lg font-weight-bold">
                                     <i class="fas fa-plus-circle fa-lg mr-sm-2"></i>MATRICULE-SE
                                 </a>
                             </div>

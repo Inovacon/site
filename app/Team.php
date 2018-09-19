@@ -32,4 +32,15 @@ class Team extends Model
     {
         return $this->hasMany(Lesson::class);
     }
+
+    public function getLessonsScheduleAttribute()
+    {
+        return $this->lessons
+            ->map(function ($lesson) {
+                $lesson->schedule = $lesson->startTimeFormatted.' às '.$lesson->endTimeFormatted;
+
+                return $lesson;
+            })
+            ->groupBy('schedule');
+    }
 }

@@ -5,14 +5,16 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-Route::get('/selecao-de-turma', function() {
-    return view('courses._team-selection');
-})->name('selecao-de-turma');
+// Route::get('/selecao-de-turma', function() {
+//     return view('courses._team-selection');
+// })->name('selecao-de-turma');
 
 Route::get('/', 'PagesController@index')->name('home');
 
 Route::get('cursos', 'CourseController@index')->name('courses.index');
 Route::get('cursos/{activeCourse}', 'CourseController@show')->name('courses.show');
+Route::get('cursos/{activeCourse}/selecionar-turma', 'TeamController@index')->name('teams.index')->middleware('auth');
+Route::get('turmas/{team}/comprar-curso', 'TeamController@buyCourse')->name('teams.buy-course')->middleware('auth');
 
 Route::get('eventos', 'EventController@index')->name('events.index');
 Route::get('eventos/{evento}', 'EventController@show')->name('events.show');

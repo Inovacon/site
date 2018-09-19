@@ -2,14 +2,13 @@
 
 namespace App\Providers;
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Validator;
-use App\Http\Controllers\Payment\MercadoPagoController;
-use App\Http\Controllers\Payment\PaymentControllerInterface;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -20,6 +19,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Carbon::setLocale('pt-BR');
+        setlocale(LC_TIME, 'Portuguese');
+
         Schema::defaultStringLength(191);
 
         $this->bootBlade();
@@ -35,10 +37,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(
-            PaymentControllerInterface::class,
-            MercadoPagoController::class
-        );
+        //
     }
 
     /**

@@ -21,7 +21,7 @@ class Lesson extends Model
      * @var array
      */
     protected $dates = [
-        'date',
+        'date'
     ];
 
     /**
@@ -39,5 +39,24 @@ class Lesson extends Model
         }
 
         $this->attributes['date'] = $date;
+    }
+
+    public function getStartTimeFormattedAttribute()
+    {
+        return $this->formatTime($this->start_time);
+    }
+
+    public function getEndTimeFormattedAttribute()
+    {
+        return $this->formatTime($this->end_time);
+    }
+
+    protected function formatTime($time)
+    {
+        $pieces = explode(':', $time);
+        $hours = '0' === $pieces[0][0] ? substr($pieces[0], 1) : $pieces[0];
+        $minutes = '00' !== $pieces[1] ? $pieces[1] : '';
+
+        return $hours.'h'.$minutes.'min';
     }
 }
