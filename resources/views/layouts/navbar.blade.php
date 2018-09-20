@@ -15,20 +15,20 @@
                     <a class="nav-link" href="/">INÍCIO</a>
                 </li>
 
-                <li class="nav-item  {{ request()->routeIs('courses.*') ? 'active' : '' }}">
+                <li class="nav-item {{ request()->routeIs('courses.*') ? 'active' : '' }}">
                     <a class="nav-link" href="/cursos">CURSOS</a>
                 </li>
 
-                <li class="nav-item  {{ request()->routeIs('events.*') ? 'active' : '' }}">
+                <li class="nav-item {{ request()->routeIs('events.*') ? 'active' : '' }}">
                     <a class="nav-link" href="/eventos">EVENTOS</a>
                 </li>
 
-                <li class="nav-item  {{ request()->routeIs('news.*') ? 'active' : '' }}">
+                <li class="nav-item {{ request()->routeIs('news.*') ? 'active' : '' }}">
                     <a class="nav-link" href="/noticias">NOTÍCIAS</a>
                 </li>
 
-                <li class="nav-item ">
-                    <a class="nav-link" href="http://cnecsan.cnec.br/servicos-a-comunidade/" target="_blank">PORTAL DO TRABALHO</a>
+                <li class="nav-item">
+                    <a class="nav-link" href="/#servicos">SERVIÇOS</a>
                 </li>
             </ul>
 
@@ -61,7 +61,7 @@
                             </a>
 
                             <div class="dropdown-divider"></div>
-                            
+
                             <a  href="/logout" class="dropdown-item"
                                 onclick="event.preventDefault();
                                 document.getElementById('logoutForm').submit();"><i class="fas fa-sign-out-alt fa-fw mr-1"></i>Sair</a>
@@ -91,7 +91,7 @@
                         <span class="text-white" aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                
+
                 <div class="modal-body">
                     @include('layouts.auth.login-form')
                 </div>
