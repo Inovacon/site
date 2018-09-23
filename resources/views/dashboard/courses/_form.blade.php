@@ -8,7 +8,8 @@
     'name' => 'image_path',
     'label' => 'Imagem',
     'placeholder' => 'Escolha uma imagem',
-    'required' => false
+    'required' => false,
+    'accept' => 'image/*'
 ])
 
 @include('dashboard.form.textarea', [

@@ -9,8 +9,15 @@ Route::get('/', 'PagesController@index')->name('home');
 
 Route::get('cursos', 'CourseController@index')->name('courses.index');
 Route::get('cursos/{activeCourse}', 'CourseController@show')->name('courses.show');
-Route::get('cursos/{activeCourse}/selecionar-turma', 'TeamController@index')->name('teams.index')->middleware('auth');
-Route::get('turmas/{team}/comprar-curso', 'TeamController@buyCourse')->name('teams.buy-course')->middleware('auth');
+
+Route::middleware('auth')->group(function () {
+    Route::get('cursos/{activeCourse}/selecionar-turma', 'TeamController@index')->name('teams.index');
+    Route::get('turmas/{team}/comprar-curso', 'TeamController@buyCourse')->name('teams.buy-course');
+
+    Route::get('pedido-finalizado/sucesso', 'OrderCompletedController@success')->name('order-completed.success');
+    Route::get('pedido-finalizado/falha', 'OrderCompletedController@failure')->name('order-completed.failure');
+    Route::get('pedido-finalizado/pendente', 'OrderCompletedController@pending')->name('order-completed.pending');
+});
 
 Route::get('eventos', 'EventController@index')->name('events.index');
 Route::get('eventos/{evento}', 'EventController@show')->name('events.show');
@@ -72,5 +79,15 @@ Route::prefix('painel')->name('dashboard.')->namespace('Admin')->group(function 
         Route::get('/', 'CollaboratorController@index')->name('index');
         Route::get('cadastrar', 'CollaboratorController@create')->name('create');
         Route::post('/', 'CollaboratorController@store')->name('store');
+    });
+
+    Route::prefix('noticias')->name('news.')->middleware('collaborator')->group(function () {
+        Route::get('/', 'NewsController@index')->name('index');
+        Route::get('cadastrar', 'NewsController@create')->name('create');
+        Route::get('{noticia}', 'NewsController@show')->name('show');
+        Route::post('/', 'NewsController@store')->name('store');
+        Route::get('{noticia}/editar', 'NewsController@edit')->name('edit');
+        Route::patch('{noticia}', 'NewsController@update')->name('update');
+        Route::delete('{noticia}', 'NewsController@destroy')->name('destroy');
     });
 });

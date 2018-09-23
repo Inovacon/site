@@ -1,11 +1,11 @@
 <table class="table table-responsive-sm">
     <thead>
-    <tr>
-        <th class="text-center">Id</th>
-        <th>Nome</th>
-        <th>Área</th>
-        <th></th>
-    </tr>
+        <tr>
+            <th class="text-center">Id</th>
+            <th>Nome</th>
+            <th>Área</th>
+            <th></th>
+        </tr>
     </thead>
 
     <tbody>

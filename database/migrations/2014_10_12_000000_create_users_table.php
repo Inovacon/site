@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('cpf_cnpj', 14)->unique()->nullable();
             $table->char('gender', 1)->nullable();
+            $table->string('phone', 11)->nullable();
             $table->date('birth_date')->nullable();
             $table->boolean('is_collaborator')->default(false);
             $table->rememberToken();

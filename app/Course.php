@@ -2,12 +2,14 @@
 
 namespace App;
 
-use Illuminate\Http\UploadedFile;
+use App\Traits\HasImage;
 use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 class Course extends Model
 {
+    use HasImage;
+
     /**
      * The attributes that aren't mass assignable.
      *
@@ -24,30 +26,7 @@ class Course extends Model
         'active' => 'bool',
     ];
 
-    /**
-     * Set the image_path attribute.
-     *
-     * @param  string|UploadedFile $path
-     * @return void
-     */
-    public function setImagePathAttribute($path)
-    {
-        $this->attributes['image_path'] = $path instanceof UploadedFile
-            ? $path->store('courses', 'public')
-            : $path;
-    }
-
-    /**
-     * Get the publicly accessible image path.
-     *
-     * @return string
-     */
-    public function getPublicImagePathAttribute()
-    {
-        return asset(
-            $this->image_path ? "storage/{$this->image_path}" : 'images/default-course.jpg'
-        );
-    }
+    protected $defaultImagePath = 'images/default-course.jpg';
 
     /**
      * Get the collection of content.
