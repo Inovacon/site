@@ -22,9 +22,8 @@
 	<div id="parceiros">
 		@include('pages.partials.parceiros')
 	</div>
-
-
-	@for($i = 0; $i < 10; $i++)
-    	<div class="py-5"></div>
-    @endfor
+	
+	<div id="rodape">
+		@include('pages.partials.rodape')
+	</div>
 @endsection

@@ -11,7 +11,7 @@
         <hr class="border-primary border-2">
 
         <div class="row">
-            <div id="coursesAreas" class="col-md-3">
+            <div id="coursesAreas" class="col-md-3 mb-sm-0 mb-3">
                 <div class="card">
                     <div class="card-header bg-primary">
                         <h6 class="text-center mb-0 text-white font-weight-600">ÁREAS DE CURSOS</h6>

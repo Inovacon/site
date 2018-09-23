@@ -8951,8 +8951,8 @@ input[type="button"].btn-block {
   list-style: none;
   background-color: #ffffff;
   background-clip: padding-box;
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  border-radius: 0.25rem;
+  border: 0 solid rgba(0, 0, 0, 0.15);
+  border-radius: 1px;
 }
 
 .dropdown-menu-right {
@@ -16007,6 +16007,13 @@ h6 {
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
   padding-bottom: 3px;
   padding-top: 3px;
+  -webkit-transition: all 1s;
+  transition: all 1s;
+}
+
+.dropdown-menu {
+  -webkit-box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.3);
+          box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.3);
 }
 
 .navbar-nav.mr-auto .nav-link {

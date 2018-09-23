@@ -1,6 +1,6 @@
 <div class="bg-parallax">
 	<div class="container py-4">
-		<h2 class="font-weight-bold mb-5 text-center text-light">Serviços prestados</h2>
+		<h2 class="font-weight-bold mb-5 text-center text-light">Serviços</h2>
 		
 		<div class="row">
 			<div class="col-md-4 col-lg-3 col-sm-6 mb-3">

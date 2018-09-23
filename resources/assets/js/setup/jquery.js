@@ -41,4 +41,19 @@ $(document).ready(function () {
         autoplay: true,
         autoplayTimeout: 3500
     });
+
+    $(".scroll").click(function(event){     
+        $('html').animate({
+            scrollTop: $(this.hash).offset().top
+        }, 500);
+    });
+
+    $(window).scroll(function() {
+        if ($(this).width() >= 992 && $(this).scrollTop() > 400) {
+            $('.navbar').addClass('shrink-navbar');
+        } else {
+            $('.navbar').removeClass('shrink-navbar');
+        }
+    });
+
 });

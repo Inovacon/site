@@ -1,6 +1,6 @@
 <nav id="navbar" class="navbar sticky-top navbar-expand-lg navbar-light bg-white mb-3">
     <div class="container-fluid">
-        <a class="navbar-brand" href="{{ route('home') }}">
+        <a class="navbar-brand scroll" href="/#noticias">
             <img class="logo" src="{{ asset('images/logo.png') }}">
         </a>
 
@@ -12,15 +12,11 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item {{ request()->routeIs('home') ? 'active' : '' }}">
-                    <a class="nav-link" href="/">INÍCIO</a>
+                    <a class="nav-link scroll" href="/#noticias">INÍCIO</a>
                 </li>
 
                 <li class="nav-item {{ request()->routeIs('courses.*') ? 'active' : '' }}">
                     <a class="nav-link" href="/cursos">CURSOS</a>
-                </li>
-
-                <li class="nav-item {{ request()->routeIs('events.*') ? 'active' : '' }}">
-                    <a class="nav-link" href="/eventos">EVENTOS</a>
                 </li>
 
                 <li class="nav-item {{ request()->routeIs('news.*') ? 'active' : '' }}">
@@ -28,7 +24,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="/#servicos">SERVIÇOS</a>
+                    <a class="nav-link scroll" href="/#servicos">SERVIÇOS</a>
                 </li>
             </ul>
 
