@@ -30,8 +30,8 @@
             </a>
         </li>
 
-        <li>
-            <a href="#">
+        <li class="{{ request()->routeIs('*news*') ? 'active' : '' }}">
+            <a href="{{ route('dashboard.news.index') }}">
                 <i class="fas fa-newspaper fa-fw fa-2x mr-3"></i> Notícias
             </a>
         </li>

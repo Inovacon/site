@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Curso de Odontologia da CNEC Santo Ângelo reinicia os atendimentos à comunidade - Notícia')
+@section('title', $noticia->title.' - Notícia')
 
 @section('content')
 
@@ -12,14 +12,14 @@
           <div class="card-header">
             <h5 class="text-primary font-weight-bold">
               <i class="fas fa-newspaper mr-1"></i>
-              Curso de Odontologia da CNEC Santo Ângelo reinicia os atendimentos à comunidade
+              {{ $noticia->title }}
             </h5>
 
             <hr class="border-primary border-2 my-0">
 
             <div class="d-flex justify-content-between mt-2">
               <span class="news-info text-muted align-self-center">
-                Publicado em <strong>20 Junho 2018</strong> &bull; 15h35
+                Publicado em <strong>{{ $noticia->created_at->format('d/m/Y') }}</strong> &bull; {{ $noticia->created_at->format('H:i') }}
               </span>
 
               <div>
@@ -31,16 +31,9 @@
           </div>
 
           <div class="card-body news-body">
-            <img class="img-fluid img-thumbnail" src="http://via.placeholder.com/800x400" alt="">
+            <img class="img-fluid img-thumbnail" src="{{ $noticia->publicImagePath }}" />
 
-            <p class="my-2 small text-muted text-center">{{ $faker->sentence(10, true) }}</p>
-            <p class="text-justify text-indent">{{ $faker->sentence(rand(60, 150), true) }}</p>
-            <p class="text-justify text-indent">{{ $faker->sentence(rand(60, 150), true) }}</p>
-            <p class="text-justify text-indent">{{ $faker->sentence(rand(60, 150), true) }}</p>
-          </div>
-
-          <div class="card-footer">
-            <div class="small">Colaborador: {{ $faker->name }}</div>
+            <p class="text-justify text-indent">{{ $noticia->body }}</p>
           </div>
         </div>
       </div>
@@ -56,27 +49,29 @@
 
         <div class="card-body px-1">
           <ul class="list-group list-group-flush">
-            @for($i = 0; $i < 5; $i++)
+            @forelse ($outrasNoticias as $n)
               <li class="list-group-item border-0 p-2">
-                <a href="{{ url('cursos/show') }}" class="link">
+                <a href="{{ route('news.show', $n) }}" class="link">
                   <div class="row no-gutters">
                     <div class="col-4">
-                      <img class="img-fluid" src="http://via.placeholder.com/250x145" alt="">
+                      <img width="110" height="65" src="{{ $n->publicImagePath }}">
                     </div>
 
                     <div class="col d-flex flex-column justify-content-around pl-2">
                       <span class="small text-secondary text-uppercase">
-                        {{ str_limit($faker->sentence(rand(3, 5), true), 45) }}
+                        {{ $n->title }}
                       </span>
-                      
+
                       <span class="small text-muted">
-                        20 Junho 2018
+                        {{ $n->created_at->format('d/m/Y') }}
                       </span>
                     </div>
                   </div>
                 </a>
               </li>
-            @endfor
+            @empty
+              <div class="pl-2">Não há nada a ser exibido aqui.</div>
+            @endforelse
           </ul>
         </div>
       </div>

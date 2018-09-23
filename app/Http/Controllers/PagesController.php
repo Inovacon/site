@@ -2,13 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\News;
 use Illuminate\Http\Request;
-use Faker\Generator as Faker;
 
 class PagesController extends Controller
 {
-    public function index(Faker $faker)
+    public function index()
     {
-        return view('pages.index', compact('faker'));
+        $leadingNews = News::latest()
+            ->where('leading', true)
+            ->limit(4)
+            ->get();
+
+        $regularNews = News::latest()
+            ->where('leading', false)
+            ->limit(4)
+            ->get();
+
+        return view('pages.index', compact('leadingNews', 'regularNews'));
     }
 }

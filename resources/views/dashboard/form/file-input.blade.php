@@ -10,8 +10,9 @@
                    class="custom-file-input"
                    id="{{ $id ?? $name }}"
                    name="{{ $name }}"
+                   {{ isset($accept) ? "accept={$accept}" : '' }}
                    {{ isset($required) && ! $required ? '' : 'required' }}
-                   lang="pt"/>
+                   lang="pt" />
 
             <label class="custom-file-label"
                    for="{{ $id ?? $name }}">

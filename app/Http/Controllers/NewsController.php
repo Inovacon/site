@@ -4,16 +4,24 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Faker\Generator as Faker;
+use App\News;
 
 class NewsController extends Controller
 {
-    public function index(Faker $faker)
+    public function index()
     {
-        return view('news.index', compact('faker'));
+        return view('news.index', [
+            'news' => News::latest()->paginate(10),
+        ]);
     }
 
-    public function show(Faker $faker)
+    public function show(News $noticia)
     {
-    	return view('news.show', compact('faker'));
+        $outrasNoticias = News::latest()
+            ->where('id', '<>', $noticia->id)
+            ->limit(5)
+            ->get();
+
+    	return view('news.show', compact('noticia', 'outrasNoticias'));
     }
 }
