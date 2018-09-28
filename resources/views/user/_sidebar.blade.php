@@ -9,8 +9,8 @@
         <hr style="background-color: rgba(255, 255, 255, .3);">
 
         <li>
-            <a href="" class="text-white">
-                <i class="fas fa-graduation-cap fa-f2 fa-2x mr-1"></i>Meus cursos
+            <a href="#" class="text-white">
+                <i class="fas fa-graduation-cap fa-fw fa-2x mr-3"></i>Meus cursos
             </a>
         </li>
     </ul>
