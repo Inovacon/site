@@ -13,6 +13,7 @@
 ])
 
 @include('dashboard.form.textarea', [
+    'id' => 'course-body',
     'name' => 'description',
     'label' => 'Descrição',
     'value' => old('description', $course->description)

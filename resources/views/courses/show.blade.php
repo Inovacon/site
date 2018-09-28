@@ -32,7 +32,7 @@
 
                             <div class="col">
                                 <div class="text-justify course-description">
-                                    {{ $course->description }}
+                                    {!! $course->description !!}
                                 </div>
                             </div>
                         </div>

@@ -16,10 +16,9 @@
                     <div class="card">
                         <div class="row no-gutters">
                             <div class="col-lg-3">
-                                <a href="#">
-                                    <img class="card-img-top"
+                                <a href="{{ route('news.show', $noticia) }}">
+                                    <img style="height: 100%; object-fit: cover;" class="card-img-top"
                                          width="180"
-                                         height="100"
                                          src="{{ $noticia->publicImagePath }}">
                                 </a>
                             </div>

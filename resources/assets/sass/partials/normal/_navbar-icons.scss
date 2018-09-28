@@ -15,17 +15,22 @@
 	content: '\f19d'; 
 }
 
-// EVENTOS
-.navbar-nav.mr-auto .nav-item:nth-child(3) .nav-link:before { 
-	content: '\f073'; 
-}
+// // EVENTOS
+// .navbar-nav.mr-auto .nav-item:nth-child(3) .nav-link:before { 
+// 	content: '\f073'; 
+// }
 
 // NOTÍCIAS
-.navbar-nav.mr-auto .nav-item:nth-child(4) .nav-link:before { 
+.navbar-nav.mr-auto .nav-item:nth-child(3) .nav-link:before { 
 	content: '\f1ea'; 
 }
 
 // PORTAL DO TRABALHO
 .navbar-nav.mr-auto .nav-item:nth-child(5) .nav-link:before { 
 	content: '\f0b1'; 
+}
+
+//QUEM SOMOS
+.navbar-nav.mr-auto .nav-item:nth-child(4) .nav-link:before { 
+	content: '\f0c0'; 
 }

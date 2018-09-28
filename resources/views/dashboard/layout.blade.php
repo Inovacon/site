@@ -28,5 +28,7 @@
     </div>
 
     @include('dashboard._footer')
+
+    @stack('scripts')
 </body>
 </html>

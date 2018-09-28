@@ -16103,15 +16103,15 @@ h6 {
 }
 
 .navbar-nav.mr-auto .nav-item:nth-child(3) .nav-link:before {
-  content: '\F073';
-}
-
-.navbar-nav.mr-auto .nav-item:nth-child(4) .nav-link:before {
   content: '\F1EA';
 }
 
 .navbar-nav.mr-auto .nav-item:nth-child(5) .nav-link:before {
   content: '\F0B1';
+}
+
+.navbar-nav.mr-auto .nav-item:nth-child(4) .nav-link:before {
+  content: '\F0C0';
 }
 
 .btn {
