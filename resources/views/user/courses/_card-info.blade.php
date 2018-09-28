@@ -71,7 +71,7 @@
 								<span>Estudantes</span>
 							</td>
 						</tr>
-						<tr>
+			{{-- 			<tr>
 							<td>
 								<span class="font-weight-600">
 									<i class="fas fa-hand-holding-usd fa-fw text-primary mr-1"></i>Preço:
@@ -80,7 +80,7 @@
 							<td>
 								<span>R$ 500</span>
 							</td>
-						</tr>
+						</tr> --}}
 					</table>
 				</div>
 
