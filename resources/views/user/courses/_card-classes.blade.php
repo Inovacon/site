@@ -6,10 +6,10 @@
 		data-target="#collapseTwo"
 		aria-expanded="true"
 		aria-controls="collapseTwo">
-		<h5 class="text-white align-self-center mb-0">
+		<h6 class="text-white font-weight-600 align-self-center mb-0">
 			<i class="fas fa-chalkboard-teacher mr-2 fa-fw"></i></i>Aulas 
-		</h5>
-		
+		</h6>
+
 		<i class="fas fa-angle-down fa-fw align-self-center fa-lg text-white"></i>
 	</div>
 	

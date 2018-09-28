@@ -6,9 +6,9 @@
 		data-target="#collapseOne"
 		aria-expanded="true"
 		aria-controls="collapseOne">
-		<h5 class="text-white align-self-center mb-0">
+		<h6 class="text-white font-weight-600 align-self-center mb-0">
 			<i class="fas fa-info-circle mr-2 fa-fw"></i>Informações sobre o curso 
-		</h5>
+		</h6>
 
 		<i class="fas fa-angle-down fa-fw align-self-center fa-lg text-white"></i>
 	</div>

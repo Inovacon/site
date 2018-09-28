@@ -13,7 +13,7 @@
 		
 		@for($i = 0; $i < 5; $i++)
 			<div class="col col-md-4 col-lg-3 mb-4">
-				<div class="card">
+				<div class="card zoom-in">
 					<div class="overlay-container">
 						<img class="card-img-top" src="https://via.placeholder.com/800x400" alt="">
 					</div>
