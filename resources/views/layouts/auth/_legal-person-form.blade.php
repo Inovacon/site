@@ -1,6 +1,6 @@
 <form action="{{ route('register') }}" method="POST">
     @csrf
-    
+
     <h5 class="pb-1 font-weight-600 text-dark">Dados da empresa</h5>
 
     <div class="form-md-group {{ $errors->has('name') ? 'invalid-group' : '' }}">
@@ -22,7 +22,7 @@
     <div class="row">
         <div class="col">
             <div class="form-md-group {{ $errors->has('company-name') ? 'invalid-group' : '' }}">
-                <input  name="company-name"
+                <input  name="company_name"
                         id="legal-company-name"
                         value="{{ old('company-name') }}"
                         class="form-control {{ old('company-name') ? 'active' : '' }}"
@@ -37,7 +37,7 @@
                 </span>
             </div>
         </div>
-        
+
         <div class="col">
             <div class="form-md-group {{ $errors->has('cpf_cnpj') ? 'invalid-group' : '' }}">
                 <input  name="cpf_cnpj"
@@ -118,16 +118,16 @@
 
         <div class="col">
             <div class="form-md-group">
-                <input  name="password_confirmation" 
-                        id="legal-password_confirmation" 
-                        class="form-control" 
+                <input  name="password_confirmation"
+                        id="legal-password_confirmation"
+                        class="form-control"
                         type="password"/>
 
                 <label for="legal-password_confirmation">Confirme sua senha</label>
             </div>
         </div>
     </div>
-    
+
     <div class="col px-0">
         <div class="form-md-group">
             <input  name="birth_date"
@@ -143,6 +143,19 @@
             <span class="invalid-md-feedback">
                 {{ $errors->first('birth_date') }}
             </span>
+        </div>
+    </div>
+
+    <div class="col px-0">
+        <div class="form-group {{ $errors->has('gender') ? 'invalid-group' : '' }}">
+            <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="male" name="gender" class="custom-control-input" value="M" checked>
+                <label class="custom-control-label" for="male">Masculino</label>
+            </div>
+            <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="female" name="gender" class="custom-control-input" value="F">
+                <label class="custom-control-label" for="female">Feminino</label>
+            </div>
         </div>
     </div>
 

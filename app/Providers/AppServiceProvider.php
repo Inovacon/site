@@ -57,6 +57,7 @@ class AppServiceProvider extends ServiceProvider
     {
         Validator::extend('cpf', 'App\Validators\CpfValidator@validate');
         Validator::extend('cnpj', 'App\Validators\CnpjValidator@validate');
+        Validator::extend('cpf_cnpj', 'App\Validators\CpfOrCnpjValidator@validate');
     }
 
     /**

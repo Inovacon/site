@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
-use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Validator;
@@ -39,11 +40,22 @@ class RegisterController extends Controller
      */
     public function register(Request $request)
     {
-        $this->validator($data = $request->all())->validate();
+        $this->validator(
+            $data = $this->getFormattedData($request->all())
+        )->validate();
 
         event(new Registered($this->createUser($data)));
 
         return redirect()->route('login');
+    }
+
+    protected function getFormattedData(array $data)
+    {
+        $data['phone'] = preg_replace('/\D/', '', $data['phone']);
+        $data['cpf_cnpj'] = preg_replace('/\D/', '', $data['cpf_cnpj']);
+        $data['birth_date'] = (string) Carbon::createFromFormat('d/m/Y', $data['birth_date']);
+
+        return $data;
     }
 
     /**
@@ -56,9 +68,10 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => 'required',
-            'email' => 'bail|required|email|unique:users',
-            'cpf' => 'sometimes|bail|required|cpf|unique:users',
-            'cnpj' => 'sometimes|bail|required|cnpj|unique:users',
+            'company_name' => 'sometimes|required',
+            'email' => 'required|email|unique:users',
+            'cpf_cnpj' => 'required|cpf_cnpj|unique:users',
+            'phone' => 'required|string|min:10|max:11',
             'birth_date' => 'required|date',
             'gender' => 'required|in:M,F',
             'password' => 'required|string|min:6|confirmed',
@@ -75,9 +88,11 @@ class RegisterController extends Controller
     {
         return User::create([
             'name' => $data['name'],
+            'company_name' => $data['company_name'] ?? null,
             'email' => $data['email'],
-            'cpf_cnpj' => $data['cpf'] ?? $data['cnpj'],
+            'cpf_cnpj' => $data['cpf_cnpj'],
             'birth_date' => $data['birth_date'],
+            'phone' => $data['phone'],
             'gender' => $data['gender'],
             'password' => $data['password'],
         ]);

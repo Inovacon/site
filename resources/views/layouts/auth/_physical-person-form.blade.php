@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col">
             <div class="form-md-group {{ $errors->has('name') ? 'invalid-group' : '' }}">
-                <input  name="name" 
+                <input  name="name"
                         id="physical-name"
                         value="{{ old('name') }}"
                         class="form-control {{ old('name') ? 'active' : '' }}"
@@ -19,7 +19,7 @@
                 </span>
             </div>
         </div>
-        
+
         <div class="col">
             <div class="form-md-group {{ $errors->has('cpf_cnpj') ? 'invalid-group' : '' }}">
                 <input  name="cpf_cnpj"
@@ -97,9 +97,9 @@
 
         <div class="col">
             <div class="form-md-group">
-                <input  name="password_confirmation" 
-                        id="physical-password_confirmation" 
-                        class="form-control" 
+                <input  name="password_confirmation"
+                        id="physical-password_confirmation"
+                        class="form-control"
                         type="password"/>
 
                 <label for="physical-password_confirmation">
@@ -124,6 +124,19 @@
             <span class="invalid-md-feedback">
                 {{ $errors->first('birth_date') }}
             </span>
+        </div>
+    </div>
+
+    <div class="col px-0">
+        <div class="form-group {{ $errors->has('gender') ? 'invalid-group' : '' }}">
+            <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="male" name="gender" class="custom-control-input" value="M" checked>
+                <label class="custom-control-label" for="male">Masculino</label>
+            </div>
+            <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="female" name="gender" class="custom-control-input" value="F">
+                <label class="custom-control-label" for="female">Feminino</label>
+            </div>
         </div>
     </div>
 
