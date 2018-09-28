@@ -11,6 +11,12 @@
 	<hr>
 
 	<div class="accordion" id="accordionCourses">
-		@include('user.courses._card-info')
+		<div class="my-3">
+			@include('user.courses._card-info')
+		</div>
+
+		<div class="my-3">
+			@include('user.courses._card-classes')
+		</div>
 	</div>
 @endsection
