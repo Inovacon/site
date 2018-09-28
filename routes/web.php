@@ -19,6 +19,10 @@ Route::middleware('auth')->group(function () {
         return view('user.courses.index');
     })->name('my-courses.index');
 
+    Route::get('meus-cursos/nome-do-curso', function() {
+        return view('user.courses.show');
+    })->name('my-courses.show');
+
     Route::get('cursos/{activeCourse}/selecionar-turma', 'TeamController@index')->name('teams.index');
     Route::get('turmas/{team}/comprar-curso', 'TeamController@buyCourse')->name('teams.buy-course');
 

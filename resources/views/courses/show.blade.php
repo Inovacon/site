@@ -142,18 +142,18 @@
 
                             <div class="tab-pane fade" id="pills-advantages" role="tabpanel"
                                  aria-labelledby="pills-advantages-tab">
-                                    @forelse ($course->advantages as $advantage)
-                                        <ul class="list-group list-group-flush">
-                                            <li class="list-group-item">
-                                                <i class="fas fa-check fa-sm text-primary pr-2"></i>{{ $advantage }}
-                                            </li>
-                                        </ul>
-                                    @empty
-                                        <div class="text-center text-secondary">
-                                            <i class="fas fa-info-circle fa-3x mt-4"></i>
-                                            <p class="mt-3">Desculpe, nenhuma vantagem foi cadastrada para este curso ainda.</p>
-                                        </div>
-                                    @endforelse
+                                    <ul class="list-group list-group-flush">
+                                        @forelse ($course->advantages as $advantage)
+                                                <li class="list-group-item">
+                                                    <i class="fas fa-check fa-sm text-primary pr-2"></i>{{ $advantage }}
+                                                </li>
+                                        @empty
+                                            <div class="text-center text-secondary">
+                                                <i class="fas fa-info-circle fa-3x mt-4"></i>
+                                                <p class="mt-3">Desculpe, nenhuma vantagem foi cadastrada para este curso ainda.</p>
+                                            </div>
+                                        @endforelse
+                                    </ul>
                             </div>
                         </div>
 

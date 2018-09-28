@@ -15740,6 +15740,15 @@ h6 {
   font-size: .7rem !important;
 }
 
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.table-small td {
+  padding: .5rem !important;
+  font-size: .9rem;
+}
+
 .text-primary-l {
   color: #28bffc;
 }
