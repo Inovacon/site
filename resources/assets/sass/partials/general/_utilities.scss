@@ -115,3 +115,28 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 20px;
   background-color: $primary-darker;
 }
+
+.overlay-container {
+  position: relative;
+}
+
+.overlay-container .overlay-content {
+  background-color: rgba(0, 0, 0, .45);
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+}
+
+.0-9rem {
+  font-size: .9rem !important;
+}
+
+.0-8rem {
+  font-size: .8rem !important;
+}
+
+.0-7rem {
+  font-size: .7rem !important;
+}

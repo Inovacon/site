@@ -12,7 +12,7 @@
 </head>
 <body class="bg-light">
     <div id="root">
-        @include('dashboard._navbar')
+        @include('user._navbar')
 
         <div class="wrapper">
             @include('user._sidebar')

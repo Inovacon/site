@@ -28,7 +28,7 @@
         <p class="small text-justify text-secondary">{{ str_limit($course->description, 150) }}</p>
     </div>
 
-    <div class="card-footer p-0"  style="z-index: 1";>
+    <div class="card-footer p-0"  style="z-index: 1">
         <a href="{{ route('courses.show', $course) }}" class="link p-2 text-center d-block text-uppercase">
             <span class="font-weight-600"><i class="fas fa-plus-circle mr-1"></i>Matricule-se</span>
         </a>

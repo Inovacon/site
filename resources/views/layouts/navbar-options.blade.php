@@ -3,7 +3,7 @@
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-lg fa-fw mr-1"></i>Olá, <strong>{{ strtok(Auth::user()->name, ' ') }}</strong></a>
 
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a href="{{ route('my-account') }}" class="dropdown-item">
+            <a href="{{ route('my-account.index') }}" class="dropdown-item">
                 <i class="fas fa-user-circle fa-fw mr-1"></i>Minha conta
             </a>
         
