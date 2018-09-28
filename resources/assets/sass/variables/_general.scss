@@ -23,6 +23,10 @@ $white: #ffffff;
 $custom-gray: #4C5867;
 $custom-dark-blue: #04091e;
 
+$dropdown-border-radius: 1px;
+$dropdown-border-width: 0;
+$dropdown-box-shadow: 2px 2px 2px rgba(0, 0, 0, .8);
+
 // COLOR BRANDS
 $facebook: #4267B2;
 $google: #DB4437;
@@ -31,3 +35,13 @@ $twitter: #1DA1F2;
 $custom-file-text: (
     pt: "Buscar"
 );
+
+$dropdown-item-padding-y: .4rem;
+
+.dropdown-item {
+	font-size: .93rem;
+}
+
+.dropdown-menu {
+  box-shadow: 0px 0px 3px rgba(0, 0, 0, .3);
+}

@@ -6,6 +6,10 @@
   @include transition(box-shadow .3s);
 }
 
+.navbar .nav-item {
+  font-size: .9rem;
+}
+
 .navbar-nav.ml-auto .nav-link:hover {
   color: $primary;
 }

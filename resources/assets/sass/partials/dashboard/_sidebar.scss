@@ -1,11 +1,19 @@
 #sidebar {
   min-width: 250px;
   max-width: 250px;
-  background-color: $sidebar-bg-color;
-  color: #B5B5B5;
   transition: all 0.3s;
   min-height: 100vh;
-  @include box-shadow(inset -2px 0 5px rgba(0, 0, 0, .5));
+  @include box-shadow(inset -1px 0 7px rgba(0, 0, 0, .3));
+}
+
+#sidebar.sidebar-dark {
+  background-color: $sidebar-bg-dark;
+  color: #B5B5B5;
+}
+
+#sidebar.sidebar-primary {
+  background-color: $sidebar-bg-primary;
+  color: #c9c9c9;
 }
 
 #sidebar {
@@ -46,12 +54,16 @@
 #sidebar ul li a {
   padding: 12px;
   padding-left: 20px;
-  font-size: 12px;
+  font-size: .78rem;
   font-weight: 600;
   display: flex;
   align-items: center;
   line-height: 25px;
   text-transform: uppercase;
+}
+
+#sidebar ul li:first-child a:hover {
+  background-color: initial !important;
 }
 
 #sidebar ul li a:hover {
@@ -79,7 +91,7 @@
 
   #sidebar {
     z-index: 1010;
-    background-color: rgba($sidebar-bg-color, .9);
+    background-color: rgba($sidebar-bg-dark, .9);
     position: absolute;
     margin-left: -350px;
   }

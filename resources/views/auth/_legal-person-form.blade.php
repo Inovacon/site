@@ -1,21 +1,41 @@
 <form action="{{ route('register') }}" method="POST">
     @csrf
 
+    <h5 class="pb-1 font-weight-600 text-dark">Dados da empresa</h5>
+
+    <div class="form-md-group {{ $errors->has('name') ? 'invalid-group' : '' }}">
+        <input  name="name"
+                id="legal-name"
+                value="{{ old('name') }}"
+                class="form-control {{ old('name') ? 'active' : '' }}"
+                type="text"
+                required />
+
+        <label for="legal-name">
+            <i class="fas fa-id-card fa-lg mr-1"></i> Nome fantasia
+        </label>
+
+        <span class="invalid-md-feedback">
+            {{ $errors->first('name') }}
+        </span>
+    </div>
+
     <div class="row">
         <div class="col">
-            <div class="form-md-group {{ $errors->has('name') ? 'invalid-group' : '' }}">
-                <input  name="name"
-                        id="physical-name"
-                        value="{{ old('name') }}"
-                        class="form-control {{ old('name') ? 'active' : '' }}"
-                        type="text"/>
+            <div class="form-md-group {{ $errors->has('company-name') ? 'invalid-group' : '' }}">
+                <input  name="company_name"
+                        id="legal-company-name"
+                        value="{{ old('company-name') }}"
+                        class="form-control {{ old('company-name') ? 'active' : '' }}"
+                        type="text"
+                        required />
 
-                <label for="physical-name">
-                    <i class="fas fa-id-card fa-lg mr-1"></i> Nome completo
+                <label for="legal-company-name">
+                    <i class="fas fa-file-contract fa-lg mr-1"></i> Razão social
                 </label>
 
                 <span class="invalid-md-feedback">
-                    {{ $errors->first('name') }}
+                    {{ $errors->first('company-name') }}
                 </span>
             </div>
         </div>
@@ -23,13 +43,14 @@
         <div class="col">
             <div class="form-md-group {{ $errors->has('cpf_cnpj') ? 'invalid-group' : '' }}">
                 <input  name="cpf_cnpj"
-                        id="physical-cpf"
+                        id="legal-cnpj"
                         value="{{ old('cpf_cnpj') }}"
-                        class="cpf form-control {{ old('cpf_cnpj') ? 'active' : ''}}"
-                        type="text"/>
+                        class="cnpj form-control {{ old('cpf_cnpj') ? 'active' : ''}}"
+                        type="text"
+                        required />
 
-                <label for="physical-cpf">
-                    <i class="fas fa-address-card fa-lg mr-1"></i> CPF
+                <label for="legal-cnpj">
+                    <i class="fas fa-file-contract fa-lg mr-1"></i> CNPJ
                 </label>
 
                 <span class="invalid-md-feedback">
@@ -39,16 +60,19 @@
         </div>
     </div>
 
+    <h5 class="pb-1 font-weight-600 text-dark">Dados pessoais</h5>
+
     <div class="row">
         <div class="col">
             <div class="form-md-group {{ $errors->has('email') ? 'invalid-group' : '' }}">
                 <input  name="email"
-                        id="lp-email"
+                        id="legal-email"
                         value="{{ old('email') }}"
-                        class="form-control {{ old('name') ? 'active' : '' }}"
-                        type="email"/>
+                        class="form-control {{ old('email') ? 'active' : '' }}"
+                        type="email"/
+                        required>
 
-                <label for="lp-email">
+                <label for="legal-email">
                     <i class="fas fa-envelope fa-lg mr-1"></i> E-mail
                 </label>
 
@@ -59,33 +83,36 @@
         </div>
 
         <div class="col">
-            <div class="form-md-group {{ $errors->has('phone') ? 'invalid-group' : '' }}">
+            <div class="form-md-group">
                 <input  name="phone"
-                        id="physical-phone"
+                        id="legal-phone"
                         value="{{ old('phone') }}"
                         class="phone form-control {{ old('phone') ? 'active' : '' }}"
-                        type="physical-phone" />
+                        type="tel"
+                        required/>
 
-                <label for="physical-phone">
+                <label for="legal-phone">
                     <i class="fas fa-mobile-alt fa-lg mr-1"></i> Celular
                 </label>
 
                 <span class="invalid-md-feedback">
-                    {{ $errors->first('cpf_cnpj') }}
+                    {{ $errors->first('phone') }}
                 </span>
             </div>
         </div>
     </div>
 
+
     <div class="row">
         <div class="col">
             <div class="form-md-group {{ $errors->has('password') ? 'invalid-group' : '' }}">
                 <input  name="password"
-                        id="physical-password"
+                        id="legal-password"
                         class="form-control"
-                        type="password"/>
+                        type="password"
+                        required/>
 
-                <label for="physical-password">
+                <label for="legal-password">
                     <i class="fas fa-lock fa-lg mr-1"></i> Senha
                 </label>
 
@@ -98,26 +125,26 @@
         <div class="col">
             <div class="form-md-group">
                 <input  name="password_confirmation"
-                        id="physical-password_confirmation"
+                        id="legal-password_confirmation"
                         class="form-control"
-                        type="password"/>
+                        type="password"
+                        required />
 
-                <label for="physical-password_confirmation">
-                     Confirme sua senha
-                 </label>
+                <label for="legal-password_confirmation">Confirme sua senha</label>
             </div>
         </div>
     </div>
 
     <div class="col px-0">
-        <div class="form-md-group {{ $errors->has('birth_date') ? 'invalid-group' : '' }}">
+        <div class="form-md-group">
             <input  name="birth_date"
                     value="{{ old('birth_date') }}"
-                    id="physical-birth_date"
+                    id="legal-birth_date"
                     class="birth-day form-control {{ old('name') ? 'active' : '' }}"
-                    type="text"/>
+                    type="text"
+                    required />
 
-            <label for="physical-birth_date">
+            <label for="legal-birth_date">
                 <i class="fas fa-calendar-alt fa-lg mr-1"></i> Data de nascimento
             </label>
 
@@ -130,12 +157,12 @@
     <div class="col px-0">
         <div class="form-group {{ $errors->has('gender') ? 'invalid-group' : '' }}">
             <div class="custom-control custom-radio custom-control-inline">
-                <input type="radio" id="male" name="gender" class="custom-control-input" value="M" checked>
-                <label class="custom-control-label" for="male">Masculino</label>
+                <input type="radio" id="legal-male" name="gender" class="custom-control-input" value="M" checked>
+                <label class="custom-control-label" for="legal-male">Masculino</label>
             </div>
             <div class="custom-control custom-radio custom-control-inline">
-                <input type="radio" id="female" name="gender" class="custom-control-input" value="F">
-                <label class="custom-control-label" for="female">Feminino</label>
+                <input type="radio" id="legal-female" name="gender" class="custom-control-input" value="F">
+                <label class="custom-control-label" for="legal-female">Feminino</label>
             </div>
         </div>
     </div>
@@ -144,7 +171,6 @@
         <div class="form-group mb-0">
             <button class="btn btn-success" type="submit">Cadastrar-se</button>
         </div>
-
         <p class="text-right small text-secondary">Já possui uma conta? <a class="link" href="/login">Entre</a>.</p>
     </div>
 </form>

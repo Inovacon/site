@@ -1,4 +1,13 @@
-@import url(https://fonts.googleapis.com/css?family=Raleway:400,600|Open+Sans:400,600);/*!
+@import url(https://fonts.googleapis.com/css?family=Raleway:400,600|Open+Sans:400,600);.dropdown-item {
+  font-size: .93rem;
+}
+
+.dropdown-menu {
+  -webkit-box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.3);
+          box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.3);
+}
+
+/*!
  * Font Awesome Free 5.2.0 by @fontawesome - https://fontawesome.com
  * License - https://fontawesome.com/license (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  */
@@ -8700,8 +8709,8 @@ input[type="button"].btn-block {
   list-style: none;
   background-color: #ffffff;
   background-clip: padding-box;
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  border-radius: 0.25rem;
+  border: 0 solid rgba(0, 0, 0, 0.15);
+  border-radius: 1px;
 }
 
 .dropdown-menu-right {
@@ -8821,7 +8830,7 @@ input[type="button"].btn-block {
 .dropdown-item {
   display: block;
   width: 100%;
-  padding: 0.25rem 1.5rem;
+  padding: 0.4rem 1.5rem;
   clear: both;
   font-weight: 400;
   color: #212529;
@@ -8866,7 +8875,7 @@ input[type="button"].btn-block {
 
 .dropdown-item-text {
   display: block;
-  padding: 0.25rem 1.5rem;
+  padding: 0.4rem 1.5rem;
   color: #212529;
 }
 
@@ -15770,6 +15779,10 @@ h6 {
   }
 }
 
+.navbar .nav-item {
+  font-size: .9rem;
+}
+
 .navbar-nav.ml-auto .nav-link:hover {
   color: #00a0f0;
 }
@@ -15922,15 +15935,23 @@ h6 {
 #sidebar {
   min-width: 250px;
   max-width: 250px;
-  background-color: #212120;
-  color: #B5B5B5;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
   min-height: 100vh;
-  -webkit-box-shadow: inset -2px 0 5px rgba(0, 0, 0, 0.5);
-  -ms-box-shadow: inset -2px 0 5px rgba(0, 0, 0, 0.5);
-  -o-box-shadow: inset -2px 0 5px rgba(0, 0, 0, 0.5);
-  box-shadow: inset -2px 0 5px rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: inset -1px 0 7px rgba(0, 0, 0, 0.3);
+  -ms-box-shadow: inset -1px 0 7px rgba(0, 0, 0, 0.3);
+  -o-box-shadow: inset -1px 0 7px rgba(0, 0, 0, 0.3);
+  box-shadow: inset -1px 0 7px rgba(0, 0, 0, 0.3);
+}
+
+#sidebar.sidebar-dark {
+  background-color: #212120;
+  color: #B5B5B5;
+}
+
+#sidebar.sidebar-primary {
+  background-color: #0D8DC4;
+  color: #c9c9c9;
 }
 
 #sidebar {
@@ -15971,7 +15992,7 @@ h6 {
 #sidebar ul li a {
   padding: 12px;
   padding-left: 20px;
-  font-size: 12px;
+  font-size: .78rem;
   font-weight: 600;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -15981,6 +16002,10 @@ h6 {
           align-items: center;
   line-height: 25px;
   text-transform: uppercase;
+}
+
+#sidebar ul li:first-child a:hover {
+  background-color: initial !important;
 }
 
 #sidebar ul li a:hover {

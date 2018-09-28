@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@yield('title') | Painel</title>
+    <title>@yield('title') | Minha conta</title>
 
     <link rel="stylesheet" href="{{ mix('/css/dashboard.css') }}">
 </head>
@@ -15,7 +15,7 @@
         @include('dashboard._navbar')
 
         <div class="wrapper">
-            @include('dashboard._sidebar')
+            @include('user._sidebar')
 
             <div id="content">
                 <div class="container p-4 px-md-5">
@@ -27,6 +27,6 @@
         <flash type="{{ session('type') ?: 'success' }}" message="{{ session('flash') }}"></flash>
     </div>
 
-    @include('dashboard._footer')
+    @include('user._footer')
 </body>
 </html>

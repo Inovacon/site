@@ -52,51 +52,33 @@
                     </ul>
                 @endif
             @else
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-lg fa-fw mr-1"></i>{{ Auth::user()->name }}</a>
-
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a href="{{ route('dashboard.index') }}" class="dropdown-item">
-                                <i class="fas fa-tachometer-alt fa-fw mr-1"></i>Painel
-                            </a>
-
-                            <div class="dropdown-divider"></div>
-
-                            <a  href="/logout" class="dropdown-item"
-                                onclick="event.preventDefault();
-                                document.getElementById('logoutForm').submit();"><i class="fas fa-sign-out-alt fa-fw mr-1"></i>Sair</a>
-
-                            <form id="logoutForm" action="{{ route('logout') }}" method="POST" class="d-none">
-                                @csrf
-                            </form>
-                        </div>
-                    </li>
-                </ul>
+                @include('layouts.navbar-options')
             @endguest
 
         </div>
     </div>
 </nav>
 
-@if(! request()->is('register', 'login'))
+@guest
+    @if(! request()->is('register', 'login'))
 
-    {{-- LOGIN MODAL --}}
-    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header bg-primary">
-                    <h6 class="modal-title font-weight-600 text-white" id="loginModalLabel">ENTRE COM SUA CONTA</h6>
+        {{-- LOGIN MODAL --}}
+        <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-primary">
+                        <h6 class="modal-title font-weight-600 text-white" id="loginModalLabel">ENTRE COM SUA CONTA</h6>
 
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span class="text-white" aria-hidden="true">&times;</span>
-                    </button>
-                </div>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span class="text-white" aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
 
-                <div class="modal-body">
-                    @include('layouts.auth.login-form')
+                    <div class="modal-body">
+                        @include('auth._login-form')
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-@endif
+    @endif
+@endguest

@@ -16,7 +16,7 @@
           <hr class="my-0">
 
           <div class="card-body">
-            @include('layouts.auth.login-form')
+            @include('auth._login-form')
           </div>
         </div>
       </div>

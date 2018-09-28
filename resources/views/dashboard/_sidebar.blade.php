@@ -1,4 +1,4 @@
-<nav id="sidebar">
+<nav id="sidebar" class="sidebar-dark">
     <ul class="list-unstyled components">
         @auth
             <li>
@@ -7,7 +7,7 @@
                 </a>
             </li>
 
-            <hr class="bg-custom-gray">
+            <hr style="background-color: rgba(255, 255, 255, .3);">
         @endauth
 
         <li class="{{ request()->routeIs('dashboard.index') ? 'active' : '' }}">

@@ -53,7 +53,10 @@ class RegisterController extends Controller
     {
         $data['phone'] = preg_replace('/\D/', '', $data['phone']);
         $data['cpf_cnpj'] = preg_replace('/\D/', '', $data['cpf_cnpj']);
-        $data['birth_date'] = (string) Carbon::createFromFormat('d/m/Y', $data['birth_date']);
+
+        if (trim($data['birth_date']) !== '') {
+            $data['birth_date'] = (string) Carbon::createFromFormat('d/m/Y', $data['birth_date']);
+        }
 
         return $data;
     }

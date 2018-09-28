@@ -105,14 +105,24 @@ return [
         ],
         'email' => [
             'required' => 'Por favor, informe um e-mail',
-            'email' => 'Por favor, informe um e-mail válido'
+            'email' => 'Por favor, informe um e-mail válido',
+            'unique' => 'Este endereço de e-mail já está em uso'
         ],
         'password' => [
             'required' => 'Por favor, informe uma senha',
             'min' => 'A senha deve conter no mínimo :min caracteres'
         ],
+        'phone' => [
+            'min' => 'Por favor, informe um número de telefone válido',
+            'max' => 'Por favor, informe um número de telefone válido'
+        ],
         'birth_date' => [
             'required' => 'Por favor, informe a sua data de nascimento'
+        ],
+        'cpf_cnpj' => [
+            'required' => 'Por favor, preencha este campo ',
+            'cpf_cnpj' => 'Por favor, informe um número de documento válido',
+            'unique' => 'Este número de documento já está em uso'
         ]
     ],
 
