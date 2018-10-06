@@ -24,6 +24,7 @@
         "popper.js": "^1.12",
         "sweetalert": "^2.1.0",
         "toastr": "^2.1.4",
+        "trix": "^1.0.0",
         "vue": "^2.5.7",
         "vuejs-datepicker": "^1.5.3"
     },
