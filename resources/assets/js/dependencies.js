@@ -5,6 +5,7 @@ import Popper from 'popper.js';
 import 'bootstrap';
 import toastr from 'toastr';
 import Cleave from 'cleave.js';
+import trix from 'trix';
 
 window.Vue = Vue;
 window.axios = axios;
