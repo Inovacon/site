@@ -20,7 +20,11 @@ Route::middleware('auth')->group(function () {
     })->name('my-courses.index');
 
     Route::get('meus-cursos/nome-do-curso', function() {
-        return view('user.courses.show');
+    	$course = App\Course::first();
+    	$team = App\Team::where('course_id', $course->id)->first();
+    	$lessons = App\Lesson::where('team_id', $team->id)->get();
+
+        return view('user.courses.show', compact('course', 'lessons'));
     })->name('my-courses.show');
 
     Route::get('cursos/{activeCourse}/selecionar-turma', 'TeamController@index')->name('teams.index');
