@@ -9,13 +9,13 @@
         <hr style="background-color: rgba(255, 255, 255, .3);">
         
         <li class="{{ request()->routeIs('my-account.index') ? 'active' : '' }}">
-            <a href="{{ route('my-account.index') }}" class="text-white">
+            <a href="{{ route('my-account.index') }}">
                 <i class="fas fa-user-circle fa-fw fa-2x mr-3"></i>Minha conta
             </a>
         </li>
 
         <li class="{{ request()->routeIs('my-courses.*') ? 'active' : '' }}">
-            <a href="{{ route('my-courses.index') }}" class="text-white">
+            <a href="{{ route('my-courses.index') }}">
                 <i class="fas fa-graduation-cap fa-fw fa-2x mr-3"></i>Meus cursos
             </a>
         </li>

@@ -17,7 +17,7 @@
 		<div class="card-body">
 			<div class="row no-gutters">
 				<div class="col-lg-5">
-					<img class="img-fluid img-thumbnail mb-2" src="https://via.placeholder.com/800x400" alt="">
+					<img class="img-fluid img-thumbnail mb-2" src="{{ $course->publicImagePath }}" alt="">
 					
 					<table class="table table-small table-borderless">
 						<tr>
@@ -27,7 +27,7 @@
 								</span>
 							</td>
 							<td>
-								<span>Administração</span>
+								<span>{{ $course->occupationArea->name }}</span>
 							</td>
 						</tr>
 						<tr>
@@ -37,7 +37,7 @@
 								</span>
 							</td>
 							<td>
-								<span>Curso de extensão</span>
+								<span>{{ $course->type->name }}</span>
 							</td>
 						</tr>
 						<tr>
@@ -48,7 +48,7 @@
 							</td>
 							
 							<td>
-								<span>200h</span>
+								<span>{{ $course->hours }}h</span>
 							</td>
 						</tr>
 						<tr>
@@ -58,7 +58,7 @@
 								</span>
 							</td>
 							<td>
-								<span>Presencial</span>
+								<span>{{ $course->modality->name }}</span>
 							</td>
 						</tr>
 						<tr>
@@ -68,24 +68,14 @@
 								</span>
 							</td>
 							<td>
-								<span>Estudantes</span>
+								<span>{{ $course->targetAudience->name }}</span>
 							</td>
 						</tr>
-			{{-- 			<tr>
-							<td>
-								<span class="font-weight-600">
-									<i class="fas fa-hand-holding-usd fa-fw text-primary mr-1"></i>Preço:
-								</span>
-							</td>
-							<td>
-								<span>R$ 500</span>
-							</td>
-						</tr> --}}
 					</table>
 				</div>
 
 				<div class="col-lg-6 mx-auto small text-gray-dark ml-3">
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc porttitor leo sit amet luctus semper. Suspendisse potenti. Nulla euismod risus augue, a posuere orci consectetur luctus. Quisque eu arcu nisi. Suspendisse non mi non libero maximus condimentum. Donec convallis convallis lacinia. Donec vestibulum egestas leo efficitur malesuada. Duis imperdiet tristique condimentum. Sed vestibulum luctus volutpat. Vestibulum ultrices luctus rutrum. In malesuada ante id nisi tincidunt, quis commodo est condimentum. Duis sed tempor eros. Suspendisse commodo dolor vel urna aliquet, in mattis dui lacinia. Mauris sodales malesuada quam, eget ultrices nibh eleifend malesuada. Etiam non blandit risus. In condimentum imperdiet erat nec aliquam. Mauris in enim in lacus vehicula vehicula. Aenean vel placerat eros. Donec mi est, fermentum in elit nec, tincidunt pellentesque magna. Fusce pharetra, dolor vitae consectetur porta, nisl tellus laoreet urna, sed porta lorem justo at enim. Nam gravida dapibus neque, nec suscipit erat congue et. Aliquam volutpat sem sem. Nulla bibendum mauris metus, eget congue est tempus et. Integer vel mollis ante. Curabitur eu dui dictum, vehicula ipsum eu, malesuada dui. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Suspendisse potenti. Quisque fermentum feugiat lectus, quis malesuada lorem pulvinar id. Integer in nibh ut sem blandit auctor. Donec eu dui vitae nulla dignissim tristique eu hendrerit enim.
+					{{ $course->description }}
 				</div>
 			</div>
 		</div>

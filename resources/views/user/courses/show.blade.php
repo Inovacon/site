@@ -5,18 +5,22 @@
 @section('content')
 
 	<div>
-		<h4 class="font-weight-600 text-gray-dark">Curso de administração</h4>
+		<h4 class="font-weight-600 text-gray-dark">Meus cursos - {{ $course->name }}</h4>
 	</div>
 	
 	<hr>
 
 	<div class="accordion" id="accordionCourses">
 		<div class="my-3">
+			@include('user.courses._card-classes')
+		</div>
+
+		<div class="my-3">
 			@include('user.courses._card-info')
 		</div>
 
 		<div class="my-3">
-			@include('user.courses._card-classes')
+			@include('user.courses._card-programmatic-content')
 		</div>
 	</div>
 @endsection
