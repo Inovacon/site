@@ -7,6 +7,7 @@
             <li data-target="#carouselNews"
                 data-slide-to="{{ $loop->index }}"
                 class="{{ $loop->first ? 'active' : '' }}"></li>
+
           @endforeach
         </ol>
 
@@ -44,10 +45,10 @@
       </div>
     </div>
 
-    <div class="d-none d-md-block text-right small">
+{{--     <div class="d-none d-md-block text-right small">
       <a href="/noticias" class="link pr-2">
         Mais notícias
       </a>
-    </div>
+    </div> --}}
   </div>
 </div>
