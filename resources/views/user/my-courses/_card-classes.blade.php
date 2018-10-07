@@ -17,6 +17,10 @@
 		<div class="card-body">
 			<table class="table table-small table-bordered">
 				<thead>
+					<tr>
+						<td class="text-center font-weight-bold" colspan="3">Semana do dia 02 até 09</td>
+					</tr>
+
 					<tr class="font-weight-bold">
 						<td>Dia da semana</td>
 
