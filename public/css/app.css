@@ -16000,6 +16000,10 @@ h6 {
   font-size: .9rem;
 }
 
+input[disabled] {
+  cursor: not-allowed;
+}
+
 .text-primary-l {
   color: #28bffc;
 }
