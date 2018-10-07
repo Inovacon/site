@@ -16,7 +16,7 @@ Route::middleware('auth')->group(function () {
     })->name('my-account.index');
 
     Route::get('meus-cursos', function() {
-        return view('user.courses.index');
+        return view('user.my-courses.index');
     })->name('my-courses.index');
 
     Route::get('meus-cursos/nome-do-curso', function() {
@@ -24,8 +24,14 @@ Route::middleware('auth')->group(function () {
     	$team = App\Team::where('course_id', $course->id)->first();
     	$lessons = App\Lesson::where('team_id', $team->id)->get();
 
-        return view('user.courses.show', compact('course', 'lessons'));
+        return view('user.my-courses.show', compact('course', 'lessons'));
     })->name('my-courses.show');
+
+    Route::get('minha-conta/alterar-dados', function() {
+        $user = Auth::user();
+
+        return view('user.my-account.edit', compact('user'));
+    })->name('my-account.edit');
 
     Route::get('cursos/{activeCourse}/selecionar-turma', 'TeamController@index')->name('teams.index');
     Route::get('turmas/{team}/comprar-curso', 'TeamController@buyCourse')->name('teams.buy-course');
