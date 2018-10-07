@@ -6,7 +6,7 @@
 			<div class="item">
 				<img class="img-thumbnail" src="{{ asset('images/parceiros/faculdade-cnec-santo-angelo.jpg') }}" alt="">
 			</div>
-			
+
 			<div class="item">
 				<img class="img-thumbnail" src="{{ asset('images/parceiros/acisa.jpg') }}" alt="">
 			</div>

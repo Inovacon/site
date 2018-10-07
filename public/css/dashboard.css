@@ -16157,6 +16157,11 @@ input[disabled] {
   cursor: not-allowed;
 }
 
+.owl-parceiros .item img {
+  width: 250px !important;
+  border-radius: 3px;
+}
+
 .text-primary-l {
   color: #28bffc;
 }
