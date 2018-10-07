@@ -8,7 +8,7 @@
 
         <hr style="background-color: rgba(255, 255, 255, .3);">
         
-        <li class="{{ request()->routeIs('my-account.index') ? 'active' : '' }}">
+        <li class="{{ request()->routeIs('my-account.*') ? 'active' : '' }}">
             <a href="{{ route('my-account.index') }}">
                 <i class="fas fa-user-circle fa-fw fa-2x mr-3"></i>Minha conta
             </a>

@@ -49,44 +49,6 @@
               @include('auth._legal-person-form')
             </div>
           </div>
-
-          @push('scripts')
-            <script>
-            
-            // Cleave js masks
-            $('.birth-day').each(function() {
-              new Cleave(this, {
-                date: true,
-                datePattern: ['d', 'm', 'Y']
-              });
-            });
-
-            $('.phone').each(function() {
-              new Cleave(this, {
-                delimiters: [' ', '-'],
-                blocks: [2, 5, 4],
-                numericOnly: true
-              });
-            });
-
-            $('.cpf').each(function() {
-              new Cleave(this, {
-                delimiters: ['.', '.', '-'],
-                blocks: [3, 3, 3, 2],
-                numericOnly: true
-              });
-            });
-
-            $('.cnpj').each(function() {
-              new Cleave('.cnpj', {
-                delimiters: ['.', '.', '/', '-'],
-                blocks: [2, 3, 3, 4, 2],
-                numericOnly: true
-              });
-            });
-            
-            </script>
-          @endpush
         </div>
       </div>
     </div>
