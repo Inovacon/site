@@ -15948,6 +15948,10 @@ input[disabled] {
   border-radius: 3px;
 }
 
+.first-letter-upper::first-letter {
+  text-transform: uppercase;
+}
+
 .text-primary-l {
   color: #28bffc;
 }
@@ -16162,7 +16166,7 @@ h6 {
 }
 
 .navbar-nav.mr-auto .nav-item:nth-child(6) .nav-link:before {
-  content: '\F199';
+  content: '\F0E0';
 }
 
 .btn {

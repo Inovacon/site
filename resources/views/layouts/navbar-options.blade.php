@@ -9,11 +9,11 @@
                 </a>
             @endrole
 
-            <a href="{{ route('my-account.index') }}" class="dropdown-item">
+            <a href="{{ route('my-account.user.index') }}" class="dropdown-item">
                 <i class="fas fa-user-circle fa-fw mr-1"></i>Minha conta
             </a>
 
-            <a href="{{ route('my-account.edit') }}" class="dropdown-item">
+            <a href="{{ route('my-account.user.edit') }}" class="dropdown-item">
                 <i class="fas fa-user-edit fa-fw mr-1"></i>Alterar dados
             </a>
             

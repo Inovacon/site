@@ -74,6 +74,9 @@
 				<i class="fas fa-lock mr-2"></i>Senha antiga:
 			</label>
 			<input name="old_password" class="form-control" type="password">
+			<small id="passwordHelpBlock" class="form-text text-muted">
+				Deixe os campos de senha vazios caso não queira alterá-los
+			</small>
 		</div>
 	</div>
 </div>

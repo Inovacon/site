@@ -33,9 +33,9 @@
 				<tbody>
 					@foreach($lessons as $lesson)
 						<tr>
-							<td class="text-capitalize">{{ $lesson->date->format('l') }}</td>
-							<td>{{ $lesson->start_time }}</td>
-							<td>{{ $lesson->end_time }}</td>
+							<td class="first-letter-upper">{{ utf8_encode(strftime("%A", strtotime($lesson->date))) }}</td>
+							<td>{{ strftime("%Hh e %Mmin", strtotime($lesson->start_time)) }}</td>
+							<td>{{ strftime("%Hh e %Mmin", strtotime($lesson->end_time)) }}</td>
 						</tr>
 					@endforeach
 				</tbody>

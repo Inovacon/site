@@ -5,7 +5,7 @@ import Popper from 'popper.js';
 import 'bootstrap';
 import toastr from 'toastr';
 import Cleave from 'cleave.js';
-import trix from 'trix';
+import Trix from 'trix';
 import autosize from 'autosize';
 
 window.Vue = Vue;
@@ -15,5 +15,6 @@ window.Popper = Popper.default;
 window.toastr = toastr;
 window.Cleave = Cleave;
 window.autosize = autosize;
+window.Trix = Trix;
 
 require('owl.carousel');

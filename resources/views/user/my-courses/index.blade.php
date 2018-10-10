@@ -18,12 +18,12 @@
 						<img class="card-img-top" src="https://via.placeholder.com/800x400" alt="">
 					</div>
 
-					<a class="link-absolute" href="{{ route('my-courses.show') }}"></a>
+					<a class="link-absolute" href="{{ route('my-account.courses.show', ['course' => 1]) }}"></a>
 
 					<div class="card-header">
 						<div style="font-size: .85rem;" class="d-flex justify-content-between ">
 							<div class="mb-0 text-primary text-uppercase font-weight-bold">
-								<a class="link" href="{{ route('my-courses.show') }}">Curso de administraçao</a>
+								<a class="link" href="{{ route('my-account.courses.show', ['course' => 1]) }}">Curso de administraçao</a>
 							</div>
 
 							<i class="fas fa-user-tie text-primary align-self-center"></i>
@@ -38,7 +38,7 @@
 					</div>
 
 					<div class="card-footer p-0"  style="z-index: 1">
-						<a href="{{ route('my-courses.show') }}" class="link p-2 text-center d-block text-uppercase" style="font-size: .75rem">
+						<a href="{{ route('my-account.courses.show', ['course' => 1]) }}" class="link p-2 text-center d-block text-uppercase" style="font-size: .75rem">
 							<span class="font-weight-600"><i class="fas fa-info-circle mr-1"></i>Mais informações</span>
 						</a>
 					</div>

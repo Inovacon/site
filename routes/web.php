@@ -11,27 +11,13 @@ Route::get('cursos', 'CourseController@index')->name('courses.index');
 Route::get('cursos/{activeCourse}', 'CourseController@show')->name('courses.show');
 
 Route::middleware('auth')->group(function () {
-    Route::get('minha-conta', function() {
-        return view('user.index');
-    })->name('my-account.index');
+    Route::prefix('minha-conta')->name('my-account.')->namespace('User')->group(function() {
+        Route::get('/', 'MyAccountController@index')->name('user.index');
+        Route::get('/alterar-dados', 'MyAccountController@edit')->name('user.edit');
 
-    Route::get('meus-cursos', function() {
-        return view('user.my-courses.index');
-    })->name('my-courses.index');
-
-    Route::get('meus-cursos/nome-do-curso', function() {
-    	$course = App\Course::first();
-    	$team = App\Team::where('course_id', $course->id)->first();
-    	$lessons = App\Lesson::where('team_id', $team->id)->get();
-
-        return view('user.my-courses.show', compact('course', 'lessons'));
-    })->name('my-courses.show');
-
-    Route::get('minha-conta/alterar-dados', function() {
-        $user = Auth::user();
-
-        return view('user.my-account.edit', compact('user'));
-    })->name('my-account.edit');
+        Route::get('/cursos', 'CourseController@index')->name('courses.index');
+        Route::get('/cursos/{course}', 'CourseController@show')->name('courses.show');
+    });
 
     Route::get('cursos/{activeCourse}/selecionar-turma', 'TeamController@index')->name('teams.index');
     Route::get('turmas/{team}/comprar-curso', 'TeamController@buyCourse')->name('teams.buy-course');

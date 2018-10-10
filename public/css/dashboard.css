@@ -16101,6 +16101,10 @@ input[disabled] {
   border-radius: 3px;
 }
 
+.first-letter-upper::first-letter {
+  text-transform: uppercase;
+}
+
 .text-primary-l {
   color: #28bffc;
 }
