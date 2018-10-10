@@ -3,11 +3,34 @@
 		<h2 class="font-weight-bold mb-3">Parceiros</h2>
 
 		<div class="owl-carousel owl-parceiros">
-			@for($i = 0; $i < 10; $i++)
-				<div class="item">
-					<img class="img-thumbnail" src="https://via.placeholder.com/300x150">
-				</div>
-			@endfor
+			<div class="item">
+				<img class="img-thumbnail" src="{{ asset('images/parceiros/faculdade-cnec-santo-angelo.jpg') }}" alt="">
+			</div>
+
+			<div class="item">
+				<img class="img-thumbnail" src="{{ asset('images/parceiros/acisa.jpg') }}" alt="">
+			</div>
+
+			<div class="item">
+				<img class="img-thumbnail" src="{{ asset('images/parceiros/camara-vereadores-santo-angelo.jpg') }}" alt="">
+			</div>
+
+			<div class="item">
+				<img class="img-thumbnail" src="{{ asset('images/parceiros/cdl-santo-angelo.jpg') }}" alt="">
+			</div>
+
+			<div class="item">
+				<img class="img-thumbnail" src="{{ asset('images/parceiros/colegio-sepe-tiaraju.jpg') }}" alt="">
+			</div>
+
+
+			<div class="item">
+				<img class="img-thumbnail" src="{{ asset('images/parceiros/prefeitura-municipal-santo-angelo.jpg') }}" alt="">
+			</div>
+
+			<div class="item">
+				<img class="img-thumbnail" src="{{ asset('images/parceiros/sindi-lojas.jpg') }}" alt="">
+			</div>
 		</div>
 	</div>
 </div>

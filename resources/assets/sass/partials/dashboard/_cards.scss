@@ -34,6 +34,15 @@
 	background-color: rgba(0, 0, 0, .1);
 }
 
+.card.zoom-in {
+	transition: .1s all linear;
+}
+
+.card.zoom-in:hover {
+	transform: scale(1.02);
+	box-shadow: 1px 1px 9px rgba(0, 0, 0, .3);
+}
+
 .hidden-overlay,
 .hidden-overlay a {
 	position: absolute;

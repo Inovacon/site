@@ -18,6 +18,10 @@
 	<div id="ondeEstamos">
 		@include('pages.partials.localizacao')
 	</div>
+
+	<div id="contato">
+		@include('pages.partials.contato')
+	</div>
 	
 	<div id="parceiros">
 		@include('pages.partials.parceiros')

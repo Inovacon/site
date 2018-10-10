@@ -19,10 +19,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Carbon::setLocale('pt-BR');
-        setlocale(LC_TIME, 'Portuguese');
+        Carbon::setLocale('pt_BR');
+        setlocale(LC_TIME, 'portuguese');
+        date_default_timezone_set("America/Sao_Paulo");
 
         Schema::defaultStringLength(191);
+
 
         $this->bootBlade();
         $this->bootValidation();

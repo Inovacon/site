@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\User;
 use Carbon\Carbon;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -54,7 +55,7 @@ class RegisterController extends Controller
         $data['phone'] = preg_replace('/\D/', '', $data['phone']);
         $data['cpf_cnpj'] = preg_replace('/\D/', '', $data['cpf_cnpj']);
 
-        if (trim($data['birth_date']) !== '') {
+        if (Str::is('*/*/*', $data['birth_date'])) {
             $data['birth_date'] = (string) Carbon::createFromFormat('d/m/Y', $data['birth_date']);
         }
 

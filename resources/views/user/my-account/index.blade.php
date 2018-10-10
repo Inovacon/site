@@ -4,7 +4,7 @@
 
 @section('content')
 	<div>
-	    <h4 class="font-weight-600 text-gray-dark">Minha conta</h4>
+	    <h4 class="font-weight-600 text-primary">Minha conta</h4>
 	</div>
     
     <hr>

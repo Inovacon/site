@@ -35,36 +35,43 @@ select:-webkit-autofill:focus {
 	display: none;
 }
 
-.form-md-group input {
+.form-md-group input,
+.form-md-group textarea {
 	border-bottom-width: 1px !important;
 	font-size: .95rem !important; 
 	font-family: 'Arial', sans-serif;
 }
 
-.form-md-group.invalid-group input {
+.form-md-group.invalid-group input,
+.form-md-group.invalid-group textarea {
 	border-color: $danger;
 }
 
-.form-md-group input:focus {
+.form-md-group input:focus,
+.form-md-group textarea:focus {
 	border-color: $input-focus-border-color;
 	@include box-shadow(0 1px 0 $primary-darker !important); 
 }
 
-.form-md-group.invalid-group input:focus {
+.form-md-group.invalid-group input:focus,
+.form-md-group.invalid-group textarea:focus {
 	border-color: $danger;
 	@include box-shadow(0 1px 0 $danger !important);
 }
 
-.form-md-group input + label {
+.form-md-group input + label,
+.form-md-group textarea + label {
 	color: $gray-600 !important;
 	position: absolute;
 	font-size: .85rem;
 	cursor: text;
+	top: auto;
 	@include transform(translateY(-28px));
 	@include transition(all .2s);
 }
 
-.form-md-group input.active:focus + label {
+.form-md-group input.active:focus + label,
+.form-md-group textarea.active:focus + label {
 	color: $primary-darker !important;
 }
 
@@ -75,7 +82,14 @@ select:-webkit-autofill:focus {
 	@include transform(translateY(-48px) !important);
 }
 
-.form-md-group input:-webkit-autofill + label {
+.form-md-group textarea.active + label,
+.form-md-group textarea[placeholder] + label {
+	font-size: .75rem;
+	top: 13px;
+}
+
+.form-md-group input:-webkit-autofill + label,
+.form-md-group textarea:-webkit-autofill + label {
 	font-size: .75rem;
 	@include transform(translateY(-48px) !important);
 }

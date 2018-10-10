@@ -31,6 +31,10 @@
                     <a class="nav-link scroll" href="/#servicos">SERVIÇOS</a>
                 </li>
 
+                <li class="nav-item">
+                    <a class="nav-link scroll" href="/#contato">CONTATO</a>
+                </li>
+
             </ul>
 
             <hr class="d-lg-none d-block my-2">

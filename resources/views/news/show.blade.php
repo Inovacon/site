@@ -16,7 +16,7 @@
 					</div>
 
 					<div class="card-body no-gutters">
-						<div class="small text-dark">Publicado em <strong>{{ $noticia->created_at->format('d/m/Y') }}</strong> &bull; {{ $noticia->created_at->format('H:i') }}</div>
+						<div class="small text-dark">Publicado em <strong>{{ $noticia->created_at->format('d/m/Y') }}</strong></div>
 
 						<div class="col-md-10 my-3 text-center mx-auto">
 							<img style="object-fit: cover;" class="img-thumbnail w-100" src="{{ $noticia->publicImagePath }}"/>
