@@ -1,42 +1,5 @@
-html,
-body {
-  height: 100% !important;
-  font-family: "Open Sans", sans-serif;
-}
-
-h1, h2, h3, h4, h5, h6 {
-  font-family: 'Open Sans';
-  font-weight: 500;
-}
-
-.text-shadow {
-  text-shadow: 0px 2px 4px rgba(0, 0, 0, .3);
-}
-
-.box-shadow {
-  @include box-shadow(1px 1px 3px rgba(0, 0, 0, 0.3));
-}
-
 .border-2 {
   border-width: 2px;
-}
-
-.link {
-  text-decoration: none !important;
-  color: #1A73E8;
-}
-
-.link:hover {
-  color: #155ebf;
-}
-
-
-.font-weight-600 {
-  font-weight: 600 !important;
-}
-
-.text-indent {
-  text-indent: 2.5rem;
 }
 
 .link-absolute {
@@ -72,11 +35,6 @@ h1, h2, h3, h4, h5, h6 {
 .wrapper #content {
   width: 100%;
   min-height: 100vh;
-}
-
-.strong {
-  font-size: 1.5rem;
-  font-weight: bold;
 }
 
 .flex-95 {
@@ -128,18 +86,6 @@ h1, h2, h3, h4, h5, h6 {
   right: 0;
   left: 0;
   bottom: 0;
-}
-
-.0-9rem {
-  font-size: .9rem !important;
-}
-
-.0-8rem {
-  font-size: .8rem !important;
-}
-
-.0-7rem {
-  font-size: .7rem !important;
 }
 
 .cursor-pointer {

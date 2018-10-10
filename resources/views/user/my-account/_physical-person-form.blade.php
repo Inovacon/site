@@ -61,7 +61,7 @@
 
 			<div class="custom-control custom-radio custom-control-inline">
 				<input type="radio" id="customRadioFemale" name="gender" {{ $user->gender == 'F' ? 'checked' : '' }} class="custom-control-input" >
-				<label class="text-gray-dark custom-control-label" for="customRadioFemale">Femenino</label>
+				<label class="text-gray-dark custom-control-label" for="customRadioFemale">Feminino</label>
 			</div>
 		</div>
 	</div>

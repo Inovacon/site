@@ -20,6 +20,7 @@ $(document).ready(function () {
 
     // Material design inputs
     let $mdInput = $('.form-md-group input');
+    let $mdTextarea = $('.form-md-group textarea');
 
     $mdInput.focus(function() {
         $(this).addClass('active');
@@ -31,6 +32,15 @@ $(document).ready(function () {
         }
     });
 
+    $mdTextarea.focus(function() {
+        $(this).addClass('active');
+    });
+
+    $mdTextarea.focusout(function() {
+        if (! $(this).val()) {
+            $(this).removeClass('active');
+        }
+    });
     // OWL Carousel
     $('.owl-parceiros').owlCarousel({
         loop: true,
