@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Raleway:400,600|Open+Sans:400,600);/**
+@import url(https://fonts.googleapis.com/css?family=Raleway:400,500,600|Open+Sans:400,600);/**
  * Owl Carousel v2.3.4
  * Copyright 2013-2018 David Deutsch
  * Licensed under: SEE LICENSE IN https://github.com/OwlCarousel2/OwlCarousel2/blob/master/LICENSE
@@ -16185,16 +16185,16 @@ h6 {
   transition: all .3s;
 }
 
+#carouselNews ol {
+  margin-bottom: 0;
+}
+
 .carousel-indicators li {
   width: 10px;
   height: 10px;
   border-radius: 100%;
   margin-left: 5px;
   margin-right: 5px;
-}
-
-#carouselNews ol {
-  margin-bottom: 0;
 }
 
 .carousel-control-prev-icon,
@@ -16207,46 +16207,63 @@ h6 {
   width: 10%;
 }
 
+.carousel-item img {
+  max-height: 280px;
+  min-height: 200px;
+}
+
 .carousel-caption {
+  padding-top: 80px;
   padding-left: 10px;
   padding-right: 10px;
+  padding-bottom: 30px;
   right: 0;
   bottom: 0;
+  left: 0;
   background: rgba(0, 0, 0, 0.4);
   background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0)), to(black));
   background: linear-gradient(rgba(0, 0, 0, 0), black);
-  left: 0;
   z-index: 10;
-  padding-top: 20px;
-  padding-bottom: 30px;
-  text-align: center;
 }
 
-.carousel-caption .title {
+.carousel-caption .news-title {
+  text-align: center;
   font-size: 1.2rem;
-  text-shadow: 0px 1px 4px rgba(0, 0, 0, 0.5);
+  text-shadow: 0px 0px 7px rgba(0, 0, 0, 0.5);
+}
+
+@media (max-width: 991.98px) {
+  .carousel-caption .news-title {
+    font-size: .95rem;
+  }
 }
 
 #secondaryNews .title {
   font-size: .9rem;
 }
 
-#secondaryNews .card a {
+#secondaryNews .card {
+  border: none;
+}
+
+#secondaryNews .news-title {
+  font-size: .9rem;
+  color: #ffffff;
   text-decoration: none;
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.5);
   -webkit-transition: background-color 0.15s;
   transition: background-color 0.15s;
 }
 
 @media screen and (prefers-reduced-motion: reduce) {
-  #secondaryNews .card a {
+  #secondaryNews .news-title {
     -webkit-transition: none;
     transition: none;
   }
 }
 
-#secondaryNews .card a:hover {
-  background-color: rgba(0, 0, 0, 0.4);
+#secondaryNews .card:hover .news-title {
+  background-color: rgba(0, 0, 0, 0.7);
 }
 
 #course .course-description {

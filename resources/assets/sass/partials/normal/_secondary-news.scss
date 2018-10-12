@@ -2,12 +2,18 @@
     font-size: .9rem;
 }
 
-#secondaryNews .card a {
+#secondaryNews .card {
+	border: none;
+}
+
+#secondaryNews .news-title {
+	font-size: .9rem;
+	color: $white;
     text-decoration: none;
-    background-color: rgba(0, 0, 0, .2);
+    background-color: rgba(0, 0, 0, .5);
     @include transition(background-color .15s);
 }
 
-#secondaryNews .card a:hover {
-    background-color: rgba(0, 0, 0, .4);
+#secondaryNews .card:hover .news-title {
+    background-color: rgba(0, 0, 0, .7);
 }

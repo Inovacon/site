@@ -30,6 +30,7 @@ class CategoriesTableSeeder extends Seeder
             ['name' => 'Ciências Contábeis', 'type' => 'occupation_area', 'icon' => 'fas fa-calculator'],
             ['name' => 'Biomedicina', 'type' => 'occupation_area', 'icon' => 'fas fa-dna'],
             ['name' => 'Direito', 'type' => 'occupation_area', 'icon' => 'fas fa-balance-scale'],
+            ['name' => 'Odontologia', 'type' => 'occupation_area', 'icon' => 'fas fa-tooth']
         ];
     }
 

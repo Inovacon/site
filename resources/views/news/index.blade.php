@@ -35,9 +35,10 @@
 
                                 <div class="card-body pt-0">
                                     <p class="small text-primary font-weight-500">
-                                        {{ $noticia->created_at->format('d/m/Y') }}
+                                        {{ strftime("%d de %B de %Y", strtotime($noticia->created_at)) }}
                                     </p>
-                                    <p class="small text-muted my-0">{{ str_limit($noticia->body, 100) }}</p>
+
+                                    <p class="small text-muted my-0">{{ preg_replace("/&....;/", '', strip_tags(str_limit($noticia->body, 100))) }}</p>
                                 </div>
                             </div>
 

@@ -56438,7 +56438,7 @@ var render = function() {
       _vm._v(" "),
       _vm.error
         ? _c("span", { staticClass: "invalid-feedback d-block" }, [
-            _c("strong", {
+            _c("span", {
               staticClass: "text-danger",
               domProps: { textContent: _vm._s(_vm.error) }
             })
@@ -56493,7 +56493,7 @@ exports = module.exports = __webpack_require__(234)(false);
 
 
 // module
-exports.push([module.i, "\n.trix-button {\n    -webkit-box-shadow: none !important;\n            box-shadow: none !important;\n    border: none !important;\n    background-color: #fff !important;\n}\n.trix-button:hover {\n    background-color: #dee2e6 !important;\n    -webkit-transition: .3s;\n    transition: .3s;\n}\n.trix-button-group {\n    border-color: #ced4da !important;\n    border-radius: 0 !important;\n    border-bottom-width: 0 !important;\n}\n.trix-button-row {\n    margin-bottom: -10px;\n}\n.trix-active {\n    background-color: #ced4da !important;\n}\ntrix-editor {\n    border-color: #ced4da !important;\n    background-color: #fff;\n    border-radius: 0;\n}\ntrix-editor:focus {\n    background-color: #ffffff !important;\n    border-color: #00a0f0 !important;\n}\ntrix-editor.is-invalid {\n    border-color: #ef5350 !important;\n}\n", ""]);
+exports.push([module.i, "\n.trix-button {\n    -webkit-box-shadow: none !important;\n            box-shadow: none !important;\n    border: none !important;\n    background-color: #fff !important;\n}\n.trix-button:hover {\n    background-color: #dee2e6 !important;\n    -webkit-transition: .3s;\n    transition: .3s;\n}\n.trix-button-group {\n    border-color: #ced4da !important;\n    border-radius: 0 !important;\n    border-bottom-width: 0 !important;\n}\n.trix-button-row {\n    margin-bottom: -10px;\n}\n.trix-active {\n    background-color: #ced4da !important;\n}\ntrix-toolbar .trix-button-row {\n    -ms-flex-wrap: wrap !important;\n        flex-wrap: wrap !important;\n}\ntrix-editor {\n    border-color: #ced4da !important;\n    background-color: #fff;\n    border-radius: 0;\n    min-height: 200px;\n}\ntrix-editor:focus {\n    background-color: #ffffff !important;\n    border-color: #00a0f0 !important;\n}\ntrix-editor.is-invalid {\n    border-color: #ef5350 !important;\n}\n@media (max-width: 768px) {\ntrix-toolbar .trix-button-group--block-tools,\n    trix-toolbar .trix-button-group--history-tools {\n        margin-left: 0 !important;\n}\n}\n", ""]);
 
 // exports
 
