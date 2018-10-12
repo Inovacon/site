@@ -30,7 +30,7 @@ class NewsController extends Controller
         $request->validate([
             'title' => 'required',
             'body' => 'required',
-            'image_path' => 'required|image',
+            'image_path' => 'required|image|max:1024',
         ]);
 
         News::create([
