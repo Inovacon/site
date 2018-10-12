@@ -17,6 +17,7 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/cursos', 'CourseController@index')->name('courses.index');
         Route::get('/cursos/{course}', 'CourseController@show')->name('courses.show');
+
     });
 
     Route::get('cursos/{activeCourse}/selecionar-turma', 'TeamController@index')->name('teams.index');

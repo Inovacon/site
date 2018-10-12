@@ -26,3 +26,40 @@
         }
     }
 </script>
+
+<style>
+    .trix-button {
+        box-shadow: none !important;
+        border: none !important;
+        background-color: #fff !important;
+    }
+    .trix-button:hover {
+        background-color: #dee2e6 !important;
+        transition: .3s;
+    }
+    .trix-button-group {
+        border-color: #ced4da !important;
+        border-radius: 0 !important;
+        border-bottom-width: 0 !important;
+    }
+    .trix-button-row {
+        margin-bottom: -10px;
+    }
+    .trix-active {
+        background-color: #ced4da !important;
+    }
+    trix-editor {
+        border-color: #ced4da !important;
+        background-color: #fff;
+        border-radius: 0;
+    }
+    
+    trix-editor:focus {
+        background-color: #ffffff !important;
+        border-color: #00a0f0 !important;
+    }
+
+    trix-editor.is-invalid {
+        border-color: #ef5350 !important;
+    }
+</style>

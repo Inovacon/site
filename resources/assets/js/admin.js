@@ -9,6 +9,8 @@ Vue.component('secure-delete-button', require('./components/Dashboard/SecureDele
 Vue.component('course-details-view', require('./pages/Dashboard/CourseDetails'));
 Vue.component('lesson-special-form', require('./pages/Dashboard/LessonSpecialForm'));
 
+Vue.component('text-editor', require('./components/Dashboard/Form/TextEditor'))
+
 new Vue({
     el: '#root'
 });

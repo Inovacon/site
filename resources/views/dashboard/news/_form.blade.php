@@ -20,6 +20,6 @@
 
 @include('dashboard.form.checkbox', [
     'name' => 'leading',
-    'label' => 'É uma notícia principal?',
+    'label' => 'Notícia destaque',
     'checked' => !! old('leading', $noticia->leading)
 ])
