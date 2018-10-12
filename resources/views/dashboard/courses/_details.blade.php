@@ -10,7 +10,7 @@
     <tr>
         <th>Imagem</th>
         <td>
-            <img src="{{ $course->publicImagePath }}" width="200" alt="imagem do curso">
+            <img class="img-thumbnail" src="{{ $course->publicImagePath }}" width="200" alt="imagem do curso">
         </td>
     </tr>
     <tr>

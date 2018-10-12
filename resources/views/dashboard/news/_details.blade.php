@@ -10,12 +10,12 @@
     <tr>
         <th>Imagem</th>
         <td>
-            <img src="{{ $noticia->publicImagePath }}" width="200" alt="imagem da notícia">
+            <img class="img-thumbnail" src="{{ $noticia->publicImagePath }}" width="200" alt="imagem da notícia">
         </td>
     </tr>
     <tr>
         <th>Conteúdo</th>
-        <td>{{ $noticia->body }}</td>
+        <td>{!! $noticia->body !!}</td>
     </tr>
     <tr>
         <th>Principal</th>

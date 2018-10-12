@@ -7,7 +7,7 @@
     <div class="input-group">
         <div class="custom-file">
             <input type="file"
-                   class="custom-file-input"
+                   class="custom-file-input {{ $errors->has($name) ? 'is-invalid' : '' }}"
                    id="{{ $id ?? $name }}"
                    name="{{ $name }}"
                    {{ isset($accept) ? "accept={$accept}" : '' }}
@@ -18,6 +18,11 @@
                    for="{{ $id ?? $name }}">
                 {{ isset($placeholder) ? $placeholder : '' }}
             </label>
+
         </div>
     </div>
+    
+    @if($errors->has($name))
+      <div class="small text-danger">{{ $errors->first($name) }}</div>
+    @endif
 @endcomponent

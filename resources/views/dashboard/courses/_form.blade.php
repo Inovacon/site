@@ -9,7 +9,8 @@
     'label' => 'Imagem',
     'placeholder' => 'Escolha uma imagem',
     'required' => false,
-    'accept' => 'image/*'
+    'accept' => 'image/*',
+    'help' => 'Tamanho recomendado: 315x180'
 ])
 
 @include('dashboard.form.textarea', [
