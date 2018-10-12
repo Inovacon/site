@@ -1,6 +1,10 @@
 <div id="contato" class="py-4">
 	<div class="container">
 		<h2 class="font-weight-bold text-center mb-3">Contato</h2>
+		
+		<div class="text-center text-primary">
+			<i class="fas fa-envelope fa-4x"></i>
+		</div>
 
 		<p class="my-5 text-gray-dark text-center small">
 			Deixa sua mensagem abaixo, iremos responder o mais breve possível!
