@@ -2,17 +2,17 @@
 	<div class="col">
 	    <div class="form-group">
 	    	<label class="text-gray-dark font-weight-bold" for="">
-	    		<i class="fas fa-id-card mr-2"></i>Nome completo: 
+	    		<i class="fas fa-id-card mr-2"></i>Nome completo:
 	    	</label>
 
 	    	<input class="form-control" name="name" type="text" value="{{ $user->name }}">
 	    </div>
 	 </div>
-	
+
 	<div class="col">
 	    <div class="form-group">
 	    	<label class="text-gray-dark font-weight-bold" for="">
-	    		<i class="fas fa-envelope mr-2"></i>E-mail: 
+	    		<i class="fas fa-envelope mr-2"></i>E-mail:
 	    	</label>
 
 	    	<input class="form-control" name="email" type="text" value="{{ $user->email }}">
@@ -34,7 +34,7 @@
 	<div class="col">
 		<div class="form-group">
 			<label class="text-gray-dark font-weight-bold" for="">
-				<i class="fas fa-address-card mr-2"></i>CPF: 
+				<i class="fas fa-address-card mr-2"></i>CPF:
 			</label>
 
 			<input class="form-control cpf" name="cpf_cnpj" type="text" disabled value="{{ $user->cpf_cnpj }}">
@@ -57,7 +57,7 @@
 <div class="row my-4">
 	<div class="col">
 		<label class="text-gray-dark font-weight-bold"> <i class="fas fa-venus-mars mr-2"></i>Gênero:</label>
-	
+
 		<div>
 			<div class="custom-control custom-radio custom-control-inline">
 				<input type="radio" id="customRadioMale" name="gender" value="M" {{ $user->gender == 'M' ? 'checked' : '' }} class="custom-control-input">
@@ -95,14 +95,14 @@
 				<i class="fas fa-lock mr-2"></i>Nova senha:
 			</label>
 
-			<input name="password" class="form-control" type="password"> 
+			<input name="password" class="form-control" type="password">
 		</div>
 	</div>
-	
+
 	<div class="col">
 		<div class="form-group">
 			<label class="text-gray-dark font-weight-bold" for="">Confirme a nova senha:</label>
-			
+
 			<input name="password_confirmation" class="form-control" type="password">
 		</div>
 	</div>

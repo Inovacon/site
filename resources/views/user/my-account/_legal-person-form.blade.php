@@ -8,9 +8,9 @@
 	<div class="col">
 		<div class="form-group">
 			<label class="text-gray-dark font-weight-bold" for="">
-				<i class="fas fa-id-card mr-2"></i>Nome fantasia: 
+				<i class="fas fa-id-card mr-2"></i>Nome fantasia:
 			</label>
-			<input name="company_name" class="form-control" type="text" value="{{ $user->company_name }}" required>
+			<input name="name" class="form-control" type="text" value="{{ $user->name }}" required>
 		</div>
 	</div>
 </div>
@@ -19,16 +19,16 @@
 	<div class="col">
 		<div class="form-group">
 			<label class="text-gray-dark font-weight-bold" for="">
-				<i class="fas fa-file-contract mr-2"></i>Razão social: 
+				<i class="fas fa-file-contract mr-2"></i>Razão social:
 			</label>
-			<input name="name" class="form-control" type="text" value="{{ $user->name }}" required>
+			<input disabled class="form-control" type="text" value="{{ $user->company_name }}" required>
 		</div>
 	</div>
-	
+
 	<div class="col">
 		<div class="form-group">
 			<label class="text-gray-dark font-weight-bold" for="">
-				<i class="fas fa-file-contract mr-2"></i>CNPJ: 
+				<i class="fas fa-file-contract mr-2"></i>CNPJ:
 			</label>
 			<input name="cpf_cnpj" class="form-control cnpj" type="text" value="{{ $user->cpf_cnpj }}" disabled>
 		</div>
@@ -56,14 +56,14 @@
 	<div class="col">
 		<label class="text-gray-dark font-weight-bold" for="">
 			<i class="fas fa-calendar-alt mr-2"></i>Data de nascimento:
-		</label>	
-		<input name="birth_date" class="form-control birth_date" type="text" value="{{ $user->birth_date }}">
+		</label>
+		<input name="birth_date" class="form-control birth-date" type="text" value="{{ $user->birth_date }}">
 	</div>
 
 	<div class="col">
 		<div class="form-group">
 			<label class="text-gray-dark font-weight-bold" for="">
-				<i class="fas fa-mobile-alt mr-2"></i>Celular: 
+				<i class="fas fa-mobile-alt mr-2"></i>Celular:
 			</label>
 			<input name="phone" class="form-control phone" type="text" value="{{ $user->phone }}">
 		</div>
@@ -75,7 +75,7 @@
 		<label class="text-gray-dark font-weight-bold">
 			<i class="fas fa-venus-mars mr-2"></i>Gênero:
 		</label>
-	
+
 		<div>
 			<div class="custom-control custom-radio custom-control-inline">
 				<input type="radio" id="customRadioMale" name="gender" {{ $user->gender == 'M' ? 'checked' : '' }} class="custom-control-input">
@@ -110,10 +110,10 @@
 			<label class="text-gray-dark font-weight-bold" for="">
 				<i class="fas fa-lock mr-2"></i>Nova senha:
 			</label>
-			<input name="password" class="form-control" type="password"> 
+			<input name="password" class="form-control" type="password">
 		</div>
 	</div>
-	
+
 	<div class="col">
 		<div class="form-group">
 			<label class="text-gray-dark font-weight-bold" for="">Confirme a nova senha:</label>

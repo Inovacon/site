@@ -14,6 +14,7 @@ Route::middleware('auth')->group(function () {
     Route::prefix('minha-conta')->name('my-account.')->namespace('User')->group(function() {
         Route::get('/', 'MyAccountController@index')->name('user.index');
         Route::get('/alterar-dados', 'MyAccountController@edit')->name('user.edit');
+        Route::patch('/alterar-dados', 'MyAccountController@update')->name('user.update');
 
         Route::get('/cursos', 'CourseController@index')->name('courses.index');
         Route::get('/cursos/{course}', 'CourseController@show')->name('courses.show');

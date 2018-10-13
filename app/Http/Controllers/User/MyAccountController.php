@@ -12,10 +12,16 @@ class MyAccountController extends Controller
     	return view('user.my-account.index');
     }
 
-    public function edit() {
+    public function edit()
+    {
     	$user = \Auth::user();
-    	$user->birth_date = strftime("%d-%m-%Y", strtotime($user->birth_date));
+    	$user->birth_date = strftime("%d/%m/%Y", strtotime($user->birth_date));
 
     	return view('user.my-account.edit', compact('user'));
+    }
+
+    public function update(Request $request)
+    {
+
     }
 }
