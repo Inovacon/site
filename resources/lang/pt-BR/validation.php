@@ -120,9 +120,20 @@ return [
             'required' => 'Por favor, informe a sua data de nascimento'
         ],
         'cpf_cnpj' => [
-            'required' => 'Por favor, preencha este campo ',
+            'required' => 'Por favor, preencha este campo',
             'cpf_cnpj' => 'Por favor, informe um número de documento válido',
             'unique' => 'Este número de documento já está em uso'
+        ],
+        'body' => [
+            'required' => 'Por favor, preencha este campo'
+        ],
+        'description' => [
+            'required' => 'Por favor, informe uma descrição'
+        ],
+        'image_path' => [
+            'required' => 'Por favor, escolha uma imagem',
+            'max' => 'Por favor, escolha uma imagem menor que 1MB',
+            'uploaded' => 'Desculpe, não foi possível salvar esta imagem, escolha outra por favor',
         ]
     ],
 
@@ -141,7 +152,8 @@ return [
         'name' => 'nome',
         'email' => 'e-mail',
         'password' => 'senha',
-        'birth_date' => 'data de nascimento'
+        'birth_date' => 'data de nascimento',
+        'body' => 'corpo'
     ],
 
 ];

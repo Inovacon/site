@@ -32,7 +32,7 @@ class CourseRequest extends FormRequest
             'modality_id' => 'required',
             'occupation_area_id' => 'required',
             'target_audience_id' => 'required',
-            'image_path' => 'sometimes|nullable|image',
+            'image_path' => 'sometimes|nullable|image|max:1024',
         ];
     }
 

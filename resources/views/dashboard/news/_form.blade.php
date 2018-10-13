@@ -9,7 +9,8 @@
     'label' => 'Imagem',
     'placeholder' => 'Escolha uma imagem',
     'accept' => 'image/*',
-    'required' => false
+    'required' => false,
+    'help' => 'Tamanho recomendado: 800x400'
 ])
 
 @include('dashboard.form.textarea', [
@@ -20,6 +21,6 @@
 
 @include('dashboard.form.checkbox', [
     'name' => 'leading',
-    'label' => 'É uma notícia principal?',
+    'label' => 'Notícia destaque',
     'checked' => !! old('leading', $noticia->leading)
 ])

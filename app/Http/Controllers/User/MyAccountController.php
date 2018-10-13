@@ -14,6 +14,7 @@ class MyAccountController extends Controller
 
     public function edit() {
     	$user = \Auth::user();
+    	$user->birth_date = strftime("%d-%m-%Y", strtotime($user->birth_date));
 
     	return view('user.my-account.edit', compact('user'));
     }

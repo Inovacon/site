@@ -5,8 +5,8 @@ import Popper from 'popper.js';
 import 'bootstrap';
 import toastr from 'toastr';
 import Cleave from 'cleave.js';
-import Trix from 'trix';
 import autosize from 'autosize';
+import Trix from 'trix';
 
 window.Vue = Vue;
 window.axios = axios;

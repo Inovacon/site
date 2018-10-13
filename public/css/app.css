@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Raleway:400,600|Open+Sans:400,600);/**
+@import url(https://fonts.googleapis.com/css?family=Raleway:400,500,600|Open+Sans:400,600);/**
  * Owl Carousel v2.3.4
  * Copyright 2013-2018 David Deutsch
  * Licensed under: SEE LICENSE IN https://github.com/OwlCarousel2/OwlCarousel2/blob/master/LICENSE
@@ -16056,6 +16056,55 @@ h6 {
   font-size: .7rem !important;
 }
 
+.flip-container {
+  -webkit-perspective: 1000px;
+          perspective: 1000px;
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+  width: 100%;
+  height: 140px;
+  position: relative;
+}
+
+.flipper {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+  -webkit-transition: all 600ms;
+  transition: all 600ms;
+  z-index: 20;
+}
+
+.flipper .front,
+.flipper .back {
+  border-radius: 1px;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  -webkit-box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+          box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+.flipper .back {
+  padding: .75rem;
+  -webkit-transform: rotateX(180deg);
+          transform: rotateX(180deg);
+}
+
+.flip-container:hover .flipper {
+  -webkit-transform: rotateX(180deg);
+          transform: rotateX(180deg);
+}
+
+.flipper {
+  -webkit-transform: rotateX(0);
+          transform: rotateX(0);
+}
+
 .navbar {
   -webkit-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
   -ms-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
@@ -16185,16 +16234,16 @@ h6 {
   transition: all .3s;
 }
 
+#carouselNews ol {
+  margin-bottom: 0;
+}
+
 .carousel-indicators li {
   width: 10px;
   height: 10px;
   border-radius: 100%;
   margin-left: 5px;
   margin-right: 5px;
-}
-
-#carouselNews ol {
-  margin-bottom: 0;
 }
 
 .carousel-control-prev-icon,
@@ -16207,46 +16256,63 @@ h6 {
   width: 10%;
 }
 
+.carousel-item img {
+  max-height: 280px;
+  min-height: 200px;
+}
+
 .carousel-caption {
+  padding-top: 80px;
   padding-left: 10px;
   padding-right: 10px;
+  padding-bottom: 30px;
   right: 0;
   bottom: 0;
+  left: 0;
   background: rgba(0, 0, 0, 0.4);
   background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0)), to(black));
   background: linear-gradient(rgba(0, 0, 0, 0), black);
-  left: 0;
   z-index: 10;
-  padding-top: 20px;
-  padding-bottom: 30px;
-  text-align: center;
 }
 
-.carousel-caption .title {
+.carousel-caption .news-title {
+  text-align: center;
   font-size: 1.2rem;
-  text-shadow: 0px 1px 4px rgba(0, 0, 0, 0.5);
+  text-shadow: 0px 0px 7px rgba(0, 0, 0, 0.5);
+}
+
+@media (max-width: 991.98px) {
+  .carousel-caption .news-title {
+    font-size: .95rem;
+  }
 }
 
 #secondaryNews .title {
   font-size: .9rem;
 }
 
-#secondaryNews .card a {
+#secondaryNews .card {
+  border: none;
+}
+
+#secondaryNews .news-title {
+  font-size: .9rem;
+  color: #ffffff;
   text-decoration: none;
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.5);
   -webkit-transition: background-color 0.15s;
   transition: background-color 0.15s;
 }
 
 @media screen and (prefers-reduced-motion: reduce) {
-  #secondaryNews .card a {
+  #secondaryNews .news-title {
     -webkit-transition: none;
     transition: none;
   }
 }
 
-#secondaryNews .card a:hover {
-  background-color: rgba(0, 0, 0, 0.4);
+#secondaryNews .card:hover .news-title {
+  background-color: rgba(0, 0, 0, 0.7);
 }
 
 #course .course-description {
@@ -16663,12 +16729,9 @@ select:-webkit-autofill:focus {
 
 #servicos .service-item {
   padding: 1rem;
-  border-radius: 1px;
   color: #00a0f0;
   text-align: center;
   background-color: #f8f9fa;
-  -webkit-box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
-          box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
   min-height: 140px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -16687,6 +16750,33 @@ select:-webkit-autofill:focus {
 #servicos .service-item .service-name {
   color: #343a40;
   font-weight: 600;
+}
+
+#servicos .service-item .service-icon {
+  text-align: center;
+  color: #00a0f0;
+}
+
+#servicos .service-description {
+  text-align: center;
+  background-color: #00a0f0;
+  color: #ffffff;
+  font-size: .75rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+#servicos .service-description .service-name {
+  margin-bottom: 10px;
+  text-decoration: underline;
 }
 
 .bg-parallax {

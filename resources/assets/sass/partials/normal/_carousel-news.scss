@@ -1,13 +1,13 @@
+#carouselNews ol {
+    margin-bottom: 0;
+}
+
 .carousel-indicators li {
     width: 10px;
     height: 10px;
     @include border-radius(100%);
     margin-left: 5px;
     margin-right: 5px;
-}
-
-#carouselNews ol {
-    margin-bottom: 0;
 }
 
 .carousel-control-prev-icon,
@@ -20,21 +20,32 @@
     width: 10%;
 }
 
-.carousel-caption {
-    padding-left: 10px;
-    padding-right: 10px;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, .4);
-    @include bg-linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 1));
-    left: 0;
-    z-index: 10;
-    padding-top: 20px;
-    padding-bottom: 30px;
-    text-align: center;
+.carousel-item img {
+    max-height: 280px;
+    min-height: 200px;
 }
 
-.carousel-caption .title {
+.carousel-caption {
+    padding-top: 80px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 30px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0, 0, 0, .4);
+    @include bg-linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 1));
+    z-index: 10;
+}
+
+.carousel-caption .news-title {
+    text-align: center;
     font-size: 1.2rem;
-    text-shadow: 0px 1px 4px rgba(0, 0, 0, .5);   
+    text-shadow: 0px 0px 7px rgba(0, 0, 0, .5);   
+}
+
+@include media-breakpoint-down(md) {
+    .carousel-caption .news-title {
+        font-size: .95rem;
+    }
 }

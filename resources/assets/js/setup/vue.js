@@ -8,6 +8,10 @@ window.Vue.prototype.consoleLog = function (...data) {
     console.log(...data);
 };
 
+window.Vue.config.ignoredElements = [
+  'trix-editor',
+];
+
 Vue.mixin({
     methods: {
         route: undefined !== window.route ? window.route : () => {}

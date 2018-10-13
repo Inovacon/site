@@ -2,7 +2,7 @@
 	<div class="container">
 		<div class="col">
 			<div class="text-center">
-				<img style="width: 80%;" class="img-fluid" src="{{ asset('images/logo_adm_ads_cc.png') }}" alt="">
+				<img class="img-fluid" src="{{ asset('images/logo_adm_ads_cc.png') }}" alt="">
 			</div>
 		</div>
 	</div>
