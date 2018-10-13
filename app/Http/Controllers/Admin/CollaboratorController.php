@@ -32,6 +32,17 @@ class CollaboratorController extends Controller
             $request->only('name', 'email', 'password')
         );
 
-        return back()->with('flash', 'Colaborador cadastrado com sucesso.');
+        return redirect()
+            ->route('dashboard.collaborators.index')
+            ->with('flash', 'Colaborador cadastrado com sucesso.');
+    }
+
+    public function promote(User $collaborator)
+    {
+        abort_unless(auth()->user()->isAdmin(), 403, 'Você não tem autorização para isso.');
+
+        $collaborator->attachRole('admin');
+
+        return back()->with('flash', 'Colaborador promovido a administrador.');
     }
 }

@@ -88,6 +88,7 @@ Route::prefix('painel')->name('dashboard.')->namespace('Admin')->group(function 
         Route::get('/', 'CollaboratorController@index')->name('index');
         Route::get('cadastrar', 'CollaboratorController@create')->name('create');
         Route::post('/', 'CollaboratorController@store')->name('store');
+        Route::post('{collaborator}/promote', 'CollaboratorController@promote')->name('promote');
     });
 
     Route::prefix('noticias')->name('news.')->middleware('collaborator')->group(function () {
