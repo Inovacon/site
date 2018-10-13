@@ -1,10 +1,8 @@
 #servicos .service-item {
 	padding: 1rem;
-	border-radius: 1px;
 	color: $primary;
 	text-align: center;
 	background-color: $light;
-	box-shadow: 0 0 8px rgba(0, 0, 0, .1);
 	min-height: 140px;
 	display: flex;
 	flex-direction: column;
@@ -15,4 +13,24 @@
 #servicos .service-item .service-name {
 	color: $dark;
 	font-weight: 600;
+}
+
+#servicos .service-item .service-icon {
+	text-align: center;
+	color: $primary;
+}
+
+#servicos .service-description {
+	text-align: center;
+	background-color: $primary;
+	color: $white;
+	font-size: .75rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+#servicos .service-description .service-name {
+	margin-bottom: 10px;
+	text-decoration: underline;
 }

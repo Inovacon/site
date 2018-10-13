@@ -16396,6 +16396,55 @@ h6 {
   font-size: .7rem !important;
 }
 
+.flip-container {
+  -webkit-perspective: 1000px;
+          perspective: 1000px;
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+  width: 100%;
+  height: 140px;
+  position: relative;
+}
+
+.flipper {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+  -webkit-transition: all 600ms;
+  transition: all 600ms;
+  z-index: 20;
+}
+
+.flipper .front,
+.flipper .back {
+  border-radius: 1px;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  -webkit-box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+          box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+.flipper .back {
+  padding: .75rem;
+  -webkit-transform: rotateX(180deg);
+          transform: rotateX(180deg);
+}
+
+.flip-container:hover .flipper {
+  -webkit-transform: rotateX(180deg);
+          transform: rotateX(180deg);
+}
+
+.flipper {
+  -webkit-transform: rotateX(0);
+          transform: rotateX(0);
+}
+
 .navbar {
   -webkit-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
   -ms-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
