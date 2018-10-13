@@ -23,11 +23,15 @@
 	height: 100%;
 	width: 100%;
 	backface-visibility: hidden;
-	box-shadow: 0 0 8px rgba(0, 0, 0, .1);
+    box-shadow: 0 0 8px rgba(0, 0, 0, .1);
+
+    p, div, strong {
+        cursor: default;
+    }
 }
 
 .flipper .back {
-	padding: .75rem; 
+	padding: .75rem;
 	transform: rotateX(180deg);
 }
 

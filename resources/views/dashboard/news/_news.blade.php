@@ -1,7 +1,7 @@
 <table class="table table-responsive-sm">
     <thead>
         <tr>
-            <th>Id</th>
+            <th class="text-center">Id</th>
             <th>Título</th>
             <th>Principal</th>
             <th></th>
@@ -14,7 +14,7 @@
                 <td class="text-center">{{ $n->id }}</td>
                 <td>
                     <a href="{{ route('dashboard.news.show', $n) }}" class="font-weight-bold">
-                        {{ $n->title }}
+                        {{ str_limit($n->title, 50) }}
                     </a>
                 </td>
                 <td>{{ $n->leading ? 'Sim' : 'Não' }}</td>

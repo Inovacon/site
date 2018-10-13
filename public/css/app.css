@@ -16089,6 +16089,15 @@ h6 {
           box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
 }
 
+.flipper .front p,
+.flipper .front div,
+.flipper .front strong,
+.flipper .back p,
+.flipper .back div,
+.flipper .back strong {
+  cursor: default;
+}
+
 .flipper .back {
   padding: .75rem;
   -webkit-transform: rotateX(180deg);
