@@ -22,5 +22,6 @@
 @include('dashboard.form.checkbox', [
     'name' => 'leading',
     'label' => 'Notícia destaque',
-    'checked' => !! old('leading', $noticia->leading)
+    'checked' => !! old('leading', $noticia->leading),
+    'helpMessage' => 'Quando esta opção é marcada a notícia será exibida no carrossel de notícias na parte esquerda da página inicial, caso contrário, será exibida em notícias secundárias na parte direita.'
 ])

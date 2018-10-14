@@ -65,4 +65,9 @@ $(document).ready(function () {
             scrollTop: $(this.hash).offset().top
         }, 500);
     });
+
+    // Remove invalid color on input change
+    $('.is-invalid').on('change', function() {
+        $(this).removeClass('is-invalid');
+    });
 });

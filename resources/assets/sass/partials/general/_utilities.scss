@@ -110,6 +110,10 @@ input[disabled] {
   text-transform: uppercase;
 }
 
+.image-preview img {
+  max-width: 400px;
+}
+
 @include media-breakpoint-down(md) {
   .owl-parceiros .item img {
     width: 150px !important;

@@ -15952,6 +15952,10 @@ input[disabled] {
   text-transform: uppercase;
 }
 
+.image-preview img {
+  max-width: 400px;
+}
+
 @media (max-width: 991.98px) {
   .owl-parceiros .item img {
     width: 150px !important;
