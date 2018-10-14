@@ -8,6 +8,7 @@
         $icon (optional)
         $type (default: text)
         $placeholder (optional)
+        $showErrors (optional)
  --}}
 
 

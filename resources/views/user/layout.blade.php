@@ -25,8 +25,12 @@
         </div>
 
         <flash type="{{ session('type') ?: 'success' }}" message="{{ session('flash') }}"></flash>
+
+
     </div>
 
-    @include('user._footer')
+    <script src="{{ asset('/js/admin.js') }}"></script>
+
+    @stack('scripts')
 </body>
 </html>

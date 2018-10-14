@@ -3,6 +3,8 @@
 
     <h5 class="pb-1 font-weight-600 text-dark">Dados da empresa</h5>
     
+    <input name="has_cnpj" type="hidden" value="true">
+
     @include('form.material-input', [
         'id' => 'lp-name',
         'name' => 'name',

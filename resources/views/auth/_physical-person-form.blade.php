@@ -1,6 +1,6 @@
 <form action="{{ route('register') }}" method="POST">
     @csrf
-
+        
     <div class="row">
         <div class="col">
             @include('form.material-input', [
@@ -80,6 +80,7 @@
         @include('form.material-input', [
             'id' => 'pp-birth_date',
             'name' => 'birth_date',
+            'value' => old('birth_date'),
             'label' => 'Data de nascimento',
             'class' => 'birth-date',
             'icon' => 'fas fa-calendar-alt',

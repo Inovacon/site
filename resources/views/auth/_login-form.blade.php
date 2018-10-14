@@ -1,7 +1,7 @@
-<form action="{{ route('login') }}" method="POST" id="loginForm" >
+<form action="{{ route('login') }}" method="POST" id="loginForm">
     @csrf
     
-    @if($errors->any())
+    @if($errors->any() && ! request()->is('login'))
         @push('scripts')
             <script>
                 $('#loginModal').modal();

@@ -16,10 +16,10 @@
         
         <hr class="mt-0">
 
-        <div class="card-body">
+        <div class="card-body px-3">
           <ul class="nav nav-pills nav-fill mb-3" id="pills-tab" role="tablist">
             <li class="nav-item">
-              <a  class="nav-link active"
+              <a  class="nav-link {{ ! old('has_cnpj') ? 'active' : '' }}"
                   id="pills-physical-person-tab"
                   data-toggle="pill"
                   href="#pills-physical-person"
@@ -29,7 +29,7 @@
             </li>
 
             <li class="nav-item">
-              <a  class="nav-link"
+              <a  class="nav-link {{ old('has_cnpj') ? 'active' : '' }}"
                   id="pills-legal-person-tab"
                   data-toggle="pill"
                   href="#pills-legal-person"
@@ -40,11 +40,11 @@
           </ul>
 
           <div class="tab-content" id="pills-tabContent">
-            <div class="tab-pane fade show active" id="pills-physical-person" role="tabpanel" aria-labelledby="pills-physical-person-tab">
+            <div class="tab-pane fade  {{ ! old('has_cnpj') ? 'show active' : '' }}" id="pills-physical-person" role="tabpanel" aria-labelledby="pills-physical-person-tab">
               @include('auth._physical-person-form')
             </div>
 
-            <div class="tab-pane fade" id="pills-legal-person" role="tabpanel" aria-labelledby="pills-legal-person-tab">
+            <div class="tab-pane fade {{ old('has_cnpj') ? 'show active' : '' }}" id="pills-legal-person" role="tabpanel" aria-labelledby="pills-legal-person-tab">
               @include('auth._legal-person-form')
             </div>
           </div>
