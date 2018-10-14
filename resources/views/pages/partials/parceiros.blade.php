@@ -4,7 +4,7 @@
 
 		<div class="owl-carousel owl-parceiros">
 			<div class="item">
-				<img class="img-thumbnail" src="{{ asset('images/parceiros/faculdade-cnec-santo-angelo.jpg') }}" alt="">
+				<img class="img-thumbnail img-md" src="{{ asset('images/parceiros/faculdade-cnec-santo-angelo.jpg') }}" alt="">
 			</div>
 
 			<div class="item">

@@ -3,6 +3,8 @@
   font-weight: 900;
   font-size: 1.33em;
   margin-right: 4px;
+  text-align: center;
+  width: 1.50em;
 }
 
 // INICIO
@@ -33,3 +35,9 @@
 .navbar-nav.mr-auto .nav-item:nth-child(6) .nav-link:before { 
 	content: '\f0e0'; 
 }
+
+@include media-breakpoint-down(lg) {
+	.navbar-nav.mr-auto .nav-item .nav-link:before {
+		margin-right: 8px;
+	}
+ }

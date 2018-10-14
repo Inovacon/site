@@ -3,149 +3,100 @@
 
     <div class="row">
         <div class="col">
-            <div class="form-md-group {{ $errors->has('name') ? 'invalid-group' : '' }}">
-                <input  name="name"
-                        id="physical-name"
-                        value="{{ old('name') }}"
-                        class="form-control {{ old('name') ? 'active' : '' }}"
-                        type="text"
-                        required />
-
-                <label for="physical-name">
-                    <i class="fas fa-id-card fa-lg mr-1"></i> Nome completo
-                </label>
-
-                <span class="invalid-md-feedback">
-                    {{ $errors->first('name') }}
-                </span>
-            </div>
+            @include('form.material-input', [
+                'id' => 'pp-name',
+                'name' => 'name',
+                'label' => 'Nome completo',
+                'value' => old('name'),
+                'icon' => 'fas fa-id-card',
+                'required' => true
+            ])
         </div>
 
         <div class="col">
-            <div class="form-md-group {{ $errors->has('cpf_cnpj') ? 'invalid-group' : '' }}">
-                <input  name="cpf_cnpj"
-                        id="physical-cpf"
-                        value="{{ old('cpf_cnpj') }}"
-                        class="cpf form-control {{ old('cpf_cnpj') ? 'active' : ''}}"
-                        type="text"
-                        required />
-
-                <label for="physical-cpf">
-                    <i class="fas fa-address-card fa-lg mr-1"></i> CPF
-                </label>
-
-                <span class="invalid-md-feedback">
-                    {{ $errors->first('cpf_cnpj') }}
-                </span>
-            </div>
+            @include('form.material-input', [
+                'id' => 'pp-cpf',
+                'name' => 'cpf_cnpj',
+                'label' => 'CPF',
+                'class' => 'cpf',
+                'value' => old('cpf_cnpj'),
+                'icon' => 'fas fa-address-card',
+                'required' => true
+            ])
         </div>
     </div>
 
     <div class="row">
         <div class="col">
-            <div class="form-md-group {{ $errors->has('email') ? 'invalid-group' : '' }}">
-                <input  name="email"
-                        id="lp-email"
-                        value="{{ old('email') }}"
-                        class="form-control {{ old('name') ? 'active' : '' }}"
-                        type="email"
-                        required />
-
-                <label for="lp-email">
-                    <i class="fas fa-envelope fa-lg mr-1"></i> E-mail
-                </label>
-
-                <span class="invalid-md-feedback">
-                    {{ $errors->first('email') }}
-                </span>
-            </div>
+            @include('form.material-input', [
+                'id' => 'pp-email',
+                'name' => 'email',
+                'label' => 'E-mail',
+                'value' => old('email'),
+                'type' => 'email',
+                'icon' => 'fas fa-envelope',
+                'required' => true
+            ])
         </div>
 
         <div class="col">
-            <div class="form-md-group {{ $errors->has('phone') ? 'invalid-group' : '' }}">
-                <input  name="phone"
-                        id="physical-phone"
-                        value="{{ old('phone') }}"
-                        class="phone form-control {{ old('phone') ? 'active' : '' }}"
-                        type="tel" 
-                        required />
-
-                <label for="physical-phone">
-                    <i class="fas fa-mobile-alt fa-lg mr-1"></i> Celular
-                </label>
-
-                <span class="invalid-md-feedback">
-                    {{ $errors->first('phone') }}
-                </span>
-            </div>
+            @include('form.material-input', [
+                'id' => 'pp-phone',
+                'name' => 'phone',
+                'label' => 'Celular',
+                'class' => 'phone',
+                'value' => old('phone'),
+                'type' => 'tel',
+                'icon' => 'fas fa-mobile-alt',
+                'required' => true
+            ])
         </div>
     </div>
 
     <div class="row">
         <div class="col">
-            <div class="form-md-group {{ $errors->has('password') ? 'invalid-group' : '' }}">
-                <input  name="password"
-                        id="physical-password"
-                        class="form-control"
-                        type="password"
-                        required/>
-
-                <label for="physical-password">
-                    <i class="fas fa-lock fa-lg mr-1"></i> Senha
-                </label>
-
-                <span class="invalid-md-feedback">
-                    {{ $errors->first('password') }}
-                </span>
-            </div>
+            @include('form.material-input', [
+                'id' => 'pp-password',
+                'name' => 'password',
+                'label' => 'Senha',
+                'type' => 'password',
+                'icon' => 'fas fa-lock',
+                'required' => true
+            ])
         </div>
 
         <div class="col">
-            <div class="form-md-group">
-                <input  name="password_confirmation"
-                        id="physical-password_confirmation"
-                        class="form-control"
-                        type="password"
-                        required/>
-
-                <label for="physical-password_confirmation">
-                     Confirme sua senha
-                 </label>
-            </div>
+            @include('form.material-input', [
+                'id' => 'phyiscal-password_confirmation',
+                'name' => 'password_confirmation',
+                'label' => 'Confirme sua senha',
+                'type' => 'password',
+                'required' => true
+            ])
         </div>
     </div>
 
     <div class="col px-0">
-        <div class="form-md-group {{ $errors->has('birth_date') ? 'invalid-group' : '' }}">
-            <input  name="birth_date"
-                    value="{{ old('birth_date') }}"
-                    id="physical-birth_date"
-                    class="birth-day form-control {{ old('name') ? 'active' : '' }}"
-                    type="text"
-                    required />
-
-            <label for="physical-birth_date">
-                <i class="fas fa-calendar-alt fa-lg mr-1"></i> Data de nascimento
-            </label>
-
-            <span class="invalid-md-feedback">
-                {{ $errors->first('birth_date') }}
-            </span>
-        </div>
+        @include('form.material-input', [
+            'id' => 'pp-birth_date',
+            'name' => 'birth_date',
+            'label' => 'Data de nascimento',
+            'class' => 'birth-date',
+            'icon' => 'fas fa-calendar-alt',
+            'required' => true
+        ])
     </div>
 
-    <div class="col px-0">
-        <div class="form-group {{ $errors->has('gender') ? 'invalid-group' : '' }}">
-            <div class="custom-control custom-radio custom-control-inline">
-                <input type="radio" id="physical-male" name="gender" class="custom-control-input" value="M" checked>
-                <label class="custom-control-label" for="physical-male">Masculino</label>
-            </div>
-
-            <div class="custom-control custom-radio custom-control-inline">
-                <input type="radio" id="physical-female" name="gender" class="custom-control-input" value="F">
-                <label class="custom-control-label" for="physical-female">Feminino</label>
-            </div>
-        </div>
+    <div style="font-size: .95rem" class="col px-0 text-gray-dark">
+        @include('form.radio-box', [
+            'title' => 'Gênero',
+            'name' => 'gender',
+            'icon' => 'fas fa-venus-mars',
+            'radios' => [
+                ['id' => 'legal-male', 'label' => 'Masculino', 'value' => 'M'],
+                ['id' => 'legal-female', 'label' => 'Feminino', 'value' => 'F']
+            ]
+        ])
     </div>
 
     <div class="d-flex justify-content-between align-self-end">

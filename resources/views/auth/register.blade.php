@@ -37,7 +37,6 @@
                   aria-controls="pills-legal-person"
                   aria-selected="false"><i class="fas fa-building  mr-1"></i> Pessoa jurídica</a>
             </li>
-
           </ul>
 
           <div class="tab-content" id="pills-tabContent">

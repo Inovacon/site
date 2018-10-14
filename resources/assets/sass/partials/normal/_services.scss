@@ -34,3 +34,13 @@
 	margin-bottom: 10px;
 	text-decoration: underline;
 }
+
+@include media-breakpoint-down(md) {
+	.service-item {
+		font-size: .8rem;
+	}
+
+	.service-description p {
+		font-size: .7rem;
+	}
+}

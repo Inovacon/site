@@ -42,3 +42,9 @@
 .flipper {
     transform: rotateX(0);
 }
+
+@include media-breakpoint-down(md) {
+    .flipper .back {
+        min-height: 190px;
+    }
+}

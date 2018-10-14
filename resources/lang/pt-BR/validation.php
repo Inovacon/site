@@ -101,40 +101,47 @@ return [
 
     'custom' => [
         'name' => [
-            'required' => 'Por favor, informe seu nome'
+            'required' => 'Por favor, informe seu nome.'
         ],
         'email' => [
-            'required' => 'Por favor, informe um e-mail',
-            'email' => 'Por favor, informe um e-mail válido',
-            'unique' => 'Este endereço de e-mail já está em uso'
+            'required' => 'Por favor, informe um e-mail.',
+            'email' => 'Por favor, informe um e-mail válido.',
+            'unique' => 'Este endereço de e-mail já está em uso.'
         ],
         'password' => [
-            'required' => 'Por favor, informe uma senha',
-            'min' => 'A senha deve conter no mínimo :min caracteres'
+            'required' => 'Por favor, informe uma senha.',
+            'min' => 'A senha deve conter no mínimo :min caracteres.'
         ],
         'phone' => [
-            'min' => 'Por favor, informe um número de telefone válido',
-            'max' => 'Por favor, informe um número de telefone válido'
+            'required' => 'Por favor, informe seu número de celular.',
+            'min' => 'Por favor, informe um número de telefone válido.',
+            'max' => 'Por favor, informe um número de telefone válido.'
         ],
         'birth_date' => [
-            'required' => 'Por favor, informe a sua data de nascimento'
+            'required' => 'Por favor, informe a sua data de nascimento.'
         ],
         'cpf_cnpj' => [
-            'required' => 'Por favor, preencha este campo',
-            'cpf_cnpj' => 'Por favor, informe um número de documento válido',
-            'unique' => 'Este número de documento já está em uso'
+            'required' => 'Por favor, preencha este campo.',
+            'cpf_cnpj' => 'Por favor, informe um número de documento válido.',
+            'unique' => 'Este número de documento já está em uso.'
         ],
         'body' => [
-            'required' => 'Por favor, preencha este campo'
+            'required' => 'Por favor, preencha este campo.'
         ],
         'description' => [
-            'required' => 'Por favor, informe uma descrição'
+            'required' => 'Por favor, informe uma descrição.'
         ],
         'image_path' => [
-            'required' => 'Por favor, escolha uma imagem',
-            'max' => 'Por favor, escolha uma imagem menor que 1MB',
-            'uploaded' => 'Desculpe, não foi possível salvar esta imagem, escolha outra por favor',
-        ]
+            'required' => 'Por favor, escolha uma imagem.',
+            'max' => 'Por favor, escolha uma imagem menor que 1MB.',
+            'uploaded' => 'Desculpe, não foi possível salvar esta imagem, escolha outra por favor.'
+        ],
+        'company_name' => [
+            'required' => 'Por favor, informe a razão social da empresa.'
+        ],
+        'gender' => [
+            'required' => 'Por favor, selecione um gênero'
+        ],
     ],
 
     /*
@@ -153,7 +160,11 @@ return [
         'email' => 'e-mail',
         'password' => 'senha',
         'birth_date' => 'data de nascimento',
-        'body' => 'corpo'
+        'body' => 'corpo',
+        'company_name' => 'razão social',
+        'description' => 'descrição',
+        'phone' => 'celular',
+        'gender' => 'gênero',
     ],
 
 ];

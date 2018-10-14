@@ -15952,6 +15952,12 @@ input[disabled] {
   text-transform: uppercase;
 }
 
+@media (max-width: 991.98px) {
+  .owl-parceiros .item img {
+    width: 150px !important;
+  }
+}
+
 .text-primary-l {
   color: #28bffc;
 }
@@ -16056,6 +16062,21 @@ h6 {
   font-size: .7rem !important;
 }
 
+@media (max-width: 991.98px) {
+  p {
+    font-size: .85rem;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-size: 1.3rem;
+  }
+}
+
 .flip-container {
   -webkit-perspective: 1000px;
           perspective: 1000px;
@@ -16112,6 +16133,29 @@ h6 {
 .flipper {
   -webkit-transform: rotateX(0);
           transform: rotateX(0);
+}
+
+@media (max-width: 991.98px) {
+  .flipper .back {
+    min-height: 190px;
+  }
+}
+
+.invalid-radio-box input:checked + label {
+  color: #6c757d;
+}
+
+.invalid-radio-box label {
+  color: #c11d01;
+}
+
+.invalid-radio-box label:before {
+  background-color: rgba(193, 29, 1, 0.3);
+}
+
+.invalid-radio-box .invalid-feedback {
+  display: block;
+  color: #c11d01;
 }
 
 .navbar {
@@ -16201,6 +16245,8 @@ h6 {
   font-weight: 900;
   font-size: 1.33em;
   margin-right: 4px;
+  text-align: center;
+  width: 1.50em;
 }
 
 .navbar-nav.mr-auto .nav-item:nth-child(1) .nav-link:before {
@@ -16225,6 +16271,12 @@ h6 {
 
 .navbar-nav.mr-auto .nav-item:nth-child(6) .nav-link:before {
   content: '\F0E0';
+}
+
+@media (max-width: 1199.98px) {
+  .navbar-nav.mr-auto .nav-item .nav-link:before {
+    margin-right: 8px;
+  }
 }
 
 .btn {
@@ -16290,12 +16342,6 @@ h6 {
   text-shadow: 0px 0px 7px rgba(0, 0, 0, 0.5);
 }
 
-@media (max-width: 991.98px) {
-  .carousel-caption .news-title {
-    font-size: .95rem;
-  }
-}
-
 #secondaryNews .title {
   font-size: .9rem;
 }
@@ -16305,7 +16351,7 @@ h6 {
 }
 
 #secondaryNews .news-title {
-  font-size: .9rem;
+  font-size: .8rem;
   color: #ffffff;
   text-decoration: none;
   background-color: rgba(0, 0, 0, 0.5);
@@ -16322,6 +16368,27 @@ h6 {
 
 #secondaryNews .card:hover .news-title {
   background-color: rgba(0, 0, 0, 0.7);
+}
+
+@media (max-width: 991.98px) {
+  .carousel-item img {
+    min-height: 150px;
+    max-height: 150px;
+  }
+
+  .carousel-caption .news-title {
+    font-size: .8rem;
+  }
+}
+
+#news .card .news-info,
+#news .card .news-body {
+  font-family: 'Open Sans', sans-serif;
+}
+
+#news .card .news-comment {
+  font-family: 'Open Sans';
+  font-size: .9rem;
 }
 
 #course .course-description {
@@ -16729,13 +16796,6 @@ select:-webkit-autofill:focus {
   display: inline;
 }
 
-#eventsCard .card:hover {
-  -webkit-box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.2);
-  -ms-box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.2);
-  -o-box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.2);
-  box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.2);
-}
-
 #servicos .service-item {
   padding: 1rem;
   color: #00a0f0;
@@ -16786,6 +16846,16 @@ select:-webkit-autofill:focus {
 #servicos .service-description .service-name {
   margin-bottom: 10px;
   text-decoration: underline;
+}
+
+@media (max-width: 991.98px) {
+  .service-item {
+    font-size: .8rem;
+  }
+
+  .service-description p {
+    font-size: .7rem;
+  }
 }
 
 .bg-parallax {

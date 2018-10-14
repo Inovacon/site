@@ -44,8 +44,33 @@
     text-shadow: 0px 0px 7px rgba(0, 0, 0, .5);   
 }
 
+#secondaryNews .title {
+    font-size: .9rem;
+}
+
+#secondaryNews .card {
+    border: none;
+}
+
+#secondaryNews .news-title {
+    font-size: .8rem;
+    color: $white;
+    text-decoration: none;
+    background-color: rgba(0, 0, 0, .5);
+    @include transition(background-color .15s);
+}
+
+#secondaryNews .card:hover .news-title {
+    background-color: rgba(0, 0, 0, .7);
+}
+
 @include media-breakpoint-down(md) {
+    .carousel-item img {
+        min-height: 150px;
+        max-height: 150px;
+    }
+    
     .carousel-caption .news-title {
-        font-size: .95rem;
+        font-size: .8rem;
     }
 }

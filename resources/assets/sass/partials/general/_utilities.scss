@@ -109,3 +109,9 @@ input[disabled] {
 .first-letter-upper::first-letter {
   text-transform: uppercase;
 }
+
+@include media-breakpoint-down(md) {
+  .owl-parceiros .item img {
+    width: 150px !important;
+  }
+}

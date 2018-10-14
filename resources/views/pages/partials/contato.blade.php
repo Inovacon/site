@@ -12,39 +12,25 @@
 		
 		<div class="col-md-6 mx-auto">
 			<form action="#" method="POST">
-				<div class="form-md-group {{ $errors->has('name') ? 'invalid-group' : '' }}">
-					<input  name="name"
-							id="name"
-							value="{{ old('name') }}"
-							class="form-control bg-light {{ old('name') ? 'active' : '' }}"
-							type="text" 
-							required/>
-
-					<label for="name">
-						<i class="fas fa-id-card fa-fw mr-1"></i> Nome completo
-					</label>
-
-					<span class="invalid-md-feedback" role="alert">
-						{{ $errors->first('name') }}
-					</span>
-				</div>
-
-				<div class="form-md-group {{ $errors->has('email') ? 'invalid-group' : '' }}">
-					<input  name="email"
-							id="message-email"
-							value="{{ old('message-email') }}"
-							class="form-control bg-light {{ old('email') ? 'active' : '' }}"
-							type="email" 
-							required/>
-
-					<label for="email-message">
-						<i class="fas fa-envelope fa-fw mr-1"></i> E-mail
-					</label>
-
-					<span class="invalid-md-feedback" role="alert">
-						{{ $errors->first('message') }}
-					</span>
-				</div>
+				@include('form.material-input', [
+					'name' => 'name',
+					'value' => old('name'),
+					'label' => 'Nome completo',
+					'class' => 'bg-light',
+					'icon' => 'fas fa-id-card',
+					'required' => true
+				])
+				
+				@include('form.material-input', [
+					'id' => 'message-email',
+					'name' => 'email',
+					'value' => old('email'),
+					'label' => 'E-mail',
+					'class' => 'bg-light',
+					'icon' => 'fas fa-envelope ',
+					'type' => 'email',
+					'required' => true
+				])
 
 				<div class="form-md-group">
 					<textarea class="form-control bg-light" name="message" id="message" rows="1" required></textarea>

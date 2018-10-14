@@ -2,7 +2,8 @@
 	<div class="container">
 		<div class="col">
 			<div class="text-center">
-				<img class="img-fluid" src="{{ asset('images/logo_adm_ads_cc.png') }}" alt="">
+				<img class="img-fluid d-none d-md-block" src="{{ asset('images/logo_adm_ads_cc.png') }}" alt="">
+				<img class="img-fluid d-block d-md-none" src="{{ asset('images/logo_adm_ads_cc-sm.png') }}" alt="">
 			</div>
 		</div>
 	</div>
@@ -15,7 +16,6 @@
 				<h2 class="font-weight-bold mb-3 text-center text-md-left">Quem Somos</h2>
 
 				<p class="text-gray-dark text-justify" style="text-indent: 3rem; line-height: 1.7rem;">A Inovacon Empresa Júnior é uma associação civil, sem fins lucrativos, constituída exclusivamente por alunos da graduação, dos cursos de administração, ciências contábeis e análise e desenvolvimento de sistemas que desenvolve estudos para empresas, entidades e sociedade em geral, nas suas áreas de atuação, sob a supervisão de professores.</p>
-				<p class="text-gray-dark text-justify" style="text-indent: 3rem; line-height: 1.7rem;"></p>
 			</div>
 
 			<div class="col-md-6">

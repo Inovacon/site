@@ -50,3 +50,13 @@ h1, h2, h3, h4, h5, h6 {
 .0-7rem {
   font-size: .7rem !important;
 }
+
+@include media-breakpoint-down(md) {
+  p {
+    font-size: .85rem;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-size: 1.3rem;
+  }
+}

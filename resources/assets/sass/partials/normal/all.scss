@@ -6,15 +6,14 @@
 @import "navbar";
 @import "navbar-icons";
 @import "buttons";
-@import "carousel-news";
-@import "secondary-news";
+@import "main-news";
+@import "news";
 @import "courses";
 @import "cards";
 @import "tables";
 @import "news";
 @import "forms";
 @import "ribbons";
-@import "events";
 @import "services";
 
 .bg-parallax {
@@ -24,5 +23,3 @@
     background-repeat: no-repeat;
     background-size: cover;
 }
-
-

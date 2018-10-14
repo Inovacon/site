@@ -4,3 +4,20 @@
 @import "toastr";
 @import "typography";
 @import "flip-animation";
+
+.invalid-radio-box input:checked + label {
+	color: $gray-600;
+}
+
+.invalid-radio-box label {
+	color: $danger;
+}
+
+.invalid-radio-box label:before {
+	background-color: rgba($danger, .3);
+}
+
+.invalid-radio-box .invalid-feedback {
+	display: block;
+	color: $danger;
+}

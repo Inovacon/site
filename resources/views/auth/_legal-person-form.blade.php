@@ -2,61 +2,38 @@
     @csrf
 
     <h5 class="pb-1 font-weight-600 text-dark">Dados da empresa</h5>
-
-    <div class="form-md-group {{ $errors->has('name') ? 'invalid-group' : '' }}">
-        <input  name="name"
-                id="legal-name"
-                value="{{ old('name') }}"
-                class="form-control {{ old('name') ? 'active' : '' }}"
-                type="text"
-                required />
-
-        <label for="legal-name">
-            <i class="fas fa-id-card fa-lg mr-1"></i> Nome fantasia
-        </label>
-
-        <span class="invalid-md-feedback">
-            {{ $errors->first('name') }}
-        </span>
-    </div>
+    
+    @include('form.material-input', [
+        'id' => 'lp-name',
+        'name' => 'name',
+        'value' => old('name'),
+        'label' => 'Nome fantasia',
+        'icon' => 'fas fa-id-card',
+        'required' => true
+    ])
 
     <div class="row">
         <div class="col">
-            <div class="form-md-group {{ $errors->has('company-name') ? 'invalid-group' : '' }}">
-                <input  name="company_name"
-                        id="legal-company-name"
-                        value="{{ old('company-name') }}"
-                        class="form-control {{ old('company-name') ? 'active' : '' }}"
-                        type="text"
-                        required />
-
-                <label for="legal-company-name">
-                    <i class="fas fa-file-contract fa-lg mr-1"></i> Razão social
-                </label>
-
-                <span class="invalid-md-feedback">
-                    {{ $errors->first('company-name') }}
-                </span>
-            </div>
+            @include('form.material-input', [
+                'id' => 'lp-company-name',
+                'name' => 'company_name',
+                'value' => old('company_name'),
+                'label' => 'Razão social',
+                'icon' => 'fas fa-file-contract',
+                'required' => true
+            ])
         </div>
 
         <div class="col">
-            <div class="form-md-group {{ $errors->has('cpf_cnpj') ? 'invalid-group' : '' }}">
-                <input  name="cpf_cnpj"
-                        id="legal-cnpj"
-                        value="{{ old('cpf_cnpj') }}"
-                        class="cnpj form-control {{ old('cpf_cnpj') ? 'active' : ''}}"
-                        type="text"
-                        required />
-
-                <label for="legal-cnpj">
-                    <i class="fas fa-file-contract fa-lg mr-1"></i> CNPJ
-                </label>
-
-                <span class="invalid-md-feedback">
-                    {{ $errors->first('cpf_cnpj') }}
-                </span>
-            </div>
+            @include('form.material-input', [
+                'id' => 'lp-cnpj',
+                'name' => 'cpf_cnpj',
+                'value' => old('cpf_cnpj'),
+                'label' => 'CNPJ',
+                'class' => 'cnpj',
+                'icon' => 'fas fa-file-contract',
+                'required' => true
+            ])
         </div>
     </div>
 
@@ -64,113 +41,85 @@
 
     <div class="row">
         <div class="col">
-            <div class="form-md-group {{ $errors->has('email') ? 'invalid-group' : '' }}">
-                <input  name="email"
-                        id="legal-email"
-                        value="{{ old('email') }}"
-                        class="form-control {{ old('email') ? 'active' : '' }}"
-                        type="email"/
-                        required>
-
-                <label for="legal-email">
-                    <i class="fas fa-envelope fa-lg mr-1"></i> E-mail
-                </label>
-
-                <span class="invalid-md-feedback">
-                    {{ $errors->first('email') }}
-                </span>
-            </div>
+            @include('form.material-input', [
+                'id' => 'lp-email',
+                'name' => 'email',
+                'value' => old('email'),
+                'label' => 'E-mail',
+                'class' => 'email',
+                'type' => 'email',
+                'icon' => 'fas fa-envelope',
+                'required' => true
+            ])
         </div>
 
         <div class="col">
-            <div class="form-md-group">
-                <input  name="phone"
-                        id="legal-phone"
-                        value="{{ old('phone') }}"
-                        class="phone form-control {{ old('phone') ? 'active' : '' }}"
-                        type="tel"
-                        required/>
-
-                <label for="legal-phone">
-                    <i class="fas fa-mobile-alt fa-lg mr-1"></i> Celular
-                </label>
-
-                <span class="invalid-md-feedback">
-                    {{ $errors->first('phone') }}
-                </span>
-            </div>
+            @include('form.material-input', [
+                'id' => 'lp-phone',
+                'name' => 'phone',
+                'value' => old('phone'),
+                'label' => 'Celular',
+                'class' => 'phone',
+                'type' => 'tel',
+                'icon' => 'fas fa-mobile-alt',
+                'required' => true
+            ])
         </div>
     </div>
 
 
     <div class="row">
         <div class="col">
-            <div class="form-md-group {{ $errors->has('password') ? 'invalid-group' : '' }}">
-                <input  name="password"
-                        id="legal-password"
-                        class="form-control"
-                        type="password"
-                        required/>
-
-                <label for="legal-password">
-                    <i class="fas fa-lock fa-lg mr-1"></i> Senha
-                </label>
-
-                <span class="invalid-md-feedback">
-                    {{ $errors->first('password') }}
-                </span>
-            </div>
+            @include('form.material-input', [
+                'id' => 'lp-password',
+                'name' => 'password',
+                'label' => 'Senha',
+                'type' => 'password',
+                'icon' => 'fas fa-lock',
+                'required' => true
+            ])
         </div>
 
         <div class="col">
-            <div class="form-md-group">
-                <input  name="password_confirmation"
-                        id="legal-password_confirmation"
-                        class="form-control"
-                        type="password"
-                        required />
-
-                <label for="legal-password_confirmation">Confirme sua senha</label>
-            </div>
+            @include('form.material-input', [
+                'id' => 'lp-password_confirmation',
+                'name' => 'password_confirmation',
+                'label' => 'Confirme sua senha',
+                'type' => 'password',
+                'required' => true
+            ])
         </div>
     </div>
 
     <div class="col px-0">
-        <div class="form-md-group">
-            <input  name="birth_date"
-                    value="{{ old('birth_date') }}"
-                    id="legal-birth_date"
-                    class="birth-day form-control {{ old('name') ? 'active' : '' }}"
-                    type="text"
-                    required />
-
-            <label for="legal-birth_date">
-                <i class="fas fa-calendar-alt fa-lg mr-1"></i> Data de nascimento
-            </label>
-
-            <span class="invalid-md-feedback">
-                {{ $errors->first('birth_date') }}
-            </span>
-        </div>
+        @include('form.material-input', [
+            'id' => 'lp-birth_date',
+            'name' => 'birth_date',
+            'value' => old('birth_date'),
+            'label' => 'Data de nascimento',
+            'class' => 'birth-date',
+            'icon' => 'fas fa-calendar-alt',
+            'required' => true
+        ])
     </div>
 
-    <div class="col px-0">
-        <div class="form-group {{ $errors->has('gender') ? 'invalid-group' : '' }}">
-            <div class="custom-control custom-radio custom-control-inline">
-                <input type="radio" id="legal-male" name="gender" class="custom-control-input" value="M" checked>
-                <label class="custom-control-label" for="legal-male">Masculino</label>
-            </div>
-            <div class="custom-control custom-radio custom-control-inline">
-                <input type="radio" id="legal-female" name="gender" class="custom-control-input" value="F">
-                <label class="custom-control-label" for="legal-female">Feminino</label>
-            </div>
-        </div>
+    <div class="col px-0 text-gray-dark" style="font-size: .95rem;">
+        @include('form.radio-box', [
+            'title' => 'Gênero',
+            'icon' => 'fas fa-venus-mars',
+            'name' => 'gender',
+            'radios' => [
+                ['id' => 'lp-male', 'label' => 'Masculino', 'value' => 'M'],
+                ['id' => 'lp-female', 'label' => 'Feminino', 'value' => 'F'],
+            ]
+        ])
     </div>
 
     <div class="d-flex justify-content-between align-self-end">
         <div class="form-group mb-0">
             <button class="btn btn-success" type="submit">Cadastrar-se</button>
         </div>
+
         <p class="text-right small text-secondary">Já possui uma conta? <a class="link" href="/login">Entre</a>.</p>
     </div>
 </form>

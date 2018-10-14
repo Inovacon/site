@@ -4,7 +4,7 @@
 		
 		<div class="row">
 			
-			<div class="col-md-4 col-lg-3 col-sm-6 mb-3">
+			<div class="col-md-4 col-lg-3 col-6 mb-3">
 				@include('layouts._service-item', [
 					'serviceIcon' => 'fas fa-pencil-alt',
 					'serviceName' => 'Criação de identidade visual e logomarca',
@@ -12,7 +12,7 @@
 				])
 			</div>
 
-			<div class="col-md-4 col-lg-3 col-sm-6 mb-3">
+			<div class="col-md-4 col-lg-3 col-6 mb-3">
 				@include('layouts._service-item', [
 					'serviceIcon' => 'fas fa-laptop',
 					'serviceName' => 'Auxílio na utilização de mídias digitais',
@@ -20,7 +20,7 @@
 				])
 			</div>
 
-			<div class="col-md-4 col-lg-3 col-sm-6 mb-3">
+			<div class="col-md-4 col-lg-3 col-6 mb-3">
 				@include('layouts._service-item', [
 					'serviceIcon' => 'fas fa-building',
 					'serviceName' => 'Fortalecimento organizacional',
@@ -28,7 +28,7 @@
 				])
 			</div>
 
-			<div class="col-md-4 col-lg-3 col-sm-6 mb-3">
+			<div class="col-md-4 col-lg-3 col-6 mb-3">
 				@include('layouts._service-item', [
 					'serviceIcon' => 'fas fa-chart-area',
 					'serviceName' => 'Pesquisa e análise de mercado',
@@ -36,7 +36,7 @@
 				])
 			</div>
 
-			<div class="col-md-4 col-lg-3 col-sm-6 mb-3">
+			<div class="col-md-4 col-lg-3 col-6 mb-3">
 				@include('layouts._service-item', [
 					'serviceIcon' => ['fas fa-frown fa-lg', 'fas fa-meh fa-lg', 'fas fa-smile fa-lg'],
 					'serviceName' => 'Pesquisa de satisfação de clientes',
@@ -44,7 +44,7 @@
 				])
 			</div>
 
-			<div class="col-md-4 col-lg-3 col-sm-6 mb-3">
+			<div class="col-md-4 col-lg-3 col-6 mb-3">
 				@include('layouts._service-item', [
 					'serviceIcon' => 'fas fa-user-tie',
 					'serviceName' => 'Prospecção de novos consumidores',
@@ -52,7 +52,7 @@
 				])
 			</div>
 
-			<div class="col-md-4 col-lg-3 col-sm-6 mb-3">
+			<div class="col-md-4 col-lg-3 col-6 mb-3">
 				@include('layouts._service-item', [
 					'serviceIcon' => 'fas fa-project-diagram',
 					'serviceName' => 'Melhoramento de layout interno',
@@ -60,7 +60,7 @@
 				])
 			</div>
 
-			<div class="col-md-4 col-lg-3 col-sm-6 mb-3">
+			<div class="col-md-4 col-lg-3 col-6 mb-3">
 				@include('layouts._service-item', [
 					'serviceIcon' => 'fas fa-chalkboard-teacher',
 					'serviceName' => 'Treinamento de pessoal',
@@ -68,7 +68,7 @@
 				])
 			</div>
 
-			<div class="col-md-4 col-lg-3 col-sm-6 mb-3">
+			<div class="col-md-4 col-lg-3 col-6 mb-3">
 				@include('layouts._service-item', [
 					'serviceIcon' => 'fas fa-users',
 					'serviceName' => 'Engajamento de equipes',
@@ -76,7 +76,7 @@
 				])
 			</div>
 
-			<div class="col-md-4 col-lg-3 col-sm-6 mb-3">
+			<div class="col-md-4 col-lg-3 col-6 mb-3">
 				@include('layouts._service-item', [
 					'serviceIcon' => 'fas fa-calculator',
 					'serviceName' => 'Controle financeiro e fluxo de caixa',
@@ -84,7 +84,7 @@
 				])
 			</div>
 
-			<div class="col-md-4 col-lg-3 col-sm-6 mb-3">
+			<div class="col-md-4 col-lg-3 col-6 mb-3">
 				@include('layouts._service-item', [
 					'serviceIcon' => 'fas fa-hand-holding-usd',
 					'serviceName' => 'Formação de preço de vendas',
@@ -92,7 +92,7 @@
 				])
 			</div>
 
-			<div class="col-md-4 col-lg-3 col-sm-6 mb-3">
+			<div class="col-md-4 col-lg-3 col-6 mb-3">
 				@include('layouts._service-item', [
 					'serviceIcon' => 'fas fa-chart-pie',
 					'serviceName' => 'Análise de custos empresariais',
