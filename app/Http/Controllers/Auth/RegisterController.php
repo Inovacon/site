@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\Util\Sanitizer;
+use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Validator;
@@ -52,8 +53,8 @@ class RegisterController extends Controller
 
     protected function getFormattedData(array $data)
     {
-        $data['phone'] = preg_replace('/\D/', '', $data['phone']);
-        $data['cpf_cnpj'] = preg_replace('/\D/', '', $data['cpf_cnpj']);
+        $data['phone'] = Sanitizer::stripNonDigits($data['phone']);
+        $data['cpf_cnpj'] = Sanitizer::stripNonDigits($data['cpf_cnpj']);
 
         if (Str::is('*/*/*', $data['birth_date'])) {
             $data['birth_date'] = (string) Carbon::createFromFormat('d/m/Y', $data['birth_date']);
@@ -72,7 +73,7 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => 'required',
-            'company_name' => 'sometimes|required',
+            'trade' => 'sometimes|required',
             'email' => 'required|email|unique:users',
             'cpf_cnpj' => 'required|cpf_cnpj|unique:users',
             'phone' => 'required|string|min:10|max:11',
@@ -92,7 +93,7 @@ class RegisterController extends Controller
     {
         return User::create([
             'name' => $data['name'],
-            'company_name' => $data['company_name'] ?? null,
+            'trade' => $data['trade'] ?? null,
             'email' => $data['email'],
             'cpf_cnpj' => $data['cpf_cnpj'],
             'birth_date' => $data['birth_date'],

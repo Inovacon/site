@@ -19,6 +19,8 @@
         @yield('content')
     </div>
 
+    <flash type="{{ session('type') ?: 'success' }}" message="{{ session('flash') }}"></flash>
+
     <script src="{{ mix('/js/app.js') }}"></script>
     @stack('scripts')
 </body>

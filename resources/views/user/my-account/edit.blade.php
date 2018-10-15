@@ -4,12 +4,13 @@
 
 @section('content')
 
-    <form method="POST" action="">
+    <form method="POST" action="{{ route('my-account.user.update') }}">
         @csrf
-        
+        @method('PATCH')
+
         <div class="card">
             <div class="card-header bg-primary">
-                <h4 class="font-weight-600 text-white mb-0"><i class="fas fa-user-edit mr-3"></i>Alterar dados da conta</h4>                    
+                <h4 class="font-weight-600 text-white mb-0"><i class="fas fa-user-edit mr-3"></i>Alterar dados da conta</h4>
             </div>
 
             <div class="card-body">
@@ -18,7 +19,7 @@
                 @else
                     @include('user.my-account._physical-person-form')
                 @endif
-                
+
                 <div class="row mt-2">
                     <button type="submit" class="btn font-weight-600 btn-lg btn-success mx-3">Salvar alterações</button>
                     <a href="{{ route('my-account.user.index') }}" class="btn font-weight-600 btn-lg btn-light mx-3">Cancelar</a>

@@ -2,13 +2,13 @@
     @csrf
 
     <h5 class="pb-1 font-weight-600 text-dark">Dados da empresa</h5>
-    
+
     <input name="has_cnpj" type="hidden" value="true">
 
     @include('form.material-input', [
         'id' => 'lp-name',
-        'name' => 'name',
-        'value' => old('name'),
+        'name' => 'trade',
+        'value' => old('trade'),
         'label' => 'Nome fantasia',
         'icon' => 'fas fa-id-card',
         'required' => true
@@ -18,8 +18,8 @@
         <div class="col">
             @include('form.material-input', [
                 'id' => 'lp-company-name',
-                'name' => 'company_name',
-                'value' => old('company_name'),
+                'name' => 'name',
+                'value' => old('name'),
                 'label' => 'Razão social',
                 'icon' => 'fas fa-file-contract',
                 'required' => true
