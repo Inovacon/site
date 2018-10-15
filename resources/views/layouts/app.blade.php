@@ -8,7 +8,7 @@
 
     <title>@yield('title')</title>
 
-    <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>
 <body class="bg-light">
     <div id="root">
@@ -21,7 +21,7 @@
 
     <flash type="{{ session('type') ?: 'success' }}" message="{{ session('flash') }}"></flash>
 
-    <script src="{{ mix('/js/app.js') }}"></script>
+    <script src="{{ asset('js/app.js') }}"></script>
     @stack('scripts')
 </body>
 </html>

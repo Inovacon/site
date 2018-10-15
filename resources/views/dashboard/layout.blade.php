@@ -8,7 +8,7 @@
 
     <title>@yield('title') | Painel</title>
 
-    <link rel="stylesheet" href="{{ mix('/css/dashboard.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
 </head>
 <body class="bg-light">
     <div id="root">
