@@ -3,22 +3,26 @@
     text-transform: uppercase;
     font-size: .85rem !important;
     letter-spacing: 1px;
-}
 
-.btn-icon {
-  text-decoration: none !important;
-  color: $gray-600;
-  background-color: transparent !important;
-  border: none !important;
-  cursor: pointer;
-  margin: 0;
-  padding: 0;
-}
+    &[disabled] {
+        cursor: not-allowed !important;
+    }
 
-.btn-icon:focus {
-  outline: none;
-}
+    &-icon {
+        text-decoration: none !important;
+        color: $gray-600;
+        background-color: transparent !important;
+        border: none !important;
+        cursor: pointer;
+        margin: 0;
+        padding: 0;
 
-.btn-icon:hover {
-  color: $dark;
+        &:focus {
+            outline: none;
+        }
+
+        &:hover {
+            color: $dark;
+        }
+    }
 }

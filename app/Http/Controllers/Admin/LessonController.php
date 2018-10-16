@@ -13,7 +13,7 @@ class LessonController extends Controller
     {
         return view('dashboard.lessons.index', [
             'team' => $team,
-            'lessons' => $team->lessons()->latest()->paginate(20),
+            'lessons' => $team->lessons()->orderBy('date')->paginate(20),
         ]);
     }
 

@@ -10,10 +10,12 @@
                     :value="value"
                     :placeholder="placeholder"
                     :required="required"
+                    :disabled="disabled"
                     :language="ptBR"
                     :format="formatter"
                     :disabled-dates="disabledDates"
-                    :name="name"></datepicker>
+                    :name="name"
+                    :input-class="inputClass"></datepicker>
     </control-wrapper>
 </template>
 
@@ -27,6 +29,8 @@
     export default {
         props: {
             value: { default: '' },
+            inputClass: { default: '' },
+            disabled: { default: false },
             disabledDates: { default: () => {} }
         },
 

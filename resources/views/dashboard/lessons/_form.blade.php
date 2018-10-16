@@ -1,7 +1,5 @@
 @csrf
 
-<br>
-
 @include('dashboard.form.input', [
     'name' => 'date',
     'type' => 'date',
@@ -28,7 +26,3 @@
         ])
     </div>
 </div>
-
-@component('dashboard.form.button')
-    Salvar
-@endcomponent

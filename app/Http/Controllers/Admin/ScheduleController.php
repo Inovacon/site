@@ -11,18 +11,29 @@ class ScheduleController extends Controller
 {
     public function __invoke(CreateScheduleRequest $request, Team $team)
     {
-        $first = Carbon::createFromFormat('d/m/Y', $request->first_day);
-        $last = Carbon::createFromFormat('d/m/Y', $request->last_day);
+        $i = 0;
         $weekDays = $request->week_days;
-        $attributes = $request->only('start_time', 'end_time');
+        $startTimes = $request->start_times;
+        $endTimes = $request->end_times;
+        $currentDay = Carbon::createFromFormat('d/m/Y', $request->first_day);
+        $lastDay = Carbon::createFromFormat('d/m/Y', $request->last_day);
 
-        while ($first->lte($last)) {
-            if (in_array($first->dayOfWeek, $weekDays)) {
-                $attributes['date'] = $first;
-                $team->lessons()->create($attributes);
+        while ($currentDay->lte($lastDay)) {
+            if (in_array($currentDay->dayOfWeek, $weekDays)) {
+                if (count($weekDays) <= $i) {
+                    $i = 0;
+                }
+
+                $team->lessons()->create([
+                    'date' => $currentDay,
+                    'start_time' => $startTimes[$i],
+                    'end_time' => $endTimes[$i]
+                ]);
+
+                ++$i;
             }
 
-            $first->addDays(1);
+            $currentDay->addDays(1);
         }
 
         return redirect()

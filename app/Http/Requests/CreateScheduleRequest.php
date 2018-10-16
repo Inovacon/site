@@ -26,9 +26,9 @@ class CreateScheduleRequest extends FormRequest
         return [
             'first_day' => 'required',
             'last_day' => 'required',
-            'start_time' => 'required',
-            'end_time' => 'required',
             'week_days' => 'required',
+            'start_times' => 'required',
+            'end_times' => 'required'
         ];
     }
 }

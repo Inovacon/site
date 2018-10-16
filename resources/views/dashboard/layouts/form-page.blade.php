@@ -17,9 +17,11 @@
 
                         {{ $slot }}
 
-                        @component('dashboard.form.button')
-                            Salvar
-                        @endcomponent
+                        @if (!isset($showButton) || isset($showButton) && $showButton)
+                            @component('dashboard.form.button')
+                                Salvar
+                            @endcomponent
+                        @endif
                     </form>
                 </div>
             </div>

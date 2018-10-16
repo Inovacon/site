@@ -53370,6 +53370,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 
@@ -53380,6 +53382,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
         value: { default: '' },
+        inputClass: { default: '' },
+        disabled: { default: false },
         disabledDates: { default: function _default() {} }
     },
 
@@ -55261,10 +55265,12 @@ var render = function() {
           value: _vm.value,
           placeholder: _vm.placeholder,
           required: _vm.required,
+          disabled: _vm.disabled,
           language: _vm.ptBR,
           format: _vm.formatter,
           "disabled-dates": _vm.disabledDates,
-          name: _vm.name
+          name: _vm.name,
+          "input-class": _vm.inputClass
         }
       })
     ],
@@ -56209,6 +56215,10 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(252)
+}
 var normalizeComponent = __webpack_require__(2)
 /* script */
 var __vue_script__ = __webpack_require__(226)
@@ -56217,7 +56227,7 @@ var __vue_template__ = null
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
-var __vue_styles__ = null
+var __vue_styles__ = injectStyle
 /* scopeId */
 var __vue_scopeId__ = null
 /* moduleIdentifier (server only) */
@@ -56265,19 +56275,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
+            checkedDays: [],
             weekDays: [],
-            disabledDates: { customPredictor: function customPredictor(date) {
+            disabledDates: {
+                customPredictor: function customPredictor(date) {
                     return false;
-                } }
+                }
+            }
         };
     },
     mounted: function mounted() {
         var _this = this;
 
         var disabledDates = {
-            customPredictor: function customPredictor(date) {
-                return _this.mustBeDisabled(date);
-            }
+            customPredictor: this.datepickerMustBeDisabled.bind(this)
         };
 
         this.$nextTick(function () {
@@ -56285,21 +56296,33 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         });
     },
     created: function created() {
+        var _this2 = this;
+
         __WEBPACK_IMPORTED_MODULE_0_moment___default.a.locale('pt-br');
+
+        var weekDays = ['Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
+
+        weekDays.forEach(function (name, i) {
+            _this2.weekDays.push({
+                name: name,
+                checked: false,
+                number: (i + 1).toString()
+            });
+        });
     },
 
 
-    methods: {
-        mustBeDisabled: function mustBeDisabled(date) {
-            return this.weekDays.length && !this.weekDays.includes(date.getDay().toString());
+    watch: {
+        checkedDays: function checkedDays(newCheckedDays) {
+            this.weekDays.forEach(function (day) {
+                day.checked = newCheckedDays.includes(day.number) ? true : false;
+            });
         }
     },
 
-    computed: {
-        selectedDays: function selectedDays() {
-            return this.weekDays.map(function (day) {
-                return __WEBPACK_IMPORTED_MODULE_0_moment___default()().weekday(day).format('dddd');
-            }).join(', ');
+    methods: {
+        datepickerMustBeDisabled: function datepickerMustBeDisabled(date) {
+            return !this.checkedDays.includes(date.getDay().toString());
         }
     }
 });
@@ -56737,6 +56760,64 @@ if (false) {
     require("vue-hot-reload-api")      .rerender("data-v-7736fd3a", module.exports)
   }
 }
+
+/***/ }),
+/* 234 */,
+/* 235 */,
+/* 236 */,
+/* 237 */,
+/* 238 */,
+/* 239 */,
+/* 240 */,
+/* 241 */,
+/* 242 */,
+/* 243 */,
+/* 244 */,
+/* 245 */,
+/* 246 */,
+/* 247 */,
+/* 248 */,
+/* 249 */,
+/* 250 */,
+/* 251 */,
+/* 252 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(253);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(230)("25e86722", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-64d59e36\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./LessonSpecialForm.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-64d59e36\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./LessonSpecialForm.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 253 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(193)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.vdp-datepicker__calendar {\n    position: static;\n}\n", ""]);
+
+// exports
+
 
 /***/ })
 /******/ ]);

@@ -16569,6 +16569,10 @@ h6 {
   letter-spacing: 1px;
 }
 
+.btn[disabled] {
+  cursor: not-allowed !important;
+}
+
 .btn-icon {
   text-decoration: none !important;
   color: #6c757d;

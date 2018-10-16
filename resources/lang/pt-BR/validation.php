@@ -166,6 +166,8 @@ return [
         'description' => 'descrição',
         'phone' => 'celular',
         'gender' => 'gênero',
+        'first_day' => 'primeiro dia',
+        'last_day' => 'último dia'
     ],
 
 ];

@@ -2,6 +2,7 @@
     <thead>
     <tr>
         <th>Data</th>
+        <th>Dia da semana</th>
         <th>Início</th>
         <th>Término</th>
         <th></th>
@@ -12,8 +13,9 @@
     @foreach ($lessons as $lesson)
         <tr>
             <td>{{ $lesson->date->format('d/m/Y') }}</td>
-            <td>{{ $lesson->start_time }}</td>
-            <td>{{ $lesson->end_time }}</td>
+            <td>{{ ucfirst(utf8_encode(strftime("%A", strtotime($lesson->date)))) }}</td>
+            <td>{{ $lesson->start_time_formatted }}</td>
+            <td>{{ $lesson->end_time_formatted }}</td>
             <td class="text-right">
                 <div class="pr-4">
                     <a href="{{ route('dashboard.courses.lessons.show', [$team, $lesson]) }} }}" class="btn-icon">
