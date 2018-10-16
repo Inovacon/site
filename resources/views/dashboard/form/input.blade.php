@@ -9,7 +9,7 @@
            id="{{ $id ?? $name }}"
            name="{{ $name }}"
            value="{{ $value ?? '' }}"
-            {{ isset($placeholder) ? "placeholder=\"{$placeholder}\"" : '' }}
+            {{ isset($placeholder) ? "placeholder={$placeholder}" : '' }}
             {{ isset($required) && ! $required ? '' : 'required' }}
             {{ isset($step) ? "step={$step}" : '' }}>
 @endcomponent

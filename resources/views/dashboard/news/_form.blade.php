@@ -13,7 +13,7 @@
     'help' => 'Tamanho recomendado: 800x400'
 ])
 
-@include('dashboard.form.textarea', [
+@include('dashboard.form.text-editor', [
     'name' => 'body',
     'label' => 'Texto',
     'value' => old('body', $noticia->body)

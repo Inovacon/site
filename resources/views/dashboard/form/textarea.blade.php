@@ -4,9 +4,11 @@
     'help' => $help ?? false,
     'helpColor' => $helpColor ?? 'muted'
 ])
-
-
-<text-editor  name="{{ $name }}"
-              value="{{ $value }}"
-              error="{{ $errors->first($name) }}"></text-editor>
+    <textarea
+        name="{{ $name }}"
+        class="form-control"
+        id="{{ $id ?? $name }}"
+        rows="{{ $rows ?? 3 }}"
+        {{ isset($placeholder) ? "placeholder={$placeholder}" : '' }}
+        {{ isset($required) && ! $required ? '' : 'required' }}>{{ $value ?? '' }}</textarea>
 @endcomponent

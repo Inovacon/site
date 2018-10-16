@@ -1,17 +1,24 @@
-@include('dashboard.form.input', [
-    'name' => 'name',
-    'label' => 'Nome',
-    'value' => old('name', $course->name)
-])
+<div class="row">
+    <div class="col-md-6">
+        @include('dashboard.form.input', [
+            'name' => 'name',
+            'label' => 'Nome',
+            'value' => old('name', $course->name),
+            'placeholder' => 'Digite'
+        ])
+    </div>
 
-@include('dashboard.form.file-input', [
-    'name' => 'image_path',
-    'label' => 'Imagem',
-    'placeholder' => 'Escolha uma imagem',
-    'required' => false,
-    'accept' => 'image/*',
-    'help' => 'Tamanho recomendado: 315x180'
-])
+    <div class="col-md-6">
+        @include('dashboard.form.file-input', [
+            'name' => 'image_path',
+            'label' => 'Imagem',
+            'placeholder' => 'Escolha uma imagem',
+            'required' => false,
+            'accept' => 'image/*',
+            'help' => 'Tamanho recomendado: 315x180'
+        ])
+    </div>
+</div>
 
 @include('dashboard.form.textarea', [
     'id' => 'course-body',
@@ -71,7 +78,8 @@
             'type' => 'number',
             'label' => 'Preço',
             'value' => old('price', $course->price),
-            'step' => 0.01
+            'step' => 0.01,
+            'placeholder' => 'Digite'
         ])
     </div>
 
@@ -81,7 +89,8 @@
             'type' => 'number',
             'label' => 'Carga Horária',
             'value' => old('hours', $course->hours),
-            'step' => 0.1
+            'step' => 0.1,
+            'placeholder' => 'Digite'
         ])
     </div>
 </div>
