@@ -52,7 +52,6 @@
                             <div class="text-center mb-3"><i class="fas fa-info-circle fa-5x"></i></div>
                             <div class="lead">Desculpe, no momento não há nenhum curso disponível para esta área, volte mais tarde!</div>
                         </div>
-                        
                     @endforelse
                 </div>
             </div>

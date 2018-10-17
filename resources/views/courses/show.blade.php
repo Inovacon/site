@@ -70,90 +70,118 @@
                         <div class="tab-content text-dark" id="pills-tabContent">
                             <div class="tab-pane fade show active" id="pills-info-content" role="tabpanel"
                                  aria-labelledby="pills-programmatic-content-tab">
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item">
-                                        <span class="font-weight-600">
-                                            <i class="fas fa-graduation-cap fa-fw text-primary mr-1"></i>Área relacionada:
-                                        </span>
+                                
+                                <table class="table table-small">
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <span class="font-weight-bold">
+                                                    <i class="fas fa-graduation-cap fa-fw text-primary mr-1"></i>Área relacionada:
+                                                </span>
+                                            </td>
 
-                                        <span>{{ $course->occupationArea->name }}</span>
-                                    </li>
+                                            <td>
+                                                {{ $course->occupationArea->name }}
+                                            </td>
+                                        </tr>
 
-                                    <li class="list-group-item">
-                                        <span class="font-weight-600">
-                                            <i class="fas fa-graduation-cap fa-fw text-primary mr-1"></i>Tipo de curso:
-                                        </span>
+                                        <tr>
+                                            <td>
+                                                <span class="font-weight-bold">
+                                                    <i class="fas fa-graduation-cap fa-fw text-primary mr-1"></i>Tipo de curso:
+                                                </span>
+                                            </td>
 
-                                        <span>{{ $course->type->name }}</span>
-                                    </li>
+                                            <td>
+                                                {{ $course->type->name }}
+                                            </td>
+                                        </tr>
 
-                                    <li class="list-group-item">
-                                        <span class="font-weight-600">
-                                            <i class="fas fa-user-clock fa-fw text-primary mr-1"></i>Carga Horária:
-                                        </span>
+                                        <tr>
+                                            <td>
+                                                <span class="font-weight-bold">
+                                                    <i class="fas fa-user-clock fa-fw text-primary mr-1"></i>Carga Horária:
+                                                </span>
+                                            </td>
+                                            
+                                            <td>
+                                                {{ $course->hours }} h
+                                            </td>
+                                        </tr>
 
-                                        <span>{{ $course->hours }}h</span>
-                                    </li>
+                                        <tr>
+                                            <td>
+                                                <span class="font-weight-bold">
+                                                    <i class="fas fa-chalkboard-teacher fa-fw text-primary mr-1"></i>Modalidade:
+                                                </span>
+                                            </td>
 
+                                            <td>
+                                                {{ $course->modality->name }}
+                                            </td>
+                                        </tr>
+                                        
+                                        <tr>
+                                            <td>
+                                                <span class="font-weight-bold">
+                                                    <i class="fas fa-users fa-fw text-primary mr-1"></i>Público alvo:
+                                                </span>
+                                            </td>
 
-                                    <li class="list-group-item">
-                                        <span class="font-weight-600">
-                                            <i class="fas fa-chalkboard-teacher fa-fw text-primary mr-1"></i>Modalidade:
-                                        </span>
+                                            <td>
+                                                {{ $course->targetAudience->name }}
+                                            </td>
+                                        </tr>
 
-                                        <span>{{ $course->modality->name }}</span>
-                                    </li>
+                                        <tr>
+                                            <td>
+                                                <span class="font-weight-bold">
+                                                    <i class="fas fa-hand-holding-usd fa-fw text-primary mr-1"></i>Preço:
+                                                </span>
+                                            </td>
 
-                                    <li class="list-group-item">
-                                        <span class="font-weight-600">
-                                            <i class="fas fa-users fa-fw text-primary mr-1"></i>Público alvo:
-                                        </span>
-
-                                        <span>{{ $course->targetAudience->name }}</span>
-                                    </li>
-
-                                    <li class="list-group-item">
-                                        <span class="font-weight-600">
-                                            <i class="fas fa-hand-holding-usd fa-fw text-primary mr-1"></i>Preço:
-                                        </span>
-
-                                        <span>R${{ $course->price }}</span>
-                                    </li>
-
-                                </ul>
+                                            <td>
+                                                R$ {{ $course->price }}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
 
                             <div class="tab-pane fade" id="pills-programmatic-content" role="tabpanel"
                                  aria-labelledby="pills-programmatic-content-tab">
-                                <ul class="list-group list-group-flush">
-                                    @forelse ($course->content as $value)
-                                        <li class="list-group-item">
-                                            <i class="fas fa-angle-right fa-sm text-primary pr-2"></i>{{ $value }}
-                                        </li>
-
-                                    @empty
-                                        <div class="text-center text-secondary">
-                                            <i class="fas fa-info-circle fa-3x mt-4"></i>
-                                            <p class="mt-3">Desculpe, nenhum conteúdo programático foi cadastrada para este curso ainda.</p>
-                                        </div>
-                                    @endforelse
-                                </ul>
+                                 <table class="table table-small">
+                                    <tbody>
+                                        @forelse ($course->content as $value)
+                                            <tr class="font-weight-600">
+                                                <td><i class="fas fa-angle-right fa-sm text-primary mr-2"></i>{{ $value }}</td>
+                                            </tr>
+                                        @empty
+                                            <div class="text-center text-secondary">
+                                                <i class="fas fa-info-circle fa-3x mt-4"></i>
+                                                <p class="mt-3">Desculpe, nenhum conteúdo programático foi cadastrada para este curso ainda.</p>
+                                            </div>
+                                        @endforelse
+                                    </tbody>
+                                </table>
                             </div>
 
                             <div class="tab-pane fade" id="pills-advantages" role="tabpanel"
                                  aria-labelledby="pills-advantages-tab">
-                                    <ul class="list-group list-group-flush">
-                                        @forelse ($course->advantages as $advantage)
-                                                <li class="list-group-item">
-                                                    <i class="fas fa-check fa-sm text-primary pr-2"></i>{{ $advantage }}
-                                                </li>
-                                        @empty
-                                            <div class="text-center text-secondary">
-                                                <i class="fas fa-info-circle fa-3x mt-4"></i>
-                                                <p class="mt-3">Desculpe, nenhuma vantagem foi cadastrada para este curso ainda.</p>
-                                            </div>
-                                        @endforelse
-                                    </ul>
+                                    <table class="table table-small">
+                                        <tbody>
+                                            @forelse ($course->advantages as $advantage)
+                                                <tr class="font-weight-bold">
+                                                    <td><i class="fas fa-check fa-sm text-primary mr-2"></i>{{ $advantage }}</td>
+                                                </tr>
+                                            @empty
+                                                <div class="text-center text-secondary">
+                                                    <i class="fas fa-info-circle fa-3x mt-4"></i>
+                                                    <p class="mt-3">Desculpe, nenhuma vantagem foi cadastrada para este curso ainda.</p>
+                                                </div>
+                                            @endforelse
+                                        </tbody>
+                                    </table>
                             </div>
                         </div>
 
@@ -183,9 +211,9 @@
                         <h5 class="font-weight-bold text-primary">
                             <i class="fas fa-graduation-cap mr-1"></i>CURSOS RELACIONADOS
                         </h5>
-
                     </div>
-                        <hr class="my-0 border-primary border-2">
+
+                    <hr class="my-0 border-primary border-2">
 
                     <div class="card-body px-1">
                         <ul class="list-group list-group-flush">

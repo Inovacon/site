@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card unavaliable">
     <div class="overlay-container">
         <img class="card-img-top" src="{{ $course->publicImagePath }}">
 
