@@ -13,9 +13,12 @@ class CourseController extends Controller
 {
     public function index()
     {
-        return view('dashboard.courses.index', [
-            'courses' => Course::with('occupationArea')->latest()->paginate(20),
+        $viewData = array_merge($this->getCategories(), [
+            'course' => app(Course::class),
+            'courses' => Course::with('occupationArea')->latest()->paginate(20)
         ]);
+
+        return view('dashboard.courses.index', $viewData);
     }
 
     public function show(Course $course)

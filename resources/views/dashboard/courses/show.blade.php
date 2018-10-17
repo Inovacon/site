@@ -5,6 +5,10 @@
 @section('content')
     <course-details-view inline-template :active="{{ json_encode($course->active) }}">
         <div>
+            <h4 class="text-grayish mb-4">
+                <i class="fas fa-fw fa-graduation-cap"></i> Detalhes do curso
+            </h4>
+
             <div class="row">
                 <div class="col-md-4">
                     @include('dashboard.courses._details')

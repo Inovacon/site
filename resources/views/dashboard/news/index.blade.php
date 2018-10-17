@@ -6,9 +6,9 @@
     <div class="d-flex align-items-center justify-content-between">
         <h4 class="font-weight-600 text-gray-dark">Notícias</h4>
 
-        <a class="btn btn-outline-primary btn-lg" href="{{ route('dashboard.news.create') }}">
+        <button class="btn btn-outline-primary btn-lg" data-toggle="modal" data-target="#newsFormModal">
             <i class="fas fa-plus"></i> Nova notícia
-        </a>
+        </button>
     </div>
 
     <hr>
@@ -28,4 +28,14 @@
     <div class="d-flex flex-row-reverse mt-4">
         {{ $news->links() }}
     </div>
+
+    @component('dashboard.layouts.modal-form', [
+        'id' => 'newsFormModal',
+        'action' => route('dashboard.news.store'),
+        'title' => 'Cadastrar notícia',
+        'size' => 'lg',
+        'centered' => true
+    ])
+        @include('dashboard.news._form')
+    @endcomponent
 @endsection

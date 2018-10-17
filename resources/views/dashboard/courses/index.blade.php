@@ -5,10 +5,10 @@
 @section('content')
     <div class="d-flex align-items-center justify-content-between">
         <h4 class="font-weight-600 text-gray-dark">Cursos</h4>
-    
-        <a class="btn btn-outline-primary btn-lg" href="{{ route('dashboard.courses.create') }}">
+
+        <button class="btn btn-outline-primary btn-lg" data-toggle="modal" data-target="#courseFormModal">
             <i class="fas fa-plus"></i> Novo curso
-        </a>
+        </button>
     </div>
 
     <hr>
@@ -28,4 +28,14 @@
     <div class="d-flex flex-row-reverse mt-4">
         {{ $courses->links() }}
     </div>
+
+    @component('dashboard.layouts.modal-form', [
+        'id' => 'courseFormModal',
+        'action' => route('dashboard.courses.store'),
+        'title' => 'Cadastrar curso',
+        'size' => 'lg',
+        'centered' => true
+    ])
+        @include('dashboard.courses._form')
+    @endcomponent
 @endsection

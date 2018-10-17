@@ -11,6 +11,7 @@ class NewsController extends Controller
     public function index()
     {
         return view('dashboard.news.index', [
+            'noticia' => app(News::class),
             'news' => News::latest()->paginate('20'),
         ]);
     }

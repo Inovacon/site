@@ -11,7 +11,8 @@ class CollaboratorController extends Controller
     public function index()
     {
         return view('dashboard.collaborators.index', [
-            'collaborators' => User::collaborator()->paginate(20),
+            'collaborator' => app(User::class),
+            'collaborators' => User::collaborator()->paginate(20)
         ]);
     }
 
