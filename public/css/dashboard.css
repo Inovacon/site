@@ -16296,19 +16296,6 @@ input[disabled] {
   max-width: 400px;
 }
 
-.small {
-  text-transform: uppercase;
-  color: #888;
-  font-size: 10px;
-  display: block;
-}
-
-.small + * {
-  font-size: 14px;
-  display: block;
-  line-height: 1;
-}
-
 @media (max-width: 991.98px) {
   .owl-parceiros .item img {
     width: 150px !important;
@@ -16868,5 +16855,18 @@ h6 {
   #sidebar.active {
     margin-left: 0px;
   }
+}
+
+.small {
+  text-transform: uppercase;
+  color: #888;
+  font-size: 10px;
+  display: block;
+}
+
+.small + * {
+  font-size: 14px;
+  display: block;
+  line-height: 1;
 }
 
