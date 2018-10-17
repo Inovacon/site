@@ -1,4 +1,65 @@
-<table class="table table-responsive-sm">
+<div class="card">
+    <a class="card-header-link" data-toggle="modal" data-target="#courseFormModal">
+        <img class="card-img-top" src="{{ $course->publicImagePath }}" />
+        <span class="card-header-link-icon">
+            <i class="fas fa-pencil-alt fa-2x"></i>
+        </span>
+    </a>
+
+    <div class="card-body p-3">
+        <div class="row">
+            <div class="col-6 mb-3">
+                <span class="small">ID</span>
+                <span>{{ $course->id }}</span>
+            </div>
+            <div class="col-6 mb-3">
+                <span class="small">Nome</span>
+                <span>{{ $course->name }}</span>
+            </div>
+            <div class="col-6 mb-3">
+                <span class="small">Descrição</span>
+                <long-text content="{{ $course->description }}"></long-text>
+            </div>
+            <div class="col-6 mb-3">
+                <span class="small">Preço</span>
+                <span>R$ {{ $course->price }}</span>
+            </div>
+            <div class="col-6 mb-3">
+                <span class="small">Carga Horária</span>
+                <span>{{ $course->hours }} h</span>
+            </div>
+            <div class="col-6 mb-3">
+                <span class="small">Tipo</span>
+                <span>{{ $course->type->name }}</span>
+            </div>
+            <div class="col-6 mb-3">
+                <span class="small">Modalidade</span>
+                <span>{{ $course->modality->name }}</span>
+            </div>
+            <div class="col-6 mb-3">
+                <span class="small">Área de Atuação</span>
+                <span>{{ $course->occupationArea->name }}</span>
+            </div>
+            <div class="col-6">
+                <span class="small">Público Alvo</span>
+                <span>{{ $course->targetAudience->name }}</span>
+            </div>
+            <div class="col-6">
+                <span class="small">Ativo</span>
+                <activate-button
+                    endpoint="{{ route('dashboard.courses.activation', $course) }}"
+                    :style="{ 'margin-top': '-6px' }"
+                    :height="15"
+                    :disabled="@json(!count($teams))"
+                    :active="@json($course->active)"
+                    @changed="onChange"></activate-button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{{-- <table class="table table-responsive-sm">
     <tr>
         <th class="border-top-0">Id</th>
         <td class="border-top-0">{{ $course->id }}</td>
@@ -50,4 +111,4 @@
         <th>Público Alvo</th>
         <td>{!! $course->targetAudience->nameWithIcon !!}</td>
     </tr>
-</table>
+</table> --}}

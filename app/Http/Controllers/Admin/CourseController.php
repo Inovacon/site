@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Team;
 use App\Course;
 use App\Category;
 use App\Http\Controllers\Controller;
@@ -19,7 +20,13 @@ class CourseController extends Controller
 
     public function show(Course $course)
     {
-        return view('dashboard.courses.show', compact('course'));
+        $viewData = array_merge($this->getCategories(), [
+            'course' => $course,
+            'team' => app(Team::class),
+            'teams' => $course->teams
+        ]);
+
+        return view('dashboard.courses.show', $viewData);
     }
 
     public function create(Course $course)

@@ -79,6 +79,9 @@ class Course extends Model
      */
     public function activate()
     {
+        if (!$this->canBeActivated())
+            throw new \Exception('O curso deve possuir ao menos uma turma para ser ativado');
+
         $this->update(['active' => true]);
     }
 
@@ -140,6 +143,11 @@ class Course extends Model
     public function teams()
     {
         return $this->hasMany(Team::class);
+    }
+
+    public function canBeActivated()
+    {
+        return $this->teams()->exists();
     }
 
     /**

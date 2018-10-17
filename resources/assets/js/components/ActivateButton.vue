@@ -1,56 +1,54 @@
 <template>
-    <button @click="toggle" class="btn-icon" :class="color">
-        <i :class="icon"></i>
-    </button>
+    <toggle-button
+        @change="toggle"
+        :color="color"
+        :width="width"
+        :height="height"
+        :value="active"
+        :disabled="disabled"
+        :sync="true" />
 </template>
 
 <script>
     export default {
-        props: ['endpoint', 'active', 'size'],
-
-        data() {
-            return {
-                activated: this.active,
-                iconSize: this.size || 'lg'
-            };
-        },
-
-        methods: {
-            toggle() {
-                this.activated ? this.deactivate() : this.activate();
+        props: {
+            active: {
+                type: Boolean,
+                required: true
             },
-
-            activate() {
-                axios.post(this.endpoint);
-
-                this.changeState(true);
+            endpoint: {
+                type: String,
+                required: true
             },
-
-            deactivate() {
-                axios.delete(this.endpoint);
-
-                this.changeState(false);
+            width: {
+                type: Number,
+                default: 30
             },
-
-            changeState(activated) {
-                this.activated = activated;
-
-                this.$emit('changed', activated);
+            height: {
+                type: Number,
+                default: 18
+            },
+            color: {
+                type: String,
+                default: 'rgb(117, 199, 145)'
+            },
+            disabled: {
+                type: Boolean,
+                default: false
             }
         },
 
-        computed: {
-            icon() {
-                return [
-                    'fas',
-                    `fa-${this.iconSize}`,
-                    this.activated ? 'fa-toggle-on' : 'fa-toggle-off'
-                ];
-            },
-
-            color() {
-                return this.activated ? 'text-success' : 'text-danger';
+        methods: {
+            toggle(state) {
+                state.value ? axios.post(this.endpoint) : axios.delete(this.endpoint);
+                this.$emit('changed', state.value);
             }
         }
     }
 </script>
+
+<style>
+    label.vue-js-switch {
+        margin-bottom: 3px;
+    }
+</style>

@@ -68,3 +68,43 @@
 .card-img-overlay:hover .hidden-overlay {
 	opacity: 1;
 }
+
+.card-list {
+    a {
+        font-size: 14px;
+        font-weight: 600;
+        text-decoration: none;
+    }
+
+    li {
+        margin-bottom: 15px;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+}
+
+.card-header-link {
+    position: relative;
+    cursor: pointer;
+
+    &-icon {
+        color: transparent;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        // z-index: 9999;
+        transition: all .4s;
+
+        &:hover {
+            color: #fff;
+            background-color: rgba(0, 0, 0, .45);
+        }
+    }
+}

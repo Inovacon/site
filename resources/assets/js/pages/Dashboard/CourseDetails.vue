@@ -1,10 +1,10 @@
 <script>
-    import CourseFeatureModal from '../../components/Dashboard/CourseFeatureModal';
+    import CourseFeatureForm from '../../components/Dashboard/CourseFeatureForm';
 
     export default {
         props: ['active'] ,
 
-        components: { CourseFeatureModal },
+        components: { CourseFeatureForm },
 
         data() {
             return {

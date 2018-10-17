@@ -7,6 +7,7 @@ import toastr from 'toastr';
 import Cleave from 'cleave.js';
 import autosize from 'autosize';
 import Trix from 'trix';
+import ToggleButton from 'vue-js-toggle-button';
 
 window.Vue = Vue;
 window.axios = axios;
@@ -16,5 +17,7 @@ window.toastr = toastr;
 window.Cleave = Cleave;
 window.autosize = autosize;
 window.Trix = Trix;
+
+Vue.use(ToggleButton);
 
 require('owl.carousel');

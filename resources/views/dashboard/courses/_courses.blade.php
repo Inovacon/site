@@ -31,10 +31,11 @@
                         </a>
 
                         <activate-button
-                                class="ml-1"
-                                @changed="flash(`Curso ${$event ? 'ativado' : 'desativado'} com sucesso.`)"
-                                endpoint="{{ route('dashboard.courses.activation', $course) }}"
-                                :active="{{ json_encode($course->active) }}"></activate-button>
+                            class="ml-1"
+                            @changed="flash(`Curso ${$event ? 'ativado' : 'desativado'} com sucesso.`)"
+                            endpoint="{{ route('dashboard.courses.activation', $course) }}"
+                            :disabled="@json(!$course->canBeActivated())"
+                            :active="{{ json_encode($course->active) }}"></activate-button>
                     </div>
                 </td>
             </tr>
