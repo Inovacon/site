@@ -24,7 +24,9 @@
     </div>
 
     @if (isset($preview) && $preview && $accept == 'image/*')
-        @include('dashboard.form.img-preview')
+        <div class="mt-2">
+            @include('dashboard.form.img-preview')
+        </div>
     @endif
 
     @if($errors->has($name))

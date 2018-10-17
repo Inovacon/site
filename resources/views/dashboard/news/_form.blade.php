@@ -10,7 +10,8 @@
     'placeholder' => 'Escolha uma imagem',
     'accept' => 'image/*',
     'required' => false,
-    'help' => 'Tamanho recomendado: 800x400'
+    'help' => 'Tamanho recomendado: 800x400',
+    'preview' => true
 ])
 
 @include('dashboard.form.text-editor', [

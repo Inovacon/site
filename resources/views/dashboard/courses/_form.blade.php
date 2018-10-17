@@ -14,7 +14,9 @@
     'help' => 'Tamanho recomendado: 315x180'
 ])
 
-@include('dashboard.form.img-preview')
+@include('dashboard.form.img-preview', [
+    'imageSrc' => $course->exists ? $course->publicImagePath : null
+])
 
 @include('dashboard.form.textarea', [
     'id' => 'course-body',
