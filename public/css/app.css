@@ -15956,6 +15956,19 @@ input[disabled] {
   max-width: 400px;
 }
 
+.small {
+  text-transform: uppercase;
+  color: #888;
+  font-size: 10px;
+  display: block;
+}
+
+.small + * {
+  font-size: 14px;
+  display: block;
+  line-height: 1;
+}
+
 @media (max-width: 991.98px) {
   .owl-parceiros .item img {
     width: 150px !important;
@@ -15972,6 +15985,10 @@ input[disabled] {
 
 .text-gray-dark {
   color: #646464;
+}
+
+.text-grayish {
+  color: #505561;
 }
 
 .text-facebook,
@@ -16054,16 +16071,20 @@ h6 {
   font-weight: bold;
 }
 
-.0-9rem {
+.\0-9rem {
   font-size: .9rem !important;
 }
 
-.0-8rem {
+.\0-8rem {
   font-size: .8rem !important;
 }
 
-.0-7rem {
+.\0-7rem {
   font-size: .7rem !important;
+}
+
+.fs-13 {
+  font-size: 13px !important;
 }
 
 @media (max-width: 991.98px) {
