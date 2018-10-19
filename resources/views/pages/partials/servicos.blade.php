@@ -3,102 +3,68 @@
 		<h2 class="font-weight-bold mb-5 text-center text-light">Serviços</h2>
 		
 		<div class="row">
-			
-			<div class="col-md-4 col-lg-3 col-6 mb-3">
-				@include('layouts._service-item', [
-					'serviceIcon' => 'fas fa-pencil-alt',
-					'serviceName' => 'Criação de identidade visual e logomarca',
-					'serviceDescription' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore omnis ex qui aperiam temporibus libero enim cum molestiae quae possimus corrupti.'
-				])
-			</div>
+			@php
+				$services = [
+					[
+						'icon' => 'fas fa-pencil-alt',
+						'name' => 'Criação de identidade visual e logomarca',
+					],
+					[
+						'icon' => 'fas fa-laptop',
+						'name' => 'Auxília na utilização de mídias digitais',
+					],
+					[
+						'icon' => 'fas fa-building',
+						'name' => 'Fortalecimento organizacional',
+					],
+					[
+						'icon' => 'fas fa-chart-area',
+						'name' => 'Pesquisa e análise de mercado',
+					],
+					[
+						'icon' => ['fas fa-frown fa-lg', 'fas fa-meh fa-lg', 'fas fa-smile fa-lg'],
+						'name' => 'Pesquisa de satisfação de clientes',
+					],
+					[
+						'icon' => 'fas fa-user-tie',
+						'name' => 'Prospecção de novos consumidores',
+					],
+					[
+						'icon' => 'fas fa-project-diagram',
+						'name' => 'Melhoramento de layout interno'
+					],
+					[
+						'icon' => 'fas fa-chalkboard-teacher',
+						'name' => 'Treinamento de pessoal'
+					],
+					[
+						'icon' => 'fas fa-users',
+						'name' => 'Engajamento de equipes'
+					],
+					[
+						'icon' => 'fas fa-calculator',
+						'name' => 'Controle financeiro e fluxo de caixa'
+					],
+					[
+						'icon' => 'fas fa-hand-holding-usd',
+						'name' => 'Formação de preço de vendas'
+					],
+					[
+						'icon' => 'fas fa-chart-pie',
+						'name' => 'Análise de custos empresariais'
+					]
+				];
+			@endphp
 
-			<div class="col-md-4 col-lg-3 col-6 mb-3">
-				@include('layouts._service-item', [
-					'serviceIcon' => 'fas fa-laptop',
-					'serviceName' => 'Auxílio na utilização de mídias digitais',
-					'serviceDescription' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore omnis ex qui aperiam temporibus libero enim cum molestiae quae possimus corrupti.'
-				])
-			</div>
-
-			<div class="col-md-4 col-lg-3 col-6 mb-3">
-				@include('layouts._service-item', [
-					'serviceIcon' => 'fas fa-building',
-					'serviceName' => 'Fortalecimento organizacional',
-					'serviceDescription' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore omnis ex qui aperiam temporibus libero enim cum molestiae quae possimus corrupti.'
-				])
-			</div>
-
-			<div class="col-md-4 col-lg-3 col-6 mb-3">
-				@include('layouts._service-item', [
-					'serviceIcon' => 'fas fa-chart-area',
-					'serviceName' => 'Pesquisa e análise de mercado',
-					'serviceDescription' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore omnis ex qui aperiam temporibus libero enim cum molestiae quae possimus corrupti.'
-				])
-			</div>
-
-			<div class="col-md-4 col-lg-3 col-6 mb-3">
-				@include('layouts._service-item', [
-					'serviceIcon' => ['fas fa-frown fa-lg', 'fas fa-meh fa-lg', 'fas fa-smile fa-lg'],
-					'serviceName' => 'Pesquisa de satisfação de clientes',
-					'serviceDescription' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore omnis ex qui aperiam temporibus libero enim cum molestiae quae possimus corrupti.'
-				])
-			</div>
-
-			<div class="col-md-4 col-lg-3 col-6 mb-3">
-				@include('layouts._service-item', [
-					'serviceIcon' => 'fas fa-user-tie',
-					'serviceName' => 'Prospecção de novos consumidores',
-					'serviceDescription' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore omnis ex qui aperiam temporibus libero enim cum molestiae quae possimus corrupti.'
-				])
-			</div>
-
-			<div class="col-md-4 col-lg-3 col-6 mb-3">
-				@include('layouts._service-item', [
-					'serviceIcon' => 'fas fa-project-diagram',
-					'serviceName' => 'Melhoramento de layout interno',
-					'serviceDescription' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore omnis ex qui aperiam temporibus libero enim cum molestiae quae possimus corrupti.'
-				])
-			</div>
-
-			<div class="col-md-4 col-lg-3 col-6 mb-3">
-				@include('layouts._service-item', [
-					'serviceIcon' => 'fas fa-chalkboard-teacher',
-					'serviceName' => 'Treinamento de pessoal',
-					'serviceDescription' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore omnis ex qui aperiam temporibus libero enim cum molestiae quae possimus corrupti.'
-				])
-			</div>
-
-			<div class="col-md-4 col-lg-3 col-6 mb-3">
-				@include('layouts._service-item', [
-					'serviceIcon' => 'fas fa-users',
-					'serviceName' => 'Engajamento de equipes',
-					'serviceDescription' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore omnis ex qui aperiam temporibus libero enim cum molestiae quae possimus corrupti.'
-				])
-			</div>
-
-			<div class="col-md-4 col-lg-3 col-6 mb-3">
-				@include('layouts._service-item', [
-					'serviceIcon' => 'fas fa-calculator',
-					'serviceName' => 'Controle financeiro e fluxo de caixa',
-					'serviceDescription' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore omnis ex qui aperiam temporibus libero enim cum molestiae quae possimus corrupti.'
-				])
-			</div>
-
-			<div class="col-md-4 col-lg-3 col-6 mb-3">
-				@include('layouts._service-item', [
-					'serviceIcon' => 'fas fa-hand-holding-usd',
-					'serviceName' => 'Formação de preço de vendas',
-					'serviceDescription' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore omnis ex qui aperiam temporibus libero enim cum molestiae quae possimus corrupti.'
-				])
-			</div>
-
-			<div class="col-md-4 col-lg-3 col-6 mb-3">
-				@include('layouts._service-item', [
-					'serviceIcon' => 'fas fa-chart-pie',
-					'serviceName' => 'Análise de custos empresariais',
-					'serviceDescription' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore omnis ex qui aperiam temporibus libero enim cum molestiae quae possimus corrupti.'
-				])
-			</div>
+			@foreach ($services as $service)
+				<div class="col-md-4 col-lg-3 col-6 mb-3">
+					@include('layouts._service-item', [
+						'serviceIcon' => $service['icon'],
+						'serviceName' => $service['name'],
+						'serviceDescription' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore omnis ex qui aperiam temporibus libero enim cum molestiae quae possimus corrupti.'
+					])
+				</div>
+			@endforeach	
 		</div>
 	</div>
 </div>

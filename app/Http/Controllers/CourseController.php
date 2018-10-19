@@ -29,8 +29,8 @@ class CourseController extends Controller
         return view('courses.show', [
             'course' => $activeCourse,
             'relatedCourses' => Course::whereHas('occupationArea', function ($query) use ($activeCourse) {
-                $query->where('type', $activeCourse->occupationArea->name);
-            })
+                $query->where('name', $activeCourse->occupationArea->name);
+            })->get()
         ]);
     }
 }
