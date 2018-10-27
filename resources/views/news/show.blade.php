@@ -3,7 +3,7 @@
 @section('title', $noticia->title . ' | Inovacon')
 
 @section('content')
-	<div id="course" class="container">
+	<div id="news" class="container">
 		<div class="row">
 			<div class="col-sm-8">
 				<div class="card">
@@ -42,7 +42,7 @@
 				</div>
 			</div>
 
-			<div id="coursesRelated" class="col-sm-4">
+			<div id="newsRelated" class="col-sm-4">
 				<div class="card">
 					<div class="card-header pb-0">
 						<h5 class="font-weight-bold text-primary">
@@ -58,24 +58,24 @@
 								<li class="list-group-item border-0 p-2">
 									<a href="{{ route('news.show', $n) }}" class="link">
 										<div class="row no-gutters">
-											<div class="col-4">
+											<div class="col-4 my-auto">
 												<img class="img-fluid" src="{{ $n->publicImagePath }}" alt="">
 											</div>
 
 											<div class="col d-flex flex-column justify-content-around pl-2">
-												<span class="small text-secondary text-uppercase">
-													{{ $n->title }}
+												<span class="related-title small text-secondary text-uppercase font-weight-600">
+													{{ str_limit($n->title, 70) }}
 												</span>
 
 												<span class="small text-muted">
-													{{ $n->created_at->format('d/m/Y') }}
+													{{ strftime("%d de %B de %Y", strtotime($n->created_at)) }}
 												</span>
 											</div>
 										</div>
 									</a>
 								</li>
 							@empty
-								<li class="list-group-item border-0 p-2">Não há cursos relacionados</li>
+								<li class="list-group-item border-0 p-2">Não há notícias relacionadas</li>
 							@endforelse
 						</ul>
 					</div>

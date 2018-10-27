@@ -7,3 +7,8 @@
 	font-family: 'Open Sans';
 	font-size: .9rem;
 }
+
+
+#newsRelated .list-group-item:hover .related-title {
+	color: $primary !important;
+}

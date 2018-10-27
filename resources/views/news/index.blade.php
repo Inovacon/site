@@ -13,13 +13,11 @@
         <div class="row">
             @forelse ($news as $noticia)
                 <div class="col-lg-8 mb-3">
-                    <div class="card">
+                    <div style="max-height: 250px;" class="card">
                         <div class="row no-gutters">
                             <div class="col-lg-3">
                                 <a href="{{ route('news.show', $noticia) }}">
-                                    <img style="height: 100%; object-fit: cover;" class="card-img-top"
-                                         width="180"
-                                         src="{{ $noticia->publicImagePath }}">
+                                    <img class="card-img-top" style="min-height: 100%; object-fit: cover;" src="{{ $noticia->publicImagePath }}">
                                 </a>
                             </div>
 
@@ -28,7 +26,7 @@
                                     <div class="col">
                                         <a href="{{ route('news.show', $noticia) }}"
                                            class="link mb-0 text-uppercase font-weight-bold">
-                                            {{ $noticia->title }}
+                                            {{ str_limit($noticia->title, 90) }}
                                         </a>
                                     </div>
                                 </div>
@@ -38,7 +36,7 @@
                                         {{ strftime("%d de %B de %Y", strtotime($noticia->created_at)) }}
                                     </p>
 
-                                    <p class="small text-muted my-0">{{ preg_replace("/&....;/", '', strip_tags(str_limit($noticia->body, 100))) }}</p>
+                                    <p class="small text-muted my-0">{{ str_limit(preg_replace("/&....;/", '', strip_tags($noticia->body)), 120) }}</p>
                                 </div>
                             </div>
 

@@ -16403,6 +16403,10 @@ h6 {
   font-size: .9rem;
 }
 
+#newsRelated .list-group-item:hover .related-title {
+  color: #00a0f0 !important;
+}
+
 #course .course-description {
   font-family: 'Roboto', sans-serif;
   font-size: .95rem;
@@ -16550,6 +16554,10 @@ h6 {
 #news .card .news-comment {
   font-family: 'Open Sans';
   font-size: .9rem;
+}
+
+#newsRelated .list-group-item:hover .related-title {
+  color: #00a0f0 !important;
 }
 
 /* Change Autocomplete styles in Chrome*/
