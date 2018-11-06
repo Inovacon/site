@@ -16320,7 +16320,9 @@ input[disabled] {
 
 .text-facebook,
 .text-google,
-.text-twitter {
+.text-twitter,
+.text-email,
+.text-whatsapp {
   color: rgba(0, 0, 0, 0.3);
 }
 
@@ -16334,6 +16336,14 @@ input[disabled] {
 
 .text-twitter:hover {
   color: #1DA1F2;
+}
+
+.text-whatsapp:hover {
+  color: #25D366;
+}
+
+.text-email:hover {
+  color: #DB4437;
 }
 
 .toast:hover {

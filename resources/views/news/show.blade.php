@@ -2,6 +2,13 @@
 
 @section('title', $noticia->title . ' | Inovacon')
 
+@section('head')
+    <meta property="og:type"          content="article" />
+    <meta property="og:title"         content="{{ $noticia->title }} | Inovacon" />
+    <meta property="og:description"   content="{{ str_limit(strip_tags($noticia->body), 100) }}" />
+    <meta property="og:image"         content="{{ $noticia->publicImagePath }}" />
+@endsection
+
 @section('content')
 	<div id="news" class="container">
 		<div class="row">
@@ -33,9 +40,27 @@
 
 					<div class="card-footer">
 						<div class="align-self-end">
-							<i class="fab fa-facebook-f text-facebook fa-lg mx-1"></i>
-							<i class="fab fa-twitter text-twitter fa-lg mx-1"></i>
-							<i class="fab fa-google-plus-g text-google fa-lg"></i>
+                            <social-sharing
+                                title="{{ $noticia->title }}"
+                                description="{{ str_limit(strip_tags($noticia->body), 100) }}"
+                                quote="{{ $noticia->title }}"
+                                inline-template>
+
+                                <div>
+                                    <network network="facebook">
+                                        <i class="fab fa-facebook-f text-facebook fa-lg mx-1"></i>
+                                    </network>
+
+                                    <network network="whatsapp">
+                                        <i class="fab fa-whatsapp text-whatsapp fa-lg mx-1"></i>
+                                    </network>
+
+                                    <network network="email">
+                                        <i class="fas fa-envelope text-email fa-lg mx-1"></i>
+                                    </network>
+                                </div>
+
+                            </social-sharing>
 						</div>
 					</div>
 
