@@ -17,6 +17,14 @@
         </li>
 
         @role('admin')
+            <li class="{{ request()->routeIs('*mercado-pago*') ? 'active' : '' }}">
+                <a href="{{ route('dashboard.mercado-pago.edit') }}">
+                    <i class="fas fa-shopping-cart fa-fw fa-2x mr-3"></i> Mercado Pago
+                </a>
+            </li>
+        @endrole
+
+        @role('admin')
             <li class="{{ request()->routeIs('*collaborators*') ? 'active' : '' }}">
                 <a href="{{ route('dashboard.collaborators.index') }}">
                     <i class="fas fa-users fa-fw fa-2x mr-3"></i> Colaboradores

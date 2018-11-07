@@ -85,6 +85,11 @@ Route::prefix('painel')->name('dashboard.')->namespace('Admin')->group(function 
         Route::post('turmas/{team}/cronograma', 'ScheduleController')->name('schedules.store');
     });
 
+    Route::prefix('mercado-pago')->name('mercado-pago.')->middleware('collaborator:admin')->group(function () {
+        Route::get('/', 'MercadoPagoController@edit')->name('edit');
+        Route::put('/', 'MercadoPagoController@update')->name('update');
+    });
+
     Route::prefix('colaboradores')->name('collaborators.')->middleware('collaborator:admin')->group(function () {
         Route::get('/', 'CollaboratorController@index')->name('index');
         Route::get('cadastrar', 'CollaboratorController@create')->name('create');

@@ -10,6 +10,7 @@ use MercadoPago\Item;
 use MercadoPago\Payer;
 use MercadoPago\Preference;
 use Illuminate\Http\Request;
+use App\MercadoPago;
 
 class TeamController extends Controller
 {
@@ -23,8 +24,10 @@ class TeamController extends Controller
 
     public function buyCourse(Team $team)
     {
-        SDK::setClientId(env('MP_CLIENT_ID'));
-        SDK::setClientSecret(env('MP_CLIENT_SECRET'));
+        $mp = MercadoPago::first();
+
+        SDK::setClientId($mp->client_id);
+        SDK::setClientSecret($mp->client_secret);
 
         $preference = new Preference();
 
