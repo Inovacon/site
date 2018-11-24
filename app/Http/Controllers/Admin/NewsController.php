@@ -38,10 +38,12 @@ class NewsController extends Controller
             'title' => $request->title,
             'body' => $request->body,
             'image_path' => $request->file('image_path'),
+            'gallery_images' => $request->gallery_images ?: [],
             'leading' => $request->has('leading'),
         ]);
 
-        return redirect()->route('dashboard.news.index')
+        return redirect()
+            ->route('dashboard.news.index')
             ->with('flash', 'Notícia cadastrada com sucesso.');
     }
 

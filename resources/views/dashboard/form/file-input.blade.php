@@ -11,8 +11,9 @@
                    class="custom-file-input {{ $errors->has($name) ? 'is-invalid' : '' }}"
                    id="{{ $id ?? $name }}"
                    name="{{ $name }}"
+                   {{ isset($multiple) && $multiple ? 'multiple' : '' }}
                    {{ isset($accept) ? "accept={$accept}" : '' }}
-                   {{ isset($required) && ! $required ? '' : 'required' }}
+                   {{ isset($required) && !$required ? '' : 'required' }}
                    lang="pt" />
 
             <label class="custom-file-label"
@@ -25,9 +26,15 @@
 
     @if (isset($preview) && $preview && $accept == 'image/*')
         <div class="mt-2">
-            @include('dashboard.form.img-preview')
+            @include('dashboard.form.img-preview', ['id' => $id ?? $name])
         </div>
     @endif
+{{--
+    @if (isset($multiplePreview) && $multiplePreview && $accept == 'image/*')
+        <div class="mt-2">
+            @include('dashboard.form.multiple-img-preview', ['id' => $id ?? $name])
+        </div>
+    @endif --}}
 
     @if($errors->has($name))
       <div class="small text-danger">{{ $errors->first($name) }}</div>

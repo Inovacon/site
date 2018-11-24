@@ -14,6 +14,16 @@
     'preview' => true
 ])
 
+@include('dashboard.form.file-input', [
+    'name' => 'gallery_images[]',
+    'label' => 'Galeria',
+    'placeholder' => 'Escolha as imagens para a galeria',
+    'accept' => 'image/*',
+    'required' => false,
+    'help' => 'Tamanho recomendado: 800x400',
+    'multiple' => true
+])
+
 @include('dashboard.form.text-editor', [
     'name' => 'body',
     'label' => 'Texto',

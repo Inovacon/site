@@ -12,7 +12,7 @@
 @section('content')
 	<div id="news" class="container">
 		<div class="row">
-			<div class="col-sm-8">
+			<div class="col-sm-8 mb-3">
 				<div class="card">
 					<div class="card-header bg-primary">
 						<h5 class="text-white font-weight-bold mb-0">
@@ -33,7 +33,40 @@
 							<div class="text-justify course-description">
 								{!! $noticia->body !!}
 							</div>
-						</div>
+                        </div>
+
+                        @if ($noticia->gallery_images && count($noticia->gallery_images) && $noticia->gallery_images->all() !== [''])
+                            <hr>
+
+                            <h5 class="mt-4 text-dark text-uppercase">
+                                <i class="fas fa-images fa-fw"></i> Galeria
+                            </h5>
+
+                            <div id="carouselNewsGallery" class="carousel slide" data-ride="carousel">
+                                <ol class="carousel-indicators">
+                                    @for ($i = 0; $i < count($noticia->gallery_images); ++$i)
+                                        <li data-target="#carouselNewsGallery"
+                                            data-slide-to="{{ $i }}"
+                                            {{ $i === 0 ? 'class=active' : '' }}></li>
+                                    @endfor
+                                </ol>
+                                <div class="carousel-inner">
+                                    @for ($i = 0; $i < count($noticia->gallery_images); ++$i)
+                                        <div class="carousel-item{{ $i === 0 ? ' active' : '' }}">
+                                            <img class="d-block w-100" src="{{ $noticia->gallery_images[$i] }}" />
+                                        </div>
+                                    @endfor
+                                </div>
+                                <a class="carousel-control-prev" href="#carouselNewsGallery" role="button" data-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Anterior</span>
+                                </a>
+                                <a class="carousel-control-next" href="#carouselNewsGallery" role="button" data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Próximo</span>
+                                </a>
+                            </div>
+                        @endif
 					</div>
 
 					<div class="my-3"></div>
@@ -67,7 +100,7 @@
 				</div>
 			</div>
 
-			<div id="newsRelated" class="col-sm-4">
+			<div id="newsRelated" class="col-sm-4 mb-3">
 				<div class="card">
 					<div class="card-header pb-0">
 						<h5 class="font-weight-bold text-primary">
