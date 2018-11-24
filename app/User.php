@@ -26,6 +26,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'is_collaborator' => 'bool',
+        'is_root' => 'bool',
     ];
 
     /**
@@ -90,5 +91,10 @@ class User extends Authenticatable
     public function isAdmin()
     {
         return $this->hasRole('admin');
+    }
+
+    public function isRoot()
+    {
+        return $this->is_root;
     }
 }

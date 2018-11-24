@@ -24,6 +24,14 @@
             </li>
         @endrole
 
+        {{-- @role('admin')
+            <li class="{{ request()->routeIs('*categories*') ? 'active' : '' }}">
+                <a href="#">
+                    <i class="fas fa-list fa-fw fa-2x mr-3"></i> Categorias
+                </a>
+            </li>
+        @endrole --}}
+
         @role('admin')
             <li class="{{ request()->routeIs('*collaborators*') ? 'active' : '' }}">
                 <a href="{{ route('dashboard.collaborators.index') }}">

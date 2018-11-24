@@ -46,4 +46,13 @@ class CollaboratorController extends Controller
 
         return back()->with('flash', 'Colaborador promovido a administrador.');
     }
+
+    public function depromote(User $collaborator)
+    {
+        abort_unless(auth()->user()->isRoot(), 403, 'Você não tem autorização para isso.');
+
+        $collaborator->detachRole('admin');
+
+        return back()->with('flash', 'Colaborador despromovido com sucesso.');
+    }
 }

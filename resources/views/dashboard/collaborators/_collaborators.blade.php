@@ -25,6 +25,13 @@
                             <button type="submit" class="btn btn-success btn-sm">Promover</button>
                         </form>
                     </td>
+                @elseif (auth()->user()->isRoot() && $collaborator->isAdmin() && !$collaborator->isRoot())
+                    <td class="text-right">
+                        <form method="POST" action="{{ route('dashboard.collaborators.depromote', $collaborator) }}">
+                            @csrf
+                            <button type="submit" class="btn btn-success btn-sm">Despromover</button>
+                        </form>
+                    </td>
                 @else
                     <td></td>
                 @endif

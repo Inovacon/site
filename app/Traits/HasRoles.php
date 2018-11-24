@@ -16,6 +16,11 @@ trait HasRoles
         $this->roles()->save(Role::where('name', $role)->first());
     }
 
+    public function detachRole($role)
+    {
+        $this->roles()->detach(Role::where('name', $role)->first()->id);
+    }
+
     /**
      * Determine whether the user has the given role.
      *
