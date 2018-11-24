@@ -15,6 +15,7 @@
 ])
 
 @include('dashboard.form.img-preview', [
+    'id' => 'image_path',
     'imageSrc' => $course->exists ? $course->publicImagePath : null
 ])
 

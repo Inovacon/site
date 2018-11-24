@@ -35,6 +35,8 @@ Route::get('eventos/{evento}', 'EventController@show')->name('events.show');
 Route::get('noticias', 'NewsController@index')->name('news.index');
 Route::get('noticias/{noticia}', 'NewsController@show')->name('news.show');
 
+Route::post('contato', 'ContactMessageController@store')->name('contact-message.store');
+
 Route::prefix('painel')->name('dashboard.')->namespace('Admin')->group(function () {
     Route::get('/', 'DashboardController@index')->name('index')->middleware('collaborator');
 
@@ -106,5 +108,11 @@ Route::prefix('painel')->name('dashboard.')->namespace('Admin')->group(function 
         Route::get('{noticia}/editar', 'NewsController@edit')->name('edit');
         Route::patch('{noticia}', 'NewsController@update')->name('update');
         Route::delete('{noticia}', 'NewsController@destroy')->name('destroy');
+    });
+
+    Route::prefix('mensagens')->name('contact-messages.')->middleware('collaborator')->group(function () {
+        Route::get('/', 'ContactMessageController@index')->name('index');
+        Route::get('{mensagem}', 'ContactMessageController@show')->name('show');
+        Route::delete('{mensagem}', 'ContactMessageController@destroy')->name('destroy');
     });
 });

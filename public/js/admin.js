@@ -41847,6 +41847,12 @@ if (window.hasOwnProperty('oldInput')) {
     };
 }
 
+window.flash = function (message) {
+    var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'success';
+
+    window.toastr[type](message);
+};
+
 /***/ }),
 /* 50 */
 /***/ (function(module, exports) {

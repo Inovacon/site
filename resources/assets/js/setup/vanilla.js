@@ -9,3 +9,7 @@ if (window.hasOwnProperty('oldInput')) {
         return oldInput.hasOwnProperty(key) ? oldInput[key] : defaultValue;
     };
 }
+
+window.flash = function (message, type = 'success') {
+    window.toastr[type](message);
+};

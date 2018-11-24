@@ -16,6 +16,12 @@
             </a>
         </li>
 
+        <li class="{{ request()->routeIs('*contact-messages*') ? 'active' : '' }}">
+            <a href="{{ route('dashboard.contact-messages.index') }}">
+                <i class="fas fa-envelope fa-fw fa-2x mr-3"></i> Mensagens
+            </a>
+        </li>
+
         @role('admin')
             <li class="{{ request()->routeIs('*mercado-pago*') ? 'active' : '' }}">
                 <a href="{{ route('dashboard.mercado-pago.edit') }}">
