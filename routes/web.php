@@ -98,6 +98,7 @@ Route::prefix('painel')->name('dashboard.')->namespace('Admin')->group(function 
         Route::post('/', 'CollaboratorController@store')->name('store');
         Route::post('{collaborator}/promote', 'CollaboratorController@promote')->name('promote');
         Route::post('{collaborator}/depromote', 'CollaboratorController@depromote')->name('depromote');
+        Route::delete('{collaborator}', 'CollaboratorController@destroy')->name('destroy');
     });
 
     Route::prefix('noticias')->name('news.')->middleware('collaborator')->group(function () {

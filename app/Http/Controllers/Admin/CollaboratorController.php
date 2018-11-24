@@ -38,6 +38,18 @@ class CollaboratorController extends Controller
             ->with('flash', 'Colaborador cadastrado com sucesso.');
     }
 
+    public function destroy(User $collaborator)
+    {
+        $user = auth()->user();
+
+        abort_unless($user->isRoot(), 403, 'Você não tem autorização para isso.');
+        abort_if($user->isRoot() && $collaborator->id === $user->id, 403, 'Você não pode excluir essa conta.');
+
+        $collaborator->delete();
+
+        return back()->with('flash', 'Colaborador removido com sucesso.');
+    }
+
     public function promote(User $collaborator)
     {
         abort_unless(auth()->user()->isAdmin(), 403, 'Você não tem autorização para isso.');
