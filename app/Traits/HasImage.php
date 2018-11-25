@@ -26,14 +26,12 @@ trait HasImage
      */
     public function getPublicImagePathAttribute()
     {
-        $imagePath = '';
-
         if ($this->image_path) {
-            $imagePath = "storage/{$this->image_path}";
+            return asset("storage/{$this->image_path}");
         } elseif (property_exists($this, 'defaultImagePath')) {
-            $imagePath = $this->defaultImagePath;
+            return asset($this->defaultImagePath);
+        } else {
+            return null;
         }
-
-        return asset($imagePath);
     }
 }

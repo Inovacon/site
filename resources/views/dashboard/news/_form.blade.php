@@ -11,18 +11,21 @@
     'accept' => 'image/*',
     'required' => false,
     'help' => 'Tamanho recomendado: 800x400',
-    'preview' => true
+    'preview' => true,
+    'imageSrc' => $noticia->publicImagePath
 ])
 
-@include('dashboard.form.file-input', [
-    'name' => 'gallery_images[]',
-    'label' => 'Galeria',
-    'placeholder' => 'Escolha as imagens para a galeria',
-    'accept' => 'image/*',
-    'required' => false,
-    'help' => 'Tamanho recomendado: 800x400',
-    'multiple' => true
-])
+@if (!$noticia->exists)
+    @include('dashboard.form.file-input', [
+        'name' => 'gallery_images[]',
+        'label' => 'Galeria',
+        'placeholder' => 'Escolha as imagens para a galeria',
+        'accept' => 'image/*',
+        'required' => false,
+        'help' => 'Tamanho recomendado: 800x400',
+        'multiple' => true
+    ])
+@endif
 
 @include('dashboard.form.text-editor', [
     'name' => 'body',

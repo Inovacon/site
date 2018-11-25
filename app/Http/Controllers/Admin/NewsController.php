@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\News;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
 class NewsController extends Controller
 {
@@ -65,18 +66,34 @@ class NewsController extends Controller
         $noticia->leading = $request->has('leading');
 
         if ($request->hasFile('image_path')) {
+            $disk = Storage::disk('public');
+
+            if ($disk->exists($noticia->image_path)) {
+                $disk->delete($noticia->image_path);
+            }
+
             $noticia->image_path = $request->file('image_path');
         }
 
         $noticia->save();
 
-        return redirect()->route('dashboard.news.index')
+        return redirect()
+            ->route('dashboard.news.index')
             ->with('flash', 'Notícia atualizada com sucesso.');
     }
 
     public function destroy(News $noticia)
     {
         $noticia->delete();
+
+        $disk = Storage::disk('public');
+        $disk->delete($noticia->image_path);
+
+        if ($noticia->gallery_images) {
+            foreach ($noticia->galleryImagesPathList as $img) {
+                $disk->delete($img);
+            }
+        }
 
         return back()->with('flash', 'Notícia excluída com sucesso.');
     }

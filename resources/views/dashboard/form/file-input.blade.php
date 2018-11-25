@@ -26,15 +26,12 @@
 
     @if (isset($preview) && $preview && $accept == 'image/*')
         <div class="mt-2">
-            @include('dashboard.form.img-preview', ['id' => $id ?? $name])
+            @include('dashboard.form.img-preview', [
+                'id' => $id ?? $name,
+                'imageSrc' => $imageSrc
+            ])
         </div>
     @endif
-{{--
-    @if (isset($multiplePreview) && $multiplePreview && $accept == 'image/*')
-        <div class="mt-2">
-            @include('dashboard.form.multiple-img-preview', ['id' => $id ?? $name])
-        </div>
-    @endif --}}
 
     @if($errors->has($name))
       <div class="small text-danger">{{ $errors->first($name) }}</div>

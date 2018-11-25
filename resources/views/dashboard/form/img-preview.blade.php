@@ -1,6 +1,6 @@
-<div id="imagePreview_{{ $id }}" class="image-preview mb-3 d-none">
+<div id="imagePreview_{{ $id }}" class="image-preview mb-3{{ isset($imageSrc) ? '' : ' d-none' }}">
     <div class="font-weight-bold py-2">Pré-visualização da imagem</div>
-    <img class="img-fluid img-thumbnail" />
+    <img class="img-fluid img-thumbnail" src="{{ isset($imageSrc) ? $imageSrc : '' }}" />
 </div>
 
 @push('scripts')
@@ -8,12 +8,6 @@
         (function () {
             var _imagePreview = $(@json('#imagePreview_'.$id));
             var _imagePreviewImg = _imagePreview.find('img');
-            var _imageSrc = @json($imageSrc ?? null);
-
-            if (_imageSrc) {
-                _imagePreview.removeClass('d-none');
-                _imagePreviewImg.attr('src', _imageSrc);
-            }
 
             // Read a input file
             function readURL(input) {

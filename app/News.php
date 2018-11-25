@@ -40,4 +40,13 @@ class News extends Model
                 return asset("storage/{$path}");
             });
     }
+
+    public function getGalleryImagesPathListAttribute()
+    {
+        if (!$this->attributes['gallery_images']) {
+            return null;
+        }
+
+        return collect(explode(';', $this->attributes['gallery_images']));
+    }
 }
