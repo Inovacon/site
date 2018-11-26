@@ -17,7 +17,7 @@
                         class="d-none"
                         type="file"
                         accept="image/*"
-                        name="image"
+                        name="images[]"
                         onchange="this.parentElement.submit()"
                         multiple />
             </form>

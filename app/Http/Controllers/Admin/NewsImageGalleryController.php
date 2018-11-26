@@ -19,15 +19,16 @@ class NewsImageGalleryController extends Controller
 
     public function store(Request $request, News $noticia)
     {
-        $request->validate(['image' => 'required|image|max:1024']);
-
         $images = $noticia->galleryImagesPathList;
-        $images[] = $request->file('image')->store($noticia->getTable(), 'public');
+
+        foreach ($request->images as $img) {
+            $images[] = $img->store($noticia->getTable(), 'public');
+        }
 
         $noticia->gallery_images = $images;
         $noticia->save();
 
-        return back()->with('flash', 'Imagem adicionada com sucesso.');
+        return back()->with('flash', 'Imagem(ns) adicionada(s) com sucesso.');
     }
 
     public function destroy(Request $request, News $noticia)
