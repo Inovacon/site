@@ -35,7 +35,7 @@
 							</div>
                         </div>
 
-                        @if ($noticia->gallery_images && count($noticia->gallery_images) && $noticia->gallery_images->all() !== [''])
+                        @if (count($noticia->gallery_images) && $noticia->gallery_images !== [''])
                             <hr>
 
                             <h5 class="mt-4 text-dark text-uppercase">
@@ -58,12 +58,12 @@
                                     @endfor
                                 </div>
                                 <a class="carousel-control-prev" href="#carouselNewsGallery" role="button" data-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="sr-only">Anterior</span>
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Anterior</span>
                                 </a>
                                 <a class="carousel-control-next" href="#carouselNewsGallery" role="button" data-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="sr-only">Próximo</span>
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Próximo</span>
                                 </a>
                             </div>
                         @endif

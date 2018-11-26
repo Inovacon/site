@@ -24,6 +24,9 @@
                         <a class="dropdown-item" href="{{ route('dashboard.news.edit', $noticia) }}">
                             <i class="fas fa-pencil-alt fa-fw"></i> Editar
                         </a>
+                        <a class="dropdown-item" href="{{ route('dashboard.news.gallery.index', $noticia) }}">
+                            <i class="fas fa-images fa-fw"></i> Galeria
+                        </a>
                     </div>
                 </div>
             </div>

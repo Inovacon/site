@@ -109,6 +109,10 @@ Route::prefix('painel')->name('dashboard.')->namespace('Admin')->group(function 
         Route::get('{noticia}/editar', 'NewsController@edit')->name('edit');
         Route::patch('{noticia}', 'NewsController@update')->name('update');
         Route::delete('{noticia}', 'NewsController@destroy')->name('destroy');
+
+        Route::get('{noticia}/galeria', 'NewsImageGalleryController@index')->name('gallery.index');
+        Route::post('{noticia}/galeria', 'NewsImageGalleryController@store')->name('gallery.store');
+        Route::delete('{noticia}/galeria', 'NewsImageGalleryController@destroy')->name('gallery.destroy');
     });
 
     Route::prefix('mensagens')->name('contact-messages.')->middleware('collaborator')->group(function () {
