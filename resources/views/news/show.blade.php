@@ -75,7 +75,7 @@
 						<div class="align-self-end">
                             <social-sharing
                                 title="{{ $noticia->title }}"
-                                description="{{ str_limit(strip_tags($noticia->body), 100) }}"
+                                description="{{ str_limit(html_entity_decode(strip_tags($noticia->body)), 100) }}"
                                 quote="{{ $noticia->title }}"
                                 inline-template>
 
